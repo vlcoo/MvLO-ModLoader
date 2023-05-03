@@ -16,6 +16,10 @@ run/main_scene="res://scenes/game_gallery.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://graphics/nshbBig.png"
 
+[autoload]
+
+ContentGetter="*res://global/content_getter.gd"
+
 [display]
 
 window/size/viewport_width=1024

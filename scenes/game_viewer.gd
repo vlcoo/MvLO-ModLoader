@@ -1,0 +1,24 @@
+extends Panel
+
+@onready var texture_cover: TextureRect = $PanelOverview/CenterContainer/VBoxContainer/TextureCover
+@onready var label_title: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelTitle
+@onready var label_subtitle: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelSubtitle
+@onready var item_list: ItemList = $PanelDetail/CenterContainer/VBoxContainer/ItemList
+@onready var options_version: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsVersion
+@onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform
+
+@export var mod_data_id: String
+var mod_data: ModData
+
+func _ready() -> void:
+	if mod_data == null: return
+
+	label_title.text = mod_data.name
+	label_subtitle.text = "aka %s\nAuthor: %s\nLast updated: %s" % [mod_data.abbreviation, mod_data.author, "Never"]
+	item_list.remove_item(0)
+	item_list.add_item(mod_data.description)
+	item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
+	item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))
+	var icon_discord: Texture2D = preload("res://graphics/discord.png")
+	for server in mod_data.link_discord:
+		item_list.add_item(server, icon_discord)

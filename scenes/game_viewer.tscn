@@ -1,44 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3kkysnadc0mx"]
+[gd_scene load_steps=11 format=3 uid="uid://b3kkysnadc0mx"]
 
+[ext_resource type="Script" path="res://scenes/game_viewer.gd" id="1_ojtji"]
 [ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="1_q144e"]
 [ext_resource type="FontFile" uid="uid://mjr5gssrsd45" path="res://ui_resources/font_fontawesome.woff2" id="2_2urf7"]
-[ext_resource type="Texture2D" uid="uid://c7cq2x06geirg" path="res://DB/vcmiC.png" id="2_802ib"]
-[ext_resource type="Texture2D" uid="uid://bm12e1gtmdp48" path="res://DB/vcmiI.png" id="4_tnbc5"]
-[ext_resource type="Texture2D" uid="uid://dtqesle23lsq0" path="res://graphics/code.png" id="5_5lr8b"]
-[ext_resource type="Texture2D" uid="uid://cdb7jcjr72x74" path="res://graphics/discord.png" id="6_71yaq"]
-[ext_resource type="Texture2D" uid="uid://dviorcikhgqa4" path="res://graphics/windows.png" id="7_wph5r"]
+[ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://graphics/nshbBig.png" id="3_5378h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hxnqk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qbvuq"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6lnp1"]
-
-[sub_resource type="Animation" id="Animation_m5xs2"]
-resource_name = "in"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PanelOverview:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.25, 1),
-"update": 0,
-"values": [Vector2(-320, 0), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.25, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_akkqd"]
 length = 0.001
@@ -57,7 +26,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:modulate")
+tracks/1/path = NodePath("PanelDetail:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -78,6 +47,82 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelOverview:offset_left")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PanelOverview:offset_top")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PanelOverview:offset_right")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PanelOverview:offset_bottom")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_m5xs2"]
+resource_name = "in"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelOverview:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(-320, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelDetail:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_lwuhr"]
 resource_name = "out"
@@ -97,7 +142,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:modulate")
+tracks/1/path = NodePath("PanelDetail:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -120,13 +165,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hxnqk")
+script = ExtResource("1_ojtji")
 
 [node name="PanelOverview" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.306
 anchor_bottom = 1.0
-offset_right = -0.344025
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("1_q144e")
 
@@ -142,28 +188,26 @@ grow_vertical = 2
 layout_mode = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="PanelOverview/CenterContainer/VBoxContainer"]
+[node name="TextureCover" type="TextureRect" parent="PanelOverview/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(230, 400)
 layout_mode = 2
-texture = ExtResource("2_802ib")
+texture = ExtResource("3_5378h")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="PanelOverview/CenterContainer/VBoxContainer"]
+[node name="LabelTitle" type="Label" parent="PanelOverview/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "vic's Custom Match-inator"
+text = "N/A"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="PanelOverview/CenterContainer/VBoxContainer"]
+[node name="LabelSubtitle" type="Label" parent="PanelOverview/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.392157)
-text = "aka VCMI
-Author: vic
-Last updated: 2 weeks ago"
+text = "N/A"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="PanelOverview"]
+[node name="ButtonBack" type="Button" parent="PanelOverview"]
 layout_mode = 1
 offset_left = 8.0
 offset_top = 8.0
@@ -176,7 +220,7 @@ theme_override_font_sizes/font_size = 25
 text = ""
 alignment = 0
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PanelDetail" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.306
@@ -187,7 +231,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qbvuq")
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="PanelDetail"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -195,12 +239,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer"]
 custom_minimum_size = Vector2(600, 700)
 layout_mode = 2
 alignment = 1
 
-[node name="ItemList" type="ItemList" parent="Panel/CenterContainer/VBoxContainer"]
+[node name="ItemList" type="ItemList" parent="PanelDetail/CenterContainer/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
@@ -209,67 +253,51 @@ theme_override_constants/v_separation = 8
 theme_override_styles/panel = ExtResource("1_q144e")
 max_text_lines = 2
 auto_height = true
-item_count = 4
-item_0/text = "A MvLO mod where you can customize many things."
-item_0/icon = ExtResource("4_tnbc5")
-item_1/text = "add more stuff here wowza"
-item_1/icon = SubResource("CompressedTexture2D_6lnp1")
-item_2/text = "https://github.com/vlcoo/VicMvsLO"
-item_2/icon = ExtResource("5_5lr8b")
-item_3/text = "https://discord.com/channels/956396409731551263/1059200579924148245"
-item_3/icon = ExtResource("6_71yaq")
+item_count = 1
+item_0/text = "No data."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="OptionsVersion" type="OptionButton" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
 size_flags_vertical = 4
 text_overrun_behavior = 3
-item_count = 1
-selected = 0
-popup/item_0/text = "v17.0.6"
-popup/item_0/id = 0
 
-[node name="OptionButton2" type="OptionButton" parent="Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="OptionsPlatform" type="OptionButton" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
 size_flags_vertical = 4
 text_overrun_behavior = 3
 icon_alignment = 2
-item_count = 1
-selected = 0
-popup/item_0/text = "win64.zip"
-popup/item_0/icon = ExtResource("7_wph5r")
-popup/item_0/id = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Button" type="Button" parent="Panel/CenterContainer/VBoxContainer/HBoxContainer2"]
+[node name="ButtonInstall" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 0.831373, 0.164706, 1)
 text = "Install or update"
 
-[node name="Button2" type="Button" parent="Panel/CenterContainer/VBoxContainer/HBoxContainer2"]
+[node name="ButtonLaunch" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
 text = "Launch"
 
-[node name="Button3" type="Button" parent="Panel/CenterContainer/VBoxContainer/HBoxContainer2"]
+[node name="ButtonUninstall" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_vertical = 4

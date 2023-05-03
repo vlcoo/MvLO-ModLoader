@@ -19,10 +19,19 @@ config/icon="res://graphics/nshbBig.png"
 
 window/size/viewport_width=1024
 window/size/viewport_height=768
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/fontawesome/plugin.cfg")
+enabled=PackedStringArray()
+
+[gui]
+
+theme/custom="res://ui_resources/theme_default.tres"
+theme/custom_font="res://ui_resources/font_roboto.ttf"
+theme/default_font_hinting=2
+theme/default_font_subpixel_positioning=0
 
 [internationalization]
 

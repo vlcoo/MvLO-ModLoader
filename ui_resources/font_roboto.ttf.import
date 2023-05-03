@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://mjr5gssrsd45"
-path="res://.godot/imported/fa-solid-900.woff2-e6b4ae701b9ce104e6de8a340dc5975d.fontdata"
+uid="uid://bxi3u1pd1316j"
+path="res://.godot/imported/font_roboto.ttf-2f8ea03bf90e99bf57dbec1509f99e7e.fontdata"
 
 [deps]
 
-source_file="res://ui_resources/fa-solid-900.woff2"
-dest_files=["res://.godot/imported/fa-solid-900.woff2-e6b4ae701b9ce104e6de8a340dc5975d.fontdata"]
+source_file="res://ui_resources/font_roboto.ttf"
+dest_files=["res://.godot/imported/font_roboto.ttf-2f8ea03bf90e99bf57dbec1509f99e7e.fontdata"]
 
 [params]
 

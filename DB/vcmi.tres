@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ModData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ModData" load_steps=2 format=3 uid="uid://byqx8tpcu41ll"]
 
 [ext_resource type="Script" path="res://global/ModData.gd" id="1_bkgro"]
 

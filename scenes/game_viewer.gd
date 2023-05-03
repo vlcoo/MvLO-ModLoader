@@ -10,6 +10,7 @@ extends Panel
 @export var mod_data_id: String
 var mod_data: ModData
 
+
 func _ready() -> void:
 	if mod_data == null: return
 
@@ -22,3 +23,7 @@ func _ready() -> void:
 	var icon_discord: Texture2D = preload("res://graphics/discord.png")
 	for server in mod_data.link_discord:
 		item_list.add_item(server, icon_discord)
+
+
+func _on_button_back_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/game_gallery.tscn")

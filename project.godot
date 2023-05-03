@@ -19,6 +19,7 @@ config/icon="res://graphics/nshbBig.png"
 [autoload]
 
 ContentGetter="*res://global/content_getter.gd"
+Configurator="*res://global/configurator.gd"
 
 [display]
 

@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddleep2ws20xa"]
+[gd_scene load_steps=11 format=3 uid="uid://ddleep2ws20xa"]
 
+[ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
+[ext_resource type="PackedScene" uid="uid://ckhxp855p5xhf" path="res://scenes/game_gallery_element_big.tscn" id="2_ur11d"]
+[ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="2_xm88g"]
+[ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_nuif2"]
+[ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://graphics/nshbBig.png" id="6_i64gp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f77yn"]
 content_margin_left = 48.0
+content_margin_top = 8.0
 content_margin_right = 48.0
+content_margin_bottom = 8.0
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
 border_width_top = 4
 corner_radius_top_left = 4
@@ -12,7 +19,9 @@ corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ox64b"]
 content_margin_left = 48.0
+content_margin_top = 8.0
 content_margin_right = 48.0
+content_margin_bottom = 8.0
 bg_color = Color(0.121569, 0.121569, 0.121569, 1)
 border_width_left = 1
 border_width_right = 1
@@ -33,6 +42,8 @@ grow_vertical = 2
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_f77yn")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_ox64b")
 tab_alignment = 1
+all_tabs_in_front = true
+script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -50,14 +61,117 @@ visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
+[node name="ContainerBig" type="ScrollContainer" parent="Mods"]
+clip_contents = false
+custom_minimum_size = Vector2(960, 680)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Mods/ContainerBig"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 24
+columns = 5
+
+[node name="Panel" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
+layout_mode = 2
+
+[node name="Panel2" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
+layout_mode = 2
+
+[node name="Panel3" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
+layout_mode = 2
+
+[node name="Panel4" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
+layout_mode = 2
+
+[node name="Panel5" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
+layout_mode = 2
+
+[node name="Panel6" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
+layout_mode = 2
+
+[node name="ContainerList" type="ItemList" parent="Mods"]
+visible = false
+clip_contents = false
+custom_minimum_size = Vector2(960, 680)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/v_separation = 8
+theme_override_constants/icon_margin = 12
+theme_override_styles/panel = ExtResource("2_xm88g")
+allow_reselect = true
+item_count = 1
+fixed_icon_size = Vector2i(32, 32)
+item_0/text = "N/A"
+item_0/icon = ExtResource("3_nuif2")
+
 [node name="Favourites" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
+[node name="Label" type="Label" parent="Favourites"]
+layout_mode = 2
+text = "coming soon..."
+
 [node name="Settings" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
+clip_contents = false
+custom_minimum_size = Vector2(960, 680)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("2_xm88g")
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = -230
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_i64gp")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "MvLO Mod Loader
+[color=#aaaaaa]A simple way to keep your mods organized and up to date.
+by vlco_o [i]aka vic[/i][/color]"
+fit_content = true
+
+[node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Do the do"
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 
 [editable path="Vanilla/GameViewer"]

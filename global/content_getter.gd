@@ -5,6 +5,7 @@ const PATH_DB = "user://DB.zip"
 const ERROR_MSG = "Database could not be downloaded! Info might be out of date.\n"
 
 @onready var requester: HTTPRequest = $HTTPRequest
+@onready var gamefiles_requester: HTTPRequest = $HTTPRequestGamefiles
 var reader: ZIPReader = ZIPReader.new()
 var mod_filenames: Array
 var moddatas: Dictionary
@@ -12,11 +13,9 @@ var moddatas: Dictionary
 signal cache_updated
 
 
-func _ready() -> void:
-	pass
-
-
 func update_cache() -> void:
+#	get_url_dict_github("https://api.github.com/repos/vlcoo/VicMvsLO/releases")
+
 	$AnimationPlayer.play("in")
 	requester.download_file = PATH_DB
 	var error: Error = requester.request(URL_DB)
@@ -34,7 +33,43 @@ func _load_local_moddata(idx: String) -> ModData:
 	var data: ModData = load("user://DB/mod_datas/" + idx + ".tres")
 	data.cover_image = load("user://DB/" + idx + "C.png")
 	data.icon = load("user://DB/" + idx + "I.png")
+
+#	match data.download_method:
+#		ModData.DownloadMethods.ITCH:
+#			data.gamefile_urls = get_url_dict_itch(data.download_url)
+#		ModData.DownloadMethods.GITHUB:
+#			data.gamefile_urls = get_url_dict_github(data.download_url)
+#		ModData.DownloadMethods.CUSTOM_DIRECT:
+#			data.gamefile_urls = {
+#				"Unique version": {
+#					"Custom file (direct download)": data.download_url
+#				}
+#			}
+#		ModData.DownloadMethods.CUSTOM_REDIRECT:
+#			data.gamefile_urls = {
+#				"Unique version": {
+#					"Redirect (opens in browser)": data.download_url
+#				}
+#			}
+
 	return data
+
+
+func get_url_dict_itch(home_url: String) -> Dictionary:
+	return {}
+
+
+func get_url_dict_github(home_url: String) -> Dictionary:
+	gamefiles_requester.request_completed.connect(_on_github_request_completed, CONNECT_ONE_SHOT)
+	gamefiles_requester.request(home_url)
+	return {}
+
+func _on_github_request_completed(result, response_code, headers, body):
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	for r in json:
+		print(r["name"])
+		for a in r["assets"]:
+			print(a["name"] + " " + a["browser_download_url"])
 
 
 func get_all_local_mods() -> void:

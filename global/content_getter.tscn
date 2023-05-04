@@ -213,12 +213,14 @@ fit_content = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "wait_hidden"
-speed_scale = 0.5
+speed_scale = 1.2
 libraries = {
 "": SubResource("AnimationLibrary_fiiku")
 }
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestGamefiles" type="HTTPRequest" parent="."]
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2

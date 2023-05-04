@@ -15,6 +15,12 @@ enum DownloadMethods {
 var icon: Texture2D
 var cover_image: Texture2D
 
+var gamefile_urls: Dictionary = {
+	"Dummy": {
+		"N/A": ""
+	}
+}
+
 ## Information about this mod.
 @export_category("Mod Data")
 ## Full name of this mod.

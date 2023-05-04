@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddleep2ws20xa"]
+[gd_scene load_steps=10 format=3 uid="uid://ddleep2ws20xa"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
-[ext_resource type="PackedScene" uid="uid://ckhxp855p5xhf" path="res://scenes/game_gallery_element_big.tscn" id="2_ur11d"]
 [ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="2_xm88g"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_nuif2"]
 [ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://graphics/nshbBig.png" id="6_i64gp"]
@@ -77,24 +76,6 @@ size_flags_vertical = 0
 theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 24
 columns = 5
-
-[node name="Panel" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
-layout_mode = 2
-
-[node name="Panel2" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
-layout_mode = 2
-
-[node name="Panel3" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
-layout_mode = 2
-
-[node name="Panel4" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
-layout_mode = 2
-
-[node name="Panel5" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
-layout_mode = 2
-
-[node name="Panel6" parent="Mods/ContainerBig/GridContainer" instance=ExtResource("2_ur11d")]
-layout_mode = 2
 
 [node name="ContainerList" type="ItemList" parent="Mods"]
 visible = false
@@ -172,6 +153,7 @@ layout_mode = 2
 button_pressed = true
 text = "Do the do"
 
+[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 
 [editable path="Vanilla/GameViewer"]

@@ -12,6 +12,9 @@ enum DownloadMethods {
 	CUSTOM_REDIRECT ## Open custom URL in browser.
 }
 
+var icon: Texture2D
+var cover_image: Texture2D
+
 ## Information about this mod.
 @export_category("Mod Data")
 ## Full name of this mod.
@@ -22,10 +25,6 @@ enum DownloadMethods {
 @export var author: String
 ## Blurb explaining what this mod has to offer.
 @export_multiline var description: String
-## URL where the mod's small program icon is hosted.
-@export var icon_url: String
-## URL where the mod's display artwork is hosted.
-@export var cover_image_url: String
 ## API or download method to use for getting the mod.
 @export var download_method: DownloadMethods
 ## URL where the game files are hosted.

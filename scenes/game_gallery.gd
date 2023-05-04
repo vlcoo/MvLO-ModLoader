@@ -14,9 +14,10 @@ func _on_tree_exiting() -> void:
 
 
 func _on_cache_updated() -> void:
-	Configurator.remembered_cache_already_updated = true
 	vanilla_game_viewer.refresh_mod_data()
-	ContentGetter.get_all_local_mods()
+	if not Configurator.remembered_cache_already_updated:
+		ContentGetter.get_all_local_mods()
+	Configurator.remembered_cache_already_updated = true
 
 	for mod in ContentGetter.moddatas.keys():
 		var child = mod_game_entry_panel.instantiate()

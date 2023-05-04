@@ -3,6 +3,8 @@ extends CanvasLayer
 const URL_DB = "https://github.com/vlcoo/MvLO-ModLoader/raw/main/DB.zip"
 const PATH_DB = "user://DB.zip"
 const ERROR_MSG = "Database could not be downloaded! Info might be out of date.\n"
+const KEY_GITHUB = ""
+const KEY_ITCH = ""
 
 @onready var requester: HTTPRequest = $HTTPRequestDB
 var reader: ZIPReader = ZIPReader.new()
@@ -37,7 +39,7 @@ func _load_local_moddata(idx: String) -> ModData:
 
 	match data.download_method:
 		ModData.DownloadMethods.ITCH:
-			data.gamefile_urls = get_url_dict_itch(data.download_url)
+			data.gamefile_urls = await get_url_dict_itch(data.download_url)
 		ModData.DownloadMethods.GITHUB:
 			data.gamefile_urls = await get_url_dict_github(data.download_url)
 		ModData.DownloadMethods.CUSTOM_DIRECT:

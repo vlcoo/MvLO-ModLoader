@@ -53,10 +53,6 @@ layout_mode = 2
 mod_data_id = "vanilla"
 auto_refresh = false
 
-[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
-offset_right = 0.0
-offset_bottom = 0.0
-
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
 
@@ -97,6 +93,10 @@ item_count = 1
 fixed_icon_size = Vector2i(32, 32)
 item_0/text = "N/A"
 item_0/icon = ExtResource("3_nuif2")
+
+[node name="GameViewer" parent="Mods" instance=ExtResource("1_qd0tx")]
+layout_mode = 2
+auto_refresh = false
 
 [node name="Favourites" type="PanelContainer" parent="."]
 visible = false

@@ -27,7 +27,7 @@ func update_cache() -> void:
 
 
 func get_local_moddata(idx: String) -> ModData:
-	return _load_local_moddata(idx) if not moddatas.has(idx) else moddatas[idx]
+	return await _load_local_moddata(idx) if not moddatas.has(idx) else moddatas[idx]
 
 
 func _load_local_moddata(idx: String) -> ModData:
@@ -39,7 +39,7 @@ func _load_local_moddata(idx: String) -> ModData:
 		ModData.DownloadMethods.ITCH:
 			data.gamefile_urls = get_url_dict_itch(data.download_url)
 		ModData.DownloadMethods.GITHUB:
-			data.gamefile_urls = get_url_dict_github(data.download_url)
+			data.gamefile_urls = await get_url_dict_github(data.download_url)
 		ModData.DownloadMethods.CUSTOM_DIRECT:
 			data.gamefile_urls = {
 				"Unique version": {
@@ -61,30 +61,49 @@ func get_url_dict_itch(home_url: String) -> Dictionary:
 
 
 func get_url_dict_github(home_url: String) -> Dictionary:
+	var dict: Dictionary
 	var gamefiles_requester: HTTPRequest = HTTPRequest.new()
 	add_child(gamefiles_requester)
-	gamefiles_requester.request_completed.connect(_on_github_request_completed.bind(gamefiles_requester), CONNECT_ONE_SHOT)
-	gamefiles_requester.request(home_url)
-	return {}
 
-func _on_github_request_completed(result, response_code, headers, body, requester_node):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	for r in json:
-		print(r["name"])
-		for a in r["assets"]:
-			print(a["name"] + " " + a["browser_download_url"])
+	var error = gamefiles_requester.request(home_url)
+	var response = await gamefiles_requester.request_completed
 
-	remove_child(requester_node)
+	if error != OK:
+		err(str(error))
+		emit_signal("version_list_populated")
+		$AnimationPlayer.play("out")
+		return {"": {"": ""}}
+
+	var json = JSON.parse_string(response[3].get_string_from_utf8())
+	if not json is Dictionary:
+		err("No connection." if json == null else "Response body is invalid.")
+		emit_signal("version_list_populated")
+		$AnimationPlayer.play("out")
+		return {"": {"": ""}}
+
+	if json.has("message") and json["message"].contains("limit exceeded"):
+		err("You are being rate limited by GitHub.")
+		emit_signal("version_list_populated")
+		$AnimationPlayer.play("out")
+		return {"": {"": ""}}
+
+	for release in json:
+		dict[release["name"]] = {}
+		for asset in release["assets"]:
+			dict[release["name"]][asset["name"]] = asset["browser_download_url"]
+
+	remove_child(gamefiles_requester)
 	n_moddatas_versions_downloaded += 1
 	if n_moddatas_versions_downloaded == moddatas.keys().size() + 1:
 		emit_signal("version_list_populated")
 		$AnimationPlayer.play("out")
+	return dict
 
 
 func get_all_local_mods() -> void:
 	$Panel/Label.text = "[center][wave]Populating version lists,\nplease wait!"
 	for mod_filename in mod_filenames:
-		moddatas[mod_filename] = _load_local_moddata(mod_filename)
+		moddatas[mod_filename] = await _load_local_moddata(mod_filename)
 
 
 func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -114,7 +133,7 @@ func _unpack_db() -> void:
 
 
 func err(text: String):
-	$AcceptDialog.dialog_text = ERROR_MSG + text
+	$AcceptDialog.dialog_text = ERROR_MSG + "Cause: " + text
 	$AcceptDialog.popup_centered()
 
 

@@ -7,6 +7,7 @@ const ERROR_MSG = "Database could not be downloaded! Info might be out of date.\
 @onready var requester: HTTPRequest = $HTTPRequest
 var reader: ZIPReader = ZIPReader.new()
 var mod_filenames: Array
+var moddatas: Dictionary
 
 signal cache_updated
 
@@ -26,19 +27,27 @@ func update_cache() -> void:
 
 
 func get_local_moddata(idx: String) -> ModData:
+	return _load_local_moddata(idx) if not moddatas.has(idx) else moddatas[idx]
+
+
+func _load_local_moddata(idx: String) -> ModData:
 	var data: ModData = load("user://DB/mod_datas/" + idx + ".tres")
 	data.cover_image = load("user://DB/" + idx + "C.png")
 	data.icon = load("user://DB/" + idx + "I.png")
 	return data
 
 
+func get_all_local_mods() -> void:
+	for mod_filename in mod_filenames:
+		moddatas[mod_filename] = _load_local_moddata(mod_filename)
+
+
 func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS:
 		err(str(response_code))
 
-	await _unpack_db()
+	_unpack_db()
 	$AnimationPlayer.play("out")
-	emit_signal("cache_updated")
 
 
 func _unpack_db() -> void:
@@ -57,6 +66,7 @@ func _unpack_db() -> void:
 				mod_filenames.append(filename.replace(".tres", "").replace("DB/mod_datas/", ""))
 
 	reader.close()
+	emit_signal("cache_updated")
 
 
 func err(text: String):

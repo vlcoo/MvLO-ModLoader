@@ -8,11 +8,14 @@ extends Panel
 @onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform
 
 @export var mod_data_id: String
+@export var auto_refresh: bool = true
 var mod_data: ModData
 
 
 func _ready() -> void:
-	pass
+	if auto_refresh:
+		mod_data_id = Configurator.remembered_mod_idx
+		refresh_mod_data()
 
 
 func _on_button_back_pressed() -> void:

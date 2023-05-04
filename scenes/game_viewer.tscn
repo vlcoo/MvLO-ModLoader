@@ -364,4 +364,5 @@ libraries = {
 "": SubResource("AnimationLibrary_rsp16")
 }
 
+[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]

@@ -38,6 +38,8 @@ layout_mode = 2
 text = "N/A"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 2
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1

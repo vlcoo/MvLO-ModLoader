@@ -51,6 +51,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
 layout_mode = 2
 mod_data_id = "vanilla"
+auto_refresh = false
 
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false

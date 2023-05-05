@@ -105,7 +105,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
 [node name="Label" type="Label" parent="Favourites"]
 layout_mode = 2
-text = "coming soon..."
+text = " coming soon..."
 
 [node name="Settings" type="PanelContainer" parent="."]
 visible = false

@@ -104,11 +104,12 @@ func get_url_dict_github(home_url: String) -> Dictionary:
 		return {"": {"": ""}}
 
 	var json = JSON.parse_string(response[3].get_string_from_utf8())
-	if not json is Dictionary:
-		err("No connection." if json == null else "Response body is invalid.")
-#		emit_signal("version_list_populated")
-#		$AnimationPlayer.play("out")
-		return {"": {"": ""}}
+#	print(json)
+#	if not json is Dictionary:
+#		err("No connection." if json == null else "Response body is invalid.")
+##		emit_signal("version_list_populated")
+##		$AnimationPlayer.play("out")
+#		return {"": {"": ""}}
 
 	if json.has("message") and json["message"].contains("limit exceeded"):
 		err("You are being rate limited by GitHub.")
@@ -159,6 +160,21 @@ func _unpack_db() -> void:
 
 	reader.close()
 	emit_signal("cache_updated")
+
+
+func check_for_local_gamefiles(idx, version, platform) -> bool:
+	return false
+
+
+func download_gamefile(home_url):
+#	var gamefiles_requester: HTTPRequest = HTTPRequest.new()
+#	add_child(gamefiles_requester)
+#	# [...]
+#	remove_child(gamefiles_requester)
+	$Panel/Label.text = "[center][wave]Downloading, please wait!"
+	$AnimationPlayer.play("in")
+	print(home_url)
+	$AnimationPlayer.play("out")
 
 
 func err(text: String):

@@ -6,6 +6,10 @@ extends Panel
 @onready var item_list: ItemList = $PanelDetail/CenterContainer/VBoxContainer/ItemList
 @onready var options_version: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsVersion
 @onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform
+@onready var button_install: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall
+@onready var button_launch: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch
+@onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonUninstall
+
 
 var nodata_texture: Texture2D = preload("res://graphics/nodata.png")
 var platform_apple_texture: Texture2D = preload("res://graphics/apple.png")
@@ -18,7 +22,7 @@ var mod_data: ModData
 
 
 func _ready() -> void:
-	if auto_refresh:
+	if auto_refresh && mod_data_id != "":
 		mod_data_id = Configurator.remembered_mod_idx
 		await refresh_mod_data()
 
@@ -62,6 +66,15 @@ func _on_options_version_item_selected(index: int) -> void:
 			options_platform.add_item(asset)
 		else:
 			options_platform.add_icon_item(platform_icon, asset)
+	_on_options_platform_item_selected(options_platform.selected)
+
+
+func _on_options_platform_item_selected(index: int) -> void:
+	var already_installed = ContentGetter.check_for_local_gamefiles(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index))
+
+	button_install.disabled = already_installed
+	button_launch.disabled = not already_installed
+	button_uninstall.disabled = not already_installed
 
 
 func get_platform_icon(filename: String) -> Texture2D:
@@ -75,3 +88,16 @@ func get_platform_icon(filename: String) -> Texture2D:
 		return platform_apple_texture
 
 	return null
+
+
+func _on_button_install_pressed() -> void:
+	button_install.disabled = true
+	ContentGetter.download_gamefile(mod_data.gamefile_urls[options_version.get_item_text(options_version.selected)][options_platform.get_item_text(options_platform.selected)])
+
+
+func _on_button_launch_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_button_uninstall_pressed() -> void:
+	pass # Replace with function body.

@@ -376,6 +376,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer"]
 custom_minimum_size = Vector2(600, 700)
 layout_mode = 2
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="ItemList" type="ItemList" parent="PanelDetail/CenterContainer/VBoxContainer"]
@@ -393,7 +394,7 @@ item_0/text = "No data."
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.08
 theme_override_constants/separation = 64
 alignment = 1
 
@@ -413,7 +414,7 @@ icon_alignment = 2
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.08
 theme_override_constants/separation = 64
 alignment = 1
 
@@ -450,3 +451,7 @@ libraries = {
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsVersion" to="." method="_on_options_version_item_selected"]
+[connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform" to="." method="_on_options_platform_item_selected"]
+[connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall" to="." method="_on_button_install_pressed"]
+[connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch" to="." method="_on_button_launch_pressed"]
+[connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]

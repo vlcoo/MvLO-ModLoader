@@ -334,6 +334,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "N/A"
 horizontal_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 4
 
 [node name="LabelSubtitle" type="Label" parent="PanelOverview/CenterContainer/VBoxContainer"]
 layout_mode = 2

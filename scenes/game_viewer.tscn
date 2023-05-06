@@ -323,7 +323,7 @@ alignment = 1
 
 [node name="TextureCover" type="TextureRect" parent="PanelOverview/CenterContainer/VBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(230, 400)
+custom_minimum_size = Vector2(260, 300)
 layout_mode = 2
 texture = ExtResource("3_3v6xj")
 expand_mode = 5

@@ -219,6 +219,10 @@ libraries = {
 }
 
 [node name="HTTPRequestDB" type="HTTPRequest" parent="."]
+download_file = "user://DB.zip"
+
+[node name="HTTPRequestGamefiles" type="HTTPRequest" parent="."]
+download_file = "user://DB.gamefiles.json"
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2
@@ -226,5 +230,6 @@ size = Vector2i(226, 100)
 dialog_text = "Cache could not be downloaded!
 %placeholder%"
 
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_http_request_request_completed"]
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_requester_db_request_completed"]
+[connection signal="request_completed" from="HTTPRequestGamefiles" to="." method="_on_requester_gamefiles_request_completed"]

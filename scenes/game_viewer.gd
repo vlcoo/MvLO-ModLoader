@@ -59,6 +59,8 @@ func clear_all():
 
 
 func _on_options_version_item_selected(index: int) -> void:
+	if mod_data.gamefile_urls == {}: return
+
 	options_platform.clear()
 	for asset in mod_data.gamefile_urls[options_version.get_item_text(index)].keys():
 		var platform_icon: Texture2D = get_platform_icon(asset)

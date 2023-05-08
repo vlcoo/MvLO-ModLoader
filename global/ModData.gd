@@ -4,22 +4,10 @@
 class_name ModData
 extends Resource
 
-## Where the game files are hosted, and which API to use.
-enum DownloadMethods {
-	ITCH, ## itch.io game.
-	GITHUB, ## GitHub releases page.
-	CUSTOM_DIRECT, ## Direct download from a custom URL.
-	CUSTOM_REDIRECT ## Open custom URL in browser.
-}
-
 var icon: Texture2D
 var cover_image: Texture2D
 
-var gamefile_urls: Dictionary = {
-	"Dummy": {
-		"N/A": ""
-	}
-}
+var gamefile_urls: Dictionary = {}
 
 ## Information about this mod.
 @export_category("Mod Data")
@@ -31,10 +19,6 @@ var gamefile_urls: Dictionary = {
 @export var author: String
 ## Blurb explaining what this mod has to offer.
 @export_multiline var description: String
-## API or download method to use for getting the mod.
-@export var download_method: DownloadMethods
-## URL where the game files are hosted.
-@export var download_url: String
 ## Websites of interest.
 @export_group("Public links", "link_")
 ## URL of the main website of this mod.

@@ -53,6 +53,7 @@ func _populate_moddata_array() -> void:
 		err("DB not present locally.")
 		return
 
+	var json = JSON.parse_string(FileAccess.get_file_as_string("user://DB.gamefiles.json"))
 	var dir = DirAccess.open("user://DB/mod_datas")
 	for filename in dir.get_files():
 		var mod_id: String = filename.replace(".tres", "")
@@ -60,6 +61,7 @@ func _populate_moddata_array() -> void:
 		data.cover_image = load("user://DB/" + mod_id + "C.png")
 		if FileAccess.file_exists("user://DB/" + mod_id + "I.png"):
 			data.icon = load("user://DB/" + mod_id + "I.png")
+		data.gamefile_urls = json[mod_id]
 		moddatas.append(data)
 
 	emit_signal("cache_updated", true)

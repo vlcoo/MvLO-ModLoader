@@ -21,13 +21,14 @@ func _ready() -> void:
 		var last_timestamp: String = config.get_value("general", "last_updated")
 		cache_is_old = _is_last_timestamp_old_enough(int(timestamp), int(last_timestamp))
 
-	if cache_is_old:
-		config.set_value("general", "last_updated", timestamp)
-		config.save(CONFIG_PATH)
+
+func update_timestamp(to_zero: bool) -> void:
+	config.set_value("general", "last_updated", "0" if to_zero else timestamp)
+	config.save(CONFIG_PATH)
 
 
-func _is_last_timestamp_old_enough(timestamp: int, last_timestamp: int) -> bool:
-	var ts_h = timestamp / 3600
-	var lts_h = last_timestamp / 3600
-	var ts_m = (timestamp / 60) % 60
+func _is_last_timestamp_old_enough(ts: int, lts: int) -> bool:
+	var ts_h = ts / 3600
+	var lts_h = lts / 3600
+	var ts_m = (ts / 60) % 60
 	return (ts_h == lts_h - 1 and ts_m >= 5) or ts_h > lts_h

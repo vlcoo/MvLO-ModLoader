@@ -9,6 +9,7 @@ extends Panel
 @onready var button_install: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall
 @onready var button_launch: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch
 @onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonUninstall
+@onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonBrowse
 
 
 var nodata_texture: Texture2D = preload("res://graphics/nodata.png")
@@ -32,13 +33,13 @@ func _on_button_back_pressed() -> void:
 
 
 func refresh_mod_data() -> void:
-	mod_data = await ContentGetter.get_local_moddata(mod_data_id)
+	mod_data = ContentGetter.get_local_moddata(mod_data_id)
 	if mod_data == null: return
 	clear_all()
 	$AnimationPlayer.play("in")
 
 	label_title.text = mod_data.name
-	label_subtitle.text = "aka %s\nAuthor: %s\nLast updated: %s" % [mod_data.abbreviation, mod_data.author, "Never"]
+	label_subtitle.text = "aka %s\nAuthor: %s\nLast updated: %s" % [mod_data.abbreviation if mod_data.abbreviation != "" else "\r", mod_data.author, "Never"]
 	item_list.add_item(mod_data.description, mod_data.icon)
 	item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
 	item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))
@@ -72,7 +73,7 @@ func _on_options_version_item_selected(index: int) -> void:
 
 
 func _on_options_platform_item_selected(index: int) -> void:
-	var already_installed = ContentGetter.check_for_local_gamefiles(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index))
+	var already_installed = false
 
 	button_install.disabled = already_installed
 	button_launch.disabled = not already_installed
@@ -94,7 +95,6 @@ func get_platform_icon(filename: String) -> Texture2D:
 
 func _on_button_install_pressed() -> void:
 	button_install.disabled = true
-	ContentGetter.download_gamefile(mod_data.gamefile_urls[options_version.get_item_text(options_version.selected)][options_platform.get_item_text(options_platform.selected)])
 
 
 func _on_button_launch_pressed() -> void:

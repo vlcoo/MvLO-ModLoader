@@ -230,6 +230,11 @@ size = Vector2i(226, 100)
 dialog_text = "Cache could not be downloaded!
 %placeholder%"
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_requester_db_request_completed"]
 [connection signal="request_completed" from="HTTPRequestGamefiles" to="." method="_on_requester_gamefiles_request_completed"]

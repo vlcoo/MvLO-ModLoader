@@ -23,7 +23,7 @@ offset_left = 6.0
 offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]

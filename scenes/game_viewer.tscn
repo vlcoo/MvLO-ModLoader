@@ -419,6 +419,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.306
 anchor_bottom = 1.0
+offset_right = 313.344
+offset_bottom = 768.0
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("1_q144e")
 
@@ -577,3 +579,4 @@ libraries = {
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall" to="." method="_on_button_install_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch" to="." method="_on_button_launch_pressed"]
+[connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonBrowse" to="." method="_on_button_browse_pressed"]

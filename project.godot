@@ -20,6 +20,7 @@ config/icon="res://graphics/nshbBig.png"
 
 Configurator="*res://global/configurator.gd"
 ContentGetter="*res://global/content_getter.tscn"
+InstallsIndex="*res://global/installs_index.tscn"
 
 [display]
 

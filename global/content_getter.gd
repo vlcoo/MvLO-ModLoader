@@ -62,8 +62,11 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	var dir = DirAccess.open("user://DB/mod_datas")
 	if dir == null:
 		Configurator.update_timestamp(true)
-		err("DB not present locally. Please restart the program.")
+		err("DB not present locally! Please restart the program.")
 		return
+	if json == null:
+		Configurator.update_timestamp(true)
+		err("Service unavailable!")
 
 	for filename in dir.get_files():
 		var mod_id: String = filename.replace(".tres", "")
@@ -71,7 +74,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 		data.cover_image = load("user://DB/" + mod_id + "C.png")
 		if FileAccess.file_exists("user://DB/" + mod_id + "I.png"):
 			data.icon = load("user://DB/" + mod_id + "I.png")
-		data.gamefile_urls = json[mod_id]
+		if json != null: data.gamefile_urls = json[mod_id]
 		moddatas[mod_id] = data
 
 	emit_signal("cache_updated", true)

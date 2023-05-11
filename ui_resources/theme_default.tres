@@ -1,3 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://jvufe12y0rwj"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://jvufe12y0rwj"]
+
+[ext_resource type="FontFile" uid="uid://bxi3u1pd1316j" path="res://ui_resources/font_roboto.ttf" id="1_3ucu7"]
 
 [resource]
+default_font = ExtResource("1_3ucu7")

@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://6mp1uhlvagte"]
+
+[ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="1_ls182"]
+[ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_s8udx"]
+[ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_rlhwq"]
+
+[node name="Panel" type="Panel"]
+custom_minimum_size = Vector2(0, 52)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.0
+grow_horizontal = 2
+pivot_offset = Vector2(512, 26)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("1_ls182")
+script = ExtResource("2_s8udx")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("3_rlhwq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "N/A"
+vertical_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(512, 26)
+mouse_filter = 1
+flat = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited" flags=18]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed" flags=18]

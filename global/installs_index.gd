@@ -147,3 +147,7 @@ func _on_timer_update_progressbar_timeout() -> void:
 func _on_http_request_itch_url_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	requester.request(json["url"])
+
+
+func _on_ready() -> void:
+	$Panel.theme = Configurator.current_theme

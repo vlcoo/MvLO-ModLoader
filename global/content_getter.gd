@@ -15,6 +15,8 @@ signal cache_updated(succeeded: bool)
 
 
 func _on_ready() -> void:
+	$Panel.theme = Configurator.current_theme
+
 	if Configurator.cache_is_old or not _check_dbs_integrity():
 		$AnimationPlayer.play("in")
 		var error = requester_db.request(URL_DB) + requester_gamefiles.request(URL_GAMEFILES)

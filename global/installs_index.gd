@@ -107,16 +107,17 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 	elif inst.executable_path.ends_with(".app"):
 		command = Configurator.get_config("args_macos")
 		if Configurator.os_name != "macOS": os_mismatch = true
+	else:
+		if Configurator.os_name != "macOS": os_mismatch = true
 
 	if os_mismatch:
 		warn("You tried launching a version of a mod not built for your OS. This might not work.")
 
 	if command in ["", null]:
-		command = ProjectSettings.globalize_path(inst.executable_path)
+		OS.create_process(ProjectSettings.globalize_path(inst.executable_path), [])
 	else:
-		command += " " + ProjectSettings.globalize_path(inst.executable_path)
+		OS.create_process(command, [ProjectSettings.globalize_path(inst.executable_path)])
 	print(command)
-	OS.create_process(command, [])
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:

@@ -48,6 +48,7 @@ all_tabs_in_front = true
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -85,7 +86,6 @@ layout_mode = 2
 auto_refresh = false
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -172,19 +172,21 @@ custom_minimum_size = Vector2(600, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "Change the visuals of the UI"
 alignment = 1
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.4
 text = "Theme"
 vertical_alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 item_count = 2
 selected = 0
 popup/item_0/text = "Default (Dark)"
@@ -192,32 +194,77 @@ popup/item_0/id = 0
 popup/item_1/text = "NSMBDS"
 popup/item_1/id = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "If a game exported for Windows is launched, use these extra parameters before the filename when executing the command.
 i.e.: [extra args] vcmi.exe"
-placeholder_text = "Extra arguments for Windows executables"
+alignment = 1
 
-[node name="LineEdit2" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "Extra args for .exe"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+mouse_filter = 1
+placeholder_text = "ENTER to save"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "If a game exported for Linux is launched, use these extra parameters before the filename when executing the command.
 i.e.: [extra args] vcmi.x86_64"
-placeholder_text = "Extra arguments for Linux executables"
+alignment = 1
 
-[node name="LineEdit3" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "Extra args for .x86_64"
+vertical_alignment = 1
+
+[node name="LineEdit2" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+mouse_filter = 1
+placeholder_text = "ENTER to save"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "If a game exported for macOS is launched, use these extra parameters before the filename when executing the command.
 i.e.: [extra args] vcmi.app"
-placeholder_text = "Extra arguments for macOS executables"
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "Extra args for .app"
+vertical_alignment = 1
+
+[node name="LineEdit3" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+mouse_filter = 1
+placeholder_text = "ENTER to save"
 
 [node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 40)
@@ -234,9 +281,9 @@ text = "Schedule cache update"
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
-[connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/LineEdit2" to="." method="_on_line_edit_2_text_submitted"]
-[connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
+[connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2" to="." method="_on_line_edit_2_text_submitted"]
+[connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 
 [editable path="Vanilla/GameViewer"]

@@ -21,6 +21,9 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
 
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos")
 	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery")
 
 	if Configurator.get_config("remember_view"):
@@ -74,15 +77,15 @@ func _on_check_button_2_toggled(button_pressed: bool) -> void:
 
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
-	pass # Replace with function body.
+	Configurator.set_config("args_windows", new_text)
 
 
 func _on_line_edit_2_text_submitted(new_text: String) -> void:
-	pass # Replace with function body.
+	Configurator.set_config("args_windows", new_text)
 
 
 func _on_line_edit_3_text_submitted(new_text: String) -> void:
-	pass # Replace with function body.
+	Configurator.set_config("args_windows", new_text)
 
 
 func _on_button_pressed() -> void:

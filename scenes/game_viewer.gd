@@ -75,12 +75,8 @@ func _on_options_version_item_selected(index: int) -> void:
 
 
 func _on_options_platform_item_selected(index: int) -> void:
-	pass
-#	var already_installed = false
-#
-#	button_install.disabled = already_installed
-#	button_launch.disabled = not already_installed
-#	button_uninstall.disabled = not already_installed
+	var already_installed = (InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index)) & (InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_INDEX)) == 0
+	set_buttons_state(already_installed)
 
 
 func get_platform_icon(filename: String) -> Texture2D:
@@ -96,6 +92,14 @@ func get_platform_icon(filename: String) -> Texture2D:
 	return null
 
 
+func set_buttons_state(installed: bool) -> void:
+	button_install.disabled = installed
+	button_install.visible = not installed
+	button_uninstall.visible = installed
+	button_launch.visible = installed
+	button_browse.visible = installed
+
+
 func _on_button_install_pressed() -> void:
 	button_install.disabled = true
 	InstallsIndex.operation_done.connect(_on_installs_index_done, CONNECT_ONE_SHOT)
@@ -108,6 +112,7 @@ func _on_button_launch_pressed() -> void:
 
 func _on_button_uninstall_pressed() -> void:
 	InstallsIndex.uninstall(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+	_on_options_platform_item_selected(options_platform.selected)
 
 
 func _on_button_browse_pressed() -> void:
@@ -119,7 +124,4 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 
 	match type:
 		"install":
-			button_install.visible = false
-			button_uninstall.visible = true
-			button_launch.visible = true
-			button_browse.visible = true
+			set_buttons_state(true)

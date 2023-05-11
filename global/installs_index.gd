@@ -1,5 +1,13 @@
 extends Node
 
+enum INTEGRITY_RESULT {
+	PASS = 0,					# installed
+	FAIL_NOT_IN_INDEX = 1,		# files may be there but they're not referenced in the index
+	FAIL_NOT_IN_FILESYSTEM = 2			# the index references to files that don't exist
+}
+
+const INDEX_PATH: String = "user://Installs/index.tres"
+
 @onready var progress_bar: ProgressBar = $Panel/VBoxContainer/ProgressBar
 @onready var requester: HTTPRequest = $HTTPRequestGame
 @onready var timer: Timer = $TimerUpdateProgressbar
@@ -7,21 +15,21 @@ extends Node
 
 
 var index: InstallsIndexRes
-var install_in_progress: InstallsIndexRes.Install
+var install_in_progress: Dictionary = {}
 
 signal operation_done(succeeded: bool, type: String)
 
 
 func _ready() -> void:
 	# read or create installsindex resource
-	pass
+	index = load(INDEX_PATH) if ResourceLoader.exists(INDEX_PATH) else InstallsIndexRes.new()
 
 
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
 	$AnimationPlayer.play("in")
-	install_in_progress = InstallsIndexRes.Install.new()
+	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version
 	install_in_progress.platform = platform
@@ -57,57 +65,69 @@ func _on_http_request_game_request_completed(result: int, response_code: int, he
 			file.store_buffer(reader.read_file(filename))
 			if filename.ends_with(".x86_64"):	# do it OS dependant!!!!!!
 				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
-				var out = []
-				OS.execute("chmod", ["+x", OS.get_user_data_dir() + install_in_progress.executable_path.replace("user:/", "")], out)
-				print(out)
+				OS.execute("chmod", ["+x", OS.get_user_data_dir() + install_in_progress.executable_path.replace("user:/", "")])
 
 	reader.close()
 	index.installs.append(install_in_progress)
-	install_in_progress = null
+	install_in_progress = {}
 	emit_signal("operation_done", true, "install")
+	_save_index_to_file()
 	$AnimationPlayer.play("out")
 
 
 func launch(mod_id: String, version: String, platform: String) -> void:
 	# verify integrity and execute...
-	var inst: InstallsIndexRes.Install = _find_install_in_array(mod_id, version, platform)
+	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == null: return
 	OS.create_process(OS.get_user_data_dir() + inst.executable_path.replace("user:/", ""), [], true)
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:
 	# delete files and remove from array...
-	pass
+	var install: Dictionary = _find_install_in_array(mod_id, version, platform)
+	if install == {}: return
+	index.installs.erase(install)
+	_save_index_to_file()
+	OS.move_to_trash(ProjectSettings.globalize_path(install.dltmp_path))
 
 
 func show_file_explorer(mod_id: String, version: String, platform: String) -> void:
 	# verify integrity and open file explorer...
-	pass
+	var install: Dictionary = _find_install_in_array(mod_id, version, platform)
+	if install == {}: return
+	OS.shell_open(ProjectSettings.globalize_path(install.dltmp_path))
 
 
-func is_installed(mod_id: String, version: String, platform: String) -> bool:
+func is_installed(mod_id: String, version: String, platform: String) -> INTEGRITY_RESULT:
 	# check if files exist
-	return false
+	var in_filesystem = DirAccess.dir_exists_absolute("user://Installs/" + mod_id + "/" + version + "/" + platform)
+
+	var result = INTEGRITY_RESULT.PASS
+	if not _find_install_in_array(mod_id, version, platform) != {}:
+		result |= INTEGRITY_RESULT.FAIL_NOT_IN_INDEX
+	if not in_filesystem:
+		result |= INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM
+	return result
 
 
-func _find_install_in_array(mod_id: String, version: String, platform: String) -> InstallsIndexRes.Install:
+func _find_install_in_array(mod_id: String, version: String, platform: String) -> Dictionary:
 	for inst in index.installs:
 		if inst.mod_id == mod_id and inst.version == version and inst.platform == platform:
 			return inst
 
-	return null
+	return {}
 
 
 func _save_index_to_file() -> void:
 	# do that lol
-	pass
+	ResourceSaver.save(index, INDEX_PATH)
 
 
 func err(text: String):
 	$AcceptDialog.dialog_text = "Can't download or install game!\n" + "Cause: " + text
 	$AcceptDialog.popup_centered()
 	timer.stop()
-	install_in_progress = null
+	install_in_progress = {}
 	emit_signal("operation_done", false, "")
 	$AnimationPlayer.play("out")
 

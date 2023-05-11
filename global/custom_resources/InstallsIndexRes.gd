@@ -1,12 +1,14 @@
 class_name InstallsIndexRes
 extends Resource
 
-class Install:
-	var mod_id: String
-	var version: String
-	var platform: String
-	var executable_path: String
-	var dltmp_path: String		# folder where the temporary file that was just downloaded (ends with a "/")
-	var timestamp: String
+# needs to be dictionary to save to file lol
+const Install: Dictionary = {
+	"mod_id": "",
+	"version": "",
+	"platform": "",
+	"executable_path": "",
+	"dltmp_path": "",		# folder where the temporary file that was just downloaded (ends with a "/")
+	"timestamp": ""
+}
 
-var installs: Array[Install]
+@export var installs: Array[Dictionary]

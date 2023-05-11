@@ -39,7 +39,9 @@ func refresh_mod_data() -> void:
 	$AnimationPlayer.play("in")
 
 	label_title.text = mod_data.name
-	label_subtitle.text = "aka %s\nAuthor: %s\nLast updated: %s" % [mod_data.abbreviation if mod_data.abbreviation != "" else "\r", mod_data.author, "Never"]
+	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, "Never"]
+	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
+	label_subtitle.text = subtitle
 	item_list.add_item(mod_data.description, mod_data.icon)
 	item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
 	item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))

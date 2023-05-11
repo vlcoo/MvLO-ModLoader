@@ -53,10 +53,6 @@ layout_mode = 2
 mod_data_id = "vanilla"
 auto_refresh = false
 
-[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
-offset_right = 0.0
-offset_bottom = 0.0
-
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
 

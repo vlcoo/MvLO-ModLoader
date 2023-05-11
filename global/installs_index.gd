@@ -6,26 +6,22 @@ extends Node
 @onready var l_progress: Label = $Panel/VBoxContainer/Label2
 
 
-class Install:
-	var mod_id: String
-	var version: String
-	var platform: String
-	var executable_path: String
-	var dltmp_path: String		# folder where the temporary file that was just downloaded (ends with a "/")
-	var timestamp: String
-
-var installs: Array[Install]
-var install_in_progress: Install
+var index: InstallsIndexRes
+var install_in_progress: InstallsIndexRes.Install
 
 signal operation_done(succeeded: bool, type: String)
+
+
+func _ready() -> void:
+	# read or create installsindex resource
+	pass
 
 
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
 	$AnimationPlayer.play("in")
-	progress_bar.visible = true
-	install_in_progress = Install.new()
+	install_in_progress = InstallsIndexRes.Install.new()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version
 	install_in_progress.platform = platform
@@ -66,7 +62,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, he
 				print(out)
 
 	reader.close()
-	installs.append(install_in_progress)
+	index.installs.append(install_in_progress)
 	install_in_progress = null
 	emit_signal("operation_done", true, "install")
 	$AnimationPlayer.play("out")
@@ -74,7 +70,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, he
 
 func launch(mod_id: String, version: String, platform: String) -> void:
 	# verify integrity and execute...
-	var inst: Install = _find_install_in_array(mod_id, version, platform)
+	var inst: InstallsIndexRes.Install = _find_install_in_array(mod_id, version, platform)
 	if inst == null: return
 	OS.create_process(OS.get_user_data_dir() + inst.executable_path.replace("user:/", ""), [], true)
 
@@ -94,8 +90,8 @@ func is_installed(mod_id: String, version: String, platform: String) -> bool:
 	return false
 
 
-func _find_install_in_array(mod_id: String, version: String, platform: String) -> Install:
-	for inst in installs:
+func _find_install_in_array(mod_id: String, version: String, platform: String) -> InstallsIndexRes.Install:
+	for inst in index.installs:
 		if inst.mod_id == mod_id and inst.version == version and inst.platform == platform:
 			return inst
 

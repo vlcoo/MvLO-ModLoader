@@ -5,12 +5,14 @@ const CONFIG_PATH: String = "user://settings.ini"
 var remembered_tab_idx: int = 0
 var remembered_mod_idx: String = ""
 
+var os_name: String
 var timestamp: String
 var config = ConfigFile.new()
 var cache_is_old: bool
 
 
 func _ready() -> void:
+	os_name = OS.get_name()
 	timestamp = str(int(Time.get_unix_time_from_system()))
 
 	var err: Error = config.load(CONFIG_PATH)

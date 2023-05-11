@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfj54ueky6kd3"]
+[gd_scene load_steps=9 format=3 uid="uid://bvjtglvn4vawb"]
 
-[ext_resource type="Script" path="res://global/InstallsIndex.gd" id="1_2cxgy"]
+[ext_resource type="Script" path="res://global/installs_index.gd" id="1_xlf4w"]
 [ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="2_jrw4e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttqvo"]
@@ -181,7 +181,7 @@ _data = {
 
 [node name="InstallsIndex" type="CanvasLayer"]
 layer = 2
-script = ExtResource("1_2cxgy")
+script = ExtResource("1_xlf4w")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -224,13 +224,15 @@ theme_override_constants/separation = 24
 alignment = 1
 
 [node name="Label" type="RichTextLabel" parent="Panel/VBoxContainer"]
+clip_contents = false
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "[center][wave]Operation in progress..."
+text = "[center][wave amp=36]Operation in progress..."
 fit_content = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_ttqvo")
 max_value = 1.0

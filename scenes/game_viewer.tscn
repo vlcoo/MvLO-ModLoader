@@ -491,20 +491,30 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer"]
 custom_minimum_size = Vector2(600, 700)
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="ItemList" type="ItemList" parent="PanelDetail/CenterContainer/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
+size_flags_stretch_ratio = 0.4
 theme_override_constants/v_separation = 8
 theme_override_styles/panel = ExtResource("1_q144e")
 max_text_lines = 2
 auto_height = true
 item_count = 1
 item_0/text = "No data."
+
+[node name="CheckButton" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.04
+tooltip_text = "Notifies when a new release for this mod has been uploaded."
+disabled = true
+text = "Subscribe for updates"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -572,6 +582,7 @@ libraries = {
 }
 
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
+[connection signal="item_activated" from="PanelDetail/CenterContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsVersion" to="." method="_on_options_version_item_selected"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform" to="." method="_on_options_platform_item_selected"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall" to="." method="_on_button_install_pressed"]

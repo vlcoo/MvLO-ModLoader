@@ -117,7 +117,6 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 		OS.create_process(ProjectSettings.globalize_path(inst.executable_path), [])
 	else:
 		OS.create_process(command, [ProjectSettings.globalize_path(inst.executable_path)])
-	print(command)
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:

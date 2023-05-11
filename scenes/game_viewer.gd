@@ -125,3 +125,8 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 	match type:
 		"install":
 			set_buttons_state(true)
+
+
+func _on_item_list_item_activated(index: int) -> void:
+	if $PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index).begins_with("https://"):
+		OS.shell_open($PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index))

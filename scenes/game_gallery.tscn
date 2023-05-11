@@ -267,7 +267,7 @@ mouse_filter = 1
 placeholder_text = "ENTER to save"
 
 [node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 40)
+custom_minimum_size = Vector2(220, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

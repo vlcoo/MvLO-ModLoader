@@ -260,5 +260,8 @@ wait_time = 0.5
 
 [node name="HTTPRequestGame" type="HTTPRequest" parent="."]
 
+[node name="HTTPRequestItchURL" type="HTTPRequest" parent="."]
+
 [connection signal="timeout" from="TimerUpdateProgressbar" to="." method="_on_timer_update_progressbar_timeout"]
 [connection signal="request_completed" from="HTTPRequestGame" to="." method="_on_http_request_game_request_completed"]
+[connection signal="request_completed" from="HTTPRequestItchURL" to="." method="_on_http_request_itch_url_request_completed"]

@@ -10,6 +10,7 @@ const INDEX_PATH: String = "user://Installs/index.tres"
 
 @onready var progress_bar: ProgressBar = $Panel/VBoxContainer/ProgressBar
 @onready var requester: HTTPRequest = $HTTPRequestGame
+@onready var itch_requester: HTTPRequest = $HTTPRequestItchURL
 @onready var timer: Timer = $TimerUpdateProgressbar
 @onready var l_progress: Label = $Panel/VBoxContainer/Label2
 
@@ -40,7 +41,12 @@ func install(mod_id: String, version: String, platform: String) -> void:
 	if not DirAccess.dir_exists_absolute(dir_path): DirAccess.make_dir_recursive_absolute(dir_path)
 	requester.download_file = dir_path + "game"
 	install_in_progress.dltmp_path = dir_path
-	var error = requester.request(home_url)
+
+	var error = 0
+	if home_url.contains("itch.io/api"):
+		error += itch_requester.request(home_url)
+	else:
+		error += requester.request(home_url)
 	timer.start()
 	if error != OK: err(str(error))
 
@@ -136,3 +142,8 @@ func _on_timer_update_progressbar_timeout() -> void:
 	l_progress.text = str(requester.get_downloaded_bytes()/1024/1024) + " MB"
 	if requester.get_body_size() == -1: return
 	progress_bar.value = requester.get_downloaded_bytes() / requester.get_body_size()
+
+
+func _on_http_request_itch_url_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	requester.request(json["url"])

@@ -17,6 +17,7 @@ const INDEX_PATH: String = "user://Installs/index.tres"
 
 var index: InstallsIndexRes
 var install_in_progress: Dictionary = {}
+var install_needs_wizard: bool = true
 
 signal operation_done(succeeded: bool, type: String)
 
@@ -54,24 +55,33 @@ func install(mod_id: String, version: String, platform: String) -> void:
 func _on_http_request_game_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	# unpack and add to array...
 	# if it's not zip then check what kind of executable it is!!!
-	timer.stop()
 	l_progress.text = "Unpacking"
+	timer.stop()
 
 	var reader: ZIPReader = ZIPReader.new()
 	var error: Error = reader.open(install_in_progress.dltmp_path + "game")
 	if error != OK:
-		err("Unpacking failed. " + str(error))
+		err("Unpacking failed or service unavailable. " + str(error) + " " + str(response_code))
 		return
 
 	for filename in reader.get_files():
 		if filename.contains("/") and not DirAccess.dir_exists_absolute(install_in_progress.dltmp_path + filename.get_base_dir()):
-			DirAccess.make_dir_absolute(install_in_progress.dltmp_path + filename.get_base_dir())
+			DirAccess.make_dir_recursive_absolute(install_in_progress.dltmp_path + filename.get_base_dir())
 		if not filename.ends_with("/"):
 			var file = FileAccess.open(install_in_progress.dltmp_path + filename, FileAccess.WRITE)
 			file.store_buffer(reader.read_file(filename))
+
 			if filename.ends_with(".x86_64"):	# do it OS dependant!!!!!!
 				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
-				OS.execute("chmod", ["+x", OS.get_user_data_dir() + install_in_progress.executable_path.replace("user:/", "")])
+				if Configurator.os_name == "Linux":
+					OS.execute("chmod", ["+x", ProjectSettings.globalize_path(install_in_progress.executable_path)])
+				install_needs_wizard = false
+			elif filename.ends_with(".exe") and not filename.to_lower().contains("crashhandler"):
+				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
+				install_needs_wizard = false
+			elif filename.ends_with(".app"):
+				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
+				install_needs_wizard = false
 
 	reader.close()
 	index.installs.append(install_in_progress)
@@ -85,7 +95,28 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 	# verify integrity and execute...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == null: return
-	OS.create_process(OS.get_user_data_dir() + inst.executable_path.replace("user:/", ""), [], true)
+	var command: String = ""
+	var os_mismatch = false
+
+	if inst.executable_path.ends_with(".x86_64"):
+		command = Configurator.get_config("args_linux")
+		if Configurator.os_name != "Linux": os_mismatch = true
+	elif inst.executable_path.ends_with(".exe"):
+		command = Configurator.get_config("args_windows")
+		if Configurator.os_name != "Windows": os_mismatch = true
+	elif inst.executable_path.ends_with(".app"):
+		command = Configurator.get_config("args_macos")
+		if Configurator.os_name != "macOS": os_mismatch = true
+
+	if os_mismatch:
+		warn("You tried launching a version of a mod not built for your OS. This might not work.")
+
+	if command in ["", null]:
+		command = ProjectSettings.globalize_path(inst.executable_path)
+	else:
+		command += " " + ProjectSettings.globalize_path(inst.executable_path)
+	print(command)
+	OS.create_process(command, [])
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:
@@ -136,6 +167,11 @@ func err(text: String):
 	install_in_progress = {}
 	emit_signal("operation_done", false, "")
 	$AnimationPlayer.play("out")
+
+
+func warn(text: String):
+	$AcceptDialog.dialog_text = text
+	$AcceptDialog.popup_centered()
 
 
 func _on_timer_update_progressbar_timeout() -> void:

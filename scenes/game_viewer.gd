@@ -39,7 +39,7 @@ func refresh_mod_data() -> void:
 	$AnimationPlayer.play("in")
 
 	label_title.text = mod_data.name
-	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, "Never"]
+	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, Time.get_date_string_from_unix_time(int(mod_data.timestamp))]
 	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
 	item_list.add_item(mod_data.description, mod_data.icon)
@@ -49,6 +49,7 @@ func refresh_mod_data() -> void:
 	for server in mod_data.link_discord:
 		item_list.add_item(server, icon_discord)
 
+	$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
 	for release in mod_data.gamefile_urls.keys():
 		options_version.add_item(release)
@@ -63,10 +64,19 @@ func clear_all():
 
 func _on_options_version_item_selected(index: int) -> void:
 	if mod_data.gamefile_urls == {}: return
+	var show_all = Configurator.get_config("all_platforms")
+	if show_all is String: show_all = show_all != ""
 
 	options_platform.clear()
 	for asset in mod_data.gamefile_urls[options_version.get_item_text(index)].keys():
 		var platform_icon: Texture2D = get_platform_icon(asset)
+		var filename: String = asset.to_lower()
+		if (not show_all) and (\
+			(filename.contains("win") and Configurator.os_name != "Windows") or \
+			(filename.contains("linux") and Configurator.os_name != "Linux") or \
+			((filename.contains("apple") or filename.contains("mac")) and Configurator.os_name != "macOS") or \
+			(filename.contains("web")) \
+		): continue
 		if platform_icon == null:
 			options_platform.add_item(asset)
 		else:
@@ -108,6 +118,9 @@ func _on_button_install_pressed() -> void:
 
 func _on_button_launch_pressed() -> void:
 	InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+	button_launch.text = "Loading"
+	button_launch.disabled = true
+	$TimerLoading.start()
 
 
 func _on_button_uninstall_pressed() -> void:
@@ -130,3 +143,13 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 func _on_item_list_item_activated(index: int) -> void:
 	if $PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index).begins_with("https://"):
 		OS.shell_open($PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index))
+
+
+func _on_timer_loading_timeout() -> void:
+	if button_launch.disabled and button_launch.visible and button_launch.text == "Loading":
+		button_launch.disabled = false
+		button_launch.text = "Launch"
+
+
+func _on_check_button_toggled(button_pressed: bool) -> void:
+	Configurator.set_ts_mod(mod_data_id, mod_data.timestamp if button_pressed else "")

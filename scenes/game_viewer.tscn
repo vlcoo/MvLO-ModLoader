@@ -419,6 +419,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.306
 anchor_bottom = 1.0
+offset_right = 313.344
+offset_bottom = 768.0
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("1_q144e")
 
@@ -432,6 +434,7 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelOverview/CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 18
 alignment = 1
 
 [node name="TextureCover" type="TextureRect" parent="PanelOverview/CenterContainer/VBoxContainer"]
@@ -455,6 +458,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.392157)
 text = "N/A"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="ButtonBack" type="Button" parent="PanelOverview"]
 layout_mode = 1
@@ -512,8 +516,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
-tooltip_text = "Notifies when a new release for this mod has been uploaded."
-disabled = true
+tooltip_text = "Notify when a new release for this mod has been uploaded."
 text = "Subscribe for updates"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
@@ -581,11 +584,17 @@ libraries = {
 "": SubResource("AnimationLibrary_rsp16")
 }
 
+[node name="TimerLoading" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="item_activated" from="PanelDetail/CenterContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsVersion" to="." method="_on_options_version_item_selected"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform" to="." method="_on_options_platform_item_selected"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall" to="." method="_on_button_install_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch" to="." method="_on_button_launch_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonBrowse" to="." method="_on_button_browse_pressed"]
+[connection signal="timeout" from="TimerLoading" to="." method="_on_timer_loading_timeout"]

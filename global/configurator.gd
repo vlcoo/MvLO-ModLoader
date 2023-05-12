@@ -27,6 +27,8 @@ func _ready() -> void:
 	if err != OK:
 		cache_is_old = true
 		config = ConfigFile.new()
+		# some default values
+		set_config("all_platforms", os_name != "Windows")
 	else:
 		var last_timestamp: String = config.get_value("general", "last_updated")
 		cache_is_old = _is_last_timestamp_old_enough(int(timestamp), int(last_timestamp))
@@ -46,6 +48,16 @@ func get_config(variable: String) -> Variant:
 
 func set_config(variable: String, value: Variant) -> void:
 	config.set_value("general", variable, value)
+
+
+func get_ts_mod(mod_id: String) -> String:
+	if not config.has_section("mod_timestamps") or not config.has_section_key("mod_timestamps", mod_id):
+		return ""
+	return config.get_value("mod_timestamps", mod_id)
+
+func set_ts_mod(mod_id: String, ts: String) -> void:
+	if ts == "": config.erase_section_key("mod_timestamps", mod_id)
+	else: config.set_value("mod_timestamps", mod_id, ts)
 
 
 func update_timestamp(to_zero: bool) -> void:

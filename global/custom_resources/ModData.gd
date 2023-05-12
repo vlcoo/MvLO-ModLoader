@@ -8,6 +8,7 @@ var icon: Texture2D
 var cover_image: Texture2D
 
 var gamefile_urls: Dictionary = {}
+var timestamp: String = "0"
 
 ## Information about this mod.
 @export_category("Mod Data")

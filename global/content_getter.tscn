@@ -209,7 +209,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "[center][wave amp=36]Updating cache, please wait!"
+text = "[center][wave amp=36]Updating cache,
+please wait!"
 fit_content = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

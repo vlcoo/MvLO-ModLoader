@@ -61,7 +61,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, he
 	var reader: ZIPReader = ZIPReader.new()
 	var error: Error = reader.open(install_in_progress.dltmp_path + "game")
 	if error != OK:
-		err("Unpacking failed or service unavailable. " + str(error) + " " + str(response_code))
+		err("Service unavailable. " + str(error) + " " + str(response_code))
 		return
 
 	for filename in reader.get_files():
@@ -69,6 +69,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, he
 			DirAccess.make_dir_recursive_absolute(install_in_progress.dltmp_path + filename.get_base_dir())
 		if not filename.ends_with("/"):
 			var file = FileAccess.open(install_in_progress.dltmp_path + filename, FileAccess.WRITE)
+			if file == null: err("Unpacking downloaded ZIP file failed.")
 			file.store_buffer(reader.read_file(filename))
 
 			if filename.ends_with(".x86_64"):	# do it OS dependant!!!!!!

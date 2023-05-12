@@ -62,6 +62,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 
 	var json = JSON.parse_string(FileAccess.get_file_as_string("user://DB.gamefiles.json"))
 	var dir = DirAccess.open("user://DB/mod_datas")
+	var new_updates_list: String = ""
 	if dir == null:
 		Configurator.update_timestamp(true)
 		err("DB not present locally! Please restart the program.")
@@ -70,17 +71,26 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 		Configurator.update_timestamp(true)
 		err("Service unavailable!")
 
-	for filename in dir.get_files():
+	for filename in dir.get_files():	# for each mod in the database...
 		var mod_id: String = filename.replace(".tres", "")
 		var data: ModData = load(dir.get_current_dir() + "/" + filename)
 		data.cover_image = load("user://DB/" + mod_id + "C.png")
 		if FileAccess.file_exists("user://DB/" + mod_id + "I.png"):
 			data.icon = load("user://DB/" + mod_id + "I.png")
-		if json != null: data.gamefile_urls = json[mod_id]
+		if json != null:
+			var max_ts: int = 0
+			data.gamefile_urls = json[mod_id]
+			for version in data.gamefile_urls:
+				for asset in data.gamefile_urls[version]:
+					if int(data.gamefile_urls[version][asset]["timestamp"]) > max_ts: max_ts = int(data.gamefile_urls[version][asset]["timestamp"])
+			data.timestamp = str(max_ts)
+			if Configurator.get_ts_mod(mod_id) != "" and int(data.timestamp) > int(Configurator.get_ts_mod(mod_id)):
+				new_updates_list += "- " + data.name.substr(0, min(data.name.length(), 30)) + "\n"
 		moddatas[mod_id] = data
 
 	emit_signal("cache_updated", true)
 	if hide_animation: $AnimationPlayer.play("out")
+	if new_updates_list != "": warn("New updates for mods you're subscribed to!\n" + new_updates_list)
 	pass
 
 
@@ -97,3 +107,8 @@ func err(text: String):
 	$AcceptDialog.popup_centered()
 	emit_signal("cache_updated", false)
 	$AnimationPlayer.play("out")
+
+
+func warn(text: String):
+	$AcceptDialog.dialog_text = text
+	$AcceptDialog.popup_centered()

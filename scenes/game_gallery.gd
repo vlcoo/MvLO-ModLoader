@@ -26,6 +26,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos")
 	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery")
 
+	$Settings/ScrollContainer/VBoxContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
 	if Configurator.get_config("remember_view"):
 		$Settings/ScrollContainer/VBoxContainer/CheckButton2.button_pressed = true
 		if Configurator.get_config("remembered_tab") == 1:
@@ -81,11 +82,11 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 
 
 func _on_line_edit_2_text_submitted(new_text: String) -> void:
-	Configurator.set_config("args_windows", new_text)
+	Configurator.set_config("args_linux", new_text)
 
 
 func _on_line_edit_3_text_submitted(new_text: String) -> void:
-	Configurator.set_config("args_windows", new_text)
+	Configurator.set_config("args_macos", new_text)
 
 
 func _on_button_pressed() -> void:
@@ -101,3 +102,7 @@ func _on_tab_changed(tab: int) -> void:
 func _on_option_button_item_selected(index: int) -> void:
 	Configurator.set_config("theme", index)
 	theme = Configurator.themes[index]
+
+
+func _on_check_button_3_toggled(button_pressed: bool) -> void:
+	Configurator.set_config("all_platforms", button_pressed)

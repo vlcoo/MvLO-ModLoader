@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="InstallsIndexRes" load_steps=2 format=3 uid="uid://bc1u6efoao6y7"]
-
-[ext_resource type="Script" path="res://global/custom_resources/InstallsIndexRes.gd" id="1_lybtp"]
-
-[resource]
-script = ExtResource("1_lybtp")
-installs = Array[null]([])

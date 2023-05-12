@@ -18,6 +18,7 @@ config/icon="res://graphics/nshbBig.png"
 
 [autoload]
 
+SelfUpdater="*res://global/self_updater.tscn"
 Configurator="*res://global/configurator.gd"
 ContentGetter="*res://global/content_getter.tscn"
 InstallsIndex="*res://global/installs_index.tscn"

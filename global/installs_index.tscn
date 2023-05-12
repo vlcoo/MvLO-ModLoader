@@ -244,19 +244,19 @@ text = "Starting"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "wait_hidden"
-speed_scale = 1.2
-libraries = {
-"": SubResource("AnimationLibrary_fiiku")
-}
-
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2
 size = Vector2i(226, 100)
 
 [node name="TimerUpdateProgressbar" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "wait_hidden"
+speed_scale = 1.2
+libraries = {
+"": SubResource("AnimationLibrary_fiiku")
+}
 
 [node name="HTTPRequestGame" type="HTTPRequest" parent="."]
 

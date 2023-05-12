@@ -3,7 +3,6 @@
 [ext_resource type="Theme" uid="uid://jvufe12y0rwj" path="res://ui_resources/theme_default.tres" id="1_nd3cx"]
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
-[ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="4_kaemg"]
 [ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://graphics/nshbBig.png" id="6_i64gp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f77yn"]
@@ -31,6 +30,17 @@ corner_radius_top_right = 4
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anyoi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7qx0"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.11, 0.11, 0.11, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="GameGallery" type="TabContainer"]
 anchors_preset = 15
@@ -105,11 +115,12 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Panel" type="Panel" parent="Settings/ScrollContainer/VBoxContainer"]
+clip_contents = true
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Thanks for using it!"
-theme_override_styles/panel = ExtResource("4_kaemg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7qx0")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/Panel"]
 custom_minimum_size = Vector2(0, 60)
@@ -148,6 +159,26 @@ text = "MvLO Mod Loader
 [color=#aaaaaa]A simple way to keep your mods organized and up to date.
 by vlco_o [i]aka vic[/i][/color]"
 fit_content = true
+
+[node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/Panel"]
+layout_mode = 2
+anchor_left = 0.999
+anchor_top = 0.998
+anchor_right = 0.999
+anchor_bottom = 0.998
+offset_left = -51.04
+offset_top = -49.84
+offset_right = -2.04004
+offset_bottom = 15.16
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 0.0872665
+pivot_offset = Vector2(49, 65)
+theme_override_colors/font_color = Color(1, 1, 1, 0.0784314)
+theme_override_font_sizes/font_size = 52
+text = "v1"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 40)

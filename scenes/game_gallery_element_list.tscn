@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://6mp1uhlvagte"]
+[gd_scene load_steps=5 format=3 uid="uid://6mp1uhlvagte"]
 
 [ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="1_ls182"]
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_s8udx"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_rlhwq"]
+[ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://graphics/installed.png" id="4_si2hu"]
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(0, 52)
@@ -42,6 +43,15 @@ text = "N/A"
 vertical_alignment = 1
 autowrap_mode = 3
 max_lines_visible = 2
+
+[node name="TextureInstalled" type="TextureRect" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0.470588)
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_si2hu")
+stretch_mode = 5
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1

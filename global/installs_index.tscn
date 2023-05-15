@@ -259,8 +259,10 @@ libraries = {
 }
 
 [node name="HTTPRequestGame" type="HTTPRequest" parent="."]
+use_threads = true
 
 [node name="HTTPRequestItchURL" type="HTTPRequest" parent="."]
+download_chunk_size = 4096
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="TimerUpdateProgressbar" to="." method="_on_timer_update_progressbar_timeout"]

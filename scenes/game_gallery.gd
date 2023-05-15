@@ -2,7 +2,7 @@ extends TabContainer
 
 @onready var vanilla_game_viewer: Panel = $Vanilla/GameViewer
 @onready var current_mod_game_viewer: Panel = $Mods/GameViewer
-@onready var gallery: GridContainer = $Mods/ContainerBig/GridContainer
+@onready var gallery: GridContainer = $Mods/ContainerBig/ScrollContainer/GridContainer
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
@@ -18,7 +18,6 @@ func _ready() -> void:
 
 
 func _on_ready() -> void:
-	$Settings/ScrollContainer/VBoxContainer/LabelSize.text = "You've got at least " + str(snapped(InstallsIndex.get_total_installs_size(), 0.01)) + " MB worth of installed mods."
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
 
@@ -93,11 +92,12 @@ func _on_line_edit_3_text_submitted(new_text: String) -> void:
 func _on_button_pressed() -> void:
 	Configurator.update_timestamp(true)
 	$Settings/ScrollContainer/VBoxContainer/Button.disabled = true
-	$Settings/ScrollContainer/VBoxContainer/Button.text = "Scheduled for next restart"
+	$Settings/ScrollContainer/VBoxContainer/Button.text = "Scheduled (next restart)"
 
 
 func _on_tab_changed(tab: int) -> void:
 	Configurator.set_config("remembered_tab", tab)
+	if tab == 2: $Settings/ScrollContainer/VBoxContainer/LabelSize.text = "You've got at least " + str(snapped(InstallsIndex.get_total_installs_size(), 0.01)) + " MB worth of installed mods."
 
 
 func _on_option_button_item_selected(index: int) -> void:

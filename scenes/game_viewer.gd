@@ -20,6 +20,7 @@ var platform_windows_texture: Texture2D = preload("res://graphics/windows.png")
 @export var mod_data_id: String
 @export var auto_refresh: bool = true
 var mod_data: ModData
+var texture_installed: Texture2D
 
 
 func _ready() -> void:

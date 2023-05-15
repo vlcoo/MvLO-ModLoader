@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckhxp855p5xhf"]
+[gd_scene load_steps=5 format=3 uid="uid://ckhxp855p5xhf"]
 
 [ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="1_rn7yf"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="2_1x41c"]
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_dppu1"]
+[ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://graphics/installed.png" id="4_dvhyh"]
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(160, 220)
@@ -51,6 +52,25 @@ grow_vertical = 2
 pivot_offset = Vector2(80, 110)
 mouse_filter = 1
 flat = true
+
+[node name="TextureInstalled" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.470588)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_dvhyh")
+stretch_mode = 5
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

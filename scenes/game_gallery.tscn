@@ -75,16 +75,24 @@ visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
-[node name="ContainerBig" type="ScrollContainer" parent="Mods"]
+[node name="ContainerBig" type="MarginContainer" parent="Mods"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Mods/ContainerBig"]
+clip_contents = false
 layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="GridContainer" type="GridContainer" parent="Mods/ContainerBig"]
-custom_minimum_size = Vector2(960, 680)
+[node name="GridContainer" type="GridContainer" parent="Mods/ContainerBig/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 24
 

@@ -222,9 +222,11 @@ libraries = {
 
 [node name="HTTPRequestDB" type="HTTPRequest" parent="."]
 download_file = "user://DB.zip"
+download_chunk_size = 4096
 
 [node name="HTTPRequestGamefiles" type="HTTPRequest" parent="."]
 download_file = "user://DB.gamefiles.json"
+download_chunk_size = 4096
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2

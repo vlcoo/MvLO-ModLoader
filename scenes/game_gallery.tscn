@@ -58,6 +58,7 @@ all_tabs_in_front = true
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -75,18 +76,15 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
 [node name="ContainerBig" type="ScrollContainer" parent="Mods"]
-clip_contents = false
-custom_minimum_size = Vector2(960, 680)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="Mods/ContainerBig"]
+custom_minimum_size = Vector2(960, 680)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 6
+size_flags_vertical = 6
 theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 24
 
@@ -95,7 +93,6 @@ layout_mode = 2
 auto_refresh = false
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -179,6 +176,15 @@ theme_override_font_sizes/font_size = 52
 text = "v1"
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="LabelSize" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+text = "You've got at least % MB worth of installed mods."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 40)

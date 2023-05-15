@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-@onready var requester_pck: HTTPRequest = $HTTPRequestPCK
-
 var vercode: int = 1
 
 signal updated

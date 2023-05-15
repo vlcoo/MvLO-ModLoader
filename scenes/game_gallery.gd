@@ -18,6 +18,7 @@ func _ready() -> void:
 
 
 func _on_ready() -> void:
+	$Settings/ScrollContainer/VBoxContainer/LabelSize.text = "You've got at least " + str(snapped(InstallsIndex.get_total_installs_size(), 0.01)) + " MB worth of installed mods."
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
 

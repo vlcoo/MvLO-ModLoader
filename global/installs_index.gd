@@ -27,6 +27,14 @@ func _ready() -> void:
 	index = load(INDEX_PATH) if ResourceLoader.exists(INDEX_PATH) else InstallsIndexRes.new()
 
 
+func get_total_installs_size() -> float:
+	# unit is megabytes
+	var mb: float = 0
+	for install in index.installs:
+		if install.has("size"): mb += install.size
+	return mb/1024/1024
+
+
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
@@ -56,6 +64,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, he
 	# unpack and add to array...
 	# if it's not zip then check what kind of executable it is!!!
 	l_progress.text = "Unpacking"
+	await timer.timeout
 	timer.stop()
 
 	var reader: ZIPReader = ZIPReader.new()
@@ -83,6 +92,9 @@ func _on_http_request_game_request_completed(result: int, response_code: int, he
 			elif filename.ends_with(".app"):
 				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
 				install_needs_wizard = false
+
+	install_in_progress.size = FileAccess.open(install_in_progress.dltmp_path + "game", FileAccess.READ).get_length()
+	DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
 
 	reader.close()
 	index.installs.append(install_in_progress)
@@ -114,10 +126,13 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 	if os_mismatch:
 		warn("You tried launching a version of a mod not built for your OS. This might not work.")
 
+	var globalized_path: String = ProjectSettings.globalize_path(inst.executable_path)
+	if Configurator.os_name == "macOS": globalized_path = "file:/" + globalized_path
+
 	if command in ["", null]:
-		OS.create_process(ProjectSettings.globalize_path(inst.executable_path), [])
+		OS.create_process(globalized_path, [])
 	else:
-		OS.create_process(command, [ProjectSettings.globalize_path(inst.executable_path)])
+		OS.create_process(command, [globalized_path])
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:
@@ -133,7 +148,7 @@ func show_file_explorer(mod_id: String, version: String, platform: String) -> vo
 	# verify integrity and open file explorer...
 	var install: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if install == {}: return
-	OS.shell_open(ProjectSettings.globalize_path(install.dltmp_path))
+	OS.shell_open(("file:/" if Configurator.os_name == "macOS" else "") + ProjectSettings.globalize_path(install.dltmp_path))
 
 
 func is_installed(mod_id: String, version: String, platform: String) -> INTEGRITY_RESULT:

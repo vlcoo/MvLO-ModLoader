@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ddlolqlylljs4" path="res://ui_resources/themes/95/Styles/Panel/TabFg.png" id="1"]
 
 [resource]
-content_margin_left = 16.0
+content_margin_left = 48.0
 content_margin_top = 6.0
 content_margin_right = 16.0
 content_margin_bottom = 4.0

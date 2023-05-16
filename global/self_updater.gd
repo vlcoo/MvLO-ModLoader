@@ -8,7 +8,7 @@ func _ready() -> void:
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 
 
-func _on_cache_updated(succeeded: bool) -> void:
+func _on_cache_updated(_succeeded: bool) -> void:
 	if not Configurator.cache_is_old: return
 	var update_info = load("user://DB/mlupdate.tres")
 	if update_info == null: return

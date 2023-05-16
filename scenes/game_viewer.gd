@@ -26,7 +26,7 @@ var texture_installed: Texture2D
 func _ready() -> void:
 	if auto_refresh && mod_data_id != "":
 		mod_data_id = Configurator.remembered_mod_idx
-		await refresh_mod_data()
+		refresh_mod_data()
 
 
 func _on_button_back_pressed() -> void:

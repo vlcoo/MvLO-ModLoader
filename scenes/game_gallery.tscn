@@ -19,10 +19,10 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-all_tabs_in_front = true
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -32,15 +32,18 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
 
+[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
+offset_right = 0.0
+
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
 
-[node name="Mods" type="PanelContainer" parent="."]
+[node name="Mod Gallery" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
-[node name="ContainerBig" type="MarginContainer" parent="Mods"]
+[node name="ContainerBig" type="MarginContainer" parent="Mod Gallery"]
 clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 32
@@ -48,25 +51,84 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Mods/ContainerBig"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Mod Gallery/ContainerBig"]
 clip_contents = false
 layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="GridContainer" type="GridContainer" parent="Mods/ContainerBig/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 24
 
-[node name="GameViewer" parent="Mods" instance=ExtResource("1_qd0tx")]
+[node name="GameViewer" parent="Mod Gallery" instance=ExtResource("1_qd0tx")]
 layout_mode = 2
 auto_refresh = false
 
-[node name="Settings" type="PanelContainer" parent="."]
+[node name="Storage Usage" type="PanelContainer" parent="."]
 visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
+
+[node name="MarginContainer" type="MarginContainer" parent="Storage Usage"]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Storage Usage/MarginContainer"]
+layout_mode = 2
+
+[node name="Tree" type="ItemList" parent="Storage Usage/MarginContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+theme_override_constants/v_separation = 8
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.08
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="ButtonUninstall" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+text = "Uninstall"
+
+[node name="ButtonLaunch" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+text = "Launch"
+
+[node name="ButtonBrowse" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.831373, 0.164706, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+text = "Browse files"
+
+[node name="TimerLoading" type="Timer" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Settings" type="PanelContainer" parent="."]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -148,15 +210,6 @@ theme_override_font_sizes/font_size = 52
 text = "v2"
 horizontal_alignment = 2
 vertical_alignment = 2
-
-[node name="LabelSize" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 1)
-text = "You've got at least % MB worth of installed mods."
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 40)
@@ -298,6 +351,11 @@ text = "Schedule cache update"
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="item_selected" from="Storage Usage/MarginContainer/VBoxContainer/Tree" to="." method="_on_tree_item_selected"]
+[connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]
+[connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch" to="." method="_on_button_launch_pressed"]
+[connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonBrowse" to="." method="_on_button_browse_pressed"]
+[connection signal="timeout" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/TimerLoading" to="." method="_on_timer_loading_timeout"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]

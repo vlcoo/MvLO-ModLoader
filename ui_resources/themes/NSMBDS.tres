@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bmx56ym2m5wga"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bmx56ym2m5wga"]
 
 [ext_resource type="FontFile" uid="uid://ohdc6gk2sqag" path="res://ui_resources/font_nsmb.ttf" id="1_wuakp"]
 
@@ -36,8 +36,21 @@ border_color = Color(0, 0, 0, 0.67451)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mygd6"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.11, 0.11, 0.11, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 8
+
 [resource]
 default_font = ExtResource("1_wuakp")
 Panel/styles/panel = SubResource("StyleBoxFlat_2e1qe")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_7jsq3")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_ulr5u")
+Tree/styles/panel = SubResource("StyleBoxFlat_mygd6")

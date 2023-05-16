@@ -30,8 +30,8 @@ func _ready() -> void:
 func get_total_installs_size() -> float:
 	# unit is megabytes
 	var mb: float = 0
-	for install in index.installs:
-		if install.has("size"): mb += install.size
+	for inst in index.installs:
+		if inst.has("size"): mb += inst.size
 	return mb/1024/1024
 
 
@@ -60,7 +60,7 @@ func install(mod_id: String, version: String, platform: String) -> void:
 	if error != OK: err(str(error))
 
 
-func _on_http_request_game_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_http_request_game_request_completed(_result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	# unpack and add to array...
 	# if it's not zip then check what kind of executable it is!!!
 	l_progress.text = "Unpacking"
@@ -137,25 +137,25 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:
 	# delete files and remove from array...
-	var install: Dictionary = _find_install_in_array(mod_id, version, platform)
-	if install == {}: return
-	index.installs.erase(install)
+	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
+	if inst == {}: return
+	index.installs.erase(inst)
 	_save_index_to_file()
-	OS.move_to_trash(ProjectSettings.globalize_path(install.dltmp_path))
+	OS.move_to_trash(ProjectSettings.globalize_path(inst.dltmp_path))
 
 
 func show_file_explorer(mod_id: String, version: String, platform: String) -> void:
 	# verify integrity and open file explorer...
-	var install: Dictionary = _find_install_in_array(mod_id, version, platform)
-	if install == {}: return
-	OS.shell_open(("file:/" if Configurator.os_name == "macOS" else "") + ProjectSettings.globalize_path(install.dltmp_path))
+	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
+	if inst == {}: return
+	OS.shell_open(("file:/" if Configurator.os_name == "macOS" else "") + ProjectSettings.globalize_path(inst.dltmp_path))
 
 
-func is_installed(mod_id: String, version: String, platform: String) -> INTEGRITY_RESULT:
+func is_installed(mod_id: String, version: String, platform: String) -> int:
 	# check if files exist
 	var in_filesystem = DirAccess.dir_exists_absolute("user://Installs/" + mod_id + "/" + version + "/" + platform)
 
-	var result = INTEGRITY_RESULT.PASS
+	var result: int = INTEGRITY_RESULT.PASS
 	if not _find_install_in_array(mod_id, version, platform) != {}:
 		result |= INTEGRITY_RESULT.FAIL_NOT_IN_INDEX
 	if not in_filesystem:
@@ -194,13 +194,12 @@ func warn(text: String):
 	$AcceptDialog.popup_centered()
 
 
+@warning_ignore("integer_division")
 func _on_timer_update_progressbar_timeout() -> void:
 	l_progress.text = str(requester.get_downloaded_bytes()/1024/1024) + " MB"
-	if requester.get_body_size() == -1: return
-	progress_bar.value = requester.get_downloaded_bytes() / requester.get_body_size()
 
 
-func _on_http_request_itch_url_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_http_request_itch_url_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	requester.request(json["url"])
 

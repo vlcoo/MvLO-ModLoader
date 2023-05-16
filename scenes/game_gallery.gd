@@ -1,14 +1,19 @@
 extends TabContainer
 
 @onready var vanilla_game_viewer: Panel = $Vanilla/GameViewer
-@onready var current_mod_game_viewer: Panel = $Mods/GameViewer
-@onready var gallery: GridContainer = $Mods/ContainerBig/ScrollContainer/GridContainer
+@onready var current_mod_game_viewer: Panel = $"Mod Gallery/GameViewer"
+@onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/ScrollContainer/GridContainer"
+@onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/Tree"
+@onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall"
+@onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch"
+@onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonBrowse"
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
-
+var installed_texture: Texture2D = preload("res://graphics/installed.png")
 
 var awaited_mod_view: String = ""
+var selected_install: Dictionary = {}
 
 
 func _ready() -> void:
@@ -38,7 +43,7 @@ func _on_tree_exiting() -> void:
 	Configurator.remembered_tab_idx = current_tab
 
 
-func _on_cache_updated(succeeded: bool) -> void:
+func _on_cache_updated(_succeeded: bool) -> void:
 	vanilla_game_viewer.refresh_mod_data()
 	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
 	if awaited_mod_view != "":
@@ -60,6 +65,20 @@ func _repopulate_gallery(element: Resource, cols: int) -> void:
 		child.opened.connect(_on_mod_opened)
 		child.init_ui(moddata.cover_image, moddata.name)
 		gallery.add_child(child)
+
+
+func _repopulate_installs_tree() -> void:
+	installs_tree.clear()
+	var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
+	installs_tree.add_item("All installed games (" + total_mb_str + " MB)", installed_texture, false)
+
+	for install in InstallsIndex.index.installs:
+		var mb_str = str(snapped(install.size/1024/1024, 0.01)) if install.has("size") else "?"
+		installs_tree.add_item(install.mod_id + " - " + install.version + " - " + install.platform + " - " + mb_str + " MB")
+
+	button_browse.disabled = true
+	button_launch.disabled = true
+	button_uninstall.disabled = true
 
 
 func _on_mod_opened(idx: String):
@@ -97,7 +116,7 @@ func _on_button_pressed() -> void:
 
 func _on_tab_changed(tab: int) -> void:
 	Configurator.set_config("remembered_tab", tab)
-	if tab == 2: $Settings/ScrollContainer/VBoxContainer/LabelSize.text = "You've got at least " + str(snapped(InstallsIndex.get_total_installs_size(), 0.01)) + " MB worth of installed mods."
+	if tab == 2: _repopulate_installs_tree()
 
 
 func _on_option_button_item_selected(index: int) -> void:
@@ -107,3 +126,45 @@ func _on_option_button_item_selected(index: int) -> void:
 
 func _on_check_button_3_toggled(button_pressed: bool) -> void:
 	Configurator.set_config("all_platforms", button_pressed)
+
+
+func _on_tree_item_selected(index: int) -> void:
+	var item_str: PackedStringArray = installs_tree.get_item_text(index).split(" - ")
+	if item_str.size() < 4: return
+	selected_install = InstallsIndex._find_install_in_array(item_str[0], item_str[1], item_str[2])
+	if selected_install == {}: return
+
+	selected_install["tree_item_id"] = index
+	button_browse.disabled = false
+	button_launch.disabled = false
+	button_uninstall.disabled = false
+
+
+func _on_button_uninstall_pressed() -> void:
+	if selected_install == {}: return
+	InstallsIndex.uninstall(selected_install.mod_id, selected_install.version, selected_install.platform)
+	installs_tree.remove_item(selected_install["tree_item_id"])
+	button_browse.disabled = true
+	button_launch.disabled = true
+	button_uninstall.disabled = true
+
+	var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
+	installs_tree.set_item_text(0, "All installed games (" + total_mb_str + " MB)")
+
+
+func _on_button_launch_pressed() -> void:
+	if selected_install == {}: return
+	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
+	button_launch.text = "Loading"
+	button_launch.disabled = true
+	$Installs/MarginContainer/VBoxContainer/HBoxContainer2/TimerLoading.start()
+
+
+func _on_button_browse_pressed() -> void:
+	if selected_install == {}: return
+	InstallsIndex.show_file_explorer(selected_install.mod_id, selected_install.version, selected_install.platform)
+
+
+func _on_timer_loading_timeout() -> void:
+	button_launch.text = "Launch"
+	button_launch.disabled = false

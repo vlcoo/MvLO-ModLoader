@@ -57,7 +57,7 @@ func get_ts_mod(mod_id: String) -> String:
 	return config.get_value("mod_timestamps", mod_id)
 
 func set_ts_mod(mod_id: String, ts: String) -> void:
-	if ts == "": config.erase_section_key("mod_timestamps", mod_id)
+	if ts == "" and config.has_section_key("mod_timestamps", mod_id): config.erase_section_key("mod_timestamps", mod_id)
 	else: config.set_value("mod_timestamps", mod_id, ts)
 
 
@@ -66,6 +66,7 @@ func update_timestamp(to_zero: bool) -> void:
 	config.save(CONFIG_PATH)
 
 
+@warning_ignore("integer_division")
 func _is_last_timestamp_old_enough(ts: int, lts: int) -> bool:
 	var ts_h = ts / 3600
 	var lts_h = lts / 3600

@@ -2,8 +2,9 @@ extends Node
 
 const CONFIG_PATH: String = "user://settings.ini"
 var themes: Array[Theme] = [
-	preload("res://ui_resources/theme_default.tres"),
-	preload("res://ui_resources/theme_nsmbds.tres")
+	preload("res://ui_resources/themes/DefaultDark.tres"),
+	preload("res://ui_resources/themes/NSMBDS.tres"),
+	preload("res://ui_resources/themes/95/Classic95.tres")
 ]
 
 var remembered_tab_idx: int = 0

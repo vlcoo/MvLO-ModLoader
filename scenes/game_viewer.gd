@@ -34,7 +34,7 @@ func _on_button_back_pressed() -> void:
 
 
 func refresh_mod_data() -> void:
-	mod_data = ContentGetter.get_local_moddata(mod_data_id)
+	if mod_data_id != "": mod_data = ContentGetter.get_local_moddata(mod_data_id)
 	if mod_data == null: return
 	clear_all()
 	$AnimationPlayer.play("in")

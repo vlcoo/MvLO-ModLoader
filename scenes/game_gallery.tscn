@@ -1,46 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddleep2ws20xa"]
+[gd_scene load_steps=7 format=3 uid="uid://dpdvlljv8naiv"]
 
-[ext_resource type="Theme" uid="uid://jvufe12y0rwj" path="res://ui_resources/theme_default.tres" id="1_nd3cx"]
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
 [ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://graphics/nshbBig.png" id="6_i64gp"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f77yn"]
-content_margin_left = 48.0
-content_margin_top = 8.0
-content_margin_right = 48.0
-content_margin_bottom = 8.0
-bg_color = Color(0.180392, 0.180392, 0.180392, 1)
-border_width_top = 4
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ox64b"]
-content_margin_left = 48.0
-content_margin_top = 8.0
-content_margin_right = 48.0
-content_margin_bottom = 8.0
-bg_color = Color(0.121569, 0.121569, 0.121569, 1)
-border_width_left = 1
-border_width_right = 1
-border_color = Color(0, 0, 0, 0.67451)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anyoi"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7qx0"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.11, 0.11, 0.11, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anyoi"]
 
 [node name="GameGallery" type="TabContainer"]
 anchors_preset = 15
@@ -50,9 +18,6 @@ offset_left = -1.0
 offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_nd3cx")
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_f77yn")
-theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_ox64b")
 tab_alignment = 1
 all_tabs_in_front = true
 script = ExtResource("1_otdsd")
@@ -63,6 +28,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
 
@@ -120,12 +86,10 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Panel" type="Panel" parent="Settings/ScrollContainer/VBoxContainer"]
-clip_contents = true
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Thanks for using it!"
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7qx0")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/Panel"]
 custom_minimum_size = Vector2(0, 60)
@@ -161,7 +125,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 bbcode_enabled = true
 text = "MvLO Mod Loader
-[color=#aaaaaa]A simple way to keep your mods organized and up to date.
+[color=#686868]A simple way to keep your mods organized and up to date.
 by vlco_o [i]aka vic[/i][/color]"
 fit_content = true
 
@@ -179,9 +143,9 @@ grow_horizontal = 0
 grow_vertical = 0
 rotation = 0.0872665
 pivot_offset = Vector2(49, 65)
-theme_override_colors/font_color = Color(1, 1, 1, 0.0784314)
+theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
 theme_override_font_sizes/font_size = 52
-text = "v1"
+text = "v2"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -189,7 +153,7 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(600, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 1)
 text = "You've got at least % MB worth of installed mods."
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -226,7 +190,7 @@ custom_minimum_size = Vector2(600, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Change the visuals of the UI"
+tooltip_text = "Change the visuals of the UI."
 alignment = 1
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
@@ -241,12 +205,14 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-item_count = 2
+item_count = 3
 selected = 0
 popup/item_0/text = "Default (Dark)"
 popup/item_0/id = 0
-popup/item_1/text = "NSMBDS"
+popup/item_1/text = "NSMB DS"
 popup/item_1/id = 1
+popup/item_2/text = "95"
+popup/item_2/id = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 40)

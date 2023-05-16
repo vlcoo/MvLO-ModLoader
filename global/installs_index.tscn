@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bvjtglvn4vawb"]
+[gd_scene load_steps=8 format=3 uid="uid://bvjtglvn4vawb"]
 
 [ext_resource type="Script" path="res://global/installs_index.gd" id="1_xlf4w"]
-[ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="2_jrw4e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttqvo"]
 draw_center = false
@@ -207,7 +206,7 @@ grow_vertical = 2
 pivot_offset = Vector2(180, 90)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("2_jrw4e")
+theme_type_variation = &"WindowDialog"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -239,7 +238,7 @@ max_value = 1.0
 
 [node name="Label2" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 0.392157)
+theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 1)
 text = "Starting"
 horizontal_alignment = 1
 vertical_alignment = 1

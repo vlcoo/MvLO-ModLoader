@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://ci3wrj8l55xma"]
+[gd_scene load_steps=7 format=3 uid="uid://ci3wrj8l55xma"]
 
 [ext_resource type="Script" path="res://global/content_getter.gd" id="1_cnpe4"]
-[ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="2_tdnhi"]
 
 [sub_resource type="Animation" id="Animation_66wc2"]
 length = 0.001
@@ -196,7 +195,6 @@ grow_vertical = 2
 pivot_offset = Vector2(180, 90)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("2_tdnhi")
 
 [node name="Label" type="RichTextLabel" parent="Panel"]
 clip_contents = false

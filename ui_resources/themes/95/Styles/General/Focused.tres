@@ -1,0 +1,17 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://08jfo0j4bnff"]
+
+[ext_resource type="Texture2D" uid="uid://hn2ti8qc7cg4" path="res://ui_resources/themes/95/Styles/General/Focused.png" id="1"]
+
+[resource]
+texture = ExtResource("1")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 7, 7)

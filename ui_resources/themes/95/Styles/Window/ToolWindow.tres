@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://wy273pts1g6m"]
+
+[ext_resource type="Texture2D" uid="uid://dq45ffbm8p8k2" path="res://ui_resources/themes/95/Styles/Window/ToolWindow.png" id="1"]
+
+[resource]
+content_margin_left = 5.0
+content_margin_top = 25.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+texture = ExtResource("1")
+texture_margin_left = 5.0
+texture_margin_top = 21.0
+texture_margin_right = 5.0
+texture_margin_bottom = 4.0

@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://6mp1uhlvagte"]
+[gd_scene load_steps=4 format=3 uid="uid://6mp1uhlvagte"]
 
-[ext_resource type="StyleBox" uid="uid://b8utkraq5fd3d" path="res://ui_resources/panel_floating.tres" id="1_ls182"]
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_s8udx"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_rlhwq"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://graphics/installed.png" id="4_si2hu"]
@@ -14,7 +13,6 @@ grow_horizontal = 2
 pivot_offset = Vector2(512, 26)
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("1_ls182")
 script = ExtResource("2_s8udx")
 
 [node name="VBoxContainer" type="HBoxContainer" parent="."]
@@ -46,10 +44,10 @@ max_lines_visible = 2
 
 [node name="TextureInstalled" type="TextureRect" parent="VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 self_modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
 layout_mode = 2
+tooltip_text = "One or more versions of this mod are installed."
 texture = ExtResource("4_si2hu")
 stretch_mode = 5
 

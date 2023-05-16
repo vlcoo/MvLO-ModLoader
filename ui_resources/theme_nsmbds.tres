@@ -1,6 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bmx56ym2m5wga"]
-
-[ext_resource type="FontFile" uid="uid://ohdc6gk2sqag" path="res://ui_resources/font_nsmb.ttf" id="1_n3xoy"]
-
-[resource]
-default_font = ExtResource("1_n3xoy")

@@ -32,14 +32,10 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
 
-[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
-offset_right = 0.0
-
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
 
 [node name="Mod Gallery" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -59,8 +55,8 @@ horizontal_scroll_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 6
+size_flags_vertical = 6
 theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 24
 
@@ -129,6 +125,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -188,7 +185,7 @@ mouse_filter = 1
 bbcode_enabled = true
 text = "MvLO Mod Loader
 [color=#686868]A simple way to keep your mods organized and up to date.
-by vlco_o [i]aka vic[/i][/color]"
+by vlco_o - aka vic[/color]"
 fit_content = true
 
 [node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/Panel"]

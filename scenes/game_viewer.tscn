@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3kkysnadc0mx"]
+[gd_scene load_steps=18 format=3 uid="uid://b3kkysnadc0mx"]
 
 [ext_resource type="Shader" path="res://ui_resources/blurry_panel.gdshader" id="1_bqqot"]
 [ext_resource type="Script" path="res://scenes/game_viewer.gd" id="1_ojtji"]
 [ext_resource type="FontFile" uid="uid://mjr5gssrsd45" path="res://ui_resources/font_fontawesome.woff2" id="2_2urf7"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_3v6xj"]
+[ext_resource type="Texture2D" uid="uid://bujgcfkcjmlaf" path="res://graphics/notify.png" id="5_npdat"]
 [ext_resource type="Texture2D" uid="uid://bffl7uvdru6ay" path="res://graphics/install.png" id="5_tum5i"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://graphics/uninstall.png" id="6_2nyk7"]
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://graphics/open.png" id="7_2422p"]
@@ -481,7 +482,7 @@ alignment = 1
 
 [node name="TextureCover" type="TextureRect" parent="PanelOverview/CenterContainer/VBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(260, 300)
+custom_minimum_size = Vector2(290, 290)
 layout_mode = 2
 texture = ExtResource("3_3v6xj")
 expand_mode = 5
@@ -545,20 +546,22 @@ clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
-theme_override_constants/v_separation = 8
+theme_override_constants/v_separation = 16
 max_text_lines = 2
 auto_height = true
 item_count = 1
 item_0/text = "No data."
 
 [node name="CheckButton" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
 tooltip_text = "Notify when a new release for this mod has been uploaded."
+theme_override_constants/h_separation = 16
 text = "Subscribe for updates"
+icon = ExtResource("5_npdat")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
 layout_mode = 2

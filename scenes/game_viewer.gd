@@ -44,11 +44,12 @@ func refresh_mod_data() -> void:
 	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
 	item_list.add_item(mod_data.description, mod_data.icon)
-	item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
-	item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))
+	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
+	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))
 	var icon_discord: Texture2D = preload("res://graphics/discord.png")
-	for server in mod_data.link_discord:
-		item_list.add_item(server, icon_discord)
+	if mod_data.link_discord.size() != 0:
+		for server in mod_data.link_discord:
+			item_list.add_item(server, icon_discord)
 
 	$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture

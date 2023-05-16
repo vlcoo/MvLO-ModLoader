@@ -74,9 +74,12 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	for filename in dir.get_files():	# for each mod in the database...
 		var mod_id: String = filename.replace(".tres", "")
 		var data: ModData = load(dir.get_current_dir() + "/" + filename)
-		data.cover_image = load("user://DB/" + mod_id + "C.png")
+		var tmp_image: Image = Image.new()
+		tmp_image.load("user://DB/" + mod_id + "C.png")
+		data.cover_image = ImageTexture.create_from_image(tmp_image)
 		if FileAccess.file_exists("user://DB/" + mod_id + "I.png"):
-			data.icon = load("user://DB/" + mod_id + "I.png")
+			tmp_image.load("user://DB/" + mod_id + "I.png")
+			data.icon = ImageTexture.create_from_image(tmp_image)
 		if json != null:
 			var max_ts: int = 0
 			data.gamefile_urls = json[mod_id]

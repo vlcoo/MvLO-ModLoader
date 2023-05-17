@@ -18,6 +18,8 @@ var timestamp: String = "0"
 @export var abbreviation: String
 ## Who made this mod.
 @export var author: String
+## The version of the base game this mod was based on.
+@export var base_version: String = "?"
 ## Blurb explaining what this mod has to offer.
 @export_multiline var description: String
 ## Websites of interest.

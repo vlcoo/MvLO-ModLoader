@@ -48,6 +48,7 @@ self_modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
 layout_mode = 2
 tooltip_text = "One or more versions of this mod are installed."
+mouse_filter = 0
 texture = ExtResource("4_si2hu")
 stretch_mode = 5
 

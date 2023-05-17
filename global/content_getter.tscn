@@ -195,6 +195,7 @@ grow_vertical = 2
 pivot_offset = Vector2(180, 90)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_type_variation = &"WindowDialog"
 
 [node name="Label" type="RichTextLabel" parent="Panel"]
 clip_contents = false
@@ -205,7 +206,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "[center][wave amp=36]Updating cache,
 please wait!"

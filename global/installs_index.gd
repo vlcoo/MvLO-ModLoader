@@ -89,7 +89,7 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 			elif filename.ends_with(".exe") and not filename.to_lower().contains("crashhandler"):
 				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
 				install_needs_wizard = false
-			elif filename.ends_with(".app"):
+			elif filename.contains("Contents/MacOS") and not filename.ends_with("MacOS/"):
 				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
 				install_needs_wizard = false
 
@@ -102,6 +102,8 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 	emit_signal("operation_done", true, "install")
 	_save_index_to_file()
 	$AnimationPlayer.play("out")
+
+	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. \"Launch\" will not work.")
 
 
 func launch(mod_id: String, version: String, platform: String) -> void:
@@ -117,11 +119,10 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 	elif inst.executable_path.ends_with(".exe"):
 		command = Configurator.get_config("args_windows")
 		if Configurator.os_name != "Windows": os_mismatch = true
-	elif inst.executable_path.ends_with(".app"):
+	elif inst.executable_path.contains("Contents/MacOS"):
 		command = Configurator.get_config("args_macos")
 		if Configurator.os_name != "macOS": os_mismatch = true
-	else:
-		if Configurator.os_name != "macOS": os_mismatch = true
+	else: return
 
 	if os_mismatch:
 		warn("You tried launching a version of a mod not built for your OS. This might not work.")
@@ -148,7 +149,10 @@ func show_file_explorer(mod_id: String, version: String, platform: String) -> vo
 	# verify integrity and open file explorer...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == {}: return
-	OS.shell_open(("file:/" if Configurator.os_name == "macOS" else "") + ProjectSettings.globalize_path(inst.dltmp_path))
+	if Configurator.os_name == "macOS":
+		OS.create_process("open", [ProjectSettings.globalize_path(inst.dltmp_path)])
+	else:
+		OS.shell_open(ProjectSettings.globalize_path(inst.dltmp_path))
 
 
 func is_installed(mod_id: String, version: String, platform: String) -> int:

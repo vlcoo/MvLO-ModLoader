@@ -44,6 +44,7 @@ func refresh_mod_data() -> void:
 	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
 	item_list.add_item(mod_data.description, mod_data.icon)
+	if mod_data_id != "vanilla": item_list.add_item("Based on version " + mod_data.base_version)
 	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
 	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))
 	var icon_discord: Texture2D = preload("res://graphics/discord.png")

@@ -225,7 +225,7 @@ alignment = 1
 [node name="Label" type="RichTextLabel" parent="Panel/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "[center][wave amp=36]Operation in progress..."
 fit_content = true

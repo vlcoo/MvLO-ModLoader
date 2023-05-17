@@ -25,7 +25,6 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -46,10 +45,10 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 [node name="ContainerBig" type="MarginContainer" parent="Mod Gallery"]
 clip_contents = true
 layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Mod Gallery/ContainerBig"]
 clip_contents = false
@@ -138,6 +137,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -216,7 +216,9 @@ rotation = 0.0872665
 pivot_offset = Vector2(49, 65)
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
 theme_override_font_sizes/font_size = 52
-text = "v2"
+text = "version
+only for
+akselai :)"
 horizontal_alignment = 2
 vertical_alignment = 2
 

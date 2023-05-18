@@ -81,6 +81,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 			tmp_image.load("user://DB/" + mod_id + "I.png")
 			data.icon = ImageTexture.create_from_image(tmp_image)
 		if json != null:
+			if not json.has(mod_id): continue
 			var max_ts: int = 0
 			data.gamefile_urls = json[mod_id]
 			for version in data.gamefile_urls:

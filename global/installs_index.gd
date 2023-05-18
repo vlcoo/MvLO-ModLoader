@@ -89,7 +89,7 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 			elif filename.ends_with(".exe") and not filename.to_lower().contains("crashhandler"):
 				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
 				install_needs_wizard = false
-			elif filename.contains("Contents/MacOS") and not filename.ends_with("MacOS/"):
+			elif filename.ends_with(".app"):
 				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
 				install_needs_wizard = false
 
@@ -119,7 +119,7 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 	elif inst.executable_path.ends_with(".exe"):
 		command = Configurator.get_config("args_windows")
 		if Configurator.os_name != "Windows": os_mismatch = true
-	elif inst.executable_path.contains("Contents/MacOS"):
+	elif inst.executable_path.ends_with(".app"):
 		command = Configurator.get_config("args_macos")
 		if Configurator.os_name != "macOS": os_mismatch = true
 	else: return

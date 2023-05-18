@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var vercode: int = 1
+var vercode: int = 2
 
 signal updated
 
@@ -21,4 +21,4 @@ func _self_update(update_info: SelfUpdaterUpdate) -> void:
 
 
 func _on_accept_dialog_confirmed() -> void:
-	OS.shell_open("https://github.com/vlcoo/mvlo-ModLoader/releases/tag/updatertest")
+	OS.shell_open("https://github.com/vlcoo/MvLO-ModLoader/releases/latest")

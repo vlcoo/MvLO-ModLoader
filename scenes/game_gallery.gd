@@ -157,7 +157,7 @@ func _on_button_launch_pressed() -> void:
 	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
 	button_launch.text = "Loading"
 	button_launch.disabled = true
-	$Installs/MarginContainer/VBoxContainer/HBoxContainer2/TimerLoading.start()
+	$"Storage Usage"/MarginContainer/VBoxContainer/HBoxContainer2/TimerLoading.start()
 
 
 func _on_button_browse_pressed() -> void:

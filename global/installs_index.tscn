@@ -248,7 +248,7 @@ initial_position = 2
 size = Vector2i(226, 100)
 
 [node name="TimerUpdateProgressbar" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "wait_hidden"

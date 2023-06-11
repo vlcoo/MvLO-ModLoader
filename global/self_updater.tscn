@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhxcjsv8mjlk5"]
+[gd_scene load_steps=2 format=3 uid="uid://dpbwgde7rwqco"]
 
 [ext_resource type="Script" path="res://global/self_updater.gd" id="1_1cvwr"]
 

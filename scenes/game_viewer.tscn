@@ -565,10 +565,10 @@ layout_mode = 2
 texture = ExtResource("5_6rlty")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer3"]
+[node name="LabelTimer" type="Label" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Played for 6592 hours."
+text = "Never played."
 vertical_alignment = 1
 
 [node name="CheckButton" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer"]
@@ -670,6 +670,9 @@ libraries = {
 wait_time = 5.0
 one_shot = true
 
+[node name="TimerKilling" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="item_activated" from="PanelDetail/CenterContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
@@ -680,3 +683,4 @@ one_shot = true
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch" to="." method="_on_button_launch_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonBrowse" to="." method="_on_button_browse_pressed"]
 [connection signal="timeout" from="TimerLoading" to="." method="_on_timer_loading_timeout"]
+[connection signal="timeout" from="TimerKilling" to="." method="_on_timer_killing_timeout"]

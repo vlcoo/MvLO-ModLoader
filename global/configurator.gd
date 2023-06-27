@@ -1,6 +1,7 @@
 extends Node
 
 const CONFIG_PATH: String = "user://settings.ini"
+const PROCESS_TIMER_TIME: int = 10
 var themes: Array[Theme] = [
 	preload("res://ui_resources/themes/DefaultDark.tres"),
 	preload("res://ui_resources/themes/NSMBDS.tres"),
@@ -17,12 +18,19 @@ var timestamp: String
 var config = ConfigFile.new()
 var cache_is_old: bool
 
+var current_processes: Array[ModProcess] = []
+var process_timer: Timer = Timer.new()
+signal process_ended
+
 
 func _ready() -> void:
 	tree_exiting.connect(_on_tree_exiting)
 	ready.connect(_on_ready)
 	os_name = OS.get_name()
 	timestamp = str(int(Time.get_unix_time_from_system()))
+
+	add_child(process_timer)
+	process_timer.timeout.connect(_on_timer_timeout)
 
 	var err: Error = config.load(CONFIG_PATH)
 	if err != OK:
@@ -44,11 +52,46 @@ func _on_tree_exiting() -> void:
 	config.save(CONFIG_PATH)
 
 
+func _on_timer_timeout() -> void:
+	for process in current_processes:
+		if OS.is_process_running(process.pid):
+			process.delta_timer_seconds += PROCESS_TIMER_TIME
+		else:
+			config.set_value("mod_timers", process.mod_id, int(config.get_value("mod_timers", process.mod_id, 0)) + process.delta_timer_seconds)
+			current_processes.erase(process)
+			emit_signal("process_ended")
+			if current_processes.is_empty(): process_timer.stop()
+		print(process.delta_timer_seconds)
+
+
+func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:
+	print("Adding process " + str(pid) + " for mod " + mod_id + "!")
+	var current_process: ModProcess = ModProcess.new()
+	current_process.pid = pid
+	current_process.mod_id = mod_id
+	current_process.platform = platform
+	current_process.version = version
+	current_processes.append(current_process)
+	process_timer.start(PROCESS_TIMER_TIME)
+
+
+func get_mod_pid(mod_id: String, version: String, platform: String) -> int:
+	for process in current_processes:
+		if process.mod_id == mod_id and process.version == version and process.platform == platform:
+			return process.pid
+
+	return -1
+
+
 func get_config(variable: String) -> Variant:
 	return config.get_value("general", variable, "")
 
 func set_config(variable: String, value: Variant) -> void:
 	config.set_value("general", variable, value)
+
+
+func get_timer_mod(mod_id: String) -> int:
+	return config.get_value("mod_timers", mod_id, 0)
 
 
 func get_ts_mod(mod_id: String) -> String:

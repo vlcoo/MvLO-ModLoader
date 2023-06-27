@@ -4,6 +4,7 @@ extends Panel
 @onready var label_title: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelTitle
 @onready var label_subtitle: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelSubtitle
 @onready var item_list: ItemList = $PanelDetail/CenterContainer/VBoxContainer/ItemList
+@onready var label_timer: Label = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer3/LabelTimer
 @onready var options_version: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsVersion
 @onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform
 @onready var button_install: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall
@@ -16,17 +17,22 @@ var nodata_texture: Texture2D = preload("res://graphics/nodata.png")
 var platform_apple_texture: Texture2D = preload("res://graphics/apple.png")
 var platform_linux_texture: Texture2D = preload("res://graphics/linux.png")
 var platform_windows_texture: Texture2D = preload("res://graphics/windows.png")
+var fire_texture: Texture2D = preload("res://graphics/fire.png")
+var uninstall_texture: Texture2D = preload("res://graphics/uninstall.png")
 
 @export var mod_data_id: String
 @export var auto_refresh: bool = true
 var mod_data: ModData
 var texture_installed: Texture2D
+var is_mod_running: bool = false
 
 
 func _ready() -> void:
 	if auto_refresh && mod_data_id != "":
 		mod_data_id = Configurator.remembered_mod_idx
 		refresh_mod_data()
+
+	Configurator.process_ended.connect(_on_mod_closed)
 
 
 func _on_button_back_pressed() -> void:
@@ -52,6 +58,14 @@ func refresh_mod_data() -> void:
 	if mod_data.link_discord.size() != 0:
 		for server in mod_data.link_discord:
 			item_list.add_item(server, icon_discord)
+
+	var time_played_seconds = Configurator.get_timer_mod(mod_data_id)
+	if time_played_seconds <= 0:
+		label_timer.text = "Never played."
+	elif time_played_seconds >= 60 and time_played_seconds < 3600:
+		label_timer.text = "Played for " + str(time_played_seconds / 60) + " minute" + ("" if time_played_seconds < 120 else "s") + "."
+	elif time_played_seconds >= 3600:
+		label_timer.text = "Played for " + str(time_played_seconds / 3600) + " hour" + ("" if time_played_seconds < 7200 else "s") + "."
 
 	$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
@@ -90,7 +104,7 @@ func _on_options_version_item_selected(index: int) -> void:
 
 func _on_options_platform_item_selected(index: int) -> void:
 	var already_installed = (InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index)) & (InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_INDEX)) == 0
-	set_buttons_state(already_installed)
+	set_buttons_state(already_installed, Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected)) != -1)
 
 
 func get_platform_icon(filename: String) -> Texture2D:
@@ -106,12 +120,15 @@ func get_platform_icon(filename: String) -> Texture2D:
 	return null
 
 
-func set_buttons_state(installed: bool) -> void:
+func set_buttons_state(installed: bool, running: bool = false) -> void:
 	button_install.disabled = installed
 	button_install.visible = not installed
 	button_uninstall.visible = installed
 	button_launch.visible = installed
 	button_browse.visible = installed
+
+	button_uninstall.text = "Kill process" if running else "Uninstall"
+	button_uninstall.icon = fire_texture if running else uninstall_texture
 
 
 func _on_button_install_pressed() -> void:
@@ -121,15 +138,26 @@ func _on_button_install_pressed() -> void:
 
 
 func _on_button_launch_pressed() -> void:
-	InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+	InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected), true)
 	button_launch.text = "Loading"
 	button_launch.disabled = true
 	$TimerLoading.start()
+	button_uninstall.text = "Kill process"
+	button_uninstall.icon = fire_texture
+	button_uninstall.disabled = true
 
 
 func _on_button_uninstall_pressed() -> void:
-	InstallsIndex.uninstall(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
-	_on_options_platform_item_selected(options_platform.selected)
+	var pid = Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+
+	if pid == -1:
+		InstallsIndex.uninstall(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+		_on_options_platform_item_selected(options_platform.selected)
+	else:
+		OS.kill(pid)
+		button_uninstall.disabled = true
+		button_uninstall.text = "Closing game"
+		$TimerKilling.start()
 
 
 func _on_button_browse_pressed() -> void:
@@ -153,7 +181,22 @@ func _on_timer_loading_timeout() -> void:
 	if button_launch.disabled and button_launch.visible and button_launch.text == "Loading":
 		button_launch.disabled = false
 		button_launch.text = "Launch"
+		button_uninstall.disabled = false
 
 
 func _on_check_button_toggled(button_pressed: bool) -> void:
 	Configurator.set_ts_mod(mod_data_id, mod_data.timestamp if button_pressed else "")
+
+
+func _on_timer_killing_timeout() -> void:
+	if button_uninstall.disabled and button_uninstall.visible and button_uninstall.text == "Closing game":
+		button_uninstall.disabled = false
+		button_uninstall.text = "Uninstall"
+		button_uninstall.icon = uninstall_texture
+
+
+func _on_mod_closed() -> void:
+	var is_current_running = Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected)) != -1
+
+	if not is_current_running and button_uninstall.text != "Uninstall":
+		set_buttons_state(true, false)

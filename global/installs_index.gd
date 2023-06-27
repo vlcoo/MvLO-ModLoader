@@ -94,7 +94,8 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 				install_needs_wizard = false
 
 	install_in_progress.size = FileAccess.open(install_in_progress.dltmp_path + "game", FileAccess.READ).get_length()
-	DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
+	# DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
+	OS.move_to_trash(ProjectSettings.globalize_path(install_in_progress.dltmp_path + "game"))
 
 	reader.close()
 	index.installs.append(install_in_progress)
@@ -106,10 +107,10 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. \"Launch\" will not work.")
 
 
-func launch(mod_id: String, version: String, platform: String) -> void:
+func launch(mod_id: String, version: String, platform: String, register_process: bool = false) -> void:
 	# verify integrity and execute...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
-	if inst == null:
+	if inst == {}:
 		warn("Install is incomplete or has been tampered with.")
 		return
 	var command: String = ""
@@ -131,11 +132,15 @@ func launch(mod_id: String, version: String, platform: String) -> void:
 
 	var globalized_path: String = ProjectSettings.globalize_path(inst.executable_path)
 	if Configurator.os_name == "macOS": globalized_path = "file:/" + globalized_path
+	var pid: int = -1
 
 	if command in ["", null]:
-		OS.create_process(globalized_path, [])
+		pid = OS.create_process(globalized_path, [])
 	else:
-		OS.create_process(command, [globalized_path])
+		pid = OS.create_process(command, [globalized_path])
+
+	if not register_process: return
+	Configurator.add_process(mod_id, version, platform, pid)
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:

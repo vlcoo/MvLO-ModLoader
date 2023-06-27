@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpdvlljv8naiv"]
+[gd_scene load_steps=11 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
+[ext_resource type="Script" path="res://global/custom_resources/SmoothScroller.gd" id="3_btgm0"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://graphics/uninstall.png" id="3_ypist"]
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://graphics/open.png" id="4_rmi0h"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://graphics/browse.png" id="5_1oou1"]
@@ -25,6 +26,7 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -38,7 +40,6 @@ auto_refresh = false
 visible = false
 
 [node name="Mod Gallery" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -55,6 +56,10 @@ clip_contents = false
 layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
+script = ExtResource("3_btgm0")
+speed = 10.0
+damping_scroll = 0.3
+damping_drag = 0.3
 
 [node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer"]
 layout_mode = 2
@@ -216,12 +221,12 @@ rotation = 0.0872665
 pivot_offset = Vector2(49, 65)
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
 theme_override_font_sizes/font_size = 52
-text = "v2"
+text = "v3"
 horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -230,16 +235,16 @@ instead of a grid of big buttons."
 text = "Use list view for mod gallery"
 
 [node name="CheckButton2" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Remember the mod or tab you were on when closing
-and show that one when booting up the program."
+tooltip_text = "Remember the game you were viewing when exiting
+and reopen that one when booting up the program."
 text = "Open last viewed game on restart"
 
 [node name="CheckButton3" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -248,7 +253,7 @@ they differ from your device's one."
 text = "Show all platforms"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -276,8 +281,40 @@ popup/item_1/id = 1
 popup/item_2/text = "95"
 popup/item_2/id = 2
 
+[node name="HBoxContainer5" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(700, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "If a game exported for macOS is launched, use these extra parameters before the filename when executing the command.
+i.e.: [extra args] vcmi.app"
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "Install location"
+vertical_alignment = 1
+
+[node name="LineEdit3" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+size_flags_stretch_ratio = 0.8
+mouse_filter = 1
+text = "Unchanged"
+editable = false
+
+[node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "Browse..."
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -301,7 +338,7 @@ mouse_filter = 1
 placeholder_text = "ENTER to save"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -325,7 +362,7 @@ mouse_filter = 1
 placeholder_text = "ENTER to save"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -348,14 +385,57 @@ size_flags_vertical = 5
 mouse_filter = 1
 placeholder_text = "ENTER to save"
 
-[node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(220, 40)
+[node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.517647)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
+layout_mode = 2
+text = "Troubleshooting"
+horizontal_alignment = 1
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(700, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "If a game exported for macOS is launched, use these extra parameters before the filename when executing the command.
+i.e.: [extra args] vcmi.app"
+alignment = 1
+
+[node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Force download of database for next program restart.
 Don't use if not strictly necessary!"
-text = "Schedule cache update"
+text = "Update DB"
+
+[node name="Button2" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Delete downloaded database (data and images for mod gallery)."
+text = "Delete DB"
+
+[node name="Button3" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Uninstall every single mod, including vanilla."
+text = "Uninstall all"
+
+[node name="Button4" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Delete cache, installs and restore settings to default."
+text = "Clear userdata"
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]
@@ -369,9 +449,10 @@ text = "Schedule cache update"
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2" to="." method="_on_line_edit_2_text_submitted"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
-[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button" to="." method="_on_button_pressed"]
 
 [editable path="Vanilla/GameViewer"]

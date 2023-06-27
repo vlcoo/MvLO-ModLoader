@@ -43,7 +43,8 @@ func refresh_mod_data() -> void:
 	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, Time.get_date_string_from_unix_time(int(mod_data.timestamp))]
 	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
-	item_list.add_item(mod_data.description, mod_data.icon)
+	if mod_data.description != "": item_list.add_item(mod_data.description, mod_data.icon)
+	else: item_list.add_item("Description unavailable.")
 	if mod_data_id != "vanilla": item_list.add_item("Based on version " + mod_data.base_version)
 	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
 	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))
@@ -76,7 +77,7 @@ func _on_options_version_item_selected(index: int) -> void:
 		var filename: String = asset.to_lower()
 		if (not show_all) and (\
 			(filename.contains("win") and Configurator.os_name != "Windows") or \
-			(filename.contains("linux") and Configurator.os_name != "Linux") or \
+			((filename.contains("linux") or filename.contains("unix")) and Configurator.os_name != "Linux") or \
 			((filename.contains("apple") or filename.contains("mac")) and Configurator.os_name != "macOS") or \
 			(filename.contains("web")) \
 		): continue

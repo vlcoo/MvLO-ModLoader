@@ -109,7 +109,9 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 func launch(mod_id: String, version: String, platform: String) -> void:
 	# verify integrity and execute...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
-	if inst == null: return
+	if inst == null:
+		warn("Install is incomplete or has been tampered with.")
+		return
 	var command: String = ""
 	var os_mismatch = false
 

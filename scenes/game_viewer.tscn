@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3kkysnadc0mx"]
+[gd_scene load_steps=19 format=3 uid="uid://b3kkysnadc0mx"]
 
 [ext_resource type="Shader" path="res://ui_resources/blurry_panel.gdshader" id="1_bqqot"]
 [ext_resource type="Script" path="res://scenes/game_viewer.gd" id="1_ojtji"]
 [ext_resource type="FontFile" uid="uid://mjr5gssrsd45" path="res://ui_resources/font_fontawesome.woff2" id="2_2urf7"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_3v6xj"]
+[ext_resource type="Texture2D" uid="uid://c3ubg4vw13eam" path="res://graphics/clock.png" id="5_6rlty"]
 [ext_resource type="Texture2D" uid="uid://bujgcfkcjmlaf" path="res://graphics/notify.png" id="5_npdat"]
 [ext_resource type="Texture2D" uid="uid://bffl7uvdru6ay" path="res://graphics/install.png" id="5_tum5i"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://graphics/uninstall.png" id="6_2nyk7"]
@@ -552,12 +553,30 @@ auto_height = true
 item_count = 1
 item_0/text = "No data."
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("5_6rlty")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Played for 6592 hours."
+vertical_alignment = 1
+
 [node name="CheckButton" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.04
+size_flags_stretch_ratio = 0.02
 tooltip_text = "Notify when a new release for this mod has been uploaded."
 theme_override_constants/h_separation = 16
 text = "Subscribe for updates"
@@ -567,17 +586,17 @@ icon = ExtResource("5_npdat")
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
-theme_override_constants/separation = 64
+theme_override_constants/separation = 30
 alignment = 1
 
 [node name="OptionsVersion" type="OptionButton" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(240, 40)
+custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
 text_overrun_behavior = 3
 
 [node name="OptionsPlatform" type="OptionButton" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(240, 40)
+custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
 text_overrun_behavior = 3
@@ -587,10 +606,11 @@ icon_alignment = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
-theme_override_constants/separation = 64
+theme_override_constants/separation = 60
 alignment = 1
 
 [node name="ButtonInstall" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2"]
+visible = false
 custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -603,7 +623,6 @@ text = "Install"
 icon = ExtResource("5_tum5i")
 
 [node name="ButtonUninstall" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2"]
-visible = false
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -612,11 +631,11 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = -16
-text = "Uninstall"
+text = "Uninstall
+"
 icon = ExtResource("6_2nyk7")
 
 [node name="ButtonLaunch" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2"]
-visible = false
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -629,7 +648,6 @@ text = "Launch"
 icon = ExtResource("7_2422p")
 
 [node name="ButtonBrowse" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2"]
-visible = false
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4

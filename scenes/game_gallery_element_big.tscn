@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://graphics/installed.png" id="4_dvhyh"]
 
 [node name="Panel" type="Panel"]
-custom_minimum_size = Vector2(150, 210)
+custom_minimum_size = Vector2(150, 200)
 offset_right = 150.0
-offset_bottom = 210.0
+offset_bottom = 180.0
 pivot_offset = Vector2(80, 110)
 size_flags_horizontal = 4
 size_flags_vertical = 4

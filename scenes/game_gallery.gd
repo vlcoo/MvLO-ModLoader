@@ -110,8 +110,8 @@ func _on_line_edit_3_text_submitted(new_text: String) -> void:
 
 func _on_button_pressed() -> void:
 	Configurator.update_timestamp(true)
-	$Settings/ScrollContainer/VBoxContainer/Button.disabled = true
-	$Settings/ScrollContainer/VBoxContainer/Button.text = "Scheduled (next restart)"
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button.disabled = true
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button.text = "Scheduled (next restart)"
 
 
 func _on_tab_changed(tab: int) -> void:

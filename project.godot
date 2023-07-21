@@ -13,9 +13,8 @@ config_version=5
 config/name="MvLO Mod Loader"
 config/description="Customizable mod launcher and auto-updater for MvLO."
 run/main_scene="res://scenes/game_gallery.tscn"
-config/features=PackedStringArray("4.0", "GL Compatibility")
+config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://graphics/nshbBig.png"
-config/tags=PackedStringArray()
 
 [autoload]
 

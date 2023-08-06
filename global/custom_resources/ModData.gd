@@ -21,7 +21,7 @@ var timestamp: String = "0"
 ## One-liner explaining what this mod has to offer.
 @export_multiline var description: String
 ## This option should be enabled if this mod doesn't implement Discord presence status.
-@export var needs_discord_activity: bool
+@export var needs_discord_activity: bool = false
 ## Websites of interest.
 @export_group("Public links", "link_")
 ## URL of the main website of this mod.

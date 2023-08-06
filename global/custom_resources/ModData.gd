@@ -10,8 +10,6 @@ var cover_image: Texture2D
 var gamefile_urls: Dictionary = {}
 var timestamp: String = "0"
 
-## Information about this mod.
-@export_category("Mod Data")
 ## Full name of this mod.
 @export var name: String
 ## Abbreviation, short name or alternative name of this mod.
@@ -20,8 +18,10 @@ var timestamp: String = "0"
 @export var author: String
 ## The version of the base game this mod was based on.
 @export var base_version: String = "?"
-## Blurb explaining what this mod has to offer.
+## One-liner explaining what this mod has to offer.
 @export_multiline var description: String
+## This option should be enabled if this mod doesn't implement Discord presence status.
+@export var needs_discord_activity: bool
 ## Websites of interest.
 @export_group("Public links", "link_")
 ## URL of the main website of this mod.

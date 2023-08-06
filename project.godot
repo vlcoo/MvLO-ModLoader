@@ -22,6 +22,7 @@ SelfUpdater="*res://global/self_updater.tscn"
 Configurator="*res://global/configurator.gd"
 ContentGetter="*res://global/content_getter.tscn"
 InstallsIndex="*res://global/installs_index.tscn"
+DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
 
 [display]
 
@@ -32,7 +33,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg")
 
 [gui]
 

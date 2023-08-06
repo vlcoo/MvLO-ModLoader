@@ -20,6 +20,7 @@ func _ready() -> void:
 	current_mod_game_viewer.get_node("AnimationPlayer").play("out")
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 	current_tab = Configurator.remembered_tab_idx
+	Configurator.set_discord_status(Configurator.DiscordStatus.IN_MENU)
 
 
 func _on_ready() -> void:
@@ -29,7 +30,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos")
-	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery")
+	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
 
 	$Settings/ScrollContainer/VBoxContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
 	if Configurator.get_config("remember_view"):

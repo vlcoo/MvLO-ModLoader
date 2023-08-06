@@ -95,9 +95,9 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 
 	install_in_progress.size = FileAccess.open(install_in_progress.dltmp_path + "game", FileAccess.READ).get_length()
 	# DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
+	reader.close()
 	OS.move_to_trash(ProjectSettings.globalize_path(install_in_progress.dltmp_path + "game"))
 
-	reader.close()
 	index.installs.append(install_in_progress)
 	install_in_progress = {}
 	emit_signal("operation_done", true, "install")
@@ -138,6 +138,8 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 		pid = OS.create_process(globalized_path, [])
 	else:
 		pid = OS.create_process(command, [globalized_path])
+	
+	Configurator.set_discord_status(Configurator.DiscordStatus.IN_GAME, ContentGetter.get_local_moddata(mod_id))
 
 	if not register_process: return
 	Configurator.add_process(mod_id, version, platform, pid)

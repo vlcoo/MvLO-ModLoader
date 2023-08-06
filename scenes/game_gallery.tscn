@@ -26,6 +26,7 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -142,7 +143,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -251,6 +251,35 @@ size_flags_vertical = 4
 tooltip_text = "Include download options for any OS, even if
 they differ from your device's one."
 text = "Show all platforms"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(700, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Provide rich presence for Discord."
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "Discord Game Activity"
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Automatic"
+popup/item_0/id = 0
+popup/item_1/text = "Enabled for all"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled for all"
+popup/item_2/id = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -392,6 +421,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
 layout_mode = 2
+tooltip_text = "Don't use these if not strictly necessary!"
 text = "Troubleshooting"
 horizontal_alignment = 1
 
@@ -409,8 +439,7 @@ custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Force download of database for next program restart.
-Don't use if not strictly necessary!"
+tooltip_text = "Force download of database and restart the program."
 text = "Update DB"
 
 [node name="Button2" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
@@ -448,6 +477,7 @@ text = "Clear userdata"
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
+[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]

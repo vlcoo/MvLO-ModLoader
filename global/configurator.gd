@@ -1,5 +1,7 @@
 extends Node
 
+enum DiscordStatus {IN_MENU, IN_GAME, CLEARED}
+
 const CONFIG_PATH: String = "user://settings.ini"
 const PROCESS_TIMER_TIME: int = 10
 var themes: Array[Theme] = [
@@ -50,6 +52,7 @@ func _on_ready() -> void:
 
 func _on_tree_exiting() -> void:
 	config.save(CONFIG_PATH)
+	set_discord_status(DiscordStatus.CLEARED)
 
 
 func _on_timer_timeout() -> void:
@@ -62,6 +65,27 @@ func _on_timer_timeout() -> void:
 			emit_signal("process_ended")
 			if current_processes.is_empty(): process_timer.stop()
 		print(process.delta_timer_seconds)
+
+
+func set_discord_status(status: DiscordStatus, moddata: ModData = null):
+	match status:
+		DiscordStatus.CLEARED:
+			discord_sdk.clear()
+		DiscordStatus.IN_GAME:
+			if moddata.needs_discord_activity:
+				print("going in")
+				assert(moddata != null, "A valid ModData object is expected if the Discord status is set to 'in-game'.")
+				discord_sdk.app_id = 1137542286788542474
+				discord_sdk.details = "Playing" + " vanilla." if moddata.mod_id == "vanilla" else " a mod."
+				discord_sdk.state = moddata.name
+				discord_sdk.large_image = moddata.mod_id
+			else: set_discord_status(DiscordStatus.CLEARED)
+		DiscordStatus.IN_MENU:
+			discord_sdk.app_id = 1137542286788542474
+			discord_sdk.details = ["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery..."
+			discord_sdk.large_image = "menu"
+	
+	discord_sdk.refresh()
 
 
 func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:
@@ -83,8 +107,8 @@ func get_mod_pid(mod_id: String, version: String, platform: String) -> int:
 	return -1
 
 
-func get_config(variable: String) -> Variant:
-	return config.get_value("general", variable, "")
+func get_config(variable: String, default: Variant = "") -> Variant:
+	return config.get_value("general", variable, default)
 
 func set_config(variable: String, value: Variant) -> void:
 	config.set_value("general", variable, value)

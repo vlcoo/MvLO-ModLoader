@@ -13,7 +13,7 @@ config_version=5
 config/name="MvLO Mod Loader"
 config/description="Customizable mod launcher and auto-updater for MvLO."
 run/main_scene="res://scenes/game_gallery.tscn"
-config/features=PackedStringArray("4.1", "GL Compatibility")
+config/features=PackedStringArray("4.1", "C#", "GL Compatibility")
 config/icon="res://graphics/nshbBig.png"
 
 [autoload]
@@ -23,6 +23,7 @@ Configurator="*res://global/configurator.gd"
 ContentGetter="*res://global/content_getter.tscn"
 InstallsIndex="*res://global/installs_index.tscn"
 DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
+ArchiveHandler="*res://global/ArchiveHandler.cs"
 
 [display]
 

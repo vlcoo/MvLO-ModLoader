@@ -27,21 +27,8 @@ func _on_ready() -> void:
 
 
 func _on_requester_db_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
-	var reader: ZIPReader = ZIPReader.new()
-	var error: Error = reader.open(requester_db.download_file)
-	if error != OK:
-		err("Unpacking failed. " + str(error))
-		return
-
-	for filename in reader.get_files():
-		if filename.ends_with("/"):
-			DirAccess.make_dir_absolute("user://" + filename)
-		else:
-			var file = FileAccess.open("user://" + filename, FileAccess.READ_WRITE if FileAccess.file_exists("user://" + filename) else FileAccess.WRITE)
-			file.store_buffer(reader.read_file(filename))
-
-	reader.close()
-
+	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir())
+	await ArchiveHandler.AllDone
 	db_request_complete = true
 	if gamefiles_request_complete: _populate_moddata_array()
 

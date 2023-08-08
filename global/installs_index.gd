@@ -39,6 +39,7 @@ func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
 	$AnimationPlayer.play("in")
+	l_progress.text = "Starting"
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version

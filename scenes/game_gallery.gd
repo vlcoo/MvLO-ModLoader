@@ -169,3 +169,7 @@ func _on_button_browse_pressed() -> void:
 func _on_timer_loading_timeout() -> void:
 	button_launch.text = "Launch"
 	button_launch.disabled = false
+
+
+func _on_option_button2_item_selected(index: int) -> void:
+	pass # Replace with function body.

@@ -26,7 +26,6 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -143,6 +142,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -477,7 +477,7 @@ text = "Clear userdata"
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
-[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button2_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]

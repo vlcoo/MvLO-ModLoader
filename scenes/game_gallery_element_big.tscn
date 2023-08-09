@@ -22,22 +22,26 @@ offset_left = 6.0
 offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 6
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 texture_filter = 1
+clip_contents = true
 layout_mode = 2
 texture = ExtResource("2_1x41c")
 expand_mode = 4
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
+size_flags_vertical = 1
 text = "N/A"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+text_overrun_behavior = 3
 max_lines_visible = 2
 
 [node name="Button" type="Button" parent="."]

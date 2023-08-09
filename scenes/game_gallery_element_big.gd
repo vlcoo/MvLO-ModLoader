@@ -8,7 +8,7 @@ signal opened
 
 func init_ui(cover: Texture2D, display_name: String) -> void:
 	texture_installed = %TextureInstalled
-	$VBoxContainer/TextureRect.texture = cover
+	if cover != null: $VBoxContainer/TextureRect.texture = cover
 	$VBoxContainer/Label.text = display_name
 	texture_installed.visible = InstallsIndex.mod_is_installed(idx)
 

@@ -92,7 +92,6 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	emit_signal("cache_updated", true)
 	if hide_animation: $AnimationPlayer.play("out")
 	if new_updates_list != "": warn("New updates for mods you're subscribed to!\n" + new_updates_list)
-	pass
 
 
 func _check_dbs_integrity() -> bool:

@@ -41,7 +41,7 @@ func _ready() -> void:
 		# some default values
 		set_config("all_platforms", os_name != "Windows")
 	else:
-		var last_timestamp: String = config.get_value("general", "last_updated")
+		var last_timestamp = config.get_value("general", "last_updated")
 		cache_is_old = _is_last_timestamp_old_enough(int(timestamp), int(last_timestamp))
 
 

@@ -32,6 +32,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos")
 	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text= Configurator.get_config("install_location", "user://")
 
 	$Settings/ScrollContainer/VBoxContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
 	if Configurator.get_config("remember_view"):
@@ -197,8 +198,19 @@ func _on_option_button2_item_selected(index: int) -> void:
 
 
 func _on_button_choose_folder_pressed() -> void:
-	pass # Replace with function body.
+	InstallsIndex.warn("This will set the following folder as the location for any future installs.\nThe previous install location and its contents will be *deleted*.")
+	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
+	$Settings/FileDialog.popup_centered()
 
 
 func _on_button_clear_pressed() -> void:
-	pass # Replace with function body.
+	if Configurator.get_config("install_location", "user://Installs") == "user://Installs": return
+	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location")))
+	Configurator.set_config("install_location", "user://Installs")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = "user://Installs"
+
+
+func _on_file_dialog_dir_selected(dir: String) -> void:
+	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs")))
+	Configurator.set_config("install_location", dir)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = dir

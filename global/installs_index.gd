@@ -13,6 +13,7 @@ const INDEX_PATH: String = "user://Installs/index.tres"
 @onready var itch_requester: HTTPRequest = $HTTPRequestItchURL
 @onready var timer: Timer = $TimerUpdateProgressbar
 @onready var l_progress: Label = $Panel/VBoxContainer/Label2
+@onready var dialog: AcceptDialog = $AcceptDialog
 
 
 var index: InstallsIndexRes
@@ -193,8 +194,8 @@ func _save_index_to_file() -> void:
 
 
 func err(text: String):
-	$AcceptDialog.dialog_text = "Can't install game!\n" + text
-	$AcceptDialog.popup_centered()
+	dialog.dialog_text = "Can't install game!\n" + text
+	dialog.popup_centered()
 	timer.stop()
 	install_in_progress = {}
 	emit_signal("operation_done", false, "")
@@ -202,8 +203,8 @@ func err(text: String):
 
 
 func warn(text: String):
-	$AcceptDialog.dialog_text = text
-	$AcceptDialog.popup_centered()
+	dialog.dialog_text = text
+	dialog.popup_centered()
 
 
 @warning_ignore("integer_division")

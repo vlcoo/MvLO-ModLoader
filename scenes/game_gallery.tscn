@@ -30,7 +30,6 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -147,6 +146,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -471,12 +471,21 @@ tooltip_text = "Uninstall every single mod, including vanilla."
 text = "Uninstall all mods"
 
 [node name="Button4" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
+visible = false
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Restore above options to the default values."
 text = "Reset settings"
+
+[node name="FileDialog" type="FileDialog" parent="Settings"]
+title = "Open a Directory"
+size = Vector2i(700, 400)
+min_size = Vector2i(700, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]
@@ -501,5 +510,6 @@ text = "Reset settings"
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="dir_selected" from="Settings/FileDialog" to="." method="_on_file_dialog_dir_selected"]
 
 [editable path="Vanilla/GameViewer"]

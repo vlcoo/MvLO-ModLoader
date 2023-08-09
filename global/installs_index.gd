@@ -61,43 +61,41 @@ func install(mod_id: String, version: String, platform: String) -> void:
 	if error != OK: err(str(error))
 
 
-func _on_http_request_game_request_completed(_result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+func _on_http_request_game_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	# unpack and add to array...
 	# if it's not zip then check what kind of executable it is!!!
-	l_progress.text = "Unpacking"
+	if result != 0 or response_code != 200:
+		err("Files not available for download. " + str(result) + " " + str(response_code))
+		return
+	
+	l_progress.text = "Extracting"
+	timer.start()
 	await timer.timeout
 	timer.stop()
-
-	var reader: ZIPReader = ZIPReader.new()
-	var error: Error = reader.open(install_in_progress.dltmp_path + "game")
-	if error != OK:
-		err("Service unavailable. " + str(error) + " " + str(response_code))
+	
+	var globalized_dltmp_path: String = ProjectSettings.globalize_path(install_in_progress.dltmp_path)
+	ArchiveHandler.ExtractArchive(globalized_dltmp_path + "game", globalized_dltmp_path)
+	await ArchiveHandler.AllDone
+	var extracted_files: PackedStringArray = ArchiveHandler.GetAllFilesInDirectory(globalized_dltmp_path)
+	if extracted_files.size() == 0:
+		err("Empty archive.")
 		return
-
-	for filename in reader.get_files():
-		if filename.contains("/") and not DirAccess.dir_exists_absolute(install_in_progress.dltmp_path + filename.get_base_dir()):
-			DirAccess.make_dir_recursive_absolute(install_in_progress.dltmp_path + filename.get_base_dir())
-		if not filename.ends_with("/"):
-			var file = FileAccess.open(install_in_progress.dltmp_path + filename, FileAccess.WRITE)
-			if file == null: err("Unpacking downloaded ZIP file failed.")
-			file.store_buffer(reader.read_file(filename))
-
-			if filename.ends_with(".x86_64"):	# do it OS dependant!!!!!!
-				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
-				if Configurator.os_name == "Linux":
-					OS.execute("chmod", ["+x", ProjectSettings.globalize_path(install_in_progress.executable_path)])
-				install_needs_wizard = false
-			elif filename.ends_with(".exe") and not filename.to_lower().contains("crashhandler"):
-				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
-				install_needs_wizard = false
-			elif filename.ends_with(".app"):
-				install_in_progress.executable_path = install_in_progress.dltmp_path + filename
-				install_needs_wizard = false
+	
+	for filename in extracted_files:
+		if filename.ends_with(".x86_64"):	# do it OS dependant!!!!!!
+			install_in_progress.executable_path = filename
+			if Configurator.os_name == "Linux":
+				OS.execute("chmod", ["+x", ProjectSettings.globalize_path(install_in_progress.executable_path)])
+			install_needs_wizard = false
+		elif filename.ends_with(".exe") and not filename.to_lower().contains("crashhandler"):
+			install_in_progress.executable_path = filename
+			install_needs_wizard = false
+		elif filename.ends_with(".app"):
+			install_in_progress.executable_path = filename
+			install_needs_wizard = false
 
 	install_in_progress.size = FileAccess.open(install_in_progress.dltmp_path + "game", FileAccess.READ).get_length()
-	# DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
-	reader.close()
-	OS.move_to_trash(ProjectSettings.globalize_path(install_in_progress.dltmp_path + "game"))
+	DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
 
 	index.installs.append(install_in_progress)
 	install_in_progress = {}
@@ -105,7 +103,7 @@ func _on_http_request_game_request_completed(_result: int, response_code: int, _
 	_save_index_to_file()
 	$AnimationPlayer.play("out")
 
-	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. \"Launch\" will not work.")
+	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
 
 
 func launch(mod_id: String, version: String, platform: String, register_process: bool = false) -> void:
@@ -140,7 +138,7 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	else:
 		pid = OS.create_process(command, [globalized_path])
 	
-	Configurator.set_discord_status(Configurator.DiscordStatus.IN_GAME, ContentGetter.get_local_moddata(mod_id))
+	Configurator.set_discord_status(Configurator.DiscordStatus.IN_GAME, mod_id)
 
 	if not register_process: return
 	Configurator.add_process(mod_id, version, platform, pid)
@@ -195,7 +193,7 @@ func _save_index_to_file() -> void:
 
 
 func err(text: String):
-	$AcceptDialog.dialog_text = "Can't download or install game!\n" + "Cause: " + text
+	$AcceptDialog.dialog_text = "Can't install game!\n" + text
 	$AcceptDialog.popup_centered()
 	timer.stop()
 	install_in_progress = {}
@@ -210,10 +208,14 @@ func warn(text: String):
 
 @warning_ignore("integer_division")
 func _on_timer_update_progressbar_timeout() -> void:
-	l_progress.text = str(requester.get_downloaded_bytes()/1024/1024) + " MB"
+	l_progress.text = str(requester.get_downloaded_bytes()/1024/1024) + " MB downloaded"
 
 
-func _on_http_request_itch_url_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_http_request_itch_url_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if result != 0 or response_code != 200:
+		err("Files not available for download. " + str(result) + " " + str(response_code))
+		return
+	
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	requester.request(json["url"])
 

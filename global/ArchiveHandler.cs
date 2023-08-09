@@ -1,5 +1,7 @@
+using System;
 using Godot;
 using System.IO;
+using Godot.Collections;
 using SharpCompress.Common;
 using SharpCompress.Readers;
 
@@ -22,23 +24,44 @@ public partial class ArchiveHandler : Node
         set => _allDone = value;
     }
 
+    public string Err = "";
+
     public void ExtractArchive(string sourcePath, string destPath)
     {
-        GD.Print("C#: Extracting " + sourcePath + " to " + destPath + "!");
-        using (Stream stream = File.OpenRead(sourcePath))
-        using (var reader = ReaderFactory.Open(stream))
+        GD.Print("C#: Extracting!! " + sourcePath + " >> " + destPath);
+        try
         {
-            while (reader.MoveToNextEntry())
+            using (Stream stream = File.OpenRead(sourcePath))
+            using (var reader = ReaderFactory.Open(stream))
             {
-                if (reader.Entry.IsDirectory) continue;
-                reader.WriteEntryToDirectory(destPath, new ExtractionOptions()
+                while (reader.MoveToNextEntry())
                 {
-                    ExtractFullPath = true,
-                    Overwrite = true
-                });
+                    if (reader.Entry.IsDirectory) continue;
+                    reader.WriteEntryToDirectory(destPath, new ExtractionOptions()
+                    {
+                        ExtractFullPath = true,
+                        Overwrite = true
+                    });
+                }
             }
         }
+        catch (Exception e)
+        {
+            Err = "Unextractable archive.";
+            AllDone = true;
+        }
 
+        Err = "";
         AllDone = true;
+    }
+
+    public Array<string> GetAllFilesInDirectory(string sourcePath)
+    {
+        Array<string> files = new();
+        foreach (string file in Directory.EnumerateFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+        {
+            files.Add(file);
+        }
+        return files;
     }
 }

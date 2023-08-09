@@ -64,22 +64,23 @@ func _on_timer_timeout() -> void:
 			current_processes.erase(process)
 			emit_signal("process_ended")
 			if current_processes.is_empty(): process_timer.stop()
-		print(process.delta_timer_seconds)
 
 
-func set_discord_status(status: DiscordStatus, moddata: ModData = null):
+func set_discord_status(status: DiscordStatus, mod_id: String = ""):
 	match status:
 		DiscordStatus.CLEARED:
 			discord_sdk.clear()
 		DiscordStatus.IN_GAME:
-			if moddata.needs_discord_activity:
-				print("going in")
-				assert(moddata != null, "A valid ModData object is expected if the Discord status is set to 'in-game'.")
-				discord_sdk.app_id = 1137542286788542474
-				discord_sdk.details = "Playing" + " vanilla." if moddata.mod_id == "vanilla" else " a mod."
-				discord_sdk.state = moddata.name
-				discord_sdk.large_image = moddata.mod_id
-			else: set_discord_status(DiscordStatus.CLEARED)
+			var moddata: ModData = ContentGetter.get_local_moddata(mod_id)
+			#if moddata.needs_discord_activity:
+			assert(moddata != null, "An existing mod ID is expected if the Discord status is set to 'in-game'.")
+			print("got in")
+			discord_sdk.app_id = 1137542286788542474
+			discord_sdk.details = "Playing" + " vanilla." if mod_id == "vanilla" else " a mod."
+			discord_sdk.state = moddata.name
+			discord_sdk.large_image = mod_id
+			discord_sdk.large_image_text = moddata.description
+			#else: set_discord_status(DiscordStatus.CLEARED)
 		DiscordStatus.IN_MENU:
 			discord_sdk.app_id = 1137542286788542474
 			discord_sdk.details = ["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery..."
@@ -89,7 +90,6 @@ func set_discord_status(status: DiscordStatus, moddata: ModData = null):
 
 
 func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:
-	print("Adding process " + str(pid) + " for mod " + mod_id + "!")
 	var current_process: ModProcess = ModProcess.new()
 	current_process.pid = pid
 	current_process.mod_id = mod_id

@@ -29,8 +29,11 @@ func _on_ready() -> void:
 func _on_requester_db_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir())
 	await ArchiveHandler.AllDone
-	db_request_complete = true
-	if gamefiles_request_complete: _populate_moddata_array()
+	if ArchiveHandler.Err == "":
+		db_request_complete = true
+		if gamefiles_request_complete: _populate_moddata_array()
+	else:
+		err(ArchiveHandler.Err)
 
 
 func _on_requester_gamefiles_request_completed(_result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
@@ -94,7 +97,7 @@ func get_local_moddata(idx: String) -> ModData:
 
 
 func err(text: String):
-	$AcceptDialog.dialog_text = "Database could not be downloaded! Some info might be out of date.\n" + "Cause: " + text
+	$AcceptDialog.dialog_text = "Database could not be downloaded! Some info might be out of date.\n" + text
 	$AcceptDialog.popup_centered()
 	emit_signal("cache_updated", false)
 	$AnimationPlayer.play("out")

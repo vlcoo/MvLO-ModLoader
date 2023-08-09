@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=12 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -13,6 +13,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anyoi"]
+
+[sub_resource type="FontVariation" id="FontVariation_ny58c"]
+spacing_top = -2
+spacing_bottom = -2
 
 [node name="GameGallery" type="TabContainer"]
 anchors_preset = 15
@@ -158,7 +162,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme_override_constants/separation = 18
+theme_override_constants/separation = 14
 alignment = 1
 
 [node name="Panel" type="Panel" parent="Settings/ScrollContainer/VBoxContainer"]
@@ -226,7 +230,7 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(700, 40)
+custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -235,7 +239,7 @@ instead of a grid of big buttons."
 text = "Use list view for mod gallery"
 
 [node name="CheckButton2" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(700, 40)
+custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -244,7 +248,7 @@ and reopen that one when booting up the program."
 text = "Open last viewed game on restart"
 
 [node name="CheckButton3" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(700, 40)
+custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -274,7 +278,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 item_count = 3
 selected = 0
-popup/item_0/text = "Enabled when playing (auto)"
+popup/item_0/text = "Enabled while playing (auto)"
 popup/item_0/id = 1
 popup/item_1/text = "Enabled only in-menu"
 popup/item_1/id = 0
@@ -315,8 +319,7 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a game exported for macOS is launched, use these extra parameters before the filename when executing the command.
-i.e.: [extra args] vcmi.app"
+tooltip_text = "Custom folder to install mods to."
 alignment = 1
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
@@ -331,16 +334,25 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
-size_flags_stretch_ratio = 0.8
+size_flags_stretch_ratio = 0.59
 mouse_filter = 1
-text = "Unchanged"
+text = "user://"
 editable = false
 
-[node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
+[node name="ButtonChooseFolder" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
-text = "Browse..."
+theme_override_fonts/font = SubResource("FontVariation_ny58c")
+text = "Choose
+folder"
+
+[node name="ButtonClear" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "Clear
+"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -422,6 +434,7 @@ layout_mode = 2
 self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
 layout_mode = 2
 tooltip_text = "Don't use these if not strictly necessary!"
+mouse_filter = 1
 text = "Troubleshooting"
 horizontal_alignment = 1
 
@@ -430,20 +443,19 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a game exported for macOS is launched, use these extra parameters before the filename when executing the command.
-i.e.: [extra args] vcmi.app"
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(140, 40)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Force download of database and restart the program."
-text = "Update DB"
+tooltip_text = "Force update of database (mod data and images) on next program boot."
+text = "Redownload DB"
 
 [node name="Button2" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(140, 40)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -451,20 +463,20 @@ tooltip_text = "Delete downloaded database (data and images for mod gallery)."
 text = "Delete DB"
 
 [node name="Button3" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(140, 40)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Uninstall every single mod, including vanilla."
-text = "Uninstall all"
+text = "Uninstall all mods"
 
 [node name="Button4" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(140, 40)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Delete cache, installs and restore settings to default."
-text = "Clear userdata"
+tooltip_text = "Restore above options to the default values."
+text = "Reset settings"
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]
@@ -480,9 +492,14 @@ text = "Clear userdata"
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button2_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/ButtonChooseFolder" to="." method="_on_button_choose_folder_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/ButtonClear" to="." method="_on_button_clear_pressed"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2" to="." method="_on_line_edit_2_text_submitted"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button4" to="." method="_on_button_4_pressed"]
 
 [editable path="Vanilla/GameViewer"]

@@ -14,6 +14,7 @@ config/name="MvLO Mod Loader"
 config/description="Customizable mod launcher and auto-updater for MvLO."
 run/main_scene="res://scenes/game_gallery.tscn"
 config/features=PackedStringArray("4.1", "C#", "GL Compatibility")
+boot_splash/bg_color=Color(0.179688, 0.179688, 0.179688, 1)
 config/icon="res://graphics/nshbBig.png"
 
 [autoload]

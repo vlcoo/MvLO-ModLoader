@@ -111,9 +111,29 @@ func _on_line_edit_3_text_submitted(new_text: String) -> void:
 
 
 func _on_button_pressed() -> void:
+	# update db
 	Configurator.update_timestamp(true)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button.disabled = true
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button.text = "Scheduled (next restart)"
+
+
+func _on_button_2_pressed() -> void:
+	# delete db
+	OS.move_to_trash(ProjectSettings.globalize_path("user://DB/"))
+	OS.move_to_trash(ProjectSettings.globalize_path("user://DB.zip"))
+	OS.move_to_trash(ProjectSettings.globalize_path("user://DB.tar"))
+	OS.move_to_trash(ProjectSettings.globalize_path("user://DB.gamefiles.json"))
+
+
+func _on_button_3_pressed() -> void:
+	# uninstall mods
+	OS.move_to_trash(ProjectSettings.globalize_path("user://Installs"))
+
+
+func _on_button_4_pressed() -> void:
+	# reset settings
+	Configurator.restore_config()
+	_on_ready()
 
 
 func _on_tab_changed(tab: int) -> void:
@@ -174,3 +194,11 @@ func _on_timer_loading_timeout() -> void:
 
 func _on_option_button2_item_selected(index: int) -> void:
 	Configurator.set_config("discord", index)
+
+
+func _on_button_choose_folder_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_button_clear_pressed() -> void:
+	pass # Replace with function body.

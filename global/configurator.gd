@@ -121,6 +121,12 @@ func get_config(variable: String, default: Variant = "") -> Variant:
 func set_config(variable: String, value: Variant) -> void:
 	config.set_value("general", variable, value)
 
+func restore_config() -> void:
+	OS.move_to_trash(ProjectSettings.globalize_path("user://settings.ini"))
+	config = ConfigFile.new()
+	# some default values
+	set_config("all_platforms", os_name != "Windows")
+
 
 func get_timer_mod(mod_id: String) -> int:
 	return config.get_value("mod_timers", mod_id, 0)

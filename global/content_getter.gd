@@ -1,6 +1,6 @@
 extends Node
 
-const URL_DB: String = "https://github.com/vlcoo/MvLO-ModLoader/raw/main/DB.zip"
+const URL_DB: String = "https://github.com/vlcoo/MvLO-ModLoader/raw/v3-c%23/DB.tar"
 const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 
 @onready var requester_db: HTTPRequest = $HTTPRequestDB
@@ -26,7 +26,13 @@ func _on_ready() -> void:
 		_populate_moddata_array(false)
 
 
-func _on_requester_db_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+func _on_requester_db_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+	if result != 0 or response_code != 200:
+		err("Invalid response. Try again later!")
+		db_request_complete = true
+		if gamefiles_request_complete: _populate_moddata_array()
+		return
+	
 	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir())
 	await ArchiveHandler.AllDone
 	if ArchiveHandler.Err == "":
@@ -36,10 +42,10 @@ func _on_requester_db_request_completed(_result: int, _response_code: int, _head
 		err(ArchiveHandler.Err)
 
 
-func _on_requester_gamefiles_request_completed(_result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
-	if response_code == 0:
+func _on_requester_gamefiles_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+	if result != 0 or response_code != 200:
 		err("Invalid response. Try again later!")
-	elif response_code == 200:
+	else:
 		Configurator.update_timestamp(false)
 	gamefiles_request_complete = true
 	if db_request_complete: _populate_moddata_array()
@@ -55,11 +61,11 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	var new_updates_list: String = ""
 	if dir == null:
 		Configurator.update_timestamp(true)
-		err("DB not present locally! Please restart the program.")
+		err("DB not present locally - please restart the program.")
 		return
 	if json == null:
 		Configurator.update_timestamp(true)
-		err("Service unavailable!")
+		err("Service unavailable.")
 
 	for filename in dir.get_files():	# for each mod in the database...
 		var mod_id: String = filename.replace(".tres", "")
@@ -97,7 +103,7 @@ func get_local_moddata(idx: String) -> ModData:
 
 
 func err(text: String):
-	$AcceptDialog.dialog_text = "Database could not be downloaded! Some info might be out of date.\n" + text
+	$AcceptDialog.dialog_text = "Mod data could not be downloaded! Some info might be out of date.\n" + text
 	$AcceptDialog.popup_centered()
 	emit_signal("cache_updated", false)
 	$AnimationPlayer.play("out")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=11 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -14,10 +14,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anyoi"]
 
-[sub_resource type="FontVariation" id="FontVariation_ny58c"]
-spacing_top = -2
-spacing_bottom = -2
-
 [node name="GameGallery" type="TabContainer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +26,7 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -146,7 +143,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -334,7 +330,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
-size_flags_stretch_ratio = 0.59
+size_flags_stretch_ratio = 0.7
 mouse_filter = 1
 text = "user://"
 editable = false
@@ -342,12 +338,11 @@ editable = false
 [node name="ButtonChooseFolder" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
-theme_override_fonts/font = SubResource("FontVariation_ny58c")
-text = "Choose
-folder"
+size_flags_stretch_ratio = 0.3
+text = "Choose folder"
 
 [node name="ButtonClear" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2

@@ -6,7 +6,9 @@ enum INTEGRITY_RESULT {
 	FAIL_NOT_IN_FILESYSTEM = 2			# the index references to files that don't exist
 }
 
-const INDEX_PATH: String = "user://Installs/index.tres"
+var index_path:
+	get:
+		return Configurator.get_config("install_location", "user://Installs/") + "index.tres"
 
 @onready var progress_bar: ProgressBar = $Panel/VBoxContainer/ProgressBar
 @onready var requester: HTTPRequest = $HTTPRequestGame
@@ -25,7 +27,7 @@ signal operation_done(succeeded: bool, type: String)
 
 func _ready() -> void:
 	# read or create installsindex resource
-	index = load(INDEX_PATH) if ResourceLoader.exists(INDEX_PATH) else InstallsIndexRes.new()
+	index = load(index_path) if ResourceLoader.exists(index_path) else InstallsIndexRes.new()
 
 
 func get_total_installs_size() -> float:
@@ -48,7 +50,7 @@ func install(mod_id: String, version: String, platform: String) -> void:
 	install_in_progress.timestamp = ContentGetter.moddatas[mod_id].gamefile_urls[version][platform]["timestamp"]
 
 	var home_url: String = ContentGetter.moddatas[mod_id].gamefile_urls[version][platform]["url"]
-	var dir_path: String = "user://Installs/" + mod_id + "/" + version + "/" + platform + "/"
+	var dir_path: String = Configurator.get_config("install_location", "user://Installs/") + mod_id + "/" + version + "/" + platform + "/"
 	if not DirAccess.dir_exists_absolute(dir_path): DirAccess.make_dir_recursive_absolute(dir_path)
 	requester.download_file = dir_path + "game"
 	install_in_progress.dltmp_path = dir_path
@@ -166,7 +168,7 @@ func show_file_explorer(mod_id: String, version: String, platform: String) -> vo
 
 func is_installed(mod_id: String, version: String, platform: String) -> int:
 	# check if files exist
-	var in_filesystem = DirAccess.dir_exists_absolute("user://Installs/" + mod_id + "/" + version + "/" + platform)
+	var in_filesystem = DirAccess.dir_exists_absolute(Configurator.get_config("install_location", "user://Installs/") + mod_id + "/" + version + "/" + platform)
 
 	var result: int = INTEGRITY_RESULT.PASS
 	if not _find_install_in_array(mod_id, version, platform) != {}:
@@ -190,7 +192,7 @@ func mod_is_installed(mod_id: String) -> bool:
 
 func _save_index_to_file() -> void:
 	# do that lol
-	ResourceSaver.save(index, INDEX_PATH)
+	ResourceSaver.save(index, index_path)
 
 
 func err(text: String):

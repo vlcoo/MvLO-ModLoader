@@ -128,7 +128,7 @@ func _on_button_2_pressed() -> void:
 
 func _on_button_3_pressed() -> void:
 	# uninstall mods
-	OS.move_to_trash(ProjectSettings.globalize_path("user://Installs"))
+	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs/")))
 
 
 func _on_button_4_pressed() -> void:
@@ -204,13 +204,19 @@ func _on_button_choose_folder_pressed() -> void:
 
 
 func _on_button_clear_pressed() -> void:
-	if Configurator.get_config("install_location", "user://Installs") == "user://Installs": return
+	if Configurator.get_config("install_location", "user://Installs/") == "user://Installs/": return
 	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location")))
-	Configurator.set_config("install_location", "user://Installs")
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = "user://Installs"
+	Configurator.set_config("install_location", "user://Installs/")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = "user://Installs/"
 
 
 func _on_file_dialog_dir_selected(dir: String) -> void:
-	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs")))
+	var dir_access = DirAccess.open(dir)
+	if dir_access.get_files().size() != 0:
+		InstallsIndex.warn("Folder must be empty.")
+		return
+	
+	dir = dir + "/"
+	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs/")))
 	Configurator.set_config("install_location", dir)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = dir

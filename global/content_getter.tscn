@@ -236,12 +236,10 @@ libraries = {
 [node name="HTTPRequestDB" type="HTTPRequest" parent="."]
 download_file = "user://DB.tar"
 download_chunk_size = 4096
-use_threads = true
 
 [node name="HTTPRequestGamefiles" type="HTTPRequest" parent="."]
 download_file = "user://DB.gamefiles.json"
 download_chunk_size = 4096
-use_threads = true
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2

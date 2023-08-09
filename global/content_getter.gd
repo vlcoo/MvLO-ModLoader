@@ -71,8 +71,9 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 		var mod_id: String = filename.replace(".tres", "")
 		var data: ModData = load(dir.get_current_dir() + "/" + filename)
 		var tmp_image: Image = Image.new()
-		tmp_image.load("user://DB/" + mod_id + "C.png")
-		data.cover_image = ImageTexture.create_from_image(tmp_image)
+		if FileAccess.file_exists("user://DB/" + mod_id + "C.png"):
+			tmp_image.load("user://DB/" + mod_id + "C.png")
+			data.cover_image = ImageTexture.create_from_image(tmp_image)
 		if FileAccess.file_exists("user://DB/" + mod_id + "I.png"):
 			tmp_image.load("user://DB/" + mod_id + "I.png")
 			data.icon = ImageTexture.create_from_image(tmp_image)

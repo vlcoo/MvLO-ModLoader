@@ -25,6 +25,7 @@ func _ready() -> void:
 
 func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
 	theme = Configurator.current_theme
 
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows")
@@ -172,4 +173,4 @@ func _on_timer_loading_timeout() -> void:
 
 
 func _on_option_button2_item_selected(index: int) -> void:
-	pass # Replace with function body.
+	Configurator.set_config("discord", index)

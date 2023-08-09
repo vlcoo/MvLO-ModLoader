@@ -63,28 +63,36 @@ func _on_timer_timeout() -> void:
 			config.set_value("mod_timers", process.mod_id, int(config.get_value("mod_timers", process.mod_id, 0)) + process.delta_timer_seconds)
 			current_processes.erase(process)
 			emit_signal("process_ended")
-			if current_processes.is_empty(): process_timer.stop()
+			if current_processes.is_empty(): 
+				process_timer.stop()
+				set_discord_status(DiscordStatus.IN_MENU)
 
 
 func set_discord_status(status: DiscordStatus, mod_id: String = ""):
+	var activity_setting: int = get_config("discord", 0)
+	if activity_setting == 2: return
+	
 	match status:
 		DiscordStatus.CLEARED:
 			discord_sdk.clear()
 		DiscordStatus.IN_GAME:
+			if activity_setting != 0: return
 			var moddata: ModData = ContentGetter.get_local_moddata(mod_id)
-			#if moddata.needs_discord_activity:
-			assert(moddata != null, "An existing mod ID is expected if the Discord status is set to 'in-game'.")
-			print("got in")
-			discord_sdk.app_id = 1137542286788542474
-			discord_sdk.details = "Playing" + " vanilla." if mod_id == "vanilla" else " a mod."
-			discord_sdk.state = moddata.name
-			discord_sdk.large_image = mod_id
-			discord_sdk.large_image_text = moddata.description
-			#else: set_discord_status(DiscordStatus.CLEARED)
+			if moddata.needs_discord_activity:
+				assert(moddata != null, "An existing mod ID is expected if the Discord status is set to 'in-game'.")
+				print("got in")
+				discord_sdk.app_id = 1137542286788542474
+				discord_sdk.details = "Playing" + (" vanilla." if mod_id == "vanilla" else " a mod:")
+				discord_sdk.state = moddata.name
+				discord_sdk.large_image = "nodata" if moddata.cover_image == null else mod_id
+				discord_sdk.large_image_text = moddata.description
+			else: set_discord_status(DiscordStatus.CLEARED)
 		DiscordStatus.IN_MENU:
-			discord_sdk.app_id = 1137542286788542474
-			discord_sdk.details = ["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery..."
-			discord_sdk.large_image = "menu"
+			if activity_setting == 1:
+				discord_sdk.app_id = 1137542286788542474
+				discord_sdk.details = ["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery..."
+				discord_sdk.large_image = "menu"
+			else: set_discord_status(DiscordStatus.CLEARED)
 	
 	discord_sdk.refresh()
 

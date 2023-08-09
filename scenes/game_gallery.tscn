@@ -26,6 +26,7 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -142,7 +143,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -274,11 +274,11 @@ size_flags_horizontal = 3
 mouse_filter = 1
 item_count = 3
 selected = 0
-popup/item_0/text = "Automatic"
-popup/item_0/id = 0
-popup/item_1/text = "Enabled for all"
-popup/item_1/id = 1
-popup/item_2/text = "Disabled for all"
+popup/item_0/text = "Enabled when playing (auto)"
+popup/item_0/id = 1
+popup/item_1/text = "Enabled only in-menu"
+popup/item_1/id = 0
+popup/item_2/text = "Disabled"
 popup/item_2/id = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]

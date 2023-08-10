@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ci3wrj8l55xma"]
+[gd_scene load_steps=8 format=3 uid="uid://ci3wrj8l55xma"]
 
 [ext_resource type="Script" path="res://global/content_getter.gd" id="1_cnpe4"]
+[ext_resource type="AudioStream" uid="uid://q3xyek0guga1" path="res://audiovisual/click.ogg" id="2_7rrkq"]
 
 [sub_resource type="Animation" id="Animation_66wc2"]
 length = 0.001
@@ -78,6 +79,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"grab_focus"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_6gaof"]
@@ -195,6 +210,7 @@ grow_vertical = 2
 pivot_offset = Vector2(180, 90)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 2
 theme_type_variation = &"WindowDialog"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
@@ -249,6 +265,11 @@ size = Vector2i(226, 100)
 wait_time = 0.1
 one_shot = true
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_7rrkq")
+volume_db = -20.0
+max_polyphony = 2
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_requester_db_request_completed"]

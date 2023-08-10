@@ -5,6 +5,7 @@ const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 
 @onready var requester_db: HTTPRequest = $HTTPRequestDB
 @onready var requester_gamefiles: HTTPRequest = $HTTPRequestGamefiles
+@onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
 
 var db_request_complete = false
 var gamefiles_request_complete = false

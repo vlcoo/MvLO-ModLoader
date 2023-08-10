@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://6mp1uhlvagte"]
 
+[ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_gjx1i"]
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_s8udx"]
-[ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://graphics/nodata.png" id="3_rlhwq"]
-[ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://graphics/installed.png" id="4_si2hu"]
+[ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_ghsre"]
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(900, 52)
@@ -13,6 +13,7 @@ grow_horizontal = 2
 pivot_offset = Vector2(512, 26)
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
 script = ExtResource("2_s8udx")
 
 [node name="VBoxContainer" type="HBoxContainer" parent="."]
@@ -30,7 +31,7 @@ alignment = 1
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-texture = ExtResource("3_rlhwq")
+texture = ExtResource("2_gjx1i")
 expand_mode = 3
 stretch_mode = 5
 
@@ -49,7 +50,7 @@ texture_filter = 1
 layout_mode = 2
 tooltip_text = "One or more versions of this mod are installed."
 mouse_filter = 0
-texture = ExtResource("4_si2hu")
+texture = ExtResource("3_ghsre")
 stretch_mode = 5
 
 [node name="Button" type="Button" parent="."]

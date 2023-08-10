@@ -94,7 +94,7 @@ func set_discord_status(status: DiscordStatus, mod_id: String = ""):
 				discord_sdk.large_image = "menu"
 			else: set_discord_status(DiscordStatus.CLEARED)
 	
-	discord_sdk.refresh()
+	if discord_sdk.get_is_discord_working(): discord_sdk.refresh()
 
 
 func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:

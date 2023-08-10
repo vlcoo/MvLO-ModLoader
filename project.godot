@@ -16,7 +16,7 @@ run/main_scene="res://scenes/game_gallery.tscn"
 config/features=PackedStringArray("4.1", "C#", "GL Compatibility")
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0.179688, 0.179688, 0.179688, 1)
-config/icon="res://graphics/nshbBig.png"
+config/icon="res://audiovisual/nshbBig.png"
 
 [autoload]
 

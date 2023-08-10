@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=12 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
 [ext_resource type="Script" path="res://global/custom_resources/SmoothScroller.gd" id="3_btgm0"]
-[ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://graphics/uninstall.png" id="3_ypist"]
-[ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://graphics/open.png" id="4_rmi0h"]
-[ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://graphics/browse.png" id="5_1oou1"]
-[ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://graphics/nshbBig.png" id="6_i64gp"]
+[ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="4_yn4re"]
+[ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="5_0xeke"]
+[ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="6_xk1xd"]
+[ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://audiovisual/nshbBig.png" id="7_rc858"]
+[ext_resource type="AudioStream" uid="uid://cdju4eo5i4kln" path="res://audiovisual/hum.ogg" id="8_dvbsr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
 
@@ -26,6 +27,7 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -58,15 +60,18 @@ follow_focus = true
 horizontal_scroll_mode = 0
 script = ExtResource("3_btgm0")
 speed = 10.0
-damping_scroll = 0.3
-damping_drag = 0.3
+damping_scroll = 0.5
+damping_drag = 0.5
+allow_horizontal_scroll = false
+friction_scroll = 0.8
+friction_drag = 0.8
 
 [node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme_override_constants/h_separation = 40
-theme_override_constants/v_separation = 24
+theme_override_constants/h_separation = 36
+theme_override_constants/v_separation = 20
 
 [node name="GameViewer" parent="Mod Gallery" instance=ExtResource("1_qd0tx")]
 layout_mode = 2
@@ -111,7 +116,7 @@ theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = -16
 text = "Uninstall"
-icon = ExtResource("3_ypist")
+icon = ExtResource("4_yn4re")
 
 [node name="ButtonLaunch" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(160, 40)
@@ -123,7 +128,7 @@ theme_override_colors/icon_normal_color = Color(0.243137, 0.756863, 0.0352941, 1
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = -16
 text = "Launch"
-icon = ExtResource("4_rmi0h")
+icon = ExtResource("5_0xeke")
 
 [node name="ButtonBrowse" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(160, 40)
@@ -135,14 +140,13 @@ theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = -16
 text = "Browse files"
-icon = ExtResource("5_1oou1")
+icon = ExtResource("6_xk1xd")
 
 [node name="TimerLoading" type="Timer" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2"]
 wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -190,7 +194,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("6_i64gp")
+texture = ExtResource("7_rc858")
 expand_mode = 2
 stretch_mode = 5
 
@@ -481,6 +485,9 @@ min_size = Vector2i(700, 400)
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_dvbsr")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]

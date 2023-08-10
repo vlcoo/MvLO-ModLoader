@@ -10,7 +10,7 @@ extends TabContainer
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
-var installed_texture: Texture2D = preload("res://graphics/installed.png")
+var installed_texture: Texture2D = preload("res://audiovisual/installed.png")
 
 var awaited_mod_view: String = ""
 var selected_install: Dictionary = {}

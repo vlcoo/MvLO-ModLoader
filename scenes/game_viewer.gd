@@ -13,12 +13,12 @@ extends Panel
 @onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonBrowse
 
 
-var nodata_texture: Texture2D = preload("res://graphics/nodata.png")
-var platform_apple_texture: Texture2D = preload("res://graphics/apple.png")
-var platform_linux_texture: Texture2D = preload("res://graphics/linux.png")
-var platform_windows_texture: Texture2D = preload("res://graphics/windows.png")
-var fire_texture: Texture2D = preload("res://graphics/fire.png")
-var uninstall_texture: Texture2D = preload("res://graphics/uninstall.png")
+var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
+var platform_apple_texture: Texture2D = preload("res://audiovisual/apple.png")
+var platform_linux_texture: Texture2D = preload("res://audiovisual/linux.png")
+var platform_windows_texture: Texture2D = preload("res://audiovisual/windows.png")
+var fire_texture: Texture2D = preload("res://audiovisual/fire.png")
+var uninstall_texture: Texture2D = preload("res://audiovisual/uninstall.png")
 
 @export var mod_data_id: String
 @export var auto_refresh: bool = true
@@ -39,6 +39,7 @@ func _on_button_back_pressed() -> void:
 	$AnimationPlayer.play("out")
 
 
+@warning_ignore("integer_division")
 func refresh_mod_data() -> void:
 	if mod_data_id != "": mod_data = ContentGetter.get_local_moddata(mod_data_id)
 	if mod_data == null: return
@@ -52,9 +53,9 @@ func refresh_mod_data() -> void:
 	if mod_data.description != "": item_list.add_item(mod_data.description, mod_data.icon)
 	else: item_list.add_item("Description unavailable.")
 	if mod_data_id != "vanilla": item_list.add_item("Based on version " + mod_data.base_version)
-	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://graphics/website.png"))
-	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://graphics/code.png"))
-	var icon_discord: Texture2D = preload("res://graphics/discord.png")
+	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://audiovisual/website.png"))
+	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://audiovisual/code.png"))
+	var icon_discord: Texture2D = preload("res://audiovisual/discord.png")
 	if mod_data.link_discord.size() != 0:
 		for server in mod_data.link_discord:
 			item_list.add_item(server, icon_discord)

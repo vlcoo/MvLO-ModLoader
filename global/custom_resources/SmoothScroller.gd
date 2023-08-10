@@ -92,7 +92,7 @@ func _ready() -> void:
 	if enable_content_dragging_touch or enable_content_dragging_mouse:
 		remove_mouse_filter(content_node)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	calculate_distance()
 	scroll(true, velocity.y, pos.y)
 	scroll(false, velocity.x, pos.x)
@@ -317,16 +317,16 @@ func calculate_distance():
 func stop_frame(vel : float) -> float:
 	# How long it will take to stop scrolling
 	# 0.001 and 0.999 is to ensure that the denominator is not 0
-	var stop_frame = log(just_stop_under/(abs(vel)+0.001))/log(friction*0.999)
+	var frame = log(just_stop_under/(abs(vel)+0.001))/log(friction*0.999)
 	# Clamp and floor
-	stop_frame = floor(max(stop_frame, 0.0))
-	return stop_frame
+	frame = floor(max(frame, 0.0))
+	return frame
 
 func will_stop_within(vertical : bool, vel : float) -> bool:
 	# Calculate stop frame
-	var stop_frame = stop_frame(vel)
+	var frame = stop_frame(vel)
 	# Distance it takes to stop scrolling
-	var stop_distance = vel*(1-pow(friction,stop_frame))/(1-friction)
+	var stop_distance = vel*(1-pow(friction,frame))/(1-friction)
 	# Position it will stop at
 	var stop_pos
 	if vertical:
@@ -366,6 +366,7 @@ func remove_all_children_focus(node : Node):
 
 var debug_gradient = Gradient.new()
 
+@warning_ignore("narrowing_conversion")
 func setup_debug_drawing() -> void:
 	debug_gradient.set_color(0.0, Color.GREEN)
 	debug_gradient.set_color(1.0, Color.RED)
@@ -392,7 +393,7 @@ func draw_debug() -> void:
 ##### API FUNCTIONS
 
 # Scrolls to specific x position
-func scroll_x_to(x_pos: float, duration:float=0.5) -> void:
+func scroll_x_to(x_pos: float, _duration:float=0.5) -> void:
 	if not should_scroll_horizontal(): return
 	velocity.x = 0.0
 	x_pos = clampf(x_pos, self.size.x-content_node.size.x, 0.0)

@@ -17,6 +17,7 @@ var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
 var platform_apple_texture: Texture2D = preload("res://audiovisual/apple.png")
 var platform_linux_texture: Texture2D = preload("res://audiovisual/linux.png")
 var platform_windows_texture: Texture2D = preload("res://audiovisual/windows.png")
+var platform_redirect_texture: Texture2D = preload("res://audiovisual/redirect.png")
 var fire_texture: Texture2D = preload("res://audiovisual/fire.png")
 var uninstall_texture: Texture2D = preload("res://audiovisual/uninstall.png")
 
@@ -117,6 +118,8 @@ func get_platform_icon(filename: String) -> Texture2D:
 		return platform_linux_texture
 	if filename.contains("apple") or filename.contains("mac"):
 		return platform_apple_texture
+	if filename.contains("Redirect ("):
+		return platform_redirect_texture
 
 	return null
 
@@ -133,6 +136,10 @@ func set_buttons_state(installed: bool, running: bool = false) -> void:
 
 
 func _on_button_install_pressed() -> void:
+	if options_platform.get_item_text(options_platform.selected).contains("Redirect ("):
+		InstallsIndex.redirect(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+		return
+	
 	button_install.disabled = true
 	InstallsIndex.operation_done.connect(_on_installs_index_done, CONNECT_ONE_SHOT)
 	InstallsIndex.install(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))

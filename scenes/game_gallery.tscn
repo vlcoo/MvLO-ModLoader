@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=11 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="5_0xeke"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="6_xk1xd"]
 [ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://audiovisual/nshbBig.png" id="7_rc858"]
-[ext_resource type="AudioStream" uid="uid://cdju4eo5i4kln" path="res://audiovisual/hum.ogg" id="8_dvbsr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
 
@@ -27,7 +26,6 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -147,6 +145,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -485,9 +484,6 @@ min_size = Vector2i(700, 400)
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_dvbsr")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]

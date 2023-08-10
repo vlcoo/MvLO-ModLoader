@@ -262,6 +262,10 @@ vertical_alignment = 1
 initial_position = 2
 size = Vector2i(226, 100)
 
+[node name="ConfirmationDialogRedirect" type="ConfirmationDialog" parent="."]
+ok_button_text = "Yes"
+cancel_button_text = "No"
+
 [node name="TimerUpdateProgressbar" type="Timer" parent="."]
 wait_time = 0.1
 
@@ -279,6 +283,7 @@ use_threads = true
 download_chunk_size = 4096
 
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="confirmed" from="ConfirmationDialogRedirect" to="." method="_on_confirmation_dialog_redirect_confirmed"]
 [connection signal="timeout" from="TimerUpdateProgressbar" to="." method="_on_timer_update_progressbar_timeout"]
 [connection signal="request_completed" from="HTTPRequestGame" to="." method="_on_http_request_game_request_completed"]
 [connection signal="request_completed" from="HTTPRequestItchURL" to="." method="_on_http_request_itch_url_request_completed"]

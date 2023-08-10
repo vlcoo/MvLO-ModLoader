@@ -16,11 +16,13 @@ var index_path:
 @onready var timer: Timer = $TimerUpdateProgressbar
 @onready var l_progress: Label = $Panel/VBoxContainer/Label2
 @onready var dialog: AcceptDialog = $AcceptDialog
+@onready var dialog_ask: ConfirmationDialog = $ConfirmationDialogRedirect
 
 
 var index: InstallsIndexRes
 var install_in_progress: Dictionary = {}
 var install_needs_wizard: bool = true
+var redirect_in_progress: String = ""
 
 signal operation_done(succeeded: bool, type: String)
 
@@ -36,6 +38,13 @@ func get_total_installs_size() -> float:
 	for inst in index.installs:
 		if inst.has("size"): mb += inst.size
 	return mb/1024/1024
+
+
+func redirect(mod_id: String, version: String, platform: String) -> void:
+	var redirect_url = ContentGetter.moddatas[mod_id].gamefile_urls[version][platform]["url"]
+	dialog_ask.dialog_text = "This operation will open the following website using your default browser:\n" + redirect_url + "\nContinue?"
+	dialog_ask.popup_centered()
+	redirect_in_progress = redirect_url
 
 
 func install(mod_id: String, version: String, platform: String) -> void:
@@ -225,3 +234,9 @@ func _on_http_request_itch_url_request_completed(result: int, response_code: int
 
 func _on_ready() -> void:
 	$Panel.theme = Configurator.current_theme
+
+
+func _on_confirmation_dialog_redirect_confirmed() -> void:
+	if redirect_in_progress == "": return
+	OS.shell_open(redirect_in_progress)
+	redirect_in_progress = ""

@@ -26,6 +26,7 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -145,7 +146,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -161,7 +161,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme_override_constants/separation = 14
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Panel" type="Panel" parent="Settings/ScrollContainer/VBoxContainer"]
@@ -254,6 +254,37 @@ size_flags_vertical = 4
 tooltip_text = "Include download options for any OS, even if
 they differ from your device's one."
 text = "Show all platforms"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(700, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Order of the elements in the \"Mod Gallery\" tab (descending)."
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "Mod gallery sort"
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+item_count = 4
+selected = 0
+popup/item_0/text = "By default"
+popup/item_0/id = 1
+popup/item_1/text = "Alphabetically"
+popup/item_1/id = 3
+popup/item_2/text = "By most played"
+popup/item_2/id = 0
+popup/item_3/text = "By recently updated"
+popup/item_3/id = 2
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -496,6 +527,7 @@ access = 2
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
+[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton" to="." method="_on_option_button3_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button2_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]

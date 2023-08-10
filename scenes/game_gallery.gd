@@ -26,6 +26,7 @@ func _ready() -> void:
 func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton.selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
 
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows")
@@ -60,14 +61,28 @@ func _repopulate_gallery(element: Resource, cols: int) -> void:
 			gallery.remove_child(child)
 
 	gallery.columns = cols
-	for mod in ContentGetter.moddatas.keys():
-		if mod == "vanilla": continue
+	var mod_array = ContentGetter.moddatas.values()
+	mod_array.sort_custom(_mod_comparator)
+	for mod in mod_array:
+		if mod.idx == "vanilla": continue
 		var child = element.instantiate()
-		var moddata: ModData = ContentGetter.moddatas[mod]
-		child.idx = mod
+		child.idx = mod.idx
 		child.opened.connect(_on_mod_opened)
-		child.init_ui(moddata.cover_image, moddata.name)
+		child.init_ui(mod.cover_image, mod.name)
 		gallery.add_child(child)
+
+
+func _mod_comparator(a, b) -> bool:
+	# a and b are ModDatas
+	match Configurator.get_config("sort", -1):
+		0:	# by name
+			return a.name < b.name
+		1:	# most played
+			return Configurator.get_timer_mod(a.idx) >= Configurator.get_timer_mod(b.idx)
+		2:	# recently updated
+			return int(a.timestamp) >= int(b.timestamp)
+		_:	# by id
+			return a.idx < b.idx
 
 
 func _repopulate_installs_tree() -> void:
@@ -198,7 +213,8 @@ func _on_option_button2_item_selected(index: int) -> void:
 
 
 func _on_button_choose_folder_pressed() -> void:
-	InstallsIndex.warn("This will set the following folder as the location for any future installs.\nThe previous install location and its contents will be *deleted*.")
+	InstallsIndex.warn("This will set the following folder as the location for any future installs.\n \
+	The previous install location and its contents will be *deleted*.")
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	$Settings/FileDialog.popup_centered()
 
@@ -220,3 +236,9 @@ func _on_file_dialog_dir_selected(dir: String) -> void:
 	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs/")))
 	Configurator.set_config("install_location", dir)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = dir
+
+
+func _on_option_button3_item_selected(index: int) -> void:
+	Configurator.set_config("sort", index-1)
+	_repopulate_gallery(gallery_element_list if $Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed \
+	else gallery_element_big, 1 if $Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed else 5)

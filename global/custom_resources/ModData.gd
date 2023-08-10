@@ -4,6 +4,7 @@
 class_name ModData
 extends Resource
 
+var idx: String
 var icon: Texture2D
 var cover_image: Texture2D
 

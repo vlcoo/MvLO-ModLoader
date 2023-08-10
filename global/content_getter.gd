@@ -88,6 +88,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 			data.timestamp = str(max_ts)
 			if Configurator.get_ts_mod(mod_id) != "" and int(data.timestamp) > int(Configurator.get_ts_mod(mod_id)):
 				new_updates_list += "- " + data.name.substr(0, min(data.name.length(), 30)) + "\n"
+		data.idx = mod_id
 		moddatas[mod_id] = data
 
 	emit_signal("cache_updated", true)

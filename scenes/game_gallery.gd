@@ -78,7 +78,7 @@ func _mod_comparator(a, b) -> bool:
 		0:	# by name
 			return a.name < b.name
 		1:	# most played
-			return Configurator.get_timer_mod(a.idx) >= Configurator.get_timer_mod(b.idx)
+			return Configurator.get_timer_mod(a.idx) > Configurator.get_timer_mod(b.idx)
 		2:	# recently updated
 			return int(a.timestamp) >= int(b.timestamp)
 		_:	# by id

@@ -48,12 +48,13 @@ func refresh_mod_data() -> void:
 	$AnimationPlayer.play("in")
 
 	label_title.text = mod_data.name
-	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, Time.get_date_string_from_unix_time(int(mod_data.timestamp))]
+	var last_updated = "Never" if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
+	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, last_updated]
 	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
 	if mod_data.description != "": item_list.add_item(mod_data.description, mod_data.icon)
 	else: item_list.add_item("Description unavailable.")
-	if mod_data_id != "vanilla": item_list.add_item("Based on version " + mod_data.base_version)
+	if mod_data_id != "vanilla" and mod_data.base_version != "?": item_list.add_item("Based on version " + mod_data.base_version)
 	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://audiovisual/website.png"))
 	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://audiovisual/code.png"))
 	var icon_discord: Texture2D = preload("res://audiovisual/discord.png")
@@ -118,7 +119,7 @@ func get_platform_icon(filename: String) -> Texture2D:
 		return platform_linux_texture
 	if filename.contains("apple") or filename.contains("mac"):
 		return platform_apple_texture
-	if filename.contains("Redirect ("):
+	if filename.contains("redirect ("):
 		return platform_redirect_texture
 
 	return null

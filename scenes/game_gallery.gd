@@ -29,9 +29,9 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton.selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
 
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows")
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux")
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows", "")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux", "")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos", "")
 	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text= Configurator.get_config("install_location", "user://")
 
@@ -242,3 +242,7 @@ func _on_option_button3_item_selected(index: int) -> void:
 	Configurator.set_config("sort", index-1)
 	_repopulate_gallery(gallery_element_list if $Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed \
 	else gallery_element_big, 1 if $Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed else 5)
+
+
+func _on_button_5_pressed() -> void:
+	OS.shell_open(ProjectSettings.globalize_path("user://logs"))

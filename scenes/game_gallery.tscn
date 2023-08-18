@@ -26,7 +26,6 @@ tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -146,6 +145,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -499,6 +499,14 @@ size_flags_vertical = 4
 tooltip_text = "Uninstall every single mod, including vanilla."
 text = "Uninstall all mods"
 
+[node name="Button5" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Open the folder containing debug log files."
+text = "Show logs"
+
 [node name="Button4" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
 visible = false
 custom_minimum_size = Vector2(150, 40)
@@ -539,6 +547,7 @@ access = 2
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button5" to="." method="_on_button_5_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button4" to="." method="_on_button_4_pressed"]
 [connection signal="dir_selected" from="Settings/FileDialog" to="." method="_on_file_dialog_dir_selected"]
 

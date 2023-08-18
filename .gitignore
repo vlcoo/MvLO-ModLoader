@@ -4,6 +4,7 @@
 export.cfg
 export_presets.cfg
 DB/
+builds/
 
 # Imported translations (automatically generated from CSV files)
 *.translation

@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using System.IO;
+using System.Threading;
 using Godot.Collections;
 using SharpCompress.Archives;
 using SharpCompress.Common;
@@ -13,28 +14,27 @@ public partial class ArchiveHandler : Node
 
 	public void ExtractArchive(string sourcePath, string destPath, bool archiveIsDb)
 	{
+		var worker = new Thread(() => ExtractArchiveWorker(sourcePath, destPath, archiveIsDb, this));
+		worker.Start();
+	}
+
+	private static void ExtractArchiveWorker(string sourcePath, string destPath, bool archiveIsDb, GodotObject parent)
+	{
 		var err = "";
 		GD.Print($"C#: Extracting!! {sourcePath} >> {destPath}");
 		try
 		{
-			// Extract archive, no matter if it's zip, 7z or rar:
 			var archive = ArchiveFactory.Open(sourcePath);
-			foreach (var entry in archive.Entries)
-			{
-				if (!entry.IsDirectory)
-				{
-					Console.WriteLine(entry.Key);
-					entry.WriteToDirectory(destPath, new ExtractionOptions() { ExtractFullPath = true, Overwrite = true });
-				}
-			}
+			var reader = archive.ExtractAllEntries();
+			reader.WriteAllToDirectory(destPath, new ExtractionOptions() { ExtractFullPath = true, Overwrite = true });
 		}
 		catch (Exception e)
 		{
 			err = $"Extraction failed: {e.Message}";
 		}
 		
-		EmitSignal(SignalName.ExtractionComplete, err, destPath, archiveIsDb);
 		GD.Print("C#: Done.");
+		parent.CallDeferred("emit_signal", SignalName.ExtractionComplete, err, destPath, archiveIsDb);
 	}
 
 	public Array<string> GetAllFilesInDirectory(string sourcePath)

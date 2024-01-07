@@ -6,6 +6,10 @@ enum INTEGRITY_RESULT {
 	FAIL_NOT_IN_FILESYSTEM = 2			# the index references to files that don't exist
 }
 
+enum OPERATION_STATE {
+	IDLE, DOWNLOADING, EXTRACTING
+}
+
 var index_path:
 	get:
 		return Configurator.get_config("install_location", "user://Installs/") + "index.tres"
@@ -24,6 +28,7 @@ var index: InstallsIndexRes
 var install_in_progress: Dictionary = {}
 var install_needs_wizard: bool = true
 var redirect_in_progress: String = ""
+var state: OPERATION_STATE = OPERATION_STATE.IDLE
 
 signal operation_done(succeeded: bool, type: String)
 
@@ -52,6 +57,7 @@ func redirect(mod_id: String, version: String, platform: String) -> void:
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
+	state = OPERATION_STATE.DOWNLOADING
 	animation_player.play("in")
 	l_progress.text = "Starting"
 	install_in_progress = InstallsIndexRes.Install.duplicate()
@@ -82,6 +88,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 		err("Files not available for download. " + str(result) + " " + str(response_code))
 		return
 	
+	state = OPERATION_STATE.EXTRACTING
 	l_progress.text = "Extracting"
 	
 	var globalized_dltmp_path: String = ProjectSettings.globalize_path(install_in_progress.dltmp_path)
@@ -122,6 +129,8 @@ func _on_archive_extraction_complete(message: String, path: String, archiveWasDb
 	emit_signal("operation_done", true, "install")
 	_save_index_to_file()
 	animation_player.play("out")
+	state = OPERATION_STATE.IDLE
+	timer.stop()
 
 	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
 
@@ -219,6 +228,7 @@ func err(text: String):
 	install_in_progress = {}
 	emit_signal("operation_done", false, "")
 	animation_player.play("out")
+	state = OPERATION_STATE.IDLE
 
 
 func warn(text: String):
@@ -228,7 +238,14 @@ func warn(text: String):
 
 @warning_ignore("integer_division")
 func _on_timer_update_progressbar_timeout() -> void:
-	l_progress.text = str(requester.get_downloaded_bytes()/1024/1024) + " MB downloaded"
+	match state:
+		OPERATION_STATE.IDLE:
+			timer.stop()
+		OPERATION_STATE.DOWNLOADING:
+			l_progress.text = str(requester.get_downloaded_bytes()/1024/1024) + " MB downloaded"
+		OPERATION_STATE.EXTRACTING:
+			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
+			l_progress.text = "Extracting"
 
 
 func _on_http_request_itch_url_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:

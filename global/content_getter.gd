@@ -17,6 +17,10 @@ var moddatas: Dictionary = {}
 signal cache_updated(succeeded: bool)
 
 
+func _ready() -> void:
+	ArchiveHandler.ExtractionComplete.connect(_on_archive_extraction_complete)
+
+
 func _on_ready() -> void:
 	$Panel.theme = Configurator.current_theme
 
@@ -36,13 +40,17 @@ func _on_requester_db_request_completed(result: int, response_code: int, _header
 		if gamefiles_request_complete: _populate_moddata_array()
 		return
 	
-	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir())
-	await ArchiveHandler.AllDone
-	if ArchiveHandler.Err == "":
+	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir(), true)
+
+
+func _on_archive_extraction_complete(message: String, path: String, archiveWasDb: bool) -> void:
+	if not archiveWasDb: return
+	
+	if message == "":
 		db_request_complete = true
 		if gamefiles_request_complete: _populate_moddata_array()
 	else:
-		err(ArchiveHandler.Err)
+		err(message)
 
 
 func _on_requester_gamefiles_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:

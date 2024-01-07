@@ -31,6 +31,7 @@ signal operation_done(succeeded: bool, type: String)
 func _ready() -> void:
 	# read or create installsindex resource
 	index = load(index_path) if ResourceLoader.exists(index_path) else InstallsIndexRes.new()
+	ArchiveHandler.ExtractionComplete.connect(_on_archive_extraction_complete)
 
 
 func get_total_installs_size() -> float:
@@ -82,14 +83,20 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 		return
 	
 	l_progress.text = "Extracting"
-	timer.start()
-	await timer.timeout
-	timer.stop()
 	
 	var globalized_dltmp_path: String = ProjectSettings.globalize_path(install_in_progress.dltmp_path)
-	ArchiveHandler.ExtractArchive(globalized_dltmp_path + "game", globalized_dltmp_path)
-	await ArchiveHandler.AllDone
-	var extracted_files: PackedStringArray = ArchiveHandler.GetAllFilesInDirectory(globalized_dltmp_path)
+	if ArchiveHandler.IsArchive(globalized_dltmp_path + "game"):
+		ArchiveHandler.ExtractArchive(globalized_dltmp_path + "game", globalized_dltmp_path, false)
+	else:
+		err("Not implemented! File is not an archive.")
+
+
+func _on_archive_extraction_complete(message: String, path: String, archiveWasDb: bool) -> void:
+	if archiveWasDb: return
+	if message != "":
+		err(message)
+		return
+	var extracted_files: PackedStringArray = ArchiveHandler.GetAllFilesInDirectory(path)
 	if extracted_files.size() == 0:
 		err("Empty archive.")
 		return

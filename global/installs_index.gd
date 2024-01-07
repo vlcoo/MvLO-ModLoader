@@ -17,6 +17,7 @@ var index_path:
 @onready var l_progress: Label = $Panel/VBoxContainer/Label2
 @onready var dialog: AcceptDialog = $AcceptDialog
 @onready var dialog_ask: ConfirmationDialog = $ConfirmationDialogRedirect
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 var index: InstallsIndexRes
@@ -50,7 +51,7 @@ func redirect(mod_id: String, version: String, platform: String) -> void:
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
-	$AnimationPlayer.play("in")
+	animation_player.play("in")
 	l_progress.text = "Starting"
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
@@ -113,7 +114,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 	install_in_progress = {}
 	emit_signal("operation_done", true, "install")
 	_save_index_to_file()
-	$AnimationPlayer.play("out")
+	animation_player.play("out")
 
 	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
 
@@ -210,7 +211,7 @@ func err(text: String):
 	timer.stop()
 	install_in_progress = {}
 	emit_signal("operation_done", false, "")
-	$AnimationPlayer.play("out")
+	animation_player.play("out")
 
 
 func warn(text: String):

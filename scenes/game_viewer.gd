@@ -11,7 +11,7 @@ extends Panel
 @onready var button_launch: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch
 @onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonUninstall
 @onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonBrowse
-
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
 var platform_apple_texture: Texture2D = preload("res://audiovisual/apple.png")
@@ -37,7 +37,7 @@ func _ready() -> void:
 
 
 func _on_button_back_pressed() -> void:
-	$AnimationPlayer.play("out")
+	animation_player.play("out")
 
 
 @warning_ignore("integer_division")
@@ -45,7 +45,7 @@ func refresh_mod_data() -> void:
 	if mod_data_id != "": mod_data = ContentGetter.get_local_moddata(mod_data_id)
 	if mod_data == null: return
 	clear_all()
-	$AnimationPlayer.play("in")
+	animation_player.play("in")
 
 	label_title.text = mod_data.name
 	var last_updated = "Never" if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))

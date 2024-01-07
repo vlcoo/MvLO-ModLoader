@@ -6,6 +6,8 @@ const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 @onready var requester_db: HTTPRequest = $HTTPRequestDB
 @onready var requester_gamefiles: HTTPRequest = $HTTPRequestGamefiles
 @onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var dialog: AcceptDialog = $AcceptDialog
 
 var db_request_complete = false
 var gamefiles_request_complete = false
@@ -19,7 +21,7 @@ func _on_ready() -> void:
 	$Panel.theme = Configurator.current_theme
 
 	if Configurator.cache_is_old or not _check_dbs_integrity():
-		$AnimationPlayer.play("in")
+		animation_player.play("in")
 		var error = requester_db.request(URL_DB) + requester_gamefiles.request(URL_GAMEFILES)
 		if error != OK: err(str(error))
 	else:
@@ -92,7 +94,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 		moddatas[mod_id] = data
 
 	emit_signal("cache_updated", true)
-	if hide_animation: $AnimationPlayer.play("out")
+	if hide_animation: animation_player.play("out")
 	if new_updates_list != "": warn("New updates for mods you're subscribed to!\n" + new_updates_list)
 
 
@@ -105,12 +107,12 @@ func get_local_moddata(idx: String) -> ModData:
 
 
 func err(text: String):
-	$AcceptDialog.dialog_text = "Mod data could not be downloaded! Some info might be out of date.\n" + text
-	$AcceptDialog.popup_centered()
+	dialog.dialog_text = "Mod data could not be downloaded! Some info might be out of date.\n" + text
+	dialog.popup_centered()
 	emit_signal("cache_updated", false)
-	$AnimationPlayer.play("out")
+	animation_player.play("out")
 
 
 func warn(text: String):
-	$AcceptDialog.dialog_text = text
-	$AcceptDialog.popup_centered()
+	dialog.dialog_text = text
+	dialog.popup_centered()

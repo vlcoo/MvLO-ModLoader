@@ -106,8 +106,10 @@ func _on_options_version_item_selected(index: int) -> void:
 
 
 func _on_options_platform_item_selected(index: int) -> void:
-	var already_installed = (InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index)) & (InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_INDEX)) == 0
-	set_buttons_state(already_installed, Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected)) != -1)
+	var integrity_result = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index))
+	var already_installed = integrity_result & (InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_INDEX) == 0
+	var executable_found = integrity_result & InstallsIndex.INTEGRITY_RESULT.FAIL_NO_EXE == 0
+	set_buttons_state(already_installed, Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected)) != -1, executable_found)
 
 
 func get_platform_icon(filename: String) -> Texture2D:
@@ -125,12 +127,13 @@ func get_platform_icon(filename: String) -> Texture2D:
 	return null
 
 
-func set_buttons_state(installed: bool, running: bool = false) -> void:
+func set_buttons_state(installed: bool, running: bool = false, launchable: bool = true) -> void:
 	button_install.disabled = installed
 	button_install.visible = not installed
 	button_uninstall.visible = installed
 	button_launch.visible = installed
 	button_browse.visible = installed
+	button_launch.disabled = not launchable
 
 	button_uninstall.text = "Kill process" if running else "Uninstall"
 	button_uninstall.icon = fire_texture if running else uninstall_texture
@@ -178,7 +181,7 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 
 	match type:
 		"install":
-			set_buttons_state(true)
+			_on_options_platform_item_selected(options_platform.get_index())
 
 
 func _on_item_list_item_activated(index: int) -> void:

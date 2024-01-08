@@ -3,7 +3,8 @@ extends Node
 enum INTEGRITY_RESULT {
 	PASS = 0,					# installed
 	FAIL_NOT_IN_INDEX = 1,		# files may be there but they're not referenced in the index
-	FAIL_NOT_IN_FILESYSTEM = 2			# the index references to files that don't exist
+	FAIL_NOT_IN_FILESYSTEM = 2,	# the index references to files that don't exist
+	FAIL_NO_EXE = 4				# the version downloaded doesn't have an executable for the current OS
 }
 
 enum OPERATION_STATE {
@@ -167,8 +168,11 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	else:
 		pid = OS.create_process(command, [globalized_path])
 	
+	if pid == -1:
+		warn("Couldn't run game! Maybe it's corrupted or incompatible?\nPlease check this mod's Website and attempt installing it manually.")
+		return
+	
 	Configurator.set_discord_status(Configurator.DiscordStatus.IN_GAME, mod_id)
-
 	if not register_process: return
 	Configurator.add_process(mod_id, version, platform, pid)
 
@@ -195,10 +199,13 @@ func show_file_explorer(mod_id: String, version: String, platform: String) -> vo
 func is_installed(mod_id: String, version: String, platform: String) -> int:
 	# check if files exist
 	var in_filesystem = DirAccess.dir_exists_absolute(Configurator.get_config("install_location", "user://Installs/") + mod_id + "/" + version + "/" + platform)
+	var found_install = _find_install_in_array(mod_id, version, platform)
 
 	var result: int = INTEGRITY_RESULT.PASS
-	if not _find_install_in_array(mod_id, version, platform) != {}:
+	if not found_install != {}:
 		result |= INTEGRITY_RESULT.FAIL_NOT_IN_INDEX
+	elif found_install.executable_path == "":
+		result |= INTEGRITY_RESULT.FAIL_NO_EXE
 	if not in_filesystem:
 		result |= INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM
 	return result

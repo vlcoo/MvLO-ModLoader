@@ -2,7 +2,7 @@ extends TabContainer
 
 @onready var vanilla_game_viewer: Panel = $Vanilla/GameViewer
 @onready var current_mod_game_viewer: Panel = $"Mod Gallery/GameViewer"
-@onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/ScrollContainer/GridContainer"
+@onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer/GridMods"
 @onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/Tree"
 @onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall"
 @onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch"
@@ -253,3 +253,5 @@ func _on_button_5_pressed() -> void:
 
 func _on_check_button_4_toggled(toggled_on: bool) -> void:
 	Configurator.set_config("discord-rpc", toggled_on)
+	if not toggled_on: 
+		Configurator.set_discord_status(Configurator.DiscordStatus.CLEARED)

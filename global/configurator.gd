@@ -69,18 +69,15 @@ func _on_timer_timeout() -> void:
 
 
 func set_discord_status(status: DiscordStatus, mod_id: String = ""):
-	var activity_setting: int = get_config("discord", 0)
-	if activity_setting == 2: return
+	if not get_config("discord-rpc", true): return
 	
 	match status:
 		DiscordStatus.CLEARED:
 			DiscordHandler.ClearDiscordStatus(false)
 		DiscordStatus.IN_GAME:
-			if activity_setting != 0: return
 			var moddata: ModData = ContentGetter.get_local_moddata(mod_id)
 			if moddata.needs_discord_activity:
 				assert(moddata != null, "An existing mod ID is expected if the Discord status is set to 'in-game'.")
-				print("got in")
 				DiscordHandler.SetDiscordStatus(
 					"Playing" + (" vanilla." if mod_id == "vanilla" else " a mod:"),
 					moddata.name,
@@ -90,12 +87,13 @@ func set_discord_status(status: DiscordStatus, mod_id: String = ""):
 				)
 			else: set_discord_status(DiscordStatus.CLEARED)
 		DiscordStatus.IN_MENU:
-			if activity_setting == 1:
 				DiscordHandler.SetDiscordStatus(
 					["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery...",
-					"", "menu", "", false
+					"",
+					"menu",
+					"A simple way to keep your mods organized and up to date.",
+					false
 				)
-			else: set_discord_status(DiscordStatus.CLEARED)
 
 
 func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:

@@ -293,12 +293,12 @@ func handle_content_dragging(relative : Vector2):
 	var y_delta = content_node.position.y - drag_start_pos.y
 	var x_delta = content_node.position.x - drag_start_pos.x
 
-	var calculate_velocity = func(distance1: float, distance2: float, delta: float, relative: float) -> float:
-		var vel = relative
+	var calculate_velocity = func(distance1: float, distance2: float, delta: float, rel: float) -> float:
+		var vel = rel
 		if distance1 > 0.0 and min(distance1, delta) > 0.0:
-			vel = relative / (1 + min(distance1, delta) * damping_drag)
+			vel = rel / (1 + min(distance1, delta) * damping_drag)
 		elif distance2 < 0.0 and max(distance2, delta) < 0.0:
-			vel = relative / (1 - max(distance2, delta) * damping_drag)
+			vel = rel / (1 - max(distance2, delta) * damping_drag)
 		return vel
 
 	velocity.y = calculate_velocity.call(top_distance, bottom_distance, y_delta, relative.y)

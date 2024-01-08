@@ -27,7 +27,7 @@ func _on_ready() -> void:
 	set_physics_process(false)
 	$Settings/ScrollContainer/VBoxContainer/Panel/LabelVersion.text = "v" + str(SelfUpdater.vercode)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
+	#$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton.selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
 
@@ -35,6 +35,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux", "")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos", "")
 	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
+	$Settings/ScrollContainer/VBoxContainer/CheckButton4.button_pressed = Configurator.get_config("discord-rpc", true)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text= Configurator.get_config("install_location", "user://")
 
 	$Settings/ScrollContainer/VBoxContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
@@ -248,3 +249,7 @@ func _on_option_button3_item_selected(index: int) -> void:
 
 func _on_button_5_pressed() -> void:
 	OS.shell_open(ProjectSettings.globalize_path("user://logs"))
+
+
+func _on_check_button_4_toggled(toggled_on: bool) -> void:
+	Configurator.set_config("discord-rpc", toggled_on)

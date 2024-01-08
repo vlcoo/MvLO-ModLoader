@@ -43,7 +43,7 @@ func _on_requester_db_request_completed(result: int, response_code: int, _header
 	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir(), true)
 
 
-func _on_archive_extraction_complete(message: String, path: String, archiveWasDb: bool) -> void:
+func _on_archive_extraction_complete(message: String, _path: String, archiveWasDb: bool) -> void:
 	if not archiveWasDb: return
 	
 	if message == "":

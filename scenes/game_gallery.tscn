@@ -23,9 +23,11 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
+current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -34,10 +36,6 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
-
-[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
-offset_right = 0.0
-offset_bottom = 0.0
 
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
@@ -149,7 +147,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -228,7 +225,7 @@ rotation = 0.0872665
 pivot_offset = Vector2(49, 65)
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
 theme_override_font_sizes/font_size = 52
-text = "v3"
+text = "v4"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -258,6 +255,16 @@ size_flags_vertical = 4
 tooltip_text = "Include download options for any OS, even if
 they differ from your device's one."
 text = "Show all platforms"
+
+[node name="CheckButton4" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Include download options for any OS, even if
+they differ from your device's one."
+button_pressed = true
+text = "Discord Game Activity (auto)"
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -291,6 +298,7 @@ popup/item_3/text = "By recently updated"
 popup/item_3/id = 2
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -539,6 +547,7 @@ access = 2
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton4" to="." method="_on_check_button_4_toggled"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton" to="." method="_on_option_button3_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button2_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

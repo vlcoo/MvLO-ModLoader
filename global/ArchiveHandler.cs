@@ -21,7 +21,7 @@ public partial class ArchiveHandler : Node
 	private static void ExtractArchiveWorker(string sourcePath, string destPath, bool archiveIsDb, GodotObject parent)
 	{
 		var err = "";
-		GD.Print($"C#: Extracting!! {sourcePath} >> {destPath}");
+		GD.Print($"C#: Extracting {sourcePath} >> {destPath}...");
 		try
 		{
 			var archive = ArchiveFactory.Open(sourcePath);

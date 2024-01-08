@@ -52,7 +52,7 @@ func _on_ready() -> void:
 
 func _on_tree_exiting() -> void:
 	config.save(CONFIG_PATH)
-	set_discord_status(DiscordStatus.CLEARED)
+	DiscordHandler.ClearDiscordStatus(true)
 
 
 func _on_timer_timeout() -> void:
@@ -74,27 +74,28 @@ func set_discord_status(status: DiscordStatus, mod_id: String = ""):
 	
 	match status:
 		DiscordStatus.CLEARED:
-			discord_sdk.clear()
+			DiscordHandler.ClearDiscordStatus(false)
 		DiscordStatus.IN_GAME:
 			if activity_setting != 0: return
 			var moddata: ModData = ContentGetter.get_local_moddata(mod_id)
 			if moddata.needs_discord_activity:
 				assert(moddata != null, "An existing mod ID is expected if the Discord status is set to 'in-game'.")
 				print("got in")
-				discord_sdk.app_id = 1137542286788542474
-				discord_sdk.details = "Playing" + (" vanilla." if mod_id == "vanilla" else " a mod:")
-				discord_sdk.state = moddata.name
-				discord_sdk.large_image = "nodata" if moddata.cover_image == null else mod_id
-				discord_sdk.large_image_text = moddata.description
+				DiscordHandler.SetDiscordStatus(
+					"Playing" + (" vanilla." if mod_id == "vanilla" else " a mod:"),
+					moddata.name,
+					"nodata" if moddata.cover_image == null else mod_id,
+					moddata.description,
+					true
+				)
 			else: set_discord_status(DiscordStatus.CLEARED)
 		DiscordStatus.IN_MENU:
 			if activity_setting == 1:
-				discord_sdk.app_id = 1137542286788542474
-				discord_sdk.details = ["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery..."
-				discord_sdk.large_image = "menu"
+				DiscordHandler.SetDiscordStatus(
+					["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery...",
+					"", "menu", "", false
+				)
 			else: set_discord_status(DiscordStatus.CLEARED)
-	
-	if discord_sdk.get_is_discord_working(): discord_sdk.refresh()
 
 
 func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:

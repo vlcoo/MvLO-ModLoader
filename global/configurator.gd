@@ -3,7 +3,7 @@ extends Node
 enum DiscordStatus {IN_MENU, IN_GAME, CLEARED}
 
 const CONFIG_PATH: String = "user://settings.ini"
-const PROCESS_TIMER_TIME: int = 10
+const PROCESS_TIMER_TIME: int = 5
 var themes: Array[Theme] = [
 	preload("res://ui_resources/themes/DefaultDark.tres"),
 	preload("res://ui_resources/themes/NSMBDS.tres"),

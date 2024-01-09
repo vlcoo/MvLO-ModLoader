@@ -23,11 +23,9 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -66,7 +64,24 @@ allow_horizontal_scroll = false
 friction_scroll = 0.8
 friction_drag = 0.8
 
-[node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridMods" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/h_separation = 36
+theme_override_constants/v_separation = 20
+
+[node name="HSeparator" type="HSeparator" parent="Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="GridUpcoming" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -147,6 +162,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 

@@ -7,7 +7,7 @@ Standalone, self-updating, portable program to install and launch [Mario vs Luig
 Go to the repository's releases or use these shortcuts to the latest builds:
 
 - [**Windows**](https://github.com/vlcoo/MvLO-ModLoader/releases/latest/download/MvLOMLWindows-Setup.exe)
-- [**Windows (Portable)**](https://github.com/vlcoo/MvLO-ModLoader/releases/latest/download/MvLOMLWindows-Portable.exe) - use this version if the one above fails.
+- [**Windows (Portable)**](https://github.com/vlcoo/MvLO-ModLoader/releases/latest/download/MvLOMLWindows-Portable.zip) - use this version if the one above fails.
 - [**Linux**](https://github.com/vlcoo/MvLO-ModLoader/releases/latest/download/MvLOMLLinux.x86_64)
 - [**MacOS**](https://github.com/vlcoo/MvLO-ModLoader/releases/latest/download/MvLOMLMacOS.zip)
 

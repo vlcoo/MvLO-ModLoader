@@ -15,6 +15,7 @@ config/description="Customizable mod launcher and auto-updater for MvLO."
 run/main_scene="res://scenes/game_gallery.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 run/low_processor_mode=true
+run/low_processor_mode_sleep_usec=12000
 boot_splash/bg_color=Color(0.179688, 0.179688, 0.179688, 1)
 config/icon="res://audiovisual/nshbBig.png"
 

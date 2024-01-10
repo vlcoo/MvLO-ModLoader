@@ -27,7 +27,6 @@ var index_path:
 
 var index: InstallsIndexRes
 var install_in_progress: Dictionary = {}
-var install_needs_wizard: bool = true
 var redirect_in_progress: String = ""
 var state: OPERATION_STATE = OPERATION_STATE.IDLE
 
@@ -109,29 +108,33 @@ func _on_archive_extraction_complete(message: String, path: String, archiveWasDb
 		err("Empty archive.")
 		return
 	
+	var install_needs_wizard = true
 	for filename in extracted_files:
 		if filename.ends_with(".x86_64"):	# do it OS dependant!!!!!!
 			install_in_progress.executable_path = filename
 			if Configurator.os_name == "Linux":
 				OS.execute("chmod", ["+x", ProjectSettings.globalize_path(install_in_progress.executable_path)])
 			install_needs_wizard = false
+			continue
 		elif filename.ends_with(".exe") and not filename.to_lower().contains("crashhandler"):
 			install_in_progress.executable_path = filename
 			install_needs_wizard = false
+			continue
 		elif filename.ends_with(".app"):
 			install_in_progress.executable_path = filename
 			install_needs_wizard = false
+			continue
 
 	install_in_progress.size = FileAccess.open(install_in_progress.dltmp_path + "game", FileAccess.READ).get_length()
 	DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
 
 	index.installs.append(install_in_progress)
 	install_in_progress = {}
-	emit_signal("operation_done", true, "install")
 	_save_index_to_file()
 	animation_player.play("out")
 	state = OPERATION_STATE.IDLE
 	timer.stop()
+	emit_signal("operation_done", true, "install")
 
 	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
 
@@ -212,11 +215,14 @@ func is_installed(mod_id: String, version: String, platform: String) -> int:
 
 
 func _find_install_in_array(mod_id: String, version: String, platform: String) -> Dictionary:
-	for inst in index.installs:
-		if inst.mod_id == mod_id and inst.version == version and inst.platform == platform:
-			return inst
-
-	return {}
+	var found_installs: Array[Dictionary] = index.installs.filter(func(inst): return inst.mod_id == mod_id && inst.version == version && inst.platform == platform)
+	return {} if found_installs.is_empty() else found_installs[0]
+	
+	#for inst in index.installs:
+		#if inst.mod_id == mod_id and inst.version == version and inst.platform == platform:
+			#return inst
+#
+	#return {}
 
 
 func mod_is_installed(mod_id: String) -> bool:

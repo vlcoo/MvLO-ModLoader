@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckhxp855p5xhf"]
+[gd_scene load_steps=5 format=3 uid="uid://ckhxp855p5xhf"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_dppu1"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_on2cr"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_x1hsx"]
+[ext_resource type="Texture2D" uid="uid://di8kw1q6ci4al" path="res://audiovisual/star.png" id="4_4x2kb"]
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(150, 200)
@@ -14,7 +15,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 script = ExtResource("2_dppu1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Container" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +27,8 @@ grow_vertical = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="TextureCover" type="TextureRect" parent="Container"]
+unique_name_in_owner = true
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
@@ -34,7 +36,8 @@ texture = ExtResource("2_on2cr")
 expand_mode = 4
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="LabelTitle" type="Label" parent="Container"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_vertical = 1
@@ -66,6 +69,26 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -20.0
+offset_right = -26.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "One or more versions of this mod are installed."
+texture = ExtResource("3_x1hsx")
+stretch_mode = 5
+
+[node name="TextureFavourite" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.470588)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -20.0
 offset_top = -20.0
 offset_right = -4.0
@@ -73,7 +96,7 @@ offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0
 tooltip_text = "One or more versions of this mod are installed."
-texture = ExtResource("3_x1hsx")
+texture = ExtResource("4_4x2kb")
 stretch_mode = 5
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://6mp1uhlvagte"]
+[gd_scene load_steps=5 format=3 uid="uid://6mp1uhlvagte"]
 
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_gjx1i"]
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_s8udx"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_ghsre"]
+[ext_resource type="Texture2D" uid="uid://di8kw1q6ci4al" path="res://audiovisual/star.png" id="4_hy4fj"]
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(900, 52)
@@ -16,7 +17,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 script = ExtResource("2_s8udx")
 
-[node name="VBoxContainer" type="HBoxContainer" parent="."]
+[node name="Container" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,14 +29,16 @@ grow_vertical = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="TextureCover" type="TextureRect" parent="Container"]
+unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 2
 texture = ExtResource("2_gjx1i")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="LabelTitle" type="Label" parent="Container"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "N/A"
@@ -43,7 +46,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 max_lines_visible = 2
 
-[node name="TextureInstalled" type="TextureRect" parent="VBoxContainer"]
+[node name="TextureInstalled" type="TextureRect" parent="Container"]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
@@ -51,6 +54,16 @@ layout_mode = 2
 tooltip_text = "One or more versions of this mod are installed."
 mouse_filter = 0
 texture = ExtResource("3_ghsre")
+stretch_mode = 5
+
+[node name="TextureFavourite" type="TextureRect" parent="Container"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.470588)
+texture_filter = 1
+layout_mode = 2
+tooltip_text = "One or more versions of this mod are installed."
+mouse_filter = 0
+texture = ExtResource("4_hy4fj")
 stretch_mode = 5
 
 [node name="Button" type="Button" parent="."]

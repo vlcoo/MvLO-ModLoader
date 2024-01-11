@@ -24,8 +24,9 @@ var uninstall_texture: Texture2D = preload("res://audiovisual/uninstall.png")
 @export var mod_data_id: String
 @export var auto_refresh: bool = true
 var mod_data: ModData
-var texture_installed: Texture2D
 var is_mod_running: bool = false
+
+signal viewer_closed
 
 
 func _ready() -> void:
@@ -38,6 +39,7 @@ func _ready() -> void:
 
 func _on_button_back_pressed() -> void:
 	animation_player.play("out")
+	viewer_closed.emit()
 
 
 @warning_ignore("integer_division")
@@ -62,6 +64,17 @@ func refresh_mod_data() -> void:
 		for server in mod_data.link_discord:
 			item_list.add_item(server, icon_discord)
 
+	_refresh_time_played()
+	$PanelOverview/CenterContainer/VBoxContainer/ButtonFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
+
+	$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
+	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
+	for release in mod_data.gamefile_urls.keys():
+		options_version.add_item(release)
+	_on_options_version_item_selected(options_version.selected)
+
+
+func _refresh_time_played():
 	var time_played_seconds = Configurator.get_timer_mod(mod_data_id)
 	if time_played_seconds <= 0:
 		label_timer.text = "Never played."
@@ -69,12 +82,6 @@ func refresh_mod_data() -> void:
 		label_timer.text = "Played for " + str(time_played_seconds / 60) + " minute" + ("" if time_played_seconds < 120 else "s") + "."
 	elif time_played_seconds >= 3600:
 		label_timer.text = "Played for " + str(time_played_seconds / 3600) + " hour" + ("" if time_played_seconds < 7200 else "s") + "."
-
-	$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
-	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
-	for release in mod_data.gamefile_urls.keys():
-		options_version.add_item(release)
-	_on_options_version_item_selected(options_version.selected)
 
 
 func clear_all():
@@ -137,6 +144,8 @@ func set_buttons_state(installed: bool, running: bool = false, launchable: bool 
 
 	button_uninstall.text = "Kill process" if running else "Uninstall"
 	button_uninstall.icon = fire_texture if running else uninstall_texture
+	
+	if not running and installed: _refresh_time_played()
 
 
 func _on_button_install_pressed() -> void:
@@ -212,3 +221,7 @@ func _on_mod_closed() -> void:
 
 	if not is_current_running and button_uninstall.text != "Uninstall":
 		set_buttons_state(true, false)
+
+
+func _on_button_favourite_toggled(toggled_on: bool) -> void:
+	Configurator.set_is_mod_favourite(mod_data_id, toggled_on)

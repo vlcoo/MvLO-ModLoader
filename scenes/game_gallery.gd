@@ -75,8 +75,7 @@ func _repopulate_gallery(element: Resource, cols: int) -> void:
 		gallery.add_child(child)
 
 
-func _mod_comparator(a, b) -> bool:
-	# a and b are ModDatas
+func _mod_comparator(a: ModData, b: ModData) -> bool:
 	match Configurator.get_config("sort", -1):
 		0:	# by name
 			return a.name < b.name
@@ -84,6 +83,10 @@ func _mod_comparator(a, b) -> bool:
 			return Configurator.get_timer_mod(a.idx) > Configurator.get_timer_mod(b.idx)
 		2:	# recently updated
 			return int(a.timestamp) >= int(b.timestamp)
+		3:	# by favourite
+			return Configurator.get_is_mod_favourite(a.idx) > Configurator.get_is_mod_favourite(b.idx)
+		4:	# by installed
+			return InstallsIndex.mod_is_installed(a.idx) > InstallsIndex.mod_is_installed(b.idx)
 		_:	# by id
 			return a.idx < b.idx
 
@@ -91,12 +94,14 @@ func _mod_comparator(a, b) -> bool:
 func _repopulate_installs_tree() -> void:
 	installs_tree.clear()
 	var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
-	installs_tree.add_item("All installed games (" + total_mb_str + " MB)", installed_texture, false)
+	var header_index = installs_tree.add_item("All installed games (" + total_mb_str + " MB)", installed_texture, false)
 
 	for install in InstallsIndex.index.installs:
 		var mb_str = str(snapped(install.size/1024/1024, 0.01)) if install.has("size") else "?"
 		installs_tree.add_item(install.mod_id + " - " + install.version + " - " + install.platform + " - " + mb_str + " MB")
 
+	installs_tree.sort_items_by_text()
+	installs_tree.move_item(header_index, 0)
 	button_browse.disabled = true
 	button_launch.disabled = true
 	button_uninstall.disabled = true
@@ -255,3 +260,7 @@ func _on_check_button_4_toggled(toggled_on: bool) -> void:
 	Configurator.set_config("discord-rpc", toggled_on)
 	if not toggled_on: 
 		Configurator.set_discord_status(Configurator.DiscordStatus.CLEARED)
+
+
+func _on_game_viewer_viewer_closed() -> void:
+	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)

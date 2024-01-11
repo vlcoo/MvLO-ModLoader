@@ -131,10 +131,16 @@ func get_timer_mod(mod_id: String) -> int:
 	return config.get_value("mod_timers", mod_id, 0)
 
 
+func get_is_mod_favourite(mod_id: String) -> bool:
+	return config.get_value("mod_favourites", mod_id, false)
+
+func set_is_mod_favourite(mod_id: String, how: bool) -> void:
+	if not how and config.has_section_key("mod_favourites", mod_id): config.erase_section_key("mod_favourites", mod_id)
+	else: config.set_value("mod_favourites", mod_id, true)
+
+
 func get_ts_mod(mod_id: String) -> String:
-	if not config.has_section("mod_timestamps") or not config.has_section_key("mod_timestamps", mod_id):
-		return ""
-	return config.get_value("mod_timestamps", mod_id)
+	return config.get_value("mod_timestamps", mod_id, "")
 
 func set_ts_mod(mod_id: String, ts: String) -> void:
 	if ts == "" and config.has_section_key("mod_timestamps", mod_id): config.erase_section_key("mod_timestamps", mod_id)

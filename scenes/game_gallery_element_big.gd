@@ -1,16 +1,15 @@
 extends Panel
 
-var texture_installed: TextureRect
 var idx: String
 
 signal opened
 
 
 func init_ui(cover: Texture2D, display_name: String) -> void:
-	texture_installed = %TextureInstalled
-	if cover != null: $VBoxContainer/TextureRect.texture = cover
-	$VBoxContainer/Label.text = display_name
-	texture_installed.visible = InstallsIndex.mod_is_installed(idx)
+	if cover != null: %TextureCover.texture = cover
+	%LabelTitle.text = display_name
+	%TextureInstalled.visible = InstallsIndex.mod_is_installed(idx)
+	%TextureFavourite.visible = Configurator.get_is_mod_favourite(idx)
 
 
 func _on_mouse_entered() -> void:
@@ -28,4 +27,3 @@ func _on_mouse_exited() -> void:
 func _on_button_pressed() -> void:
 	Configurator.remembered_mod_idx = idx
 	emit_signal("opened", idx)
-	texture_installed.visible = InstallsIndex.mod_is_installed(idx)

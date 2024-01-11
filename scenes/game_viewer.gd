@@ -104,30 +104,40 @@ func _on_options_version_item_selected(index: int) -> void:
 	sorted_platform_assets.sort_custom(func(a, b):
 		var integrity_result_a = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), a)
 		var integrity_result_b = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), b)
-		return platforms_dict[a].timestamp > platforms_dict[b].timestamp or \
+		return (options_version.item_count <= 1 and platforms_dict[a].timestamp > platforms_dict[b].timestamp) or \
 			integrity_result_a < integrity_result_b or \
-			_platform_asset_coincides_with_os(a) > _platform_asset_coincides_with_os(b)
+			_platform_asset_coincides_with_os(a) > _platform_asset_coincides_with_os(b) 
 	)
-	for asset in sorted_platform_assets:
+	for asset: String in sorted_platform_assets:
 		var platform_icon: Texture2D = get_platform_icon(asset)
-		var filename: String = asset.to_lower()
-		if not show_all and not filename.contains("web") and _platform_asset_coincides_with_os(filename): 
+		if not show_all and (asset.to_lower().contains("web") or not _platform_asset_coincides_with_os(asset)):
 			continue
 		if platform_icon == null:
 			options_platform.add_item(asset)
 		else:
 			options_platform.add_icon_item(platform_icon, asset)
+			
+	options_platform.disabled = options_platform.item_count <= 0
+	if options_platform.disabled:
+		options_platform.add_item("???")
+		InstallsIndex.warn("No downloads found" + (" for your OS - try enabling \"Show all platforms\" in Settings" if not show_all else "") + "!")
 	_on_options_platform_item_selected(options_platform.selected)
-	var a = {}
 
 
 func _platform_asset_coincides_with_os(a: String) -> bool:
+	a = a.to_lower()
+	print(a, a.contains("mac"))
 	return (a.contains("win") and Configurator.os_name == "Windows") or \
 	((a.contains("linux") or a.contains("unix")) and Configurator.os_name == "Linux") or \
-	((a.contains("apple") or a.contains("mac")) and Configurator.os_name == "macOS")
+	((a.contains("apple") or a.contains("mac")) and Configurator.os_name == "macOS") or not \
+	(a.contains("win") or a.contains("linux") or a.contains("unix") or a.contains("apple") or a.contains("mac"))
 
 
 func _on_options_platform_item_selected(index: int) -> void:
+	if options_platform.get_item_text(index) == "???":
+		set_buttons_state(false, false, false, false)
+		return
+	
 	var integrity_result = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index))
 	var already_installed = integrity_result & (InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_INDEX) == 0
 	var executable_found = integrity_result & InstallsIndex.INTEGRITY_RESULT.FAIL_NO_EXE == 0
@@ -149,8 +159,8 @@ func get_platform_icon(filename: String) -> Texture2D:
 	return null
 
 
-func set_buttons_state(installed: bool, running: bool = false, launchable: bool = true) -> void:
-	button_install.disabled = installed
+func set_buttons_state(installed: bool, running: bool = false, launchable: bool = true, installable: bool = true) -> void:
+	button_install.disabled = installed or not installable
 	button_install.visible = not installed
 	button_uninstall.visible = installed
 	button_launch.visible = installed

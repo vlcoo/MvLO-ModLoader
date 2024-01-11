@@ -34,10 +34,12 @@
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/icon_separation = 16
+theme_override_constants/icon_max_width = 16
 tab_alignment = 1
 script = ExtResource("1_otdsd")
 
@@ -359,12 +361,12 @@ custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Remember the game you were viewing when exiting
+tooltip_text = "Remember the screen you were viewing when exiting
 and reopen that one when booting up the program."
 theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
-text = "Open last viewed game on restart"
+text = "Open last viewed tab on restart"
 icon = ExtResource("12_lymde")
 
 [node name="CheckButton3" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]

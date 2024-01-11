@@ -13,6 +13,7 @@ var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn"
 var installed_texture: Texture2D = preload("res://audiovisual/installed.png")
 
 var awaited_mod_view: String = ""
+var requires_game_viewer_ui_reload = false
 var selected_install: Dictionary = {}
 var filter_search = ""
 var filter_favourites = false
@@ -24,31 +25,34 @@ func _ready() -> void:
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 	current_tab = Configurator.remembered_tab_idx
 	Configurator.set_discord_status(Configurator.DiscordStatus.IN_MENU)
-	
-	get_tab_bar().items
+	set_tab_icon(0, load("res://audiovisual/nsmb.png"))
+	set_tab_icon(1, load("res://audiovisual/puzzle.png"))
+	set_tab_icon(2, load("res://audiovisual/drive.png"))
+	set_tab_icon(3, load("res://audiovisual/settings.png"))
 
 
 func _on_ready() -> void:
 	set_physics_process(false)
+	
 	$Settings/ScrollContainer/VBoxContainer/Panel/LabelVersion.text = "v" + str(SelfUpdater.vercode)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	#$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
-
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows", "")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux", "")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos", "")
 	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
 	$Settings/ScrollContainer/VBoxContainer/CheckButton4.button_pressed = Configurator.get_config("discord-rpc", true)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text= Configurator.get_config("install_location", "user://")
-
 	$Settings/ScrollContainer/VBoxContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
+
 	if Configurator.get_config("remember_view"):
 		$Settings/ScrollContainer/VBoxContainer/CheckButton2.button_pressed = true
-		if Configurator.get_config("remembered_tab") == 1:
-			current_tab = Configurator.get_config("remembered_tab")
-			awaited_mod_view = Configurator.get_config("remembered_mod")
+		var tab = Configurator.get_config("remembered_tab")
+		if tab < 3:
+			current_tab = tab
+			if tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod")
 
 
 func _on_tree_exiting() -> void:
@@ -186,6 +190,10 @@ func _on_button_4_pressed() -> void:
 func _on_tab_changed(tab: int) -> void:
 	Configurator.set_config("remembered_tab", tab)
 	if tab == 2: _repopulate_installs_tree()
+	if requires_game_viewer_ui_reload:
+		requires_game_viewer_ui_reload = false
+		if tab == 0: vanilla_game_viewer.refresh_mod_data()
+		if tab == 1: current_mod_game_viewer.refresh_mod_data()
 
 
 func _on_option_button_item_selected(index: int) -> void:
@@ -195,6 +203,7 @@ func _on_option_button_item_selected(index: int) -> void:
 
 func _on_check_button_3_toggled(button_pressed: bool) -> void:
 	Configurator.set_config("all_platforms", button_pressed)
+	requires_game_viewer_ui_reload = true
 
 
 func _on_tree_item_selected(index: int) -> void:

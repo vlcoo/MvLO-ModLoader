@@ -55,7 +55,7 @@ func refresh_mod_data() -> void:
 	label_subtitle.text = subtitle
 	if mod_data.description != "": item_list.add_item(mod_data.description, mod_data.icon)
 	else: item_list.add_item("Description unavailable.")
-	if mod_data_id != "vanilla" and mod_data.base_version != "?": item_list.add_item("Based on version " + mod_data.base_version)
+	if mod_data_id != "vanilla" and mod_data.base_version != "?": item_list.add_item("Based on version " + mod_data.base_version + ".")
 	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://audiovisual/website.png"))
 	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://audiovisual/code.png"))
 	var icon_discord: Texture2D = preload("res://audiovisual/discord.png")

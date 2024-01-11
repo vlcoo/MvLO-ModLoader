@@ -1,4 +1,4 @@
-@icon("res://graphics/puzzle.png")
+@icon("res://audiovisual/puzzle.png")
 
 ## Represents an entry in the games list.
 class_name ModData

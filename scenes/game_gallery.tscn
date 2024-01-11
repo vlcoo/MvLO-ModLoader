@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=27 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -7,9 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://btivpopjnudd1" path="res://audiovisual/sort.png" id="4_jqbeb"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="4_yn4re"]
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="5_0xeke"]
+[ext_resource type="Texture2D" uid="uid://dl21iq46og0g1" path="res://audiovisual/cancel.png" id="5_1jvfh"]
 [ext_resource type="Texture2D" uid="uid://djtxmiojaqfd5" path="res://audiovisual/filter.png" id="5_h0xkt"]
+[ext_resource type="Texture2D" uid="uid://dtk6i35ek8qou" path="res://audiovisual/alphabet.png" id="6_5e6wh"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="6_xk1xd"]
+[ext_resource type="Texture2D" uid="uid://c3ubg4vw13eam" path="res://audiovisual/clock.png" id="7_0157j"]
 [ext_resource type="Texture2D" uid="uid://bvq8iiiix7d1e" path="res://audiovisual/banner.png" id="7_n2qau"]
+[ext_resource type="Texture2D" uid="uid://hpn6y6575siv" path="res://audiovisual/calendar.png" id="8_m6xmm"]
 [ext_resource type="Texture2D" uid="uid://gvpch1sk8glo" path="res://audiovisual/list.png" id="11_2jt2q"]
 [ext_resource type="Texture2D" uid="uid://fn3v6mdi2k3x" path="res://audiovisual/puzzle-eye.png" id="12_lymde"]
 [ext_resource type="Texture2D" uid="uid://74b3ldxbhu2m" path="res://audiovisual/database-eye.png" id="13_8dqhh"]
@@ -35,11 +39,9 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -115,15 +117,20 @@ custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Order of the elements below (descending)."
+theme_override_constants/h_separation = 8
 item_count = 4
 selected = 0
 popup/item_0/text = "By default"
+popup/item_0/icon = ExtResource("5_1jvfh")
 popup/item_0/id = 1
 popup/item_1/text = "Alphabetically"
+popup/item_1/icon = ExtResource("6_5e6wh")
 popup/item_1/id = 3
 popup/item_2/text = "By most played"
+popup/item_2/icon = ExtResource("7_0157j")
 popup/item_2/id = 0
 popup/item_3/text = "By recently updated"
+popup/item_3/icon = ExtResource("8_m6xmm")
 popup/item_3/id = 2
 
 [node name="VSeparator2" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
@@ -252,6 +259,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 

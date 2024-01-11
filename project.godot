@@ -12,11 +12,12 @@ config_version=5
 
 config/name="MvLO Mod Loader"
 config/description="Customizable mod launcher and auto-updater for MvLO."
+config/version="4"
 run/main_scene="res://scenes/game_gallery.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 run/low_processor_mode=true
 run/low_processor_mode_sleep_usec=12000
-boot_splash/bg_color=Color(0.179688, 0.179688, 0.179688, 1)
+boot_splash/bg_color=Color(0.180255, 0.180255, 0.180255, 1)
 config/icon="res://audiovisual/nshbBig.png"
 
 [autoload]
@@ -37,6 +38,7 @@ window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
+mouse_cursor/tooltip_position_offset=Vector2(20, 20)
 
 [dotnet]
 

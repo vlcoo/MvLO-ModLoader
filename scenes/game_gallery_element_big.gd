@@ -1,6 +1,10 @@
+class_name GalleryElement
 extends Panel
 
 var idx: String
+var title: String
+var installed = false
+var favourite = false
 
 signal opened
 
@@ -8,8 +12,14 @@ signal opened
 func init_ui(cover: Texture2D, display_name: String) -> void:
 	if cover != null: %TextureCover.texture = cover
 	%LabelTitle.text = display_name
-	%TextureInstalled.visible = InstallsIndex.mod_is_installed(idx)
-	%TextureFavourite.visible = Configurator.get_is_mod_favourite(idx)
+	title = display_name
+	installed = InstallsIndex.mod_is_installed(idx)
+	%TextureInstalled.visible = installed
+	favourite = Configurator.get_is_mod_favourite(idx)
+	%TextureFavourite.visible = favourite
+	
+	if has_node("ContainerIcons") and not installed and not favourite:
+		$ContainerIcons.visible = false
 
 
 func _on_mouse_entered() -> void:

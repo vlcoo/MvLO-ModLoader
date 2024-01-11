@@ -42,7 +42,6 @@ func _on_button_back_pressed() -> void:
 	viewer_closed.emit()
 
 
-@warning_ignore("integer_division")
 func refresh_mod_data() -> void:
 	if mod_data_id != "": mod_data = ContentGetter.get_local_moddata(mod_data_id)
 	if mod_data == null: return
@@ -74,6 +73,7 @@ func refresh_mod_data() -> void:
 	_on_options_version_item_selected(options_version.selected)
 
 
+@warning_ignore("integer_division")
 func _refresh_time_played():
 	var time_played_seconds = Configurator.get_timer_mod(mod_data_id)
 	if time_played_seconds <= 0:

@@ -2,7 +2,7 @@ extends TabContainer
 
 @onready var vanilla_game_viewer: Panel = $Vanilla/GameViewer
 @onready var current_mod_game_viewer: Panel = $"Mod Gallery/GameViewer"
-@onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer/GridMods"
+@onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer/MarginContainer/GridMods"
 @onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/Tree"
 @onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall"
 @onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch"
@@ -14,6 +14,9 @@ var installed_texture: Texture2D = preload("res://audiovisual/installed.png")
 
 var awaited_mod_view: String = ""
 var selected_install: Dictionary = {}
+var filter_search = ""
+var filter_favourites = false
+var filter_installed = false
 
 
 func _ready() -> void:
@@ -73,6 +76,24 @@ func _repopulate_gallery(element: Resource, cols: int) -> void:
 		child.opened.connect(_on_mod_opened)
 		child.init_ui(mod.cover_image, mod.name)
 		gallery.add_child(child)
+	
+	apply_gallery_filters()
+
+
+func apply_gallery_filters() -> void:
+	var filters_enabled = true
+	if filter_search == "" and not filter_favourites and not filter_installed:
+		filters_enabled = false
+	
+	for child: GalleryElement in gallery.get_children():
+		if not filters_enabled: 
+			child.visible = true
+			continue
+		
+		# match each mod to searched text, favourite and installed
+		child.visible = (filter_search == "" or filter_search in child.title.to_lower()) and \
+			(not filter_favourites or child.favourite) and \
+			(not filter_installed or child.installed)
 
 
 func _mod_comparator(a: ModData, b: ModData) -> bool:
@@ -264,3 +285,18 @@ func _on_check_button_4_toggled(toggled_on: bool) -> void:
 
 func _on_game_viewer_viewer_closed() -> void:
 	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
+
+
+func _on_input_search_text_changed(new_text: String) -> void:
+	filter_search = new_text.to_lower()
+	apply_gallery_filters()
+
+
+func _on_check_only_favourites_toggled(toggled_on: bool) -> void:
+	filter_favourites = toggled_on
+	apply_gallery_filters()
+
+
+func _on_check_only_installed_toggled(toggled_on: bool) -> void:
+	filter_installed = toggled_on
+	apply_gallery_filters()

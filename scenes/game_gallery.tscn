@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="4_yn4re"]
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="5_0xeke"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="6_xk1xd"]
-[ext_resource type="Texture2D" uid="uid://rr56c8roy54o" path="res://audiovisual/nshbBig.png" id="7_rc858"]
+[ext_resource type="Texture2D" uid="uid://bvq8iiiix7d1e" path="res://audiovisual/banner.png" id="7_n2qau"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
 
@@ -49,13 +49,74 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 28
-theme_override_constants/margin_top = 28
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 28
-theme_override_constants/margin_bottom = 28
+theme_override_constants/margin_bottom = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Mod Gallery/ContainerBig"]
-clip_contents = false
+[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ContainerFilters" type="HBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="LabelSearch" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+text = "Search:"
+
+[node name="InputSearch" type="LineEdit" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+tooltip_text = "Write down a keyword to filter mods by."
+placeholder_text = "Mod name..."
+caret_blink = true
+
+[node name="VSeparator" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LabelSort" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+text = "Sort:"
+vertical_alignment = 1
+
+[node name="OptionSort" type="OptionButton" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+tooltip_text = "Order of the elements below (descending)."
+item_count = 4
+selected = 0
+popup/item_0/text = "By default"
+popup/item_0/id = 1
+popup/item_1/text = "Alphabetically"
+popup/item_1/id = 3
+popup/item_2/text = "By most played"
+popup/item_2/id = 0
+popup/item_3/text = "By recently updated"
+popup/item_3/id = 2
+
+[node name="VSeparator2" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+tooltip_text = "Don't show mods you haven't starred."
+text = "Only favourites"
+
+[node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+tooltip_text = "Don't show mods that you haven't installed."
+text = "Only installed"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 script = ExtResource("3_btgm0")
@@ -63,33 +124,23 @@ speed = 10.0
 damping_scroll = 0.5
 damping_drag = 0.5
 allow_horizontal_scroll = false
-friction_scroll = 0.8
+friction_scroll = 0.85
 friction_drag = 0.8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="GridMods" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer"]
+[node name="GridMods" type="GridContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme_override_constants/h_separation = 36
-theme_override_constants/v_separation = 20
-
-[node name="HSeparator" type="HSeparator" parent="Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="GridUpcoming" type="GridContainer" parent="Mod Gallery/ContainerBig/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme_override_constants/h_separation = 36
-theme_override_constants/v_separation = 20
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 22
+columns = 5
 
 [node name="GameViewer" parent="Mod Gallery" instance=ExtResource("1_qd0tx")]
 layout_mode = 2
@@ -204,27 +255,26 @@ offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_constants/separation = -230
+theme_override_constants/separation = -100
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/Panel/HBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(514.7, 76)
 layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("7_rc858")
-expand_mode = 2
+texture = ExtResource("7_n2qau")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Settings/ScrollContainer/VBoxContainer/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 1
 bbcode_enabled = true
-text = "MvLO Mod Loader
-[color=#686868]A simple way to keep your mods organized and up to date.
-by vlco_o - aka vic[/color]"
+text = "A simple way to keep your mods organized and up to date.
+[font size=8] [/font]
+[color=#686868]by vlco_o - aka vic[/color]"
 fit_content = true
 
 [node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/Panel"]
@@ -285,6 +335,7 @@ button_pressed = true
 text = "Discord Game Activity (auto)"
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -561,6 +612,10 @@ access = 2
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="text_changed" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch" to="." method="_on_input_search_text_changed"]
+[connection signal="item_selected" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort" to="." method="_on_option_button3_item_selected"]
+[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/CheckOnlyFavourites" to="." method="_on_check_only_favourites_toggled"]
+[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/CheckOnlyInstalled" to="." method="_on_check_only_installed_toggled"]
 [connection signal="viewer_closed" from="Mod Gallery/GameViewer" to="." method="_on_game_viewer_viewer_closed"]
 [connection signal="item_selected" from="Storage Usage/MarginContainer/VBoxContainer/Tree" to="." method="_on_tree_item_selected"]
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]

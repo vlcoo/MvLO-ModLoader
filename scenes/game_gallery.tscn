@@ -1,12 +1,24 @@
-[gd_scene load_steps=11 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=23 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
 [ext_resource type="Script" path="res://global/custom_resources/SmoothScroller.gd" id="3_btgm0"]
+[ext_resource type="Texture2D" uid="uid://dudh3ejgg282v" path="res://audiovisual/search.png" id="3_kmsf4"]
+[ext_resource type="Texture2D" uid="uid://btivpopjnudd1" path="res://audiovisual/sort.png" id="4_jqbeb"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="4_yn4re"]
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="5_0xeke"]
+[ext_resource type="Texture2D" uid="uid://djtxmiojaqfd5" path="res://audiovisual/filter.png" id="5_h0xkt"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="6_xk1xd"]
 [ext_resource type="Texture2D" uid="uid://bvq8iiiix7d1e" path="res://audiovisual/banner.png" id="7_n2qau"]
+[ext_resource type="Texture2D" uid="uid://gvpch1sk8glo" path="res://audiovisual/list.png" id="11_2jt2q"]
+[ext_resource type="Texture2D" uid="uid://fn3v6mdi2k3x" path="res://audiovisual/puzzle-eye.png" id="12_lymde"]
+[ext_resource type="Texture2D" uid="uid://74b3ldxbhu2m" path="res://audiovisual/database-eye.png" id="13_8dqhh"]
+[ext_resource type="Texture2D" uid="uid://by1d7nemi06ho" path="res://audiovisual/discord-feed.png" id="14_edqgf"]
+[ext_resource type="Texture2D" uid="uid://diwqar7p38rv" path="res://audiovisual/theme.png" id="15_upikk"]
+[ext_resource type="Texture2D" uid="uid://b2pvvqaupql4n" path="res://audiovisual/folder.png" id="16_gsodk"]
+[ext_resource type="Texture2D" uid="uid://bx3y3ubnelg07" path="res://audiovisual/database-reload.png" id="17_8is38"]
+[ext_resource type="Texture2D" uid="uid://cac4du61ptdmh" path="res://audiovisual/database-delete.png" id="18_xr7p4"]
+[ext_resource type="Texture2D" uid="uid://b1saitpdx5r1h" path="res://audiovisual/file.png" id="19_25xiv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
 
@@ -49,36 +61,49 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 28
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 28
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 9
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 
 [node name="ContainerFilters" type="HBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 14
 alignment = 1
+
+[node name="TextureSearch" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_kmsf4")
 
 [node name="LabelSearch" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
 text = "Search:"
 
 [node name="InputSearch" type="LineEdit" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
+size_flags_vertical = 4
 tooltip_text = "Write down a keyword to filter mods by."
 placeholder_text = "Mod name..."
 caret_blink = true
 
 [node name="VSeparator" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 24
+
+[node name="TextureSort" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_jqbeb")
 
 [node name="LabelSort" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
@@ -86,8 +111,9 @@ text = "Sort:"
 vertical_alignment = 1
 
 [node name="OptionSort" type="OptionButton" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
+size_flags_vertical = 4
 tooltip_text = "Order of the elements below (descending)."
 item_count = 4
 selected = 0
@@ -102,14 +128,24 @@ popup/item_3/id = 2
 
 [node name="VSeparator2" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 24
 
-[node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="TextureFilter" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_h0xkt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+layout_mode = 2
+theme_override_constants/separation = -7
+
+[node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Don't show mods you haven't starred."
 text = "Only favourites"
 
-[node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Don't show mods that you haven't installed."
 text = "Only installed"
@@ -132,7 +168,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_top = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_bottom = 16
 
 [node name="GridMods" type="GridContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
@@ -304,7 +340,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Show a list of small buttons for the \"Mods\" tab
 instead of a grid of big buttons."
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
+theme_override_constants/h_separation = 14
 text = "Use list view for mod gallery"
+icon = ExtResource("11_2jt2q")
 
 [node name="CheckButton2" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(500, 40)
@@ -313,7 +353,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Remember the game you were viewing when exiting
 and reopen that one when booting up the program."
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
+theme_override_constants/h_separation = 14
 text = "Open last viewed game on restart"
+icon = ExtResource("12_lymde")
 
 [node name="CheckButton3" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(500, 40)
@@ -322,17 +366,24 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Include download options for any OS, even if
 they differ from your device's one."
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
+theme_override_constants/h_separation = 14
 text = "Show all platforms"
+icon = ExtResource("13_8dqhh")
 
 [node name="CheckButton4" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Include download options for any OS, even if
-they differ from your device's one."
+tooltip_text = "Provide rich presence for Discord."
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
+theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Discord Game Activity (auto)"
+icon = ExtResource("14_edqgf")
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 visible = false
@@ -406,13 +457,20 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Change the visuals of the UI."
+theme_override_constants/separation = 14
 alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("15_upikk")
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.32
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Theme"
 vertical_alignment = 1
 
@@ -435,13 +493,20 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Custom folder to install mods to."
+theme_override_constants/separation = 14
 alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("16_gsodk")
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.33
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Install location"
 vertical_alignment = 1
 
@@ -482,6 +547,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.4
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Extra args for .exe"
 vertical_alignment = 1
 
@@ -506,6 +572,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.4
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Extra args for .x86_64"
 vertical_alignment = 1
 
@@ -530,6 +597,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.4
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Extra args for .app"
 vertical_alignment = 1
 
@@ -543,6 +611,7 @@ placeholder_text = "ENTER to save"
 [node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0.517647)
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
@@ -557,40 +626,44 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 12
+theme_override_constants/separation = 22
 alignment = 1
 
 [node name="Button" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Force update of database (mod data and images) on next program boot."
 text = "Redownload DB"
+icon = ExtResource("17_8is38")
 
 [node name="Button2" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Delete downloaded database (data and images for mod gallery)."
 text = "Delete DB"
+icon = ExtResource("18_xr7p4")
 
 [node name="Button3" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Uninstall every single mod, including vanilla."
 text = "Uninstall all mods"
+icon = ExtResource("4_yn4re")
 
 [node name="Button5" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Open the folder containing debug log files."
 text = "Show logs"
+icon = ExtResource("19_25xiv")
 
 [node name="Button4" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer6"]
 visible = false
@@ -614,8 +687,8 @@ access = 2
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="text_changed" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch" to="." method="_on_input_search_text_changed"]
 [connection signal="item_selected" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort" to="." method="_on_option_button3_item_selected"]
-[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/CheckOnlyFavourites" to="." method="_on_check_only_favourites_toggled"]
-[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/CheckOnlyInstalled" to="." method="_on_check_only_installed_toggled"]
+[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites" to="." method="_on_check_only_favourites_toggled"]
+[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled" to="." method="_on_check_only_installed_toggled"]
 [connection signal="viewer_closed" from="Mod Gallery/GameViewer" to="." method="_on_game_viewer_viewer_closed"]
 [connection signal="item_selected" from="Storage Usage/MarginContainer/VBoxContainer/Tree" to="." method="_on_tree_item_selected"]
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]

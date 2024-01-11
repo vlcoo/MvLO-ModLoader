@@ -104,6 +104,12 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	emit_signal("cache_updated", true)
 	if hide_animation: animation_player.play("out")
 	if new_updates_list != "": warn("New updates for mods you're subscribed to!\n" + new_updates_list)
+	await dialog.confirmed or dialog.canceled
+	
+	var mod_count_before = Configurator.get_config("mod_count", 0)
+	var mod_count_after = moddatas.size()
+	if mod_count_after > mod_count_before: warn(str(mod_count_after - mod_count_before) + " new mods have been added since the last time!")
+	Configurator.set_config("mod_count", mod_count_after)
 
 
 func _check_dbs_integrity() -> bool:

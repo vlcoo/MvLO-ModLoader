@@ -31,7 +31,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/Panel/LabelVersion.text = "v" + str(SelfUpdater.vercode)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	#$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton.selected = Configurator.get_config("sort", -1) + 1
+	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
 
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows", "")
@@ -242,7 +242,7 @@ func _on_option_button2_item_selected(index: int) -> void:
 
 
 func _on_button_choose_folder_pressed() -> void:
-	InstallsIndex.warn("This will set the following folder as the location for any future installs.\n \
+	InstallsIndex.warn("This will set the following folder as the location for any future installs.\n\
 	The previous install location and its contents will be *deleted*.")
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	$Settings/FileDialog.popup_centered()

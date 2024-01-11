@@ -242,7 +242,7 @@ clip_contents = false
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
-text = "[center][wave amp=36]Operation in progress..."
+text = "[center][wave amp=36]Install in progress..."
 fit_content = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel/VBoxContainer"]
@@ -251,12 +251,13 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_ttqvo")
 max_value = 1.0
 
-[node name="Label2" type="Label" parent="Panel/VBoxContainer"]
+[node name="Label2" type="RichTextLabel" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 1)
-text = "Starting"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_colors/default_color = Color(1, 1, 1, 0.545098)
+bbcode_enabled = true
+text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Progress text"
+fit_content = true
+autowrap_mode = 0
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2

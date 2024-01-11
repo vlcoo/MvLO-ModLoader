@@ -11,6 +11,8 @@ enum OPERATION_STATE {
 	IDLE, DOWNLOADING, EXTRACTING
 }
 
+const PROGRESS_TEXT_TEMPLATE = "[center][img width=16 color=#ffffff8b]res://audiovisual/%.png[/img]   "
+
 var index_path:
 	get:
 		return Configurator.get_config("install_location", "user://Installs/") + "index.tres"
@@ -19,7 +21,7 @@ var index_path:
 @onready var requester: HTTPRequest = $HTTPRequestGame
 @onready var itch_requester: HTTPRequest = $HTTPRequestItchURL
 @onready var timer: Timer = $TimerUpdateProgressbar
-@onready var l_progress: Label = $Panel/VBoxContainer/Label2
+@onready var l_progress: RichTextLabel = $Panel/VBoxContainer/Label2
 @onready var dialog: AcceptDialog = $AcceptDialog
 @onready var dialog_ask: ConfirmationDialog = $ConfirmationDialogRedirect
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -59,7 +61,6 @@ func install(mod_id: String, version: String, platform: String) -> void:
 
 	state = OPERATION_STATE.DOWNLOADING
 	animation_player.play("in")
-	l_progress.text = "Starting"
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version
@@ -89,7 +90,6 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 		return
 	
 	state = OPERATION_STATE.EXTRACTING
-	l_progress.text = "Extracting"
 	
 	var globalized_dltmp_path: String = ProjectSettings.globalize_path(install_in_progress.dltmp_path)
 	if ArchiveHandler.IsArchive(globalized_dltmp_path + "game"):
@@ -254,11 +254,17 @@ func _on_timer_update_progressbar_timeout() -> void:
 	match state:
 		OPERATION_STATE.IDLE:
 			timer.stop()
+			l_progress.text = ""
 		OPERATION_STATE.DOWNLOADING:
-			l_progress.text = str(requester.get_downloaded_bytes()/1024/1024) + " MB downloaded"
+			var mb_downloaded = requester.get_downloaded_bytes()/1024/1024
+			var mb_total = requester.get_body_size()/1024/1024
+			if mb_downloaded == mb_total:
+				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "loading") + "Please hold"
+			else:
+				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "downloading") + str(mb_downloaded) + ("" if mb_total == 0 else (" out of " + str(mb_total))) + " MB downloaded"
 		OPERATION_STATE.EXTRACTING:
 			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
-			l_progress.text = "Extracting"
+			l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "zip") + "Extracting files"
 
 
 func _on_http_request_itch_url_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:

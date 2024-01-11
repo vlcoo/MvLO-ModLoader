@@ -24,6 +24,8 @@ func _ready() -> void:
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 	current_tab = Configurator.remembered_tab_idx
 	Configurator.set_discord_status(Configurator.DiscordStatus.IN_MENU)
+	
+	get_tab_bar().items
 
 
 func _on_ready() -> void:

@@ -70,6 +70,7 @@ func refresh_mod_data() -> void:
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
 	for release in mod_data.gamefile_urls.keys():
 		options_version.add_item(release)
+	options_version.disabled = options_version.item_count <= 1
 	_on_options_version_item_selected(options_version.selected)
 
 
@@ -78,6 +79,8 @@ func _refresh_time_played():
 	var time_played_seconds = Configurator.get_timer_mod(mod_data_id)
 	if time_played_seconds <= 0:
 		label_timer.text = "Never played."
+	elif time_played_seconds > 0 and time_played_seconds < 60:
+		label_timer.text = "Played for a few seconds."
 	elif time_played_seconds >= 60 and time_played_seconds < 3600:
 		label_timer.text = "Played for " + str(time_played_seconds / 60) + " minute" + ("" if time_played_seconds < 120 else "s") + "."
 	elif time_played_seconds >= 3600:
@@ -96,20 +99,32 @@ func _on_options_version_item_selected(index: int) -> void:
 	if show_all is String: show_all = show_all != ""
 
 	options_platform.clear()
-	for asset in mod_data.gamefile_urls[options_version.get_item_text(index)].keys():
+	var platforms_dict = mod_data.gamefile_urls[options_version.get_item_text(index)]
+	var sorted_platform_assets = platforms_dict.keys()
+	sorted_platform_assets.sort_custom(func(a, b):
+		var integrity_result_a = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), a)
+		var integrity_result_b = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), b)
+		return platforms_dict[a].timestamp > platforms_dict[b].timestamp or \
+			integrity_result_a < integrity_result_b or \
+			_platform_asset_coincides_with_os(a) > _platform_asset_coincides_with_os(b)
+	)
+	for asset in sorted_platform_assets:
 		var platform_icon: Texture2D = get_platform_icon(asset)
 		var filename: String = asset.to_lower()
-		if (not show_all) and (\
-			(filename.contains("win") and Configurator.os_name != "Windows") or \
-			((filename.contains("linux") or filename.contains("unix")) and Configurator.os_name != "Linux") or \
-			((filename.contains("apple") or filename.contains("mac")) and Configurator.os_name != "macOS") or \
-			(filename.contains("web")) \
-		): continue
+		if not show_all and not filename.contains("web") and _platform_asset_coincides_with_os(filename): 
+			continue
 		if platform_icon == null:
 			options_platform.add_item(asset)
 		else:
 			options_platform.add_icon_item(platform_icon, asset)
 	_on_options_platform_item_selected(options_platform.selected)
+	var a = {}
+
+
+func _platform_asset_coincides_with_os(a: String) -> bool:
+	return (a.contains("win") and Configurator.os_name == "Windows") or \
+	((a.contains("linux") or a.contains("unix")) and Configurator.os_name == "Linux") or \
+	((a.contains("apple") or a.contains("mac")) and Configurator.os_name == "macOS")
 
 
 func _on_options_platform_item_selected(index: int) -> void:

@@ -235,12 +235,12 @@ bbcode_enabled = true
 text = "[center][wave amp=36]Starting up..."
 fit_content = true
 
-[node name="Label2" type="Label" parent="Panel/VBoxContainer"]
+[node name="Label2" type="RichTextLabel" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 1)
-text = "Getting mod data"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_colors/default_color = Color(1, 1, 1, 0.545098)
+bbcode_enabled = true
+text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Checking for updates"
+fit_content = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

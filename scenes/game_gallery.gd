@@ -7,6 +7,7 @@ extends TabContainer
 @onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall"
 @onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch"
 @onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonBrowse"
+@onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
@@ -21,7 +22,7 @@ var filter_installed = false
 
 
 func _ready() -> void:
-	current_mod_game_viewer.get_node("AnimationPlayer").play("out")
+	#current_mod_game_viewer.get_node("AnimationPlayer").play("out")
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 	current_tab = Configurator.remembered_tab_idx
 	Configurator.set_discord_status(Configurator.DiscordStatus.IN_MENU)
@@ -49,14 +50,12 @@ func _on_ready() -> void:
 
 	if Configurator.get_config("remember_view"):
 		$Settings/ScrollContainer/VBoxContainer/CheckButton2.button_pressed = true
-		var tab = Configurator.get_config("remembered_tab")
-		if tab < 3:
-			current_tab = tab
-			if tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod")
+		current_tab = Configurator.get_config("remembered_tab")
+		if current_tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod", "")
 
 
 func _on_tree_exiting() -> void:
-	Configurator.remembered_tab_idx = current_tab
+	if current_tab < 3: Configurator.remembered_tab_idx = current_tab
 
 
 func _on_cache_updated(_succeeded: bool) -> void:
@@ -67,7 +66,7 @@ func _on_cache_updated(_succeeded: bool) -> void:
 		current_mod_game_viewer.refresh_mod_data()
 
 
-func _repopulate_gallery(element: Resource, cols: int) -> void:
+func _repopulate_gallery(element: PackedScene, cols: int) -> void:
 	if gallery.get_child_count() > 0:
 		for child in gallery.get_children():
 			gallery.remove_child(child)
@@ -77,13 +76,16 @@ func _repopulate_gallery(element: Resource, cols: int) -> void:
 	mod_array.sort_custom(_mod_comparator)
 	for mod in mod_array:
 		if mod.idx == "vanilla": continue
-		var child = element.instantiate()
+		var child: GalleryElement = element.instantiate()
 		child.idx = mod.idx
 		child.opened.connect(_on_mod_opened)
 		child.init_ui(mod.cover_image, mod.name)
 		gallery.add_child(child)
 	
+	gallery.modulate = Color.TRANSPARENT
 	apply_gallery_filters()
+	await create_tween().tween_property(gallery, "modulate", Color.WHITE, 0.1).finished
+	input_search.grab_focus.call_deferred()
 
 
 func apply_gallery_filters() -> void:
@@ -189,6 +191,7 @@ func _on_button_4_pressed() -> void:
 
 func _on_tab_changed(tab: int) -> void:
 	Configurator.set_config("remembered_tab", tab)
+	if tab == 1: input_search.grab_focus.call_deferred()
 	if tab == 2: _repopulate_installs_tree()
 	if requires_game_viewer_ui_reload:
 		requires_game_viewer_ui_reload = false
@@ -296,6 +299,8 @@ func _on_check_button_4_toggled(toggled_on: bool) -> void:
 
 func _on_game_viewer_viewer_closed() -> void:
 	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
+	input_search.grab_focus.call_deferred()
+	Configurator.set_config("remembered_mod", "")
 
 
 func _on_input_search_text_changed(new_text: String) -> void:

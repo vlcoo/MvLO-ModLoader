@@ -126,7 +126,6 @@ func _on_options_version_item_selected(index: int) -> void:
 
 func _platform_asset_coincides_with_os(a: String) -> bool:
 	a = a.to_lower()
-	print(a, a.contains("mac"))
 	return (a.contains("win") and Configurator.os_name == "Windows") or \
 	((a.contains("linux") or a.contains("unix")) and Configurator.os_name == "Linux") or \
 	((a.contains("apple") or a.contains("mac")) and Configurator.os_name == "macOS") or not \

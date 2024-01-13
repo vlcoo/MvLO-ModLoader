@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=28 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://bx3y3ubnelg07" path="res://audiovisual/database-reload.png" id="17_8is38"]
 [ext_resource type="Texture2D" uid="uid://cac4du61ptdmh" path="res://audiovisual/database-delete.png" id="18_xr7p4"]
 [ext_resource type="Texture2D" uid="uid://b1saitpdx5r1h" path="res://audiovisual/file.png" id="19_25xiv"]
+[ext_resource type="Texture2D" uid="uid://dhdi8u2m6a64r" path="res://audiovisual/minimize.png" id="19_t4233"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
 
@@ -52,6 +53,9 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
+
+[node name="ButtonFavourite" parent="Vanilla/GameViewer/PanelOverview/CenterContainer/VBoxContainer" index="3"]
+visible = false
 
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
@@ -284,7 +288,7 @@ alignment = 1
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 4
-tooltip_text = "Thanks for using it!"
+tooltip_text = "Thanks for the support!"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/Panel"]
 custom_minimum_size = Vector2(0, 60)
@@ -374,8 +378,8 @@ custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Include download options for any OS, even if
-they differ from your device's one."
+tooltip_text = "Include download options for any OS,
+even if they differ from your device's one."
 theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
@@ -394,6 +398,19 @@ theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Discord Game Activity (auto)"
 icon = ExtResource("14_edqgf")
+
+[node name="CheckButton5" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Hide the Mod Loader when opening a mod
+and show it back when closing that mod."
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
+theme_override_constants/h_separation = 14
+text = "Minimize window when launching a mod"
+icon = ExtResource("19_t4233")
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 visible = false
@@ -548,7 +565,8 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a game exported for Windows is launched, use these extra parameters before the filename when executing the command.
+tooltip_text = "If a mod version build for Windows is launched,
+use these extra parameters before the filename when executing the command.
 i.e.: [extra args] vcmi.exe"
 alignment = 1
 
@@ -573,7 +591,8 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a game exported for Linux is launched, use these extra parameters before the filename when executing the command.
+tooltip_text = "If a mod version build for Linux is launched,
+use these extra parameters before the filename when executing the command.
 i.e.: [extra args] vcmi.x86_64"
 alignment = 1
 
@@ -598,7 +617,8 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a game exported for macOS is launched, use these extra parameters before the filename when executing the command.
+tooltip_text = "If a mod version build for macOS is launched,
+use these extra parameters before the filename when executing the command.
 i.e.: [extra args] vcmi.app"
 alignment = 1
 
@@ -621,7 +641,7 @@ placeholder_text = "ENTER to save"
 [node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0.517647)
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
@@ -709,6 +729,7 @@ access = 2
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton4" to="." method="_on_check_button_4_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton5" to="." method="_on_check_button_5_toggled"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton" to="." method="_on_option_button3_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button2_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

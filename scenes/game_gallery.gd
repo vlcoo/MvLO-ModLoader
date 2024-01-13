@@ -47,10 +47,11 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/CheckButton4.button_pressed = Configurator.get_config("discord-rpc", true)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text= Configurator.get_config("install_location", "user://")
 	$Settings/ScrollContainer/VBoxContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
+	$Settings/ScrollContainer/VBoxContainer/CheckButton5.button_pressed = Configurator.get_config("minimize", false)
 
-	if Configurator.get_config("remember_view"):
+	if Configurator.get_config("remember_view", false):
 		$Settings/ScrollContainer/VBoxContainer/CheckButton2.button_pressed = true
-		current_tab = Configurator.get_config("remembered_tab")
+		current_tab = Configurator.get_config("remembered_tab", 0)
 		if current_tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod", "")
 
 
@@ -60,9 +61,9 @@ func _on_tree_exiting() -> void:
 
 func _on_cache_updated(_succeeded: bool) -> void:
 	vanilla_game_viewer.refresh_mod_data()
-	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
+	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery", 0) else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
 	if awaited_mod_view != "":
-		current_mod_game_viewer.mod_data_id = Configurator.get_config("remembered_mod")
+		current_mod_game_viewer.mod_data_id = Configurator.get_config("remembered_mod", "")
 		current_mod_game_viewer.refresh_mod_data()
 
 
@@ -292,9 +293,9 @@ func _on_button_5_pressed() -> void:
 
 
 func _on_check_button_4_toggled(toggled_on: bool) -> void:
-	Configurator.set_config("discord-rpc", toggled_on)
 	if not toggled_on: 
 		Configurator.set_discord_status(Configurator.DiscordStatus.CLEARED)
+	Configurator.set_config("discord-rpc", toggled_on)
 
 
 func _on_game_viewer_viewer_closed() -> void:
@@ -316,3 +317,7 @@ func _on_check_only_favourites_toggled(toggled_on: bool) -> void:
 func _on_check_only_installed_toggled(toggled_on: bool) -> void:
 	filter_installed = toggled_on
 	apply_gallery_filters()
+
+
+func _on_check_button_5_toggled(toggled_on: bool) -> void:
+	Configurator.set_config("minimize", toggled_on)

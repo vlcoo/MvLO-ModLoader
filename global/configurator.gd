@@ -1,23 +1,25 @@
 extends Node
 
-enum DiscordStatus {IN_MENU, IN_GAME, CLEARED}
+enum DiscordStatus {IN_MENU, IN_GAME, IN_MULTIPLE, CLEARED}
+enum WindowState {ATTENTION, RESTORED, MINIMIZED}
 
-const CONFIG_PATH: String = "user://settings.ini"
-const PROCESS_TIMER_TIME: int = 5
+const CONFIG_PATH := "user://settings.ini"
+const PROCESS_TIMER_TIME := 5
 var themes: Array[Theme] = [
 	preload("res://ui_resources/themes/DefaultDark.tres"),
 	preload("res://ui_resources/themes/NSMBDS.tres"),
 	preload("res://ui_resources/themes/95/Classic95.tres")
 ]
 
-var remembered_tab_idx: int = 0
-var remembered_mod_idx: String = ""
+var remembered_tab_idx := 0
+var remembered_mod_idx := ""
 var current_theme: Theme = null
-var current_theme_id: int = 0
+var current_theme_id := 0
+var previous_window_mode := Window.MODE_WINDOWED
 
 var os_name: String
 var timestamp: String
-var config = ConfigFile.new()
+var config := ConfigFile.new()
 var cache_is_old: bool
 
 var current_processes: Array[ModProcess] = []
@@ -56,7 +58,7 @@ func _on_tree_exiting() -> void:
 
 
 func _on_timer_timeout() -> void:
-	for process in current_processes:
+	for process: ModProcess in current_processes:
 		if OS.is_process_running(process.pid):
 			process.delta_timer_seconds += PROCESS_TIMER_TIME
 		else:
@@ -66,6 +68,24 @@ func _on_timer_timeout() -> void:
 			if current_processes.is_empty(): 
 				process_timer.stop()
 				set_discord_status(DiscordStatus.IN_MENU)
+				set_window_state(WindowState.RESTORED)
+			elif current_processes.size() == 1: 
+				set_discord_status(DiscordStatus.IN_GAME, current_processes[0].mod_id)
+			else:
+				set_discord_status(DiscordStatus.IN_MULTIPLE)
+
+
+func set_window_state(state: WindowState) -> void:
+	if not get_config("minimize", false): return
+	
+	match state:
+		WindowState.ATTENTION:
+			if get_window().has_focus(): get_window().request_attention()
+		WindowState.RESTORED:
+			get_window().mode = previous_window_mode
+		WindowState.MINIMIZED:
+			previous_window_mode = get_window().mode
+			get_window().mode = Window.MODE_MINIMIZED
 
 
 func set_discord_status(status: DiscordStatus, mod_id: String = ""):
@@ -79,31 +99,39 @@ func set_discord_status(status: DiscordStatus, mod_id: String = ""):
 			if moddata.needs_discord_activity:
 				assert(moddata != null, "An existing mod ID is expected if the Discord status is set to 'in-game'.")
 				DiscordHandler.SetDiscordStatus(
-					"Playing" + (" vanilla." if mod_id == "vanilla" else " a mod:"),
+					"• Playing" + (" vanilla" if mod_id == "vanilla" else " a mod") + " •",
 					moddata.name,
 					"nodata" if moddata.cover_image == null else mod_id,
 					moddata.description,
 					true
 				)
 			else: set_discord_status(DiscordStatus.CLEARED)
+		DiscordStatus.IN_MULTIPLE:
+			DiscordHandler.SetDiscordStatus(
+				"• Playing multiple mods •",
+				"",
+				"menu",
+				"A simple way to keep your mods organized and up to date.",
+				true
+			)
 		DiscordStatus.IN_MENU:
-				DiscordHandler.SetDiscordStatus(
-					["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery...",
-					"",
-					"menu",
-					"A simple way to keep your mods organized and up to date.",
-					false
-				)
+			DiscordHandler.SetDiscordStatus(
+				["Browsing", "Exploring", "Glancing at", "Examining", "Checking out", "Roaming around", "Touring", "Flipping thru"].pick_random() + " the mod gallery...",
+				"",
+				"menu",
+				"A simple way to keep your mods organized and up to date.",
+				false
+			)
 
 
 func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:
-	var current_process: ModProcess = ModProcess.new()
-	current_process.pid = pid
-	current_process.mod_id = mod_id
-	current_process.platform = platform
-	current_process.version = version
+	var current_process: ModProcess = ModProcess.new(pid, mod_id, platform, version)
 	current_processes.append(current_process)
-	process_timer.start(PROCESS_TIMER_TIME)
+	if process_timer.is_stopped(): process_timer.start(PROCESS_TIMER_TIME)
+	
+	if current_processes.size() > 1: set_discord_status(DiscordStatus.IN_MULTIPLE)
+	else: set_discord_status(DiscordStatus.IN_GAME, mod_id)
+	set_window_state(WindowState.MINIMIZED)
 
 
 func get_mod_pid(mod_id: String, version: String, platform: String) -> int:

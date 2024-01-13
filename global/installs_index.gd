@@ -1,13 +1,13 @@
 extends Node
 
-enum INTEGRITY_RESULT {
+enum IntegrityResult {
 	PASS = 0,					# installed
 	FAIL_NOT_IN_INDEX = 1,		# files may be there but they're not referenced in the index
 	FAIL_NOT_IN_FILESYSTEM = 2,	# the index references to files that don't exist
 	FAIL_NO_EXE = 4				# the version downloaded doesn't have an executable for the current OS
 }
 
-enum OPERATION_STATE {
+enum Operation {
 	IDLE, DOWNLOADING, EXTRACTING
 }
 
@@ -30,7 +30,7 @@ var index_path:
 var index: InstallsIndexRes
 var install_in_progress: Dictionary = {}
 var redirect_in_progress: String = ""
-var state: OPERATION_STATE = OPERATION_STATE.IDLE
+var state: Operation = Operation.IDLE
 
 signal operation_done(succeeded: bool, type: String)
 
@@ -59,7 +59,7 @@ func redirect(mod_id: String, version: String, platform: String) -> void:
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
-	state = OPERATION_STATE.DOWNLOADING
+	state = Operation.DOWNLOADING
 	animation_player.play("in")
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
@@ -89,7 +89,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 		err("Files not available for download. " + str(result) + " " + str(response_code))
 		return
 	
-	state = OPERATION_STATE.EXTRACTING
+	state = Operation.EXTRACTING
 	
 	var globalized_dltmp_path: String = ProjectSettings.globalize_path(install_in_progress.dltmp_path)
 	if ArchiveHandler.IsArchive(globalized_dltmp_path + "game"):
@@ -132,9 +132,10 @@ func _on_archive_extraction_complete(message: String, path: String, archiveWasDb
 	install_in_progress = {}
 	_save_index_to_file()
 	animation_player.play("out")
-	state = OPERATION_STATE.IDLE
+	state = Operation.IDLE
 	timer.stop()
 	emit_signal("operation_done", true, "install")
+	Configurator.set_window_state(Configurator.WindowState.ATTENTION)
 
 	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
 
@@ -175,7 +176,6 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 		warn("Couldn't run game! Maybe it's corrupted or incompatible?\nPlease check this mod's Website and attempt installing it manually.")
 		return
 	
-	Configurator.set_discord_status(Configurator.DiscordStatus.IN_GAME, mod_id)
 	if not register_process: return
 	Configurator.add_process(mod_id, version, platform, pid)
 
@@ -204,13 +204,13 @@ func is_installed(mod_id: String, version: String, platform: String) -> int:
 	var in_filesystem = DirAccess.dir_exists_absolute(Configurator.get_config("install_location", "user://Installs/") + mod_id + "/" + version + "/" + platform)
 	var found_install = _find_install_in_array(mod_id, version, platform)
 
-	var result: int = INTEGRITY_RESULT.PASS
+	var result: int = IntegrityResult.PASS
 	if not found_install != {}:
-		result |= INTEGRITY_RESULT.FAIL_NOT_IN_INDEX
+		result |= IntegrityResult.FAIL_NOT_IN_INDEX
 	elif found_install.executable_path == "":
-		result |= INTEGRITY_RESULT.FAIL_NO_EXE
+		result |= IntegrityResult.FAIL_NO_EXE
 	if not in_filesystem:
-		result |= INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM
+		result |= IntegrityResult.FAIL_NOT_IN_FILESYSTEM
 	return result
 
 
@@ -241,7 +241,7 @@ func err(text: String):
 	install_in_progress = {}
 	emit_signal("operation_done", false, "")
 	animation_player.play("out")
-	state = OPERATION_STATE.IDLE
+	state = Operation.IDLE
 
 
 func warn(text: String):
@@ -252,17 +252,17 @@ func warn(text: String):
 @warning_ignore("integer_division")
 func _on_timer_update_progressbar_timeout() -> void:
 	match state:
-		OPERATION_STATE.IDLE:
+		Operation.IDLE:
 			timer.stop()
 			l_progress.text = ""
-		OPERATION_STATE.DOWNLOADING:
+		Operation.DOWNLOADING:
 			var mb_downloaded = requester.get_downloaded_bytes()/1024/1024
 			var mb_total = requester.get_body_size()/1024/1024
 			if mb_downloaded == mb_total:
 				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "loading") + "Please hold"
 			else:
 				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "downloading") + str(mb_downloaded) + ("" if mb_total == 0 else (" out of " + str(mb_total))) + " MB downloaded"
-		OPERATION_STATE.EXTRACTING:
+		Operation.EXTRACTING:
 			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
 			l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "zip") + "Extracting files"
 

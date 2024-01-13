@@ -102,10 +102,10 @@ func _on_options_version_item_selected(index: int) -> void:
 	var platforms_dict = mod_data.gamefile_urls[options_version.get_item_text(index)]
 	var sorted_platform_assets = platforms_dict.keys()
 	sorted_platform_assets.sort_custom(func(a, b):
-		var integrity_result_a = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), a)
-		var integrity_result_b = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), b)
+		var IntegrityResult_a = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), a)
+		var IntegrityResult_b = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), b)
 		return (options_version.item_count <= 1 and platforms_dict[a].timestamp > platforms_dict[b].timestamp) or \
-			integrity_result_a < integrity_result_b or \
+			IntegrityResult_a < IntegrityResult_b or \
 			_platform_asset_coincides_with_os(a) > _platform_asset_coincides_with_os(b) 
 	)
 	for asset: String in sorted_platform_assets:
@@ -137,9 +137,9 @@ func _on_options_platform_item_selected(index: int) -> void:
 		set_buttons_state(false, false, false, false)
 		return
 	
-	var integrity_result = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index))
-	var already_installed = integrity_result & (InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.INTEGRITY_RESULT.FAIL_NOT_IN_INDEX) == 0
-	var executable_found = integrity_result & InstallsIndex.INTEGRITY_RESULT.FAIL_NO_EXE == 0
+	var IntegrityResult = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index))
+	var already_installed = IntegrityResult & (InstallsIndex.IntegrityResult.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.IntegrityResult.FAIL_NOT_IN_INDEX) == 0
+	var executable_found = IntegrityResult & InstallsIndex.IntegrityResult.FAIL_NO_EXE == 0
 	set_buttons_state(already_installed, Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected)) != -1, executable_found)
 
 

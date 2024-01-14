@@ -80,7 +80,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 
 	for filename in dir.get_files():	# for each mod in the database...
 		var mod_id: String = filename.replace(".tres", "")
-		var data: ModData = load(dir.get_current_dir() + "/" + filename)
+		var data := load(dir.get_current_dir() + "/" + filename) as ModData
 		var tmp_image: Image = Image.new()
 		if FileAccess.file_exists("user://DB/" + mod_id + "C.png"):
 			tmp_image.load("user://DB/" + mod_id + "C.png")
@@ -97,6 +97,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 					if int(data.gamefile_urls[version][asset]["timestamp"]) > max_ts: max_ts = int(data.gamefile_urls[version][asset]["timestamp"])
 			data.timestamp = str(max_ts)
 			if Configurator.get_ts_mod(mod_id) != "" and int(data.timestamp) > int(Configurator.get_ts_mod(mod_id)):
+				Configurator.set_ts_mod(mod_id, data.timestamp)
 				new_updates_list += "- " + data.name.substr(0, min(data.name.length(), 30)) + "\n"
 		data.idx = mod_id
 		moddatas[mod_id] = data

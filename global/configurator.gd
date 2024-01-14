@@ -11,7 +11,6 @@ var themes: Array[Theme] = [
 	preload("res://ui_resources/themes/95/Classic95.tres")
 ]
 
-var remembered_tab_idx := 0
 var remembered_mod_idx := ""
 var current_theme: Theme = null
 var current_theme_id := 0

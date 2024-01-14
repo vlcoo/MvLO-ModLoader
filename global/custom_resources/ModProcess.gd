@@ -12,4 +12,4 @@ func _init(new_pid: int, new_mod_id: String, new_version: String, new_platform: 
 	self.pid = new_pid
 	self.mod_id = new_mod_id
 	self.version = new_version
-	self.new_platform = new_platform
+	self.platform = new_platform

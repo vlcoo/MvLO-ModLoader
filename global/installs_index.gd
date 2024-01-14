@@ -226,7 +226,7 @@ func _find_install_in_array(mod_id: String, version: String, platform: String) -
 
 
 func mod_is_installed(mod_id: String) -> bool:
-	return str(index.installs).contains(mod_id)
+	return str(index.installs).contains("\"" + mod_id + "\"")
 
 
 func _save_index_to_file() -> void:

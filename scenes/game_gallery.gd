@@ -24,7 +24,6 @@ var filter_installed = false
 func _ready() -> void:
 	#current_mod_game_viewer.get_node("AnimationPlayer").play("out")
 	ContentGetter.cache_updated.connect(_on_cache_updated)
-	current_tab = Configurator.remembered_tab_idx
 	Configurator.set_discord_status(Configurator.DiscordStatus.IN_MENU)
 	set_tab_icon(0, load("res://audiovisual/nsmb.png"))
 	set_tab_icon(1, load("res://audiovisual/puzzle.png"))
@@ -51,12 +50,12 @@ func _on_ready() -> void:
 
 	if Configurator.get_config("remember_view", false):
 		$Settings/ScrollContainer/VBoxContainer/CheckButton2.button_pressed = true
-		current_tab = Configurator.get_config("remembered_tab", 0)
+		current_tab = Configurator.get_config("remembered_tab")
 		if current_tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod", "")
 
 
 func _on_tree_exiting() -> void:
-	if current_tab < 3: Configurator.remembered_tab_idx = current_tab
+	if current_tab < 3: Configurator.set_config("remembered_tab", current_tab)
 
 
 func _on_cache_updated(_succeeded: bool) -> void:
@@ -191,7 +190,8 @@ func _on_button_4_pressed() -> void:
 
 
 func _on_tab_changed(tab: int) -> void:
-	Configurator.set_config("remembered_tab", tab)
+	if not is_node_ready(): return
+	
 	if tab == 1: input_search.grab_focus.call_deferred()
 	if tab == 2: _repopulate_installs_tree()
 	if requires_game_viewer_ui_reload:

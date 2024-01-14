@@ -54,6 +54,10 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
 
+[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
+offset_right = 0.0
+offset_bottom = 0.0
+
 [node name="ButtonFavourite" parent="Vanilla/GameViewer/PanelOverview/CenterContainer/VBoxContainer" index="3"]
 visible = false
 
@@ -71,7 +75,6 @@ layout_mode = 2
 theme_override_constants/margin_left = 28
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 28
-theme_override_constants/margin_bottom = 9
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig"]
 layout_mode = 2
@@ -80,7 +83,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 
 [node name="ContainerFilters" type="HBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_constants/separation = 14
 alignment = 1
@@ -105,7 +108,7 @@ caret_blink = true
 
 [node name="VSeparator" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 48
 
 [node name="TextureSort" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
@@ -141,7 +144,7 @@ popup/item_3/id = 2
 
 [node name="VSeparator2" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 48
 
 [node name="TextureFilter" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
@@ -151,7 +154,8 @@ texture = ExtResource("5_h0xkt")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
-theme_override_constants/separation = -7
+theme_override_constants/separation = -4
+alignment = 1
 
 [node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
 layout_mode = 2
@@ -187,7 +191,7 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/h_separation = 32
+theme_override_constants/h_separation = 42
 theme_override_constants/v_separation = 22
 columns = 5
 
@@ -265,7 +269,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 

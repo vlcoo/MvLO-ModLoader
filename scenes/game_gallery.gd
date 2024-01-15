@@ -8,6 +8,7 @@ extends TabContainer
 @onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch"
 @onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonBrowse"
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
+@onready var label_no_results: Label = $"Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer/MarginContainer/LabelNoResults"
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
@@ -19,6 +20,7 @@ var selected_install: Dictionary = {}
 var filter_search = ""
 var filter_favourites = false
 var filter_installed = false
+var filter_result_count = 0
 
 
 func _ready() -> void:
@@ -35,21 +37,22 @@ func _on_ready() -> void:
 	set_physics_process(false)
 	
 	$Settings/ScrollContainer/VBoxContainer/Panel/LabelVersion.text = "v" + str(SelfUpdater.vercode)
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	#$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows", "")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux", "")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos", "")
-	$Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
-	$Settings/ScrollContainer/VBoxContainer/CheckButton4.button_pressed = Configurator.get_config("discord-rpc", true)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton4.button_pressed = Configurator.get_config("discord-rpc", true)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton5.button_pressed = Configurator.get_config("auto_subscribe", false)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton6.button_pressed = Configurator.get_config("minimize", false)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text= Configurator.get_config("install_location", "user://")
-	$Settings/ScrollContainer/VBoxContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
-	$Settings/ScrollContainer/VBoxContainer/CheckButton5.button_pressed = Configurator.get_config("minimize", false)
 
 	if Configurator.get_config("remember_view", false):
-		$Settings/ScrollContainer/VBoxContainer/CheckButton2.button_pressed = true
+		$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton2.button_pressed = true
 		current_tab = Configurator.get_config("remembered_tab")
 		if current_tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod", "")
 
@@ -92,16 +95,21 @@ func apply_gallery_filters() -> void:
 	var filters_enabled = true
 	if filter_search == "" and not filter_favourites and not filter_installed:
 		filters_enabled = false
+	filter_result_count = 0
 	
 	for child: GalleryElement in gallery.get_children():
 		if not filters_enabled: 
 			child.visible = true
+			filter_result_count += 1
 			continue
 		
 		# match each mod to searched text, favourite and installed
-		child.visible = (filter_search == "" or filter_search in child.title.to_lower()) and \
+		child.visible = (ContentGetter.string_coincides_with_mod_name(filter_search, child.title)) and \
 			(not filter_favourites or child.favourite) and \
 			(not filter_installed or child.installed)
+		if child.visible: filter_result_count += 1
+	
+	label_no_results.visible = filter_result_count <= 0
 
 
 func _mod_comparator(a: ModData, b: ModData) -> bool:
@@ -321,3 +329,14 @@ func _on_check_only_installed_toggled(toggled_on: bool) -> void:
 
 func _on_check_button_5_toggled(toggled_on: bool) -> void:
 	Configurator.set_config("minimize", toggled_on)
+
+
+func _on_check_button_6_toggled(toggled_on: bool) -> void:
+	Configurator.set_config("auto_subscribe", toggled_on)
+
+
+func _on_input_search_text_submitted(new_text: String) -> void:
+	if filter_result_count != 1: return
+	
+	for child: GalleryElement in gallery.get_children():
+		if child.visible: _on_mod_opened(child.idx)

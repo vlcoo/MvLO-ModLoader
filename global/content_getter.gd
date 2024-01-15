@@ -11,6 +11,7 @@ const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 
 var db_request_complete = false
 var gamefiles_request_complete = false
+var regex_acronym = RegEx.new()
 
 var moddatas: Dictionary = {}
 
@@ -19,6 +20,7 @@ signal cache_updated(succeeded: bool)
 
 func _ready() -> void:
 	ArchiveHandler.ExtractionComplete.connect(_on_archive_extraction_complete)
+	regex_acronym.compile("\\b[\\w\\']+?\\b")
 
 
 func _on_ready() -> void:
@@ -104,12 +106,14 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 
 	emit_signal("cache_updated", true)
 	if hide_animation: animation_player.play("out")
-	if new_updates_list != "": warn("New updates for mods you're subscribed to!\n" + new_updates_list)
-	await dialog.confirmed or dialog.canceled
+	if new_updates_list != "": 
+		warn("New updates for mods you're subscribed to!\n" + new_updates_list)
+		await dialog.confirmed or dialog.canceled
 	
 	var mod_count_before = Configurator.get_config("mod_count", 0)
 	var mod_count_after = moddatas.size()
-	if mod_count_after > mod_count_before: warn(str(mod_count_after - mod_count_before) + " new mods have been added since the last time!")
+	if mod_count_after > mod_count_before and mod_count_before > 0: 
+		warn(str(mod_count_after - mod_count_before) + " new mods have been added since the last time you checked!")
 	Configurator.set_config("mod_count", mod_count_after)
 
 
@@ -119,6 +123,19 @@ func _check_dbs_integrity() -> bool:
 
 func get_local_moddata(idx: String) -> ModData:
 	return moddatas[idx] if moddatas.has(idx) else null
+
+
+func string_coincides_with_mod_name(string: String, mod_name: String) -> bool:
+	mod_name = mod_name.to_lower().replace("-", " ")
+	for c in ["'", "."]:
+		mod_name = mod_name.replace(c, "")
+	
+	var acronym = ""
+	var matches = regex_acronym.search_all(mod_name)
+	for m in matches:
+		acronym += m.get_string()[0]
+	
+	return string == "" or string in mod_name or string in acronym
 
 
 func err(text: String):

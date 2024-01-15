@@ -215,6 +215,8 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 	match type:
 		"install":
 			_on_options_platform_item_selected(options_platform.selected)
+			if Configurator.get_config("auto_subscribe", false):
+				$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = true
 
 
 func _on_item_list_item_activated(index: int) -> void:

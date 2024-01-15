@@ -44,6 +44,10 @@ mouse_cursor/tooltip_position_offset=Vector2(20, 20)
 
 project/assembly_name="MvLO Mod Loader"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [gui]
 
 theme/custom="res://ui_resources/themes/DefaultDark.tres"

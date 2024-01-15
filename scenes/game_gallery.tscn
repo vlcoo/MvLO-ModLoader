@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=30 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://bx3y3ubnelg07" path="res://audiovisual/database-reload.png" id="17_8is38"]
 [ext_resource type="Texture2D" uid="uid://cac4du61ptdmh" path="res://audiovisual/database-delete.png" id="18_xr7p4"]
 [ext_resource type="Texture2D" uid="uid://b1saitpdx5r1h" path="res://audiovisual/file.png" id="19_25xiv"]
+[ext_resource type="Texture2D" uid="uid://bujgcfkcjmlaf" path="res://audiovisual/notify.png" id="19_gixlo"]
 [ext_resource type="Texture2D" uid="uid://dhdi8u2m6a64r" path="res://audiovisual/minimize.png" id="19_t4233"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
@@ -30,6 +31,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anyoi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mansp"]
 
 [node name="GameGallery" type="TabContainer"]
 anchors_preset = 15
@@ -42,9 +45,11 @@ size_flags_vertical = 3
 theme_override_constants/icon_separation = 16
 theme_override_constants/icon_max_width = 16
 tab_alignment = 1
+current_tab = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
@@ -54,10 +59,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
 
-[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
-offset_right = 0.0
-offset_bottom = 0.0
-
 [node name="ButtonFavourite" parent="Vanilla/GameViewer/PanelOverview/CenterContainer/VBoxContainer" index="3"]
 visible = false
 
@@ -65,7 +66,6 @@ visible = false
 visible = false
 
 [node name="Mod Gallery" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -195,6 +195,14 @@ theme_override_constants/h_separation = 42
 theme_override_constants/v_separation = 22
 columns = 5
 
+[node name="LabelNoResults" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "No results!
+
+Try resetting the filters above..."
+horizontal_alignment = 1
+
 [node name="GameViewer" parent="Mod Gallery" instance=ExtResource("1_qd0tx")]
 layout_mode = 2
 auto_refresh = false
@@ -269,6 +277,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
@@ -284,7 +293,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme_override_constants/separation = 10
+theme_override_constants/separation = 14
 alignment = 1
 
 [node name="Panel" type="Panel" parent="Settings/ScrollContainer/VBoxContainer"]
@@ -350,8 +359,22 @@ text = "v4"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 40)
+[node name="HSeparator3" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.517647)
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mansp")
+
+[node name="GridContainer" type="GridContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 140
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="CheckButton" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(340, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -363,8 +386,8 @@ theme_override_constants/h_separation = 14
 text = "Use list view for mod gallery"
 icon = ExtResource("11_2jt2q")
 
-[node name="CheckButton2" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 40)
+[node name="CheckButton2" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(340, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -376,8 +399,8 @@ theme_override_constants/h_separation = 14
 text = "Open last viewed tab on restart"
 icon = ExtResource("12_lymde")
 
-[node name="CheckButton3" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 40)
+[node name="CheckButton3" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(340, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -389,8 +412,8 @@ theme_override_constants/h_separation = 14
 text = "Show all platforms"
 icon = ExtResource("13_8dqhh")
 
-[node name="CheckButton4" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 40)
+[node name="CheckButton4" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(340, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -402,8 +425,23 @@ button_pressed = true
 text = "Discord Game Activity (auto)"
 icon = ExtResource("14_edqgf")
 
-[node name="CheckButton5" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 40)
+[node name="CheckButton5" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(340, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Enable \"new version\" notifications 
+for all mods you install from now on."
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
+theme_override_constants/h_separation = 14
+button_pressed = true
+text = "Auto subscribe to updates"
+icon = ExtResource("19_gixlo")
+
+[node name="CheckButton6" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(340, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -414,6 +452,42 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
 text = "Minimize window when launching a mod"
 icon = ExtResource("19_t4233")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(320, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Change the visuals of the UI."
+theme_override_constants/separation = 13
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("15_upikk")
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.32
+theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
+text = "Theme"
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Default (Dark)"
+popup/item_0/id = 0
+popup/item_1/text = "NSMB DS"
+popup/item_1/id = 1
+popup/item_2/text = "95"
+popup/item_2/id = 2
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 visible = false
@@ -481,41 +555,18 @@ popup/item_1/id = 0
 popup/item_2/text = "Disabled"
 popup/item_2/id = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(700, 40)
+[node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.517647)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-tooltip_text = "Change the visuals of the UI."
-theme_override_constants/separation = 14
-alignment = 1
+theme_override_constants/separation = 6
 
-[node name="TextureRect" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
 layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("15_upikk")
-
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.32
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
-text = "Theme"
-vertical_alignment = 1
-
-[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Don't use these if not strictly necessary!"
 mouse_filter = 1
-item_count = 3
-selected = 0
-popup/item_0/text = "Default (Dark)"
-popup/item_0/id = 0
-popup/item_1/text = "NSMB DS"
-popup/item_1/id = 1
-popup/item_2/text = "95"
-popup/item_2/id = 2
+text = "Advanced"
+horizontal_alignment = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -644,7 +695,7 @@ placeholder_text = "ENTER to save"
 [node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0.517647)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
@@ -719,6 +770,7 @@ access = 2
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="text_changed" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch" to="." method="_on_input_search_text_changed"]
+[connection signal="text_submitted" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch" to="." method="_on_input_search_text_submitted"]
 [connection signal="item_selected" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort" to="." method="_on_option_button3_item_selected"]
 [connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites" to="." method="_on_check_only_favourites_toggled"]
 [connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled" to="." method="_on_check_only_installed_toggled"]
@@ -728,14 +780,15 @@ access = 2
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch" to="." method="_on_button_launch_pressed"]
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonBrowse" to="." method="_on_button_browse_pressed"]
 [connection signal="timeout" from="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/TimerLoading" to="." method="_on_timer_loading_timeout"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton4" to="." method="_on_check_button_4_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/CheckButton5" to="." method="_on_check_button_5_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton4" to="." method="_on_check_button_4_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton5" to="." method="_on_check_button_6_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton6" to="." method="_on_check_button_5_toggled"]
+[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/GridContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer8/OptionButton" to="." method="_on_option_button3_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton" to="." method="_on_option_button2_item_selected"]
-[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/ButtonChooseFolder" to="." method="_on_button_choose_folder_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer5/ButtonClear" to="." method="_on_button_clear_pressed"]

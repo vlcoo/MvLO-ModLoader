@@ -267,6 +267,11 @@ size = Vector2i(226, 100)
 ok_button_text = "Yes"
 cancel_button_text = "No"
 
+[node name="ConfirmationDangerous" type="ConfirmationDialog" parent="."]
+ok_button_text = "Yes"
+dialog_text = "Are you sure? This action is irreversible."
+cancel_button_text = "No"
+
 [node name="TimerUpdateProgressbar" type="Timer" parent="."]
 wait_time = 0.1
 

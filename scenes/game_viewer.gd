@@ -196,7 +196,11 @@ func _on_button_uninstall_pressed() -> void:
 	var pid = Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
 
 	if pid == -1:
-		InstallsIndex.uninstall(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+		InstallsIndex.uninstall(
+			mod_data_id,
+			options_version.get_item_text(options_version.selected),
+			options_platform.get_item_text(options_platform.selected)
+		)
 		_on_options_platform_item_selected(options_platform.selected)
 	else:
 		OS.kill(pid)

@@ -24,6 +24,7 @@ var index_path:
 @onready var l_progress: RichTextLabel = $Panel/VBoxContainer/Label2
 @onready var dialog: AcceptDialog = $AcceptDialog
 @onready var dialog_ask: ConfirmationDialog = $ConfirmationDialogRedirect
+@onready var dialog_sure: ConfirmationDialog = $ConfirmationDangerous
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
@@ -217,12 +218,6 @@ func is_installed(mod_id: String, version: String, platform: String) -> int:
 func _find_install_in_array(mod_id: String, version: String, platform: String) -> Dictionary:
 	var found_installs: Array[Dictionary] = index.installs.filter(func(inst): return inst.mod_id == mod_id && inst.version == version && inst.platform == platform)
 	return {} if found_installs.is_empty() else found_installs[0]
-	
-	#for inst in index.installs:
-		#if inst.mod_id == mod_id and inst.version == version and inst.platform == platform:
-			#return inst
-#
-	#return {}
 
 
 func mod_is_installed(mod_id: String) -> bool:
@@ -247,6 +242,13 @@ func err(text: String):
 func warn(text: String):
 	dialog.dialog_text = text
 	dialog.popup_centered()
+
+
+func confirm(function: Callable, args: Array):
+	#for c in dialog_sure.confirmed.get_connections():
+		#dialog_sure.confirmed.disconnect(c.callable)
+	dialog_sure.confirmed.connect(function.bindv(args), CONNECT_ONE_SHOT)
+	dialog_sure.popup_centered()
 
 
 @warning_ignore("integer_division")

@@ -4,7 +4,7 @@ enum DiscordStatus {IN_MENU, IN_GAME, IN_MULTIPLE, CLEARED}
 enum WindowState {ATTENTION, RESTORED, MINIMIZED}
 
 const CONFIG_PATH := "user://settings.ini"
-const PROCESS_TIMER_TIME := 5
+const PROCESS_TIMER_TIME := 2
 var themes: Array[Theme] = [
 	preload("res://ui_resources/themes/DefaultDark.tres"),
 	preload("res://ui_resources/themes/NSMBDS.tres"),
@@ -79,9 +79,10 @@ func set_window_state(state: WindowState) -> void:
 	
 	match state:
 		WindowState.ATTENTION:
-			if get_window().has_focus(): get_window().request_attention()
+			if not get_window().has_focus(): get_window().request_attention()
 		WindowState.RESTORED:
 			get_window().mode = previous_window_mode
+			get_window().grab_focus()
 		WindowState.MINIMIZED:
 			previous_window_mode = get_window().mode
 			get_window().mode = Window.MODE_MINIMIZED

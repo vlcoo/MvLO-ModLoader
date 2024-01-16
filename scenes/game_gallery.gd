@@ -37,7 +37,7 @@ func _on_ready() -> void:
 	set_physics_process(false)
 	
 	$Settings/ScrollContainer/VBoxContainer/Panel/LabelVersion.text = "v" + str(SelfUpdater.vercode)
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	#$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
@@ -69,7 +69,7 @@ func _on_cache_updated(_succeeded: bool) -> void:
 		current_mod_game_viewer.refresh_mod_data()
 
 
-func _repopulate_gallery(element: PackedScene, cols: int) -> void:
+func _repopulate_gallery(element: PackedScene, cols: int, skip_animations := false) -> void:
 	if gallery.get_child_count() > 0:
 		for child in gallery.get_children():
 			gallery.remove_child(child)
@@ -85,9 +85,10 @@ func _repopulate_gallery(element: PackedScene, cols: int) -> void:
 		child.init_ui(mod.cover_image, mod.name)
 		gallery.add_child(child)
 	
-	gallery.modulate = Color.TRANSPARENT
 	apply_gallery_filters()
-	await create_tween().tween_property(gallery, "modulate", Color.WHITE, 0.1).finished
+	if not skip_animations:
+		gallery.modulate = Color.TRANSPARENT
+		await create_tween().tween_property(gallery, "modulate", Color.WHITE, 0.1).finished
 	input_search.grab_focus.call_deferred()
 
 
@@ -152,7 +153,7 @@ func _on_mod_opened(idx: String):
 
 func _on_check_button_toggled(button_pressed: bool) -> void:
 	Configurator.set_config("list_gallery", button_pressed)
-	_repopulate_gallery(gallery_element_list if button_pressed else gallery_element_big, 1 if button_pressed else 5)
+	_repopulate_gallery(gallery_element_list if button_pressed else gallery_element_big, 1 if button_pressed else 5, true)
 
 
 func _on_check_button_2_toggled(button_pressed: bool) -> void:
@@ -292,8 +293,8 @@ func _on_file_dialog_dir_selected(dir: String) -> void:
 
 func _on_option_button3_item_selected(index: int) -> void:
 	Configurator.set_config("sort", index-1)
-	_repopulate_gallery(gallery_element_list if $Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed \
-	else gallery_element_big, 1 if $Settings/ScrollContainer/VBoxContainer/CheckButton.button_pressed else 5)
+	_repopulate_gallery(gallery_element_list if $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton.button_pressed \
+	else gallery_element_big, 1 if $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton.button_pressed else 5, true)
 
 
 func _on_button_5_pressed() -> void:

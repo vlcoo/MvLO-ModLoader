@@ -70,7 +70,7 @@ func refresh_mod_data() -> void:
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
 	for release in mod_data.gamefile_urls.keys():
 		options_version.add_item(release)
-	options_version.disabled = options_version.item_count <= 1
+	options_version.visible = options_version.item_count > 1
 	_on_options_version_item_selected(options_version.selected)
 
 
@@ -162,7 +162,9 @@ func set_buttons_state(installed: bool, running: bool = false, launchable: bool 
 	button_install.disabled = installed or not installable
 	button_install.visible = not installed
 	button_uninstall.visible = installed
+	button_uninstall.disabled = false
 	button_launch.visible = installed
+	button_launch.text = "Launch"
 	button_browse.visible = installed
 	button_launch.disabled = not launchable
 
@@ -183,7 +185,9 @@ func _on_button_install_pressed() -> void:
 
 
 func _on_button_launch_pressed() -> void:
-	InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected), true)
+	if not await InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected), true):
+		return
+	
 	button_launch.text = "Loading"
 	button_launch.disabled = true
 	$TimerLoading.start()
@@ -247,7 +251,8 @@ func _on_timer_killing_timeout() -> void:
 		button_uninstall.icon = uninstall_texture
 
 
-func _on_mod_closed() -> void:
+func _on_mod_closed(process: ModProcess) -> void:
+	if process.mod_id != mod_data_id: return
 	var is_current_running = Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected)) != -1
 
 	if not is_current_running and button_uninstall.text != "Uninstall":

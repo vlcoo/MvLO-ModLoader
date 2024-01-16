@@ -241,6 +241,7 @@ func _on_button_uninstall_pressed() -> void:
 
 	var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
 	installs_tree.set_item_text(0, "All installed games (" + total_mb_str + " MB)")
+	requires_game_viewer_ui_reload = true
 
 
 func _on_button_launch_pressed() -> void:
@@ -266,8 +267,8 @@ func _on_option_button2_item_selected(index: int) -> void:
 
 
 func _on_button_choose_folder_pressed() -> void:
-	InstallsIndex.warn("This will set the following folder as the location for any future installs.\n\
-	The previous install location and its contents will be *deleted*.")
+	InstallsIndex.warn("Please select a folder as the location for any future installs.\n\
+	Wath out, the previous install location and its contents will be deleted!")
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	$Settings/FileDialog.popup_centered()
 
@@ -282,7 +283,7 @@ func _on_button_clear_pressed() -> void:
 func _on_file_dialog_dir_selected(dir: String) -> void:
 	var dir_access = DirAccess.open(dir)
 	if dir_access.get_files().size() != 0:
-		InstallsIndex.warn("Folder must be empty.")
+		InstallsIndex.warn("Please select an empty folder.")
 		return
 	
 	dir = dir + "/"
@@ -336,7 +337,7 @@ func _on_check_button_6_toggled(toggled_on: bool) -> void:
 	Configurator.set_config("auto_subscribe", toggled_on)
 
 
-func _on_input_search_text_submitted(new_text: String) -> void:
+func _on_input_search_text_submitted(_new_text: String) -> void:
 	if filter_result_count != 1: return
 	
 	for child: GalleryElement in gallery.get_children():

@@ -143,12 +143,12 @@ func _on_archive_extraction_complete(message: String, path: String, archiveWasDb
 	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
 
 
-func launch(mod_id: String, version: String, platform: String, register_process: bool = false) -> void:
+func launch(mod_id: String, version: String, platform: String, register_process: bool = false) -> bool:
 	# verify integrity and execute...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == {}:
-		warn("Install is incomplete or has been tampered with.")
-		return
+		warn("Couldn't run game! Maybe it's corrupted?\nPlease try reinstalling this mod.")
+		return false
 	var command: String = ""
 	var os_mismatch = false
 
@@ -161,10 +161,12 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	elif inst.executable_path.ends_with(".app"):
 		command = Configurator.get_config("args_macos")
 		if Configurator.os_name != "macOS": os_mismatch = true
-	else: return
+	else: return false
 
 	if os_mismatch:
 		warn("You tried launching a version of a mod not built for your OS. This might not work.")
+		if Configurator.get_config("minimize", false):
+			await dialog.confirmed or dialog.canceled
 
 	var globalized_path: String = ProjectSettings.globalize_path(inst.executable_path)
 	if Configurator.os_name == "macOS": globalized_path = "file:/" + globalized_path
@@ -177,10 +179,11 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	
 	if pid == -1:
 		warn("Couldn't run game! Maybe it's corrupted or incompatible?\nPlease check this mod's Website and attempt installing it manually.")
-		return
+		return false
 	
-	if not register_process: return
+	if not register_process: return true
 	Configurator.add_process(mod_id, version, platform, pid)
+	return true
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:

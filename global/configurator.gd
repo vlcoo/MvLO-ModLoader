@@ -23,7 +23,7 @@ var cache_is_old: bool
 
 var current_processes: Array[ModProcess] = []
 var process_timer: Timer = Timer.new()
-signal process_ended
+signal process_ended(process: ModData)
 
 
 func _ready() -> void:
@@ -63,7 +63,7 @@ func _on_timer_timeout() -> void:
 		else:
 			config.set_value("mod_timers", process.mod_id, int(config.get_value("mod_timers", process.mod_id, 0)) + process.delta_timer_seconds)
 			current_processes.erase(process)
-			emit_signal("process_ended")
+			process_ended.emit(process)
 			if current_processes.is_empty(): 
 				process_timer.stop()
 				set_discord_status(DiscordStatus.IN_MENU)
@@ -125,7 +125,7 @@ func set_discord_status(status: DiscordStatus, mod_id: String = ""):
 
 
 func add_process(mod_id: String, version: String, platform: String, pid: int) -> void:
-	var current_process: ModProcess = ModProcess.new(pid, mod_id, platform, version)
+	var current_process: ModProcess = ModProcess.new(pid, mod_id, version, platform)
 	current_processes.append(current_process)
 	if process_timer.is_stopped(): process_timer.start(PROCESS_TIMER_TIME)
 	
@@ -135,11 +135,8 @@ func add_process(mod_id: String, version: String, platform: String, pid: int) ->
 
 
 func get_mod_pid(mod_id: String, version: String, platform: String) -> int:
-	for process in current_processes:
-		if process.mod_id == mod_id and process.version == version and process.platform == platform:
-			return process.pid
-
-	return -1
+	var found_process: Array[ModProcess] = current_processes.filter(func(p): return p.mod_id == mod_id && p.version == version && p.platform == platform)
+	return -1 if found_process.is_empty() else found_process[0].pid
 
 
 func get_config(variable: String, default: Variant = "") -> Variant:

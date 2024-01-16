@@ -74,11 +74,11 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	var new_updates_list: String = ""
 	if dir == null:
 		Configurator.update_timestamp(true)
-		err("DB not present locally - please restart the program.")
+		err("DB not present locally.\nPlease restart the program!")
 		return
 	if json == null:
 		Configurator.update_timestamp(true)
-		err("Service unavailable.")
+		err("Server unavailable. Try again later!")
 
 	for filename in dir.get_files():	# for each mod in the database...
 		var mod_id: String = filename.replace(".tres", "")

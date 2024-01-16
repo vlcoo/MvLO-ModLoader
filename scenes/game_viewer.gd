@@ -4,13 +4,13 @@ extends Panel
 @onready var label_title: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelTitle
 @onready var label_subtitle: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelSubtitle
 @onready var item_list: ItemList = $PanelDetail/CenterContainer/VBoxContainer/ItemList
-@onready var label_timer: Label = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer3/LabelTimer
-@onready var options_version: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsVersion
-@onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer/OptionsPlatform
-@onready var button_install: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonInstall
-@onready var button_launch: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonLaunch
-@onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonUninstall
-@onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/HBoxContainer2/ButtonBrowse
+@onready var label_timer: Label = $PanelDetail/CenterContainer/VBoxContainer/ContainerTimer/Label
+@onready var options_version: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsVersion
+@onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsPlatform
+@onready var button_install: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonInstall
+@onready var button_launch: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonLaunch
+@onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonUninstall
+@onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
@@ -64,9 +64,9 @@ func refresh_mod_data() -> void:
 			item_list.add_item(server, icon_discord)
 
 	_refresh_time_played()
-	$PanelOverview/CenterContainer/VBoxContainer/ButtonFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
+	$PanelOverview/CenterContainer/VBoxContainer/CheckFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
 
-	$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
+	$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
 	for release in mod_data.gamefile_urls.keys():
 		options_version.add_item(release)
@@ -220,12 +220,13 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 		"install":
 			_on_options_platform_item_selected(options_platform.selected)
 			if Configurator.get_config("auto_subscribe", false):
-				$PanelDetail/CenterContainer/VBoxContainer/CheckButton.button_pressed = true
+				$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = true
 
 
 func _on_item_list_item_activated(index: int) -> void:
-	if $PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index).begins_with("https://"):
-		OS.shell_open($PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index))
+	var url = $PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index)
+	if url.begins_with("https://"):
+		OS.shell_open(url)
 
 
 func _on_timer_loading_timeout() -> void:

@@ -8,7 +8,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("RectBackground:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -32,7 +32,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath("RectBackground:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -47,7 +47,7 @@ resource_name = "in"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("RectBackground:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -71,7 +71,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath("RectBackground:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -101,7 +101,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("RectBackground:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -125,7 +125,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath("RectBackground:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -140,7 +140,7 @@ resource_name = "wait_hidden"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:mouse_filter")
+tracks/0/path = NodePath("RectBackground:mouse_filter")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -152,7 +152,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:color")
+tracks/1/path = NodePath("RectBackground:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -186,7 +186,7 @@ _data = {
 layer = 3
 script = ExtResource("1_cnpe4")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="RectBackground" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -227,7 +227,7 @@ pivot_offset = Vector2(149, 91)
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Label" type="RichTextLabel" parent="Panel/VBoxContainer"]
+[node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 26
@@ -235,7 +235,7 @@ bbcode_enabled = true
 text = "[center][wave amp=36]Starting up..."
 fit_content = true
 
-[node name="Label2" type="RichTextLabel" parent="Panel/VBoxContainer"]
+[node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 1, 1, 0.545098)
 bbcode_enabled = true

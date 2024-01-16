@@ -2,13 +2,14 @@ extends TabContainer
 
 @onready var vanilla_game_viewer: Panel = $Vanilla/GameViewer
 @onready var current_mod_game_viewer: Panel = $"Mod Gallery/GameViewer"
-@onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer/MarginContainer/GridMods"
-@onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/Tree"
-@onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonUninstall"
-@onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonLaunch"
-@onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer2/ButtonBrowse"
+@onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/GridContainer"
+@onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/ItemList"
+@onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall"
+@onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch"
+@onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse"
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
-@onready var label_no_results: Label = $"Mod Gallery/ContainerBig/VBoxContainer/ScrollContainer/MarginContainer/LabelNoResults"
+@onready var label_no_results: Label = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/LabelNoResults"
+@onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
@@ -36,23 +37,22 @@ func _ready() -> void:
 func _on_ready() -> void:
 	set_physics_process(false)
 	
-	$Settings/ScrollContainer/VBoxContainer/Panel/LabelVersion.text = "v" + str(SelfUpdater.vercode)
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
-	#$Settings/ScrollContainer/VBoxContainer/HBoxContainer7/OptionButton.selected = Configurator.get_config("discord", 0)
+	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.text = "v" + str(SelfUpdater.vercode)
+	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/OptionButton.selected = Configurator.current_theme_id
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer2/LineEdit.text = Configurator.get_config("args_windows", "")
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer3/LineEdit2.text = Configurator.get_config("args_linux", "")
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer4/LineEdit3.text = Configurator.get_config("args_macos", "")
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton.button_pressed = Configurator.get_config("list_gallery", false)
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton3.button_pressed = Configurator.get_config("all_platforms")
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton4.button_pressed = Configurator.get_config("discord-rpc", true)
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton5.button_pressed = Configurator.get_config("auto_subscribe", false)
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton6.button_pressed = Configurator.get_config("minimize", false)
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text= Configurator.get_config("install_location", "user://")
+	$Settings/ScrollContainer/VBoxContainer/ContainerArgsWin/LineEdit.text = Configurator.get_config("args_windows", "")
+	$Settings/ScrollContainer/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
+	$Settings/ScrollContainer/VBoxContainer/ContainerArgsMac/LineEdit.text = Configurator.get_config("args_macos", "")
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList.button_pressed = Configurator.get_config("list_gallery", false)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckPlatforms.button_pressed = Configurator.get_config("all_platforms")
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckDiscord.button_pressed = Configurator.get_config("discord-rpc", true)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckAutoSubscribe.button_pressed = Configurator.get_config("auto_subscribe", false)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckMinimize.button_pressed = Configurator.get_config("minimize", false)
+	$Settings/ScrollContainer/VBoxContainer/ContainerLocation/LineEdit.text= Configurator.get_config("install_location", "user://")
 
 	if Configurator.get_config("remember_view", false):
-		$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton2.button_pressed = true
+		$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckRemember.button_pressed = true
 		current_tab = Configurator.get_config("remembered_tab")
 		if current_tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod", "")
 
@@ -175,8 +175,8 @@ func _on_line_edit_3_text_submitted(new_text: String) -> void:
 func _on_button_pressed() -> void:
 	# update db
 	Configurator.update_timestamp(true)
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button.disabled = true
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer6/Button.text = "Scheduled (next restart)"
+	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonRedownloadDB.disabled = true
+	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonRedownloadDB.text = "Scheduled (next restart)"
 
 
 func _on_button_2_pressed() -> void:
@@ -248,7 +248,7 @@ func _on_button_launch_pressed() -> void:
 	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
 	button_launch.text = "Loading"
 	button_launch.disabled = true
-	$"Storage Usage"/MarginContainer/VBoxContainer/HBoxContainer2/TimerLoading.start()
+	$"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
 
 
 func _on_button_browse_pressed() -> void:
@@ -276,7 +276,7 @@ func _on_button_clear_pressed() -> void:
 	if Configurator.get_config("install_location", "user://Installs/") == "user://Installs/": return
 	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location")))
 	Configurator.set_config("install_location", "user://Installs/")
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = "user://Installs/"
+	$Settings/ScrollContainer/VBoxContainer/ContainerLocation/ButtonClear.text = "user://Installs/"
 
 
 func _on_file_dialog_dir_selected(dir: String) -> void:
@@ -288,13 +288,13 @@ func _on_file_dialog_dir_selected(dir: String) -> void:
 	dir = dir + "/"
 	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs/")))
 	Configurator.set_config("install_location", dir)
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer5/LineEdit3.text = dir
+	$Settings/ScrollContainer/VBoxContainer/ContainerLocation/LineEdit.text = dir
 
 
 func _on_option_button3_item_selected(index: int) -> void:
 	Configurator.set_config("sort", index-1)
-	_repopulate_gallery(gallery_element_list if $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton.button_pressed \
-	else gallery_element_big, 1 if $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckButton.button_pressed else 5, true)
+	_repopulate_gallery(gallery_element_list if check_list.button_pressed \
+	else gallery_element_big, 1 if check_list.button_pressed else 5, true)
 
 
 func _on_button_5_pressed() -> void:

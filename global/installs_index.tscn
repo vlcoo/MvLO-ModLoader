@@ -18,7 +18,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("RectBackground:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath("RectBackground:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -57,7 +57,7 @@ resource_name = "in"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("RectBackground:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -81,7 +81,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath("RectBackground:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -111,7 +111,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("RectBackground:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -135,7 +135,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath("RectBackground:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -150,7 +150,7 @@ resource_name = "wait_hidden"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:mouse_filter")
+tracks/0/path = NodePath("RectBackground:mouse_filter")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -162,7 +162,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:color")
+tracks/1/path = NodePath("RectBackground:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -196,7 +196,7 @@ _data = {
 layer = 2
 script = ExtResource("1_xlf4w")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="RectBackground" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -234,10 +234,10 @@ offset_right = 155.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(149, 91)
-theme_override_constants/separation = 24
+theme_override_constants/separation = 46
 alignment = 1
 
-[node name="Label" type="RichTextLabel" parent="Panel/VBoxContainer"]
+[node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 26
@@ -246,14 +246,24 @@ text = "[center][wave amp=36]Install in progress..."
 fit_content = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel/VBoxContainer"]
-visible = false
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_ttqvo")
 max_value = 1.0
+show_percentage = false
 
-[node name="Label2" type="RichTextLabel" parent="Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/default_color = Color(1, 1, 1, 0.545098)
+[node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer/ProgressBar"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 0.55)
 bbcode_enabled = true
 text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Progress text"
 fit_content = true

@@ -21,7 +21,7 @@ var index_path:
 @onready var requester: HTTPRequest = $HTTPRequestGame
 @onready var itch_requester: HTTPRequest = $HTTPRequestItchURL
 @onready var timer: Timer = $TimerUpdateProgressbar
-@onready var l_progress: RichTextLabel = $Panel/VBoxContainer/Label2
+@onready var l_progress: RichTextLabel = $Panel/VBoxContainer/ProgressBar/LabelSubtitle
 @onready var dialog: AcceptDialog = $AcceptDialog
 @onready var dialog_ask: ConfirmationDialog = $ConfirmationDialogRedirect
 @onready var dialog_sure: ConfirmationDialog = $ConfirmationDangerous
@@ -40,6 +40,7 @@ func _ready() -> void:
 	# read or create installsindex resource
 	index = load(index_path) if ResourceLoader.exists(index_path) else InstallsIndexRes.new()
 	ArchiveHandler.ExtractionComplete.connect(_on_archive_extraction_complete)
+	l_progress.text = ""
 
 
 func get_total_installs_size() -> float:
@@ -60,8 +61,6 @@ func redirect(mod_id: String, version: String, platform: String) -> void:
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
 
-	state = Operation.DOWNLOADING
-	animation_player.play("in")
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version
@@ -79,7 +78,10 @@ func install(mod_id: String, version: String, platform: String) -> void:
 		error += itch_requester.request(home_url)
 	else:
 		error += requester.request(home_url)
+		
 	timer.start()
+	state = Operation.DOWNLOADING
+	animation_player.play("in")
 	if error != OK: err(str(error))
 
 
@@ -257,16 +259,21 @@ func _on_timer_update_progressbar_timeout() -> void:
 		Operation.IDLE:
 			timer.stop()
 			l_progress.text = ""
+			progress_bar.self_modulate = Color.TRANSPARENT
 		Operation.DOWNLOADING:
 			var mb_downloaded = requester.get_downloaded_bytes()/1024/1024
 			var mb_total = requester.get_body_size()/1024/1024
 			if mb_downloaded == mb_total:
 				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "loading") + "Please hold"
+				progress_bar.self_modulate = Color.TRANSPARENT
 			else:
 				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "downloading") + str(mb_downloaded) + ("" if mb_total == 0 else (" out of " + str(mb_total))) + " MB downloaded"
+				progress_bar.self_modulate = Color.WHITE
+				progress_bar.value = float(mb_downloaded) / maxf(mb_total, 1.0)
 		Operation.EXTRACTING:
 			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
 			l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "zip") + "Extracting files"
+			progress_bar.self_modulate = Color.TRANSPARENT
 
 
 func _on_http_request_itch_url_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:

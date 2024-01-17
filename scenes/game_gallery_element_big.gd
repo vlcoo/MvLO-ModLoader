@@ -24,7 +24,7 @@ func init_ui(cover: Texture2D, display_name: String) -> void:
 
 func _on_mouse_entered() -> void:
 	var tween = get_tree().create_tween()
-	tween.tween_property($Container, "scale", Vector2(1.05, 1.05), 0.1).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property($Container, "scale", Vector2(0.95, 0.95), 0.1).set_trans(Tween.TRANS_QUAD)
 	ContentGetter.sfx.pitch_scale = randf_range(0.8, 1.2)
 	ContentGetter.sfx.play()
 

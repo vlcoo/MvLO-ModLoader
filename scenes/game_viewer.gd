@@ -14,6 +14,9 @@ extends Panel
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
+var discord_texture: Texture2D = preload("res://audiovisual/discord.png")
+var code_texture: Texture2D = preload("res://audiovisual/code.png")
+var website_texture: Texture2D = preload("res://audiovisual/website.png")
 var platform_apple_texture: Texture2D = preload("res://audiovisual/apple.png")
 var platform_linux_texture: Texture2D = preload("res://audiovisual/linux.png")
 var platform_windows_texture: Texture2D = preload("res://audiovisual/windows.png")
@@ -53,15 +56,14 @@ func refresh_mod_data() -> void:
 	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, last_updated]
 	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
-	if mod_data.description != "": item_list.add_item(mod_data.description, mod_data.icon)
-	else: item_list.add_item("Description unavailable.")
-	if mod_data_id != "vanilla" and mod_data.base_version != "?": item_list.add_item("Based on version " + mod_data.base_version + ".")
-	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, preload("res://audiovisual/website.png"))
-	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, preload("res://audiovisual/code.png"))
-	var icon_discord: Texture2D = preload("res://audiovisual/discord.png")
+	if mod_data.description != "": item_list.add_item(mod_data.description, mod_data.icon, false)
+	else: item_list.add_item("Description unavailable.", null, false)
+	if mod_data_id != "vanilla" and mod_data.base_version != "?": item_list.add_item("Based on version " + mod_data.base_version + ".", null, false)
+	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, website_texture, false)
+	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, code_texture, false)
 	if mod_data.link_discord.size() != 0:
 		for server in mod_data.link_discord:
-			item_list.add_item(server, icon_discord)
+			item_list.add_item(server, discord_texture, false)
 
 	_refresh_time_played()
 	$PanelOverview/CenterContainer/VBoxContainer/CheckFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)

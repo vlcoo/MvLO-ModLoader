@@ -39,9 +39,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
+current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
@@ -49,6 +51,13 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
+
+[node name="ColorRect" parent="Vanilla/GameViewer" index="0"]
+visible = false
+
+[node name="PanelOverview" parent="Vanilla/GameViewer" index="1"]
+offset_top = 0.367
+offset_bottom = -0.367004
 
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
@@ -176,6 +185,7 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_bottom = 16
 
 [node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
+modulate = Color(1, 1, 1, 0.0941176)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -257,7 +267,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
@@ -315,7 +324,7 @@ mouse_filter = 1
 bbcode_enabled = true
 text = "A simple way to keep your mods organized and up to date.
 [font size=8] [/font]
-[color=#686868]by vlco_o - aka vic[/color]"
+[color=#ffffff8b]by vlco_o - aka vic[/color]"
 fit_content = true
 
 [node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
@@ -324,10 +333,10 @@ anchor_left = 0.999
 anchor_top = 0.998
 anchor_right = 0.999
 anchor_bottom = 0.998
-offset_left = -51.04
-offset_top = -49.84
-offset_right = -2.04004
-offset_bottom = 15.16
+offset_left = -54.0401
+offset_top = -52.84
+offset_right = -5.0401
+offset_bottom = 12.16
 grow_horizontal = 0
 grow_vertical = 0
 rotation = 0.0872665
@@ -455,14 +464,13 @@ popup/item_2/text = "95"
 popup/item_2/id = 2
 
 [node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
-self_modulate = Color(1, 1, 1, 0.517647)
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="LabelAdvanced" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Don't use these if not strictly necessary!"
 mouse_filter = 1
+theme_type_variation = &"LabelSubtle"
 text = "Advanced"
 horizontal_alignment = 1
 
@@ -587,14 +595,13 @@ mouse_filter = 1
 placeholder_text = "ENTER to save"
 
 [node name="HSeparator3" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
-self_modulate = Color(1, 1, 1, 0.517647)
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="LabelTroubleshooting" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Don't use these if not strictly necessary!"
 mouse_filter = 1
+theme_type_variation = &"LabelSubtle"
 text = "Troubleshooting"
 horizontal_alignment = 1
 

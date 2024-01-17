@@ -149,6 +149,7 @@ func _on_mod_opened(idx: String):
 	current_mod_game_viewer.mod_data_id = idx
 	current_mod_game_viewer.refresh_mod_data()
 	Configurator.set_config("remembered_mod", idx)
+	gallery.modulate = Color.WHITE * 0.3
 
 
 func _on_check_button_toggled(button_pressed: bool) -> void:

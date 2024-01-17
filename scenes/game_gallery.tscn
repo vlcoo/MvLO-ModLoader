@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=28 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -26,11 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bujgcfkcjmlaf" path="res://audiovisual/notify.png" id="19_gixlo"]
 [ext_resource type="Texture2D" uid="uid://dhdi8u2m6a64r" path="res://audiovisual/minimize.png" id="19_t4233"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r56r1"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anyoi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mansp"]
 
@@ -42,14 +38,11 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/icon_separation = 16
-theme_override_constants/icon_max_width = 16
 tab_alignment = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_r56r1")
 
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
 layout_mode = 2
@@ -57,17 +50,12 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
 
-[node name="PanelOverview" parent="Vanilla/GameViewer" index="0"]
-offset_right = 0.0
-offset_bottom = 0.0
-
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
 
 [node name="Mod Gallery" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
 [node name="ContainerBig" type="MarginContainer" parent="Mod Gallery"]
 clip_contents = true
@@ -210,7 +198,6 @@ auto_refresh = false
 [node name="Storage Usage" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
 [node name="MarginContainer" type="MarginContainer" parent="Storage Usage"]
 layout_mode = 2
@@ -227,7 +214,6 @@ clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
-theme_override_constants/v_separation = 8
 
 [node name="ContainerButtons" type="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -241,9 +227,7 @@ custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
-theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = -16
 text = "Uninstall"
 icon = ExtResource("4_yn4re")
@@ -253,9 +237,7 @@ custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(0.243137, 0.756863, 0.0352941, 1)
-theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = -16
 text = "Launch"
 icon = ExtResource("5_0xeke")
@@ -265,9 +247,7 @@ custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
-theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = -16
 text = "Browse files"
 icon = ExtResource("6_xk1xd")
@@ -279,7 +259,6 @@ one_shot = true
 [node name="Settings" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_anyoi")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
 clip_contents = false
@@ -380,8 +359,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Show a list of small buttons for the \"Mods\" tab
 instead of a grid of big buttons."
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
 text = "Use list view for mod gallery"
 icon = ExtResource("11_2jt2q")
@@ -393,8 +370,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Remember the screen you were viewing when exiting
 and reopen that one when booting up the program."
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
 text = "Open last viewed tab on restart"
 icon = ExtResource("12_lymde")
@@ -406,8 +381,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Include download options for any OS,
 even if they differ from your device's one."
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
 text = "Show all platforms"
 icon = ExtResource("13_8dqhh")
@@ -418,8 +391,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Provide rich presence for Discord."
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Discord Game Activity (auto)"
@@ -432,8 +403,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Enable \"new version\" notifications 
 for all mods you install from now on."
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Auto subscribe to updates"
@@ -446,8 +415,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Hide the Mod Loader when opening a mod
 and show it back when closing that mod."
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.705882)
 theme_override_constants/h_separation = 14
 text = "Minimize window when launching a mod"
 icon = ExtResource("19_t4233")
@@ -471,7 +438,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.32
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Theme"
 vertical_alignment = 1
 
@@ -494,7 +460,6 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="LabelAdvanced" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
 layout_mode = 2
 tooltip_text = "Don't use these if not strictly necessary!"
 mouse_filter = 1
@@ -520,7 +485,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.33
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Install location"
 vertical_alignment = 1
 
@@ -562,7 +526,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.4
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Extra args for .exe"
 vertical_alignment = 1
 
@@ -588,7 +551,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.4
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Extra args for .x86_64"
 vertical_alignment = 1
 
@@ -614,7 +576,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.4
-theme_override_colors/font_color = Color(1, 1, 1, 0.705882)
 text = "Extra args for .app"
 vertical_alignment = 1
 
@@ -631,7 +592,6 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="LabelTroubleshooting" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-self_modulate = Color(0.407843, 0.407843, 0.407843, 1)
 layout_mode = 2
 tooltip_text = "Don't use these if not strictly necessary!"
 mouse_filter = 1

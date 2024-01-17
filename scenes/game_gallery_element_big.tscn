@@ -1,22 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckhxp855p5xhf"]
+[gd_scene load_steps=5 format=3 uid="uid://ckhxp855p5xhf"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_dppu1"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_on2cr"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_x1hsx"]
 [ext_resource type="Texture2D" uid="uid://di8kw1q6ci4al" path="res://audiovisual/star.png" id="4_4x2kb"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqkrx"]
-bg_color = Color(0.8, 0.8, 0.8, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.109422, 0.109422, 0.109422, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-anti_aliasing_size = 0.5
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(150, 200)
@@ -72,7 +59,6 @@ offset_top = -8.0
 offset_right = -3.0
 offset_bottom = 16.0
 grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_rqkrx")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ContainerIcons"]
 layout_mode = 2

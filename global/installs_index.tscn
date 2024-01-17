@@ -1,17 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bvjtglvn4vawb"]
 
 [ext_resource type="Script" path="res://global/installs_index.gd" id="1_xlf4w"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttqvo"]
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_vrh48"]
 
 [sub_resource type="Animation" id="Animation_66wc2"]
 length = 0.001
@@ -221,7 +211,6 @@ pivot_offset = Vector2(180, 90)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 2
-theme_type_variation = &"WindowDialog"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -240,7 +229,6 @@ alignment = 1
 [node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "[center][wave amp=36]Install in progress..."
 fit_content = true
@@ -249,7 +237,6 @@ fit_content = true
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_ttqvo")
 max_value = 1.0
 show_percentage = false
 
@@ -259,11 +246,13 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
 offset_top = -26.0
+offset_right = 1.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/default_color = Color(1, 1, 1, 0.55)
+theme_override_fonts/bold_font = ExtResource("2_vrh48")
 bbcode_enabled = true
 text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Progress text"
 fit_content = true

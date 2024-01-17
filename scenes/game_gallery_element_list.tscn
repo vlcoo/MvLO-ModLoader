@@ -79,6 +79,7 @@ pivot_offset = Vector2(512, 26)
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 flat = true
+metadata/_edit_lock_ = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

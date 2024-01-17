@@ -6,9 +6,9 @@ enum WindowState {ATTENTION, RESTORED, MINIMIZED}
 const CONFIG_PATH := "user://settings.ini"
 const PROCESS_TIMER_TIME := 2
 var themes: Array[Theme] = [
-	preload("res://ui_resources/themes/DefaultDark.tres"),
-	preload("res://ui_resources/themes/NSMBDS.tres"),
-	preload("res://ui_resources/themes/95/Classic95.tres")
+	preload("res://ui_resources/themes/BasicDark.tres"),
+	preload("res://ui_resources/themes/BasicDark.tres"),
+	preload("res://ui_resources/themes/BasicDark.tres")
 ]
 
 var remembered_mod_idx := ""

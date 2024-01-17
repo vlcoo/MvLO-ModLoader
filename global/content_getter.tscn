@@ -211,7 +211,6 @@ pivot_offset = Vector2(180, 90)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 2
-theme_type_variation = &"WindowDialog"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -230,7 +229,6 @@ alignment = 1
 [node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "[center][wave amp=36]Starting up..."
 fit_content = true

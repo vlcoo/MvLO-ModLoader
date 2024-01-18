@@ -50,7 +50,7 @@ func _on_ready() -> void:
 
 
 func set_clear_colour_from_hue(hue: int) -> void:
-	var colour = Color.from_hsv(0, 0, 0.2) if hue == 360 else Color.from_hsv(hue/360.0, 0.3, 0.2)
+	var colour = Color.from_hsv(0, 0, 0.17) if hue == 360 else Color.from_hsv(hue/360.0, 0.4, 0.2)
 	RenderingServer.set_default_clear_color(colour)
 
 

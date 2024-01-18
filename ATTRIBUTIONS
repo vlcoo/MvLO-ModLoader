@@ -1,0 +1,12 @@
+This program uses third party Open Source components. This file contains acknowledgements and license info related to them.
+
+- Godot Engine, under the MIT license:
+See https://github.com/godotengine/godot and https://github.com/godotengine/godot/blob/master/LICENSE.txt
+Copyright (c) 2014-present Godot Engine contributors. Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur. Portions of this software are also copyright (c) The FreeType Project (www.freetype.org). All rights reserved.
+
+- IcoMoon by Keyamoon, under CC BY 4.0:
+Various parts of this work have been modified.
+See https://github.com/Keyamoon/IcoMoon-Free and https://creativecommons.org/licenses/by/4.0/
+
+- Iconoir, under the MIT license:
+See https://github.com/iconoir-icons/iconoir and https://github.com/iconoir-icons/iconoir/blob/main/LICENSE

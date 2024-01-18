@@ -361,3 +361,7 @@ func _on_h_slider_value_changed(value: float) -> void:
 
 func _on_h_slider_drag_ended(_value_changed: bool) -> void:
 	Configurator.set_config("theme-colour", $Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value)
+
+
+func _on_button_website_pressed() -> void:
+	OS.shell_open("github.com/vlcoo/mvlo-modloader")

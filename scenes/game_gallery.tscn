@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=35 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -21,6 +21,7 @@
 [ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="15_rxllx"]
 [ext_resource type="Texture2D" uid="uid://diwqar7p38rv" path="res://audiovisual/theme.png" id="15_upikk"]
 [ext_resource type="Texture2D" uid="uid://b2pvvqaupql4n" path="res://audiovisual/folder.png" id="16_gsodk"]
+[ext_resource type="Texture2D" uid="uid://b7m7pqam53ky" path="res://audiovisual/website.png" id="16_tvaom"]
 [ext_resource type="Texture2D" uid="uid://bx3y3ubnelg07" path="res://audiovisual/database-reload.png" id="17_8is38"]
 [ext_resource type="Texture2D" uid="uid://cac4du61ptdmh" path="res://audiovisual/database-delete.png" id="18_xr7p4"]
 [ext_resource type="Texture2D" uid="uid://b1saitpdx5r1h" path="res://audiovisual/file.png" id="19_25xiv"]
@@ -59,9 +60,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
+current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
@@ -286,7 +289,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
@@ -353,13 +355,13 @@ anchor_left = 0.999
 anchor_top = 0.998
 anchor_right = 0.999
 anchor_bottom = 0.998
-offset_left = -54.0401
+offset_left = -65.0402
 offset_top = -52.84
-offset_right = -5.0401
+offset_right = -8.04016
 offset_bottom = 12.16
 grow_horizontal = 0
 grow_vertical = 0
-rotation = 0.0872665
+rotation = 0.122173
 pivot_offset = Vector2(49, 65)
 mouse_filter = 0
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
@@ -368,6 +370,19 @@ theme_override_font_sizes/font_size = 52
 text = "v4"
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="ButtonWebsite" type="Button" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -43.0
+offset_top = 4.0
+offset_right = -3.0
+offset_bottom = 36.0
+grow_horizontal = 0
+tooltip_text = "Visit this project's GitHub repo."
+icon = ExtResource("16_tvaom")
 
 [node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0.517647)
@@ -714,6 +729,7 @@ access = 2
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch" to="." method="_on_button_launch_pressed"]
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse" to="." method="_on_button_browse_pressed"]
 [connection signal="timeout" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading" to="." method="_on_timer_loading_timeout"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/PanelAbout/ButtonWebsite" to="." method="_on_button_website_pressed"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckRemember" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckPlatforms" to="." method="_on_check_button_3_toggled"]

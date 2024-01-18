@@ -59,11 +59,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
@@ -288,6 +286,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
@@ -362,6 +361,7 @@ grow_horizontal = 0
 grow_vertical = 0
 rotation = 0.0872665
 pivot_offset = Vector2(49, 65)
+mouse_filter = 0
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
 theme_override_fonts/font = ExtResource("15_rxllx")
 theme_override_font_sizes/font_size = 52

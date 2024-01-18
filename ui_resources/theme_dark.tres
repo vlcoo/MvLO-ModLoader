@@ -372,6 +372,7 @@ LineEdit/styles/focus = SubResource("StyleBoxFlat_rp2cv")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_tb8pf")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_l21ei")
 OptionButton/constants/arrow_margin = 12
+OptionButton/constants/h_separation = 8
 Panel/styles/panel = ExtResource("1_t1gei")
 PanelBlurry/base_type = &"Panel"
 PanelBlurry/styles/panel = SubResource("StyleBoxFlat_x4qxv")

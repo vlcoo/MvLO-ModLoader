@@ -98,7 +98,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 	if ArchiveHandler.IsArchive(globalized_dltmp_path + "game"):
 		ArchiveHandler.ExtractArchive(globalized_dltmp_path + "game", globalized_dltmp_path, false)
 	else:
-		err("Not implemented! File is not an archive.")
+		err("This mod is not compatible.\nPlease visit its website and try installing it manually.")
 
 
 func _on_archive_extraction_complete(message: String, path: String, archiveWasDb: bool) -> void:
@@ -131,7 +131,7 @@ func _on_archive_extraction_complete(message: String, path: String, archiveWasDb
 	install_in_progress.size = FileAccess.open(install_in_progress.dltmp_path + "game", FileAccess.READ).get_length()
 	DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
 
-	index.installs.append(install_in_progress)
+	index.installs.push_front(install_in_progress)
 	install_in_progress = {}
 	_save_index_to_file()
 	animation_player.play("out")
@@ -147,7 +147,7 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	# verify integrity and execute...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == {}:
-		warn("Couldn't run game! Maybe it's corrupted?\nPlease try reinstalling this mod.")
+		warn("Couldn't launch! Maybe it's corrupted?\nPlease try reinstalling this mod.")
 		return false
 	var command: String = ""
 	var os_mismatch = false
@@ -178,7 +178,7 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 		pid = OS.create_process(command, [globalized_path])
 	
 	if pid == -1:
-		warn("Couldn't run game! Maybe it's corrupted or incompatible?\nPlease check this mod's Website and attempt installing it manually.")
+		warn("Couldn't launch! Maybe it's corrupted or incompatible?\nPlease visit this mod's website and try installing it manually.")
 		return false
 	
 	if not register_process: return true

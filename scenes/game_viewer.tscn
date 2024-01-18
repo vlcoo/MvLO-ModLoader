@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://qk7cix2jt32w" path="res://audiovisual/unstar.png" id="4_bpg4n"]
 [ext_resource type="Texture2D" uid="uid://bujgcfkcjmlaf" path="res://audiovisual/notify.png" id="5_tur7j"]
 [ext_resource type="Texture2D" uid="uid://di8kw1q6ci4al" path="res://audiovisual/star.png" id="5_x6gr8"]
-[ext_resource type="Texture2D" uid="uid://bh36un671mv5q" path="res://DB/vcmiI.png" id="6_2t5c3"]
 [ext_resource type="Texture2D" uid="uid://bffl7uvdru6ay" path="res://audiovisual/install.png" id="6_fyixl"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="7_570hk"]
 [ext_resource type="Texture2D" uid="uid://cdb7jcjr72x74" path="res://audiovisual/discord.png" id="7_iqkns"]
+[ext_resource type="Texture2D" uid="uid://dtk6i35ek8qou" path="res://audiovisual/alphabet.png" id="7_jp8kl"]
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="8_hdgmw"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="9_pg5ns"]
 
@@ -254,7 +254,7 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="LabelTitle" type="Label" parent="PanelOverview/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelLarge"
@@ -332,7 +332,7 @@ max_text_lines = 2
 auto_height = true
 item_count = 4
 item_0/text = "No data."
-item_0/icon = ExtResource("6_2t5c3")
+item_0/icon = ExtResource("7_jp8kl")
 item_1/text = "cool stuff"
 item_2/text = "more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum "
 item_3/text = "hello there"

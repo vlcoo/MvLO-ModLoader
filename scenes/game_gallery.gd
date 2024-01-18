@@ -38,6 +38,7 @@ func _on_ready() -> void:
 	set_physics_process(false)
 	
 	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.text = "v" + str(SelfUpdater.vercode)
+	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.tooltip_text = "Built on the " + SelfUpdater.verdate
 	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
 	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value = Configurator.get_config("theme-colour", 256)
@@ -150,7 +151,6 @@ func _repopulate_installs_tree() -> void:
 				mod_data.cover_image if mod_data.icon == null else mod_data.icon
 			)
 
-	installs_tree.sort_items_by_text()
 	installs_tree.move_item(header_index, 0)
 	button_browse.disabled = true
 	button_launch.disabled = true
@@ -233,9 +233,7 @@ func _on_check_button_3_toggled(button_pressed: bool) -> void:
 
 
 func _on_tree_item_selected(index: int) -> void:
-	var item_str: PackedStringArray = installs_tree.get_item_text(index).split(" - ")
-	if item_str.size() < 4: return
-	selected_install = InstallsIndex._find_install_in_array(item_str[0], item_str[1], item_str[2])
+	selected_install = InstallsIndex.index.installs[index - 1]
 	if selected_install == {}: return
 
 	selected_install["tree_item_id"] = index

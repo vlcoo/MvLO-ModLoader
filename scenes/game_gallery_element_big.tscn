@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_dppu1"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_on2cr"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_x1hsx"]
-[ext_resource type="Texture2D" uid="uid://di8kw1q6ci4al" path="res://audiovisual/star.png" id="4_4x2kb"]
+[ext_resource type="Texture2D" uid="uid://dxx5srn44vu6q" path="res://audiovisual/star-small.png" id="4_l5n6f"]
 
 [node name="Panel" type="Panel"]
 custom_minimum_size = Vector2(150, 200)
@@ -32,7 +32,10 @@ alignment = 1
 unique_name_in_owner = true
 texture_filter = 1
 clip_contents = true
+custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("2_on2cr")
 expand_mode = 4
 stretch_mode = 5
@@ -54,11 +57,11 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -59.0
+offset_left = -56.0
 offset_top = -8.0
-offset_right = -3.0
 offset_bottom = 16.0
 grow_horizontal = 0
+theme_type_variation = &"PanelOverlay"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ContainerIcons"]
 layout_mode = 2
@@ -69,20 +72,24 @@ alignment = 1
 
 [node name="TextureInstalled" type="TextureRect" parent="ContainerIcons/HBoxContainer"]
 unique_name_in_owner = true
-self_modulate = Color(0.0235294, 0.443137, 0.0470588, 0.654902)
+self_modulate = Color(0.192157, 0.745098, 0.223529, 0.690196)
 texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 tooltip_text = "One or more versions of this mod are installed."
 texture = ExtResource("3_x1hsx")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="TextureFavourite" type="TextureRect" parent="ContainerIcons/HBoxContainer"]
 unique_name_in_owner = true
-self_modulate = Color(0.635294, 0.552941, 0.00784314, 0.737255)
+self_modulate = Color(0.878431, 0.776471, 0.0941176, 0.737255)
 texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 tooltip_text = "This mod is marked as favourite."
-texture = ExtResource("4_4x2kb")
+texture = ExtResource("4_l5n6f")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="Button" type="Button" parent="."]
@@ -96,6 +103,7 @@ pivot_offset = Vector2(80, 110)
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 flat = true
+metadata/_edit_lock_ = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

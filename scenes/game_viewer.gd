@@ -66,7 +66,7 @@ func refresh_mod_data() -> void:
 			item_list.add_item(server, discord_texture, false)
 
 	_refresh_time_played()
-	$PanelOverview/CenterContainer/VBoxContainer/CheckFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
+	$PanelOverview/CheckFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
 
 	$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture

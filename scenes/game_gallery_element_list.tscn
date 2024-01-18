@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_gjx1i"]
 [ext_resource type="Script" path="res://scenes/game_gallery_element_big.gd" id="2_s8udx"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_ghsre"]
-[ext_resource type="Texture2D" uid="uid://di8kw1q6ci4al" path="res://audiovisual/star.png" id="4_hy4fj"]
+[ext_resource type="Texture2D" uid="uid://dxx5srn44vu6q" path="res://audiovisual/star-small.png" id="4_uh0m4"]
 
 [node name="Panel" type="Panel"]
-custom_minimum_size = Vector2(900, 52)
+custom_minimum_size = Vector2(900, 56)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 52.0
@@ -22,8 +22,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
-offset_right = -4.0
+offset_left = 11.0
+offset_right = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(507, 26)
@@ -33,7 +33,10 @@ alignment = 1
 [node name="TextureCover" type="TextureRect" parent="Container"]
 unique_name_in_owner = true
 texture_filter = 1
+custom_minimum_size = Vector2(46, 46)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("2_gjx1i")
 expand_mode = 3
 stretch_mode = 5
@@ -50,7 +53,7 @@ max_lines_visible = 2
 
 [node name="TextureInstalled" type="TextureRect" parent="Container"]
 unique_name_in_owner = true
-self_modulate = Color(0.329412, 1, 0.32549, 0.470588)
+self_modulate = Color(0.192157, 0.745098, 0.223529, 0.690196)
 texture_filter = 1
 layout_mode = 2
 tooltip_text = "One or more versions of this mod are installed."
@@ -60,12 +63,12 @@ stretch_mode = 5
 
 [node name="TextureFavourite" type="TextureRect" parent="Container"]
 unique_name_in_owner = true
-self_modulate = Color(1, 0.882353, 0.247059, 0.470588)
+self_modulate = Color(0.878431, 0.776471, 0.0941176, 0.737255)
 texture_filter = 1
 layout_mode = 2
 tooltip_text = "This mod is marked as favourite."
 mouse_filter = 0
-texture = ExtResource("4_hy4fj")
+texture = ExtResource("4_uh0m4")
 stretch_mode = 5
 
 [node name="Button" type="Button" parent="."]

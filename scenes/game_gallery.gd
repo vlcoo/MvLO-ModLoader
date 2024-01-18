@@ -269,7 +269,7 @@ func _on_option_button2_item_selected(index: int) -> void:
 
 func _on_button_choose_folder_pressed() -> void:
 	InstallsIndex.warn("Please select a folder as the location for any future installs.\n\
-	Wath out, the previous install location and its contents will be deleted!")
+	Watch out, the previous install location and its contents will be deleted!")
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	$Settings/FileDialog.popup_centered()
 

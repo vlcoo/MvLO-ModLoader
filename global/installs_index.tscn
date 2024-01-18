@@ -232,7 +232,7 @@ clip_contents = false
 layout_mode = 2
 theme_type_variation = &"TextLarge"
 bbcode_enabled = true
-text = "[center][wave amp=36]Install in progress..."
+text = "[center][wave amp=36]Installing mod..."
 fit_content = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel/VBoxContainer"]

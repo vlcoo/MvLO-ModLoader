@@ -39,7 +39,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 3
+current_tab = 1
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
@@ -63,7 +63,6 @@ offset_bottom = -0.367004
 visible = false
 
 [node name="Mod Gallery" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="ContainerBig" type="MarginContainer" parent="Mod Gallery"]
@@ -77,7 +76,7 @@ theme_override_constants/margin_right = 28
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
 [node name="ContainerFilters" type="HBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
 custom_minimum_size = Vector2(0, 56)
@@ -181,7 +180,7 @@ friction_drag = 0.8
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
@@ -190,8 +189,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/h_separation = 42
-theme_override_constants/v_separation = 22
-columns = 5
+theme_override_constants/v_separation = 19
 
 [node name="LabelNoResults" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
 layout_mode = 2
@@ -267,6 +265,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
@@ -422,10 +421,10 @@ custom_minimum_size = Vector2(340, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Hide the Mod Loader when opening a mod
-and show it back when closing that mod."
+tooltip_text = "Minimize the Mod Loader when opening a mod
+and restore it back when closing that mod."
 theme_override_constants/h_separation = 14
-text = "Minimize window when launching a mod"
+text = "Hide window when launching a mod"
 icon = ExtResource("19_t4233")
 
 [node name="ContainerTheme" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
@@ -454,14 +453,12 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-item_count = 3
+item_count = 2
 selected = 0
-popup/item_0/text = "Default (Dark)"
+popup/item_0/text = "Basic Dark"
 popup/item_0/id = 0
-popup/item_1/text = "NSMB DS"
+popup/item_1/text = "Basic Light"
 popup/item_1/id = 1
-popup/item_2/text = "95"
-popup/item_2/id = 2
 
 [node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2

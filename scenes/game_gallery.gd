@@ -39,8 +39,9 @@ func _on_ready() -> void:
 	
 	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.text = "v" + str(SelfUpdater.vercode)
 	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/OptionButton.selected = Configurator.current_theme_id
-	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	theme = Configurator.current_theme
+	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value = Configurator.get_config("theme-colour", 256)
+	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsWin/LineEdit.text = Configurator.get_config("args_windows", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsMac/LineEdit.text = Configurator.get_config("args_macos", "")
@@ -211,7 +212,7 @@ func _on_tab_changed(tab: int) -> void:
 
 
 func _on_option_button_item_selected(index: int) -> void:
-	Configurator.set_config("theme", index)
+	Configurator.set_config("theme-scheme", index)
 	theme = Configurator.themes[index]
 
 
@@ -343,3 +344,11 @@ func _on_input_search_text_submitted(_new_text: String) -> void:
 	
 	for child: GalleryElement in gallery.get_children():
 		if child.visible: _on_mod_opened(child.idx)
+
+
+func _on_h_slider_value_changed(value: float) -> void:
+	Configurator.set_clear_colour_from_hue(int(value))
+
+
+func _on_h_slider_drag_ended(value_changed: bool) -> void:
+	Configurator.set_config("theme-colour", $Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value)

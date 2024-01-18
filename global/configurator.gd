@@ -7,7 +7,6 @@ const CONFIG_PATH := "user://settings.ini"
 const PROCESS_TIMER_TIME := 2
 var themes: Array[Theme] = [
 	preload("res://ui_resources/themes/BasicDark.tres"),
-	preload("res://ui_resources/themes/BasicDark.tres"),
 	preload("res://ui_resources/themes/BasicDark.tres")
 ]
 
@@ -47,8 +46,14 @@ func _ready() -> void:
 
 
 func _on_ready() -> void:
-	current_theme_id = int(get_config("theme"))
+	current_theme_id = int(get_config("theme-scheme"))
 	current_theme = themes[current_theme_id]
+	var hue = get_config("theme-colour", 360)
+
+
+func set_clear_colour_from_hue(hue: int) -> void:
+	var colour = Color.from_hsv(0, 0, 0.2) if hue == 360 else Color.from_hsv(hue/360.0, 0.3, 0.2)
+	RenderingServer.set_default_clear_color(colour)
 
 
 func _on_tree_exiting() -> void:

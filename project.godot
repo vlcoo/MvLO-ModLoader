@@ -110,4 +110,4 @@ renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=1
-environment/defaults/default_clear_color=Color(0.152941, 0.133333, 0.192157, 1)
+environment/defaults/default_clear_color=Color(0.2, 0.14, 0.141, 1)

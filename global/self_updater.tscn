@@ -6,8 +6,8 @@
 script = ExtResource("1_1cvwr")
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
+title = "New update available!"
 initial_position = 2
-title = "New update available"
-size = Vector2i(226, 100)
+size = Vector2i(400, 100)
 
 [connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]

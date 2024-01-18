@@ -137,7 +137,18 @@ func _repopulate_installs_tree() -> void:
 
 	for install in InstallsIndex.index.installs:
 		var mb_str = str(snapped(install.size/1024/1024, 0.01)) if install.has("size") else "?"
-		installs_tree.add_item(install.mod_id + " - " + install.version + " - " + install.platform + " - " + mb_str + " MB")
+		var mod_data: ModData = ContentGetter.get_local_moddata(install.mod_id)
+		if mod_data == null:
+			installs_tree.add_item(install.mod_id + "          \n" + \
+				install.version + " - " + install.platform + "          \n" + \
+				mb_str + " MB"
+			)
+		else:
+			installs_tree.add_item(mod_data.name + "          \n" + \
+				install.version + " - " + install.platform + "          \n" + \
+				mb_str + " MB",
+				mod_data.cover_image if mod_data.icon == null else mod_data.icon
+			)
 
 	installs_tree.sort_items_by_text()
 	installs_tree.move_item(header_index, 0)
@@ -350,5 +361,5 @@ func _on_h_slider_value_changed(value: float) -> void:
 	Configurator.set_clear_colour_from_hue(int(value))
 
 
-func _on_h_slider_drag_ended(value_changed: bool) -> void:
+func _on_h_slider_drag_ended(_value_changed: bool) -> void:
 	Configurator.set_config("theme-colour", $Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value)

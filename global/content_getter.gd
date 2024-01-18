@@ -37,7 +37,7 @@ func _on_ready() -> void:
 
 func _on_requester_db_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	if result != 0 or response_code != 200:
-		err("Invalid response. Try again later!")
+		err("DB server unavailable. Try again later!")
 		db_request_complete = true
 		if gamefiles_request_complete: _populate_moddata_array()
 		return
@@ -57,7 +57,7 @@ func _on_archive_extraction_complete(message: String, _path: String, archiveWasD
 
 func _on_requester_gamefiles_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	if result != 0 or response_code != 200:
-		err("Invalid response. Try again later!")
+		err("Gamefile server unavailable. Try again later!")
 	else:
 		Configurator.update_timestamp(false)
 	gamefiles_request_complete = true
@@ -66,7 +66,7 @@ func _on_requester_gamefiles_request_completed(result: int, response_code: int, 
 
 func _populate_moddata_array(hide_animation: bool = true) -> void:
 	if not _check_dbs_integrity():
-		err("DB not present locally.")
+		err("Downloaded DB is corrupted.")
 		return
 
 	var json = JSON.parse_string(FileAccess.get_file_as_string("user://DB.gamefiles.json"))
@@ -74,11 +74,11 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	var new_updates_list: String = ""
 	if dir == null:
 		Configurator.update_timestamp(true)
-		err("DB not present locally.\nPlease restart the program!")
+		err("DB hasn't been downloaded properly.\nPlease restart the program!")
 		return
 	if json == null:
 		Configurator.update_timestamp(true)
-		err("Server unavailable. Try again later!")
+		err("Gamefiles haven't been downloaded properly.\nPlease restart the program or try again later!")
 
 	for filename in dir.get_files():	# for each mod in the database...
 		var mod_id: String = filename.replace(".tres", "")
@@ -139,12 +139,14 @@ func string_coincides_with_mod_name(string: String, mod_name: String) -> bool:
 
 
 func err(text: String):
-	dialog.dialog_text = "Mod data could not be downloaded! Some info might be out of date.\n" + text
+	dialog.title = "Couldn't download DB!"
+	dialog.dialog_text = "Some info might be out of date.\n" + text
 	dialog.popup_centered()
 	emit_signal("cache_updated", false)
 	animation_player.play("out")
 
 
 func warn(text: String):
+	dialog.title = "Warning"
 	dialog.dialog_text = text
 	dialog.popup_centered()

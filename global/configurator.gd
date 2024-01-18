@@ -6,8 +6,7 @@ enum WindowState {ATTENTION, RESTORED, MINIMIZED}
 const CONFIG_PATH := "user://settings.ini"
 const PROCESS_TIMER_TIME := 2
 var themes: Array[Theme] = [
-	preload("res://ui_resources/themes/BasicDark.tres"),
-	preload("res://ui_resources/themes/BasicDark.tres")
+	preload("res://ui_resources/theme_dark.tres"),
 ]
 
 var remembered_mod_idx := ""
@@ -46,9 +45,8 @@ func _ready() -> void:
 
 
 func _on_ready() -> void:
-	current_theme_id = int(get_config("theme-scheme"))
+	current_theme_id = clamp(int(get_config("theme-scheme", 0)), 0, themes.size() - 1)
 	current_theme = themes[current_theme_id]
-	var hue = get_config("theme-colour", 360)
 
 
 func set_clear_colour_from_hue(hue: int) -> void:

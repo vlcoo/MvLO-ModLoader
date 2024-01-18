@@ -50,7 +50,7 @@ import/blender/enabled=false
 
 [gui]
 
-theme/custom="res://ui_resources/themes/BasicDark.tres"
+theme/custom="res://ui_resources/theme_dark.tres"
 theme/custom_font="res://ui_resources/font_roboto.ttf"
 theme/default_font_hinting=2
 theme/default_font_subpixel_positioning=0

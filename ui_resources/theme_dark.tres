@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=42 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=44 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="StyleBox" uid="uid://d3ijjxidv6oaq" path="res://ui_resources/style_panel.tres" id="1_t1gei"]
@@ -306,6 +306,19 @@ draw_center = false
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.164706)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ht51p"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.878431, 0.878431, 0.878431, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.133333, 0.133333, 0.133333, 0.309804)
+anti_aliasing_size = 0.3
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5wlx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvmny"]
@@ -320,6 +333,10 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 anti_aliasing_size = 0.3
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1oigc"]
+color = Color(1, 1, 1, 0.164706)
+vertical = true
+
 [resource]
 default_font = ExtResource("1_dhop0")
 default_font_size = 16
@@ -329,6 +346,7 @@ Button/styles/focus = SubResource("StyleBoxFlat_c1j17")
 Button/styles/hover = SubResource("StyleBoxFlat_uusgm")
 Button/styles/normal = SubResource("StyleBoxFlat_08tmf")
 Button/styles/pressed = SubResource("StyleBoxFlat_ld7ld")
+CheckBox/constants/h_separation = 8
 CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_kc5y8")
 CheckBox/styles/normal = SubResource("StyleBoxFlat_odfiy")
 CheckBox/styles/pressed = SubResource("StyleBoxFlat_1eam0")
@@ -390,5 +408,8 @@ TextLarge/font_sizes/normal_font_size = 32
 TextLarge/fonts/normal_font = ExtResource("4_23arm")
 TextSubtle/base_type = &"RichTextLabel"
 TextSubtle/colors/default_color = Color(1, 1, 1, 0.545098)
+TooltipLabel/colors/font_color = Color(0.129412, 0.129412, 0.129412, 1)
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_ht51p")
 Tree/styles/focus = SubResource("StyleBoxEmpty_j5wlx")
 Tree/styles/panel = SubResource("StyleBoxFlat_gvmny")
+VSeparator/styles/separator = SubResource("StyleBoxLine_1oigc")

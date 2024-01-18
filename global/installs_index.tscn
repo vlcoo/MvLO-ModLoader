@@ -264,13 +264,15 @@ autowrap_mode = 0
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2
-size = Vector2i(226, 100)
+size = Vector2i(400, 100)
 
 [node name="ConfirmationDialogRedirect" type="ConfirmationDialog" parent="."]
+size = Vector2i(400, 100)
 ok_button_text = "Yes"
 cancel_button_text = "No"
 
 [node name="ConfirmationDangerous" type="ConfirmationDialog" parent="."]
+size = Vector2i(400, 100)
 ok_button_text = "Yes"
 dialog_text = "Are you sure? This action is irreversible."
 cancel_button_text = "No"

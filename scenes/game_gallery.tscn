@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=34 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://fn3v6mdi2k3x" path="res://audiovisual/puzzle-eye.png" id="12_lymde"]
 [ext_resource type="Texture2D" uid="uid://74b3ldxbhu2m" path="res://audiovisual/database-eye.png" id="13_8dqhh"]
 [ext_resource type="Texture2D" uid="uid://by1d7nemi06ho" path="res://audiovisual/discord-feed.png" id="14_edqgf"]
+[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="15_rxllx"]
 [ext_resource type="Texture2D" uid="uid://diwqar7p38rv" path="res://audiovisual/theme.png" id="15_upikk"]
 [ext_resource type="Texture2D" uid="uid://b2pvvqaupql4n" path="res://audiovisual/folder.png" id="16_gsodk"]
 [ext_resource type="Texture2D" uid="uid://bx3y3ubnelg07" path="res://audiovisual/database-reload.png" id="17_8is38"]
@@ -173,15 +174,15 @@ layout_mode = 2
 theme_override_constants/separation = -4
 alignment = 1
 
-[node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
-layout_mode = 2
-tooltip_text = "Don't show mods you haven't starred."
-text = "Only favourites"
-
 [node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Don't show mods that you haven't installed."
 text = "Only installed"
+
+[node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Don't show mods you haven't starred."
+text = "Only favourites"
 
 [node name="ContainerMods" type="ScrollContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
 layout_mode = 2
@@ -212,6 +213,7 @@ theme_override_constants/h_separation = 42
 theme_override_constants/v_separation = 19
 
 [node name="LabelNoResults" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "No results!
@@ -242,6 +244,7 @@ clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
+fixed_icon_size = Vector2i(16, 16)
 
 [node name="ContainerButtons" type="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -360,6 +363,7 @@ grow_vertical = 0
 rotation = 0.0872665
 pivot_offset = Vector2(49, 65)
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
+theme_override_fonts/font = ExtResource("15_rxllx")
 theme_override_font_sizes/font_size = 52
 text = "v4"
 horizontal_alignment = 2
@@ -417,7 +421,8 @@ custom_minimum_size = Vector2(340, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Provide rich presence for Discord."
+tooltip_text = "Provide rich presence for Discord
+for mods that don't implement it."
 theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Discord Game Activity (auto)"
@@ -447,7 +452,7 @@ text = "Hide window when launching a mod"
 icon = ExtResource("19_t4233")
 
 [node name="ContainerTheme" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 40)
+custom_minimum_size = Vector2(350, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -464,11 +469,12 @@ texture = ExtResource("15_upikk")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.6
-text = "Theme & Colour"
+size_flags_stretch_ratio = 0.5
+text = "Theme colour"
 vertical_alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/ContainerTheme"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.9
@@ -490,13 +496,13 @@ theme_override_styles/slider = SubResource("StyleBoxTexture_2uwqy")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_5xqik")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_erxm2")
 max_value = 360.0
+value = 360.0
 
 [node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="LabelAdvanced" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-tooltip_text = "Don't use these if not strictly necessary!"
 mouse_filter = 1
 theme_type_variation = &"LabelSubtle"
 text = "Advanced"
@@ -700,8 +706,8 @@ access = 2
 [connection signal="text_changed" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch" to="." method="_on_input_search_text_changed"]
 [connection signal="text_submitted" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch" to="." method="_on_input_search_text_submitted"]
 [connection signal="item_selected" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort" to="." method="_on_option_button3_item_selected"]
-[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites" to="." method="_on_check_only_favourites_toggled"]
 [connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled" to="." method="_on_check_only_installed_toggled"]
+[connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites" to="." method="_on_check_only_favourites_toggled"]
 [connection signal="viewer_closed" from="Mod Gallery/GameViewer" to="." method="_on_game_viewer_viewer_closed"]
 [connection signal="item_selected" from="Storage Usage/MarginContainer/VBoxContainer/ItemList" to="." method="_on_tree_item_selected"]
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]

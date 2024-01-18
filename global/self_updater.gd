@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 var vercode: int = 4
+var verdate: String = "2024-01-18"
 
 signal updated
 
@@ -16,7 +17,8 @@ func _on_cache_updated(_succeeded: bool) -> void:
 
 
 func _self_update(update_info: SelfUpdaterUpdate) -> void:
-	$AcceptDialog.dialog_text = "Date: " + update_info.date + "\nChangelog:\n" + update_info.changelog + "\nPlease download the new release."
+	$AcceptDialog.dialog_text = "Date: " + update_info.date + "\nChangelog:\n" + update_info.changelog + \
+		"\n\nPlease download the new release."
 	$AcceptDialog.popup_centered()
 
 

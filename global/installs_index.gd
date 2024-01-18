@@ -89,7 +89,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 	# unpack and add to array...
 	# if it's not zip then check what kind of executable it is!!!
 	if result != 0 or response_code != 200:
-		err("Files not available for download. " + str(result) + " " + str(response_code))
+		err("Game currently not available.\nPlease try again later! " + str(result) + " " + str(response_code))
 		return
 	
 	state = Operation.EXTRACTING
@@ -235,7 +235,8 @@ func _save_index_to_file() -> void:
 
 
 func err(text: String):
-	dialog.dialog_text = "Can't install game!\n" + text
+	dialog.title = "Can't install game!"
+	dialog.dialog_text = text
 	dialog.popup_centered()
 	timer.stop()
 	install_in_progress = {}
@@ -245,6 +246,7 @@ func err(text: String):
 
 
 func warn(text: String):
+	dialog.title = "Warning"
 	dialog.dialog_text = text
 	dialog.popup_centered()
 
@@ -281,7 +283,7 @@ func _on_timer_update_progressbar_timeout() -> void:
 
 func _on_http_request_itch_url_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != 0 or response_code != 200:
-		err("Files not available for download. " + str(result) + " " + str(response_code))
+		err("Game currently not available.\nPlease try again later! " + str(result) + " " + str(response_code))
 		return
 	
 	var json = JSON.parse_string(body.get_string_from_utf8())

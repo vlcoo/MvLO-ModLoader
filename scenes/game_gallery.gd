@@ -17,6 +17,7 @@ var installed_texture: Texture2D = preload("res://audiovisual/installed.png")
 
 var awaited_mod_view: String = ""
 var requires_game_viewer_ui_reload = false
+var gallery_game_viewer_opened = false
 var selected_install: Dictionary = {}
 var filter_search = ""
 var filter_favourites = false
@@ -61,6 +62,11 @@ func _on_ready() -> void:
 
 func _on_tree_exiting() -> void:
 	if current_tab < 3: Configurator.set_config("remembered_tab", current_tab)
+
+
+func _input(_event: InputEvent) -> void:
+	var delta = Input.get_axis("ui_page_up", "ui_page_down")
+	current_tab = clamp(current_tab + delta, 0, get_tab_count() - 1)
 
 
 func _on_cache_updated(_succeeded: bool) -> void:
@@ -118,7 +124,7 @@ func apply_gallery_filters() -> void:
 func _mod_comparator(a: ModData, b: ModData) -> bool:
 	match Configurator.get_config("sort", -1):
 		0:	# by name
-			return a.name < b.name
+			return a.name.to_lower() < b.name.to_lower()
 		1:	# most played
 			return Configurator.get_timer_mod(a.idx) > Configurator.get_timer_mod(b.idx)
 		2:	# recently updated
@@ -162,6 +168,8 @@ func _on_mod_opened(idx: String):
 	current_mod_game_viewer.refresh_mod_data()
 	Configurator.set_config("remembered_mod", idx)
 	gallery.modulate = Color.WHITE * 0.3
+	gallery_game_viewer_opened = true
+	recalculate_focused_node()
 
 
 func _on_check_button_toggled(button_pressed: bool) -> void:
@@ -214,12 +222,28 @@ func _on_button_4_pressed() -> void:
 func _on_tab_changed(tab: int) -> void:
 	if not is_node_ready(): return
 	
-	if tab == 1: input_search.grab_focus.call_deferred()
 	if tab == 2: _repopulate_installs_tree()
 	if requires_game_viewer_ui_reload:
 		requires_game_viewer_ui_reload = false
 		if tab == 0: vanilla_game_viewer.refresh_mod_data()
 		if tab == 1: current_mod_game_viewer.refresh_mod_data()
+	
+	recalculate_focused_node()
+
+
+func recalculate_focused_node() -> void: 
+	match current_tab:
+		0:
+			$Vanilla/GameViewer/PanelOverview/CheckFavourite.grab_focus.call_deferred()
+		1:
+			if gallery_game_viewer_opened:
+				$"Mod Gallery/GameViewer/PanelOverview/CheckFavourite".grab_focus.call_deferred()
+			else:
+				input_search.grab_focus.call_deferred()
+		2:
+			$"Storage Usage/MarginContainer/VBoxContainer/ItemList".grab_focus.call_deferred()
+		3:
+			$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList.grab_focus.call_deferred()
 
 
 func _on_option_button_item_selected(index: int) -> void:
@@ -321,8 +345,9 @@ func _on_check_button_4_toggled(toggled_on: bool) -> void:
 
 func _on_game_viewer_viewer_closed() -> void:
 	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
-	input_search.grab_focus.call_deferred()
 	Configurator.set_config("remembered_mod", "")
+	gallery_game_viewer_opened = false
+	recalculate_focused_node()
 
 
 func _on_input_search_text_changed(new_text: String) -> void:

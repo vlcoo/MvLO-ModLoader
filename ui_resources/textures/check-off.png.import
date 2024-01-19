@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgy88afyeq2l1"
-path="res://.godot/imported/list2.png-f9530ca3ddf0417f5b7e2393dcb674d6.ctex"
+uid="uid://ba3xewfgo6qd0"
+path="res://.godot/imported/check-off.png-4ecfa12f13d129429ce41b690c0130da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/list2.png"
-dest_files=["res://.godot/imported/list2.png-f9530ca3ddf0417f5b7e2393dcb674d6.ctex"]
+source_file="res://ui_resources/textures/check-off.png"
+dest_files=["res://.godot/imported/check-off.png-4ecfa12f13d129429ce41b690c0130da.ctex"]
 
 [params]
 

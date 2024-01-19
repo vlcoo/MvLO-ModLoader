@@ -92,23 +92,9 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.25, 0.25),
+"transitions": PackedFloat32Array(0.2, 0.25),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"grab_focus"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_lwuhr"]
@@ -242,7 +228,7 @@ metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelOverview/CenterContainer"]
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 22
 alignment = 1
 
 [node name="TextureCover" type="TextureRect" parent="PanelOverview/CenterContainer/VBoxContainer"]
@@ -269,6 +255,7 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelSubtle"
+theme_override_constants/line_spacing = 6
 text = "N/A"
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -283,6 +270,12 @@ offset_bottom = 56.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 tooltip_text = "Back"
+focus_neighbor_left = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse")
+focus_neighbor_top = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonLaunch")
+focus_neighbor_right = NodePath("../CheckFavourite")
+focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
+focus_next = NodePath("../CheckFavourite")
+focus_previous = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse")
 icon = ExtResource("4_8jwpt")
 
 [node name="CheckFavourite" type="CheckButton" parent="PanelOverview"]
@@ -291,13 +284,19 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -57.0
-offset_top = 4.0
-offset_right = -4.99997
-offset_bottom = 58.0
+offset_left = -60.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 56.0
 grow_horizontal = 0
 size_flags_horizontal = 4
 tooltip_text = "Mark mod as favourite"
+focus_neighbor_left = NodePath("../ButtonBack")
+focus_neighbor_top = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonLaunch")
+focus_neighbor_right = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
+focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
+focus_next = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
+focus_previous = NodePath("../ButtonBack")
 theme_override_icons/checked = ExtResource("5_x6gr8")
 theme_override_icons/unchecked = ExtResource("4_bpg4n")
 
@@ -363,6 +362,12 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.02
 tooltip_text = "Notify when a new release for this mod has been uploaded."
+focus_neighbor_left = NodePath("../../../../PanelOverview/CheckFavourite")
+focus_neighbor_top = NodePath("../../../../PanelOverview/CheckFavourite")
+focus_neighbor_right = NodePath("../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../ContainerVersions/OptionsVersion")
+focus_next = NodePath("../ContainerVersions/OptionsVersion")
+focus_previous = NodePath("../../../../PanelOverview/CheckFavourite")
 text = "Subscribe for updates"
 icon = ExtResource("5_tur7j")
 
@@ -377,12 +382,24 @@ alignment = 1
 custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_top = NodePath("../../CheckSubscribe")
+focus_neighbor_right = NodePath("../OptionsPlatform")
+focus_neighbor_bottom = NodePath("../../ContainerButtons/ButtonLaunch")
+focus_next = NodePath("../OptionsPlatform")
+focus_previous = NodePath("../../CheckSubscribe")
 text_overrun_behavior = 3
 
 [node name="OptionsPlatform" type="OptionButton" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions"]
 custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../OptionsVersion")
+focus_neighbor_top = NodePath("../../CheckSubscribe")
+focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../../ContainerButtons/ButtonLaunch")
+focus_next = NodePath("../../ContainerButtons/ButtonUninstall")
+focus_previous = NodePath("../OptionsVersion")
 text_overrun_behavior = 3
 icon_alignment = 2
 
@@ -398,6 +415,12 @@ visible = false
 custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_top = NodePath("../../ContainerVersions/OptionsVersion")
+focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_next = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_previous = NodePath("../../ContainerVersions/OptionsPlatform")
 theme_override_colors/font_color = Color(1, 0.8, 0, 1)
 theme_override_colors/icon_normal_color = Color(1, 0.8, 0, 1)
 theme_override_constants/h_separation = -16
@@ -408,6 +431,12 @@ icon = ExtResource("6_fyixl")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonBrowse")
+focus_neighbor_top = NodePath("../../ContainerVersions/OptionsVersion")
+focus_neighbor_right = NodePath("../ButtonLaunch")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_next = NodePath("../ButtonLaunch")
+focus_previous = NodePath("../../ContainerVersions/OptionsPlatform")
 theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_constants/h_separation = -16
@@ -419,6 +448,12 @@ icon = ExtResource("7_570hk")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonUninstall")
+focus_neighbor_top = NodePath("../../ContainerVersions/OptionsVersion")
+focus_neighbor_right = NodePath("../ButtonBrowse")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_next = NodePath("../ButtonBrowse")
+focus_previous = NodePath("../ButtonUninstall")
 theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_colors/icon_normal_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_constants/h_separation = -16
@@ -430,6 +465,12 @@ icon = ExtResource("8_hdgmw")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonLaunch")
+focus_neighbor_top = NodePath("../../ContainerVersions/OptionsPlatform")
+focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_next = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_previous = NodePath("../ButtonLaunch")
 theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_constants/h_separation = -16

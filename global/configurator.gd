@@ -84,7 +84,8 @@ func set_window_state(state: WindowState) -> void:
 		WindowState.ATTENTION:
 			if not get_window().has_focus(): get_window().request_attention()
 		WindowState.RESTORED:
-			get_window().mode = previous_window_mode
+			if get_window().mode == Window.MODE_MINIMIZED:
+				get_window().mode = previous_window_mode
 			get_window().grab_focus()
 		WindowState.MINIMIZED:
 			previous_window_mode = get_window().mode

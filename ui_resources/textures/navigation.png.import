@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cljniash5wwij"
-path="res://.godot/imported/loop2.png-d2a9ecf3c751b67d969425d5b478e1ee.ctex"
+uid="uid://bgrj17rnvn2de"
+path="res://.godot/imported/navigation.png-3f12f2b9be621dbebc98bc78ca519122.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/loop2.png"
-dest_files=["res://.godot/imported/loop2.png-d2a9ecf3c751b67d969425d5b478e1ee.ctex"]
+source_file="res://ui_resources/textures/navigation.png"
+dest_files=["res://.godot/imported/navigation.png-3f12f2b9be621dbebc98bc78ca519122.ctex"]
 
 [params]
 

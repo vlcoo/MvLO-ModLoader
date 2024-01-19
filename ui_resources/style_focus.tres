@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://fjly8m12eag0"]
+
+[ext_resource type="Texture2D" uid="uid://bgrj17rnvn2de" path="res://ui_resources/textures/navigation.png" id="1_uo04e"]
+
+[resource]
+texture = ExtResource("1_uo04e")
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
+draw_center = false

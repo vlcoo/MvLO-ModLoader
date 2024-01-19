@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=36 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://b1saitpdx5r1h" path="res://audiovisual/file.png" id="19_25xiv"]
 [ext_resource type="Texture2D" uid="uid://bujgcfkcjmlaf" path="res://audiovisual/notify.png" id="19_gixlo"]
 [ext_resource type="Texture2D" uid="uid://dhdi8u2m6a64r" path="res://audiovisual/minimize.png" id="19_t4233"]
+[ext_resource type="Texture2D" uid="uid://bgrj17rnvn2de" path="res://ui_resources/textures/navigation.png" id="24_j8f1w"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
 
@@ -47,9 +48,15 @@ content_margin_bottom = 2.0
 texture = SubResource("GradientTexture1D_5kosv")
 modulate_color = Color(0.611765, 0.611765, 0.611765, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5xqik"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp1dw"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_erxm2"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3dtab"]
+texture = ExtResource("24_j8f1w")
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+expand_margin_right = 32.0
+expand_margin_bottom = 32.0
+draw_center = false
 
 [node name="GameGallery" type="TabContainer"]
 anchors_preset = 15
@@ -60,11 +67,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
@@ -82,6 +87,26 @@ offset_bottom = -0.367004
 
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
+
+[node name="CheckFavourite" parent="Vanilla/GameViewer/PanelOverview" index="2"]
+focus_neighbor_left = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
+focus_previous = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse")
+
+[node name="ButtonInstall" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="0"]
+focus_neighbor_right = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_next = NodePath("../../../../../PanelOverview/CheckFavourite")
+
+[node name="ButtonUninstall" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="1"]
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
+
+[node name="ButtonLaunch" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="2"]
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
+
+[node name="ButtonBrowse" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="3"]
+focus_neighbor_right = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_next = NodePath("../../../../../PanelOverview/CheckFavourite")
 
 [node name="Mod Gallery" type="PanelContainer" parent="."]
 visible = false
@@ -121,6 +146,11 @@ custom_minimum_size = Vector2(220, 40)
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Write down a keyword to filter mods by."
+focus_neighbor_left = NodePath("../VBoxContainer/CheckOnlyFavourites")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../OptionSort")
+focus_next = NodePath("../OptionSort")
+focus_previous = NodePath("../VBoxContainer/CheckOnlyFavourites")
 placeholder_text = "Mod name..."
 caret_blink = true
 
@@ -144,6 +174,11 @@ custom_minimum_size = Vector2(220, 40)
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Order of the elements below (descending)."
+focus_neighbor_left = NodePath("../InputSearch")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../VBoxContainer/CheckOnlyInstalled")
+focus_next = NodePath("../VBoxContainer/CheckOnlyInstalled")
+focus_previous = NodePath("../InputSearch")
 theme_override_constants/h_separation = 8
 item_count = 4
 selected = 0
@@ -178,11 +213,21 @@ alignment = 1
 [node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Don't show mods that you haven't installed."
+focus_neighbor_left = NodePath("../../OptionSort")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../../InputSearch")
+focus_neighbor_bottom = NodePath("../CheckOnlyFavourites")
+focus_next = NodePath("../CheckOnlyFavourites")
+focus_previous = NodePath("../../OptionSort")
 text = "Only installed"
 
 [node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Don't show mods you haven't starred."
+focus_neighbor_left = NodePath("../../OptionSort")
+focus_neighbor_top = NodePath("../CheckOnlyInstalled")
+focus_neighbor_right = NodePath("../../InputSearch")
+focus_previous = NodePath("../CheckOnlyInstalled")
 text = "Only favourites"
 
 [node name="ContainerMods" type="ScrollContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
@@ -245,6 +290,12 @@ clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../ContainerButtons/ButtonUninstall")
+focus_previous = NodePath("../ContainerButtons/ButtonBrowse")
 fixed_icon_size = Vector2i(16, 16)
 
 [node name="ContainerButtons" type="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer"]
@@ -258,6 +309,12 @@ alignment = 1
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonBrowse")
+focus_neighbor_top = NodePath("../../ItemList")
+focus_neighbor_right = NodePath("../ButtonLaunch")
+focus_neighbor_bottom = NodePath("../../ItemList")
+focus_next = NodePath("../ButtonLaunch")
+focus_previous = NodePath("../../ItemList")
 theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_constants/h_separation = -16
@@ -268,6 +325,12 @@ icon = ExtResource("4_yn4re")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonUninstall")
+focus_neighbor_top = NodePath("../../ItemList")
+focus_neighbor_right = NodePath("../ButtonBrowse")
+focus_neighbor_bottom = NodePath("../../ItemList")
+focus_next = NodePath("../ButtonBrowse")
+focus_previous = NodePath("../ButtonUninstall")
 theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_colors/icon_normal_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_constants/h_separation = -16
@@ -278,6 +341,12 @@ icon = ExtResource("5_0xeke")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonLaunch")
+focus_neighbor_top = NodePath("../../ItemList")
+focus_neighbor_right = NodePath("../ButtonUninstall")
+focus_neighbor_bottom = NodePath("../../ItemList")
+focus_next = NodePath("../../ItemList")
+focus_previous = NodePath("../ButtonLaunch")
 theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_constants/h_separation = -16
@@ -289,6 +358,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
@@ -382,6 +452,8 @@ offset_right = -3.0
 offset_bottom = 36.0
 grow_horizontal = 0
 tooltip_text = "Visit this project's GitHub repo."
+focus_neighbor_top = NodePath(".")
+focus_previous = NodePath("../../ContainerTroubleshooting/ButtonLogs")
 icon = ExtResource("16_tvaom")
 
 [node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
@@ -508,8 +580,8 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 0.8
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxTexture_2uwqy")
-theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_5xqik")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_erxm2")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_gp1dw")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_3dtab")
 max_value = 360.0
 value = 360.0
 
@@ -695,6 +767,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Open the folder containing debug log files."
+focus_next = NodePath("../../PanelAbout/ButtonWebsite")
 text = "Show logs"
 icon = ExtResource("19_25xiv")
 

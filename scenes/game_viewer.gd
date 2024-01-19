@@ -49,7 +49,6 @@ func refresh_mod_data() -> void:
 	if mod_data_id != "": mod_data = ContentGetter.get_local_moddata(mod_data_id)
 	if mod_data == null: return
 	clear_all()
-	animation_player.play("in")
 
 	label_title.text = mod_data.name
 	var last_updated = "Never" if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
@@ -74,6 +73,10 @@ func refresh_mod_data() -> void:
 		options_version.add_item(release)
 	options_version.visible = options_version.item_count > 1
 	_on_options_version_item_selected(options_version.selected)
+	
+	animation_player.play("in")
+	await animation_player.animation_finished
+	$PanelOverview/CheckFavourite.grab_focus.call_deferred()
 
 
 @warning_ignore("integer_division")

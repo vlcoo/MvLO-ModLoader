@@ -1,12 +1,15 @@
-[gd_resource type="Theme" load_steps=44 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=45 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
+[ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
 [ext_resource type="StyleBox" uid="uid://d3ijjxidv6oaq" path="res://ui_resources/style_panel.tres" id="1_t1gei"]
 [ext_resource type="Texture2D" uid="uid://bu5bs00s6o2nn" path="res://ui_resources/textures/switch-on.png" id="1_y4j7m"]
+[ext_resource type="Texture2D" uid="uid://ba3xewfgo6qd0" path="res://ui_resources/textures/check-off.png" id="2_2yju5"]
 [ext_resource type="Texture2D" uid="uid://bflpcqbojgqbo" path="res://ui_resources/textures/switch-off.png" id="2_d3gvc"]
 [ext_resource type="FontFile" uid="uid://ohdc6gk2sqag" path="res://ui_resources/font_64ds.ttf" id="4_23arm"]
 [ext_resource type="Texture2D" uid="uid://dhen21r33llhr" path="res://ui_resources/textures/radio-on.png" id="5_1cbqh"]
 [ext_resource type="Texture2D" uid="uid://bnn1yr8cnkdle" path="res://ui_resources/textures/radio-off.png" id="6_aptmk"]
+[ext_resource type="StyleBox" uid="uid://fjly8m12eag0" path="res://ui_resources/style_focus.tres" id="8_6sxy7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjsp2"]
 content_margin_left = 16.0
@@ -33,11 +36,6 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 anti_aliasing_size = 0.3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1j17"]
-draw_center = false
-border_width_bottom = 1
-expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uusgm"]
 content_margin_left = 10.0
@@ -145,11 +143,6 @@ color = Color(1, 1, 1, 0.164706)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fg2el"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwjj2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rp2cv"]
-draw_center = false
-border_width_bottom = 1
-expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tb8pf"]
 content_margin_left = 10.0
@@ -342,11 +335,13 @@ default_font = ExtResource("1_dhop0")
 default_font_size = 16
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_tjsp2")
 Button/styles/disabled = SubResource("StyleBoxFlat_ifdw6")
-Button/styles/focus = SubResource("StyleBoxFlat_c1j17")
+Button/styles/focus = ExtResource("8_6sxy7")
 Button/styles/hover = SubResource("StyleBoxFlat_uusgm")
 Button/styles/normal = SubResource("StyleBoxFlat_08tmf")
 Button/styles/pressed = SubResource("StyleBoxFlat_ld7ld")
 CheckBox/constants/h_separation = 8
+CheckBox/icons/checked = ExtResource("1_pet3p")
+CheckBox/icons/unchecked = ExtResource("2_2yju5")
 CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_kc5y8")
 CheckBox/styles/normal = SubResource("StyleBoxFlat_odfiy")
 CheckBox/styles/pressed = SubResource("StyleBoxFlat_1eam0")
@@ -368,7 +363,7 @@ LabelLarge/fonts/font = ExtResource("4_23arm")
 LabelSubtle/base_type = &"Label"
 LabelSubtle/colors/font_color = Color(1, 1, 1, 0.545098)
 LineEdit/colors/font_placeholder_color = Color(1, 1, 1, 0.470588)
-LineEdit/styles/focus = SubResource("StyleBoxFlat_rp2cv")
+LineEdit/styles/focus = ExtResource("8_6sxy7")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_tb8pf")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_l21ei")
 OptionButton/constants/arrow_margin = 12

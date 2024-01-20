@@ -1,3 +1,4 @@
+class_name GameViewer
 extends Panel
 
 @onready var texture_cover: TextureRect = $PanelOverview/CenterContainer/VBoxContainer/TextureCover
@@ -28,8 +29,9 @@ var uninstall_texture: Texture2D = preload("res://audiovisual/uninstall.png")
 @export var auto_refresh: bool = true
 var mod_data: ModData
 var is_mod_running: bool = false
+var done_critical_operation: bool = false
 
-signal viewer_closed
+signal viewer_closed(critical_operation_done: bool)
 
 
 func _ready() -> void:
@@ -42,13 +44,15 @@ func _ready() -> void:
 
 func _on_button_back_pressed() -> void:
 	animation_player.play("out")
-	viewer_closed.emit()
+	#await animation_player.animation_finished
+	viewer_closed.emit(done_critical_operation)
 
 
 func refresh_mod_data() -> void:
 	if mod_data_id != "": mod_data = ContentGetter.get_local_moddata(mod_data_id)
-	if mod_data == null: return
+	if mod_data_id == "" or mod_data == null: return
 	clear_all()
+	done_critical_operation = false
 
 	label_title.text = mod_data.name
 	var last_updated = "Never" if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
@@ -75,8 +79,8 @@ func refresh_mod_data() -> void:
 	_on_options_version_item_selected(options_version.selected)
 	
 	animation_player.play("in")
-	await animation_player.animation_finished
-	$PanelOverview/CheckFavourite.grab_focus.call_deferred()
+	if get_parent().visible:
+		$PanelDetail/CenterContainer/VBoxContainer/ContainerButtons.grab_focus.call_deferred()
 
 
 @warning_ignore("integer_division")
@@ -187,6 +191,8 @@ func _on_button_install_pressed() -> void:
 	button_install.disabled = true
 	InstallsIndex.operation_done.connect(_on_installs_index_done, CONNECT_ONE_SHOT)
 	InstallsIndex.install(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+	
+	done_critical_operation = true
 
 
 func _on_button_launch_pressed() -> void:
@@ -199,12 +205,15 @@ func _on_button_launch_pressed() -> void:
 	button_uninstall.text = "Kill process"
 	button_uninstall.icon = fire_texture
 	button_uninstall.disabled = true
+	
+	done_critical_operation = true
 
 
 func _on_button_uninstall_pressed() -> void:
 	var pid = Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
 
 	if pid == -1:
+		InstallsIndex.operation_done.connect(_on_installs_index_done, CONNECT_ONE_SHOT)
 		InstallsIndex.uninstall(
 			mod_data_id,
 			options_version.get_item_text(options_version.selected),
@@ -216,6 +225,8 @@ func _on_button_uninstall_pressed() -> void:
 		button_uninstall.disabled = true
 		button_uninstall.text = "Closing game"
 		$TimerKilling.start()
+	
+	done_critical_operation = true
 
 
 func _on_button_browse_pressed() -> void:
@@ -230,6 +241,8 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 			_on_options_platform_item_selected(options_platform.selected)
 			if Configurator.get_config("auto_subscribe", false):
 				$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = true
+	
+	$PanelDetail/CenterContainer/VBoxContainer/ContainerButtons.grab_focus.call_deferred()
 
 
 func _on_item_list_item_activated(index: int) -> void:
@@ -266,3 +279,4 @@ func _on_mod_closed(process: ModProcess) -> void:
 
 func _on_button_favourite_toggled(toggled_on: bool) -> void:
 	Configurator.set_is_mod_favourite(mod_data_id, toggled_on)
+	done_critical_operation = true

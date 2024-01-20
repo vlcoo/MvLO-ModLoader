@@ -98,11 +98,11 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 	if ArchiveHandler.IsArchive(globalized_dltmp_path + "game"):
 		ArchiveHandler.ExtractArchive(globalized_dltmp_path + "game", globalized_dltmp_path, false)
 	else:
-		err("This mod is not compatible.\nPlease visit its website and try installing it manually.")
+		err("Sorry, this mod is not compatible.\nPlease visit its website and try installing it manually.")
 
 
-func _on_archive_extraction_complete(message: String, path: String, archiveWasDb: bool) -> void:
-	if archiveWasDb: return
+func _on_archive_extraction_complete(message: String, path: String, archive_was_db: bool, archive_size: int) -> void:
+	if archive_was_db: return
 	if message != "":
 		err(message)
 		return
@@ -128,8 +128,7 @@ func _on_archive_extraction_complete(message: String, path: String, archiveWasDb
 			install_needs_wizard = false
 			continue
 
-	install_in_progress.size = FileAccess.open(install_in_progress.dltmp_path + "game", FileAccess.READ).get_length()
-	DirAccess.remove_absolute(install_in_progress.dltmp_path + "game")
+	install_in_progress.size = archive_size
 
 	index.installs.push_front(install_in_progress)
 	install_in_progress = {}
@@ -137,7 +136,7 @@ func _on_archive_extraction_complete(message: String, path: String, archiveWasDb
 	animation_player.play("out")
 	state = Operation.IDLE
 	timer.stop()
-	emit_signal("operation_done", true, "install")
+	operation_done.emit(true, "install")
 	Configurator.set_window_state(Configurator.WindowState.ATTENTION)
 
 	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
@@ -166,6 +165,7 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	if os_mismatch:
 		warn("You tried launching a version of a mod not built for your OS. This might not work.")
 		if Configurator.get_config("minimize", false):
+			# make sure the user can read the warning before minimizing...
 			await dialog.confirmed or dialog.canceled
 
 	var globalized_path: String = ProjectSettings.globalize_path(inst.executable_path)
@@ -190,9 +190,15 @@ func uninstall(mod_id: String, version: String, platform: String) -> void:
 	# delete files and remove from array...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == {}: return
-	index.installs.erase(inst)
-	_save_index_to_file()
-	OS.move_to_trash(ProjectSettings.globalize_path(inst.dltmp_path))
+	var result = OS.move_to_trash(ProjectSettings.globalize_path(inst.dltmp_path))
+	if result != OK:
+		warn("A problem happened and some files might've not been deleted successfully.\n\
+			Maybe the game is still running, or your device's Recycle Bin is full?
+		")
+	else:
+		index.installs.erase(inst)
+		_save_index_to_file()
+	operation_done.emit(result == OK, "uninstall")
 
 
 func show_file_explorer(mod_id: String, version: String, platform: String) -> void:
@@ -235,6 +241,8 @@ func _save_index_to_file() -> void:
 
 
 func err(text: String):
+	if dialog.visible: await dialog.canceled or dialog.confirmed
+	
 	dialog.title = "Can't install game!"
 	dialog.dialog_text = text
 	dialog.popup_centered()
@@ -246,6 +254,8 @@ func err(text: String):
 
 
 func warn(text: String):
+	if dialog.visible: await dialog.canceled or dialog.confirmed
+	
 	dialog.title = "Warning"
 	dialog.dialog_text = text
 	dialog.popup_centered()

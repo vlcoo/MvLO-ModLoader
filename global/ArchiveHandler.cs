@@ -10,7 +10,7 @@ using SharpCompress.Readers;
 public partial class ArchiveHandler : Node
 {
 	[Signal]
-	public delegate void ExtractionCompleteEventHandler(string message, string path, bool archiveWasDb);
+	public delegate void ExtractionCompleteEventHandler(string message, string path, bool archiveWasDb, int archiveSizeMb);
 
 	public void ExtractArchive(string sourcePath, string destPath, bool archiveIsDb)
 	{
@@ -21,12 +21,16 @@ public partial class ArchiveHandler : Node
 	private static void ExtractArchiveWorker(string sourcePath, string destPath, bool archiveIsDb, GodotObject parent)
 	{
 		var err = "";
+		var archiveSize = 0;
 		GD.Print($"C#: Extracting {sourcePath} >> {destPath}...");
 		try
 		{
 			var archive = ArchiveFactory.Open(sourcePath);
 			var reader = archive.ExtractAllEntries();
 			reader.WriteAllToDirectory(destPath, new ExtractionOptions() { ExtractFullPath = true, Overwrite = true });
+			archiveSize = Mathf.FloorToInt(archive.TotalUncompressSize/1024.0/1024.0);
+			archive.Dispose();
+			OS.MoveToTrash(sourcePath);
 		}
 		catch (Exception e)
 		{
@@ -34,7 +38,7 @@ public partial class ArchiveHandler : Node
 		}
 		
 		GD.Print("C#: Done.");
-		parent.CallDeferred("emit_signal", SignalName.ExtractionComplete, err, destPath, archiveIsDb);
+		parent.CallDeferred("emit_signal", SignalName.ExtractionComplete, err, destPath, archiveIsDb, archiveSize);
 	}
 
 	public Array<string> GetAllFilesInDirectory(string sourcePath)

@@ -1,7 +1,7 @@
 extends TabContainer
 
-@onready var vanilla_game_viewer: Panel = $Vanilla/GameViewer
-@onready var current_mod_game_viewer: Panel = $"Mod Gallery/GameViewer"
+@onready var vanilla_game_viewer: GameViewer = $Vanilla/GameViewer
+@onready var current_mod_game_viewer: GameViewer = $"Mod Gallery/GameViewer"
 @onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/GridContainer"
 @onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/ItemList"
 @onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall"
@@ -73,11 +73,10 @@ func _on_cache_updated(_succeeded: bool) -> void:
 	vanilla_game_viewer.refresh_mod_data()
 	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery", 0) else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
 	if awaited_mod_view != "":
-		current_mod_game_viewer.mod_data_id = Configurator.get_config("remembered_mod", "")
-		current_mod_game_viewer.refresh_mod_data()
+		_on_mod_opened(Configurator.get_config("remembered_mod", ""))
 
 
-func _repopulate_gallery(element: PackedScene, cols: int, skip_animations := false) -> void:
+func _repopulate_gallery(element: PackedScene, cols: int, _skip_animations := false) -> void:
 	if gallery.get_child_count() > 0:
 		for child in gallery.get_children():
 			gallery.remove_child(child)
@@ -94,10 +93,10 @@ func _repopulate_gallery(element: PackedScene, cols: int, skip_animations := fal
 		gallery.add_child(child)
 	
 	apply_gallery_filters()
-	if not skip_animations:
-		gallery.modulate = Color.TRANSPARENT
-		await create_tween().tween_property(gallery, "modulate", Color.WHITE, 0.1).finished
-	input_search.grab_focus.call_deferred()
+	#if not skip_animations:
+		#gallery.modulate = Color.TRANSPARENT
+		#await create_tween().tween_property(gallery, "modulate", Color.WHITE, 0.1).finished
+	#input_search.grab_focus.call_deferred()
 
 
 func apply_gallery_filters() -> void:
@@ -164,12 +163,14 @@ func _repopulate_installs_tree() -> void:
 
 
 func _on_mod_opened(idx: String):
+	if idx == "": return
+	
 	current_mod_game_viewer.mod_data_id = idx
 	current_mod_game_viewer.refresh_mod_data()
 	Configurator.set_config("remembered_mod", idx)
 	gallery.modulate = Color.WHITE * 0.3
-	gallery_game_viewer_opened = true
-	recalculate_focused_node()
+	current_mod_game_viewer.animation_player.animation_finished
+	#recalculate_focused_node()
 
 
 func _on_check_button_toggled(button_pressed: bool) -> void:
@@ -197,7 +198,9 @@ func _on_button_pressed() -> void:
 	# update db
 	Configurator.update_timestamp(true)
 	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonRedownloadDB.disabled = true
-	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonRedownloadDB.text = "Scheduled (next restart)"
+	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonRedownloadDB.text = "Restarting..."
+	OS.set_restart_on_exit(true)
+	get_tree().quit()
 
 
 func _on_button_2_pressed() -> void:
@@ -225,8 +228,9 @@ func _on_tab_changed(tab: int) -> void:
 	if tab == 2: _repopulate_installs_tree()
 	if requires_game_viewer_ui_reload:
 		requires_game_viewer_ui_reload = false
-		if tab == 0: vanilla_game_viewer.refresh_mod_data()
-		if tab == 1: current_mod_game_viewer.refresh_mod_data()
+		vanilla_game_viewer.refresh_mod_data()
+		if current_mod_game_viewer.visible:
+			current_mod_game_viewer.refresh_mod_data()
 	
 	recalculate_focused_node()
 
@@ -234,10 +238,10 @@ func _on_tab_changed(tab: int) -> void:
 func recalculate_focused_node() -> void: 
 	match current_tab:
 		0:
-			$Vanilla/GameViewer/PanelOverview/CheckFavourite.grab_focus.call_deferred()
+			$Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons.grab_focus.call_deferred()
 		1:
-			if gallery_game_viewer_opened:
-				$"Mod Gallery/GameViewer/PanelOverview/CheckFavourite".grab_focus.call_deferred()
+			if current_mod_game_viewer.visible:
+				$"Mod Gallery/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons".grab_focus.call_deferred()
 			else:
 				input_search.grab_focus.call_deferred()
 		2:
@@ -343,10 +347,12 @@ func _on_check_button_4_toggled(toggled_on: bool) -> void:
 	Configurator.set_config("discord-rpc", toggled_on)
 
 
-func _on_game_viewer_viewer_closed() -> void:
-	_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
+func _on_game_viewer_viewer_closed(gallery_needs_refresh: bool) -> void:
+	if gallery_needs_refresh:
+		_repopulate_gallery(gallery_element_list if Configurator.get_config("list_gallery") else gallery_element_big, 1 if Configurator.get_config("list_gallery") else 5)
+	create_tween().tween_property(gallery, "modulate", Color.WHITE, 0.05)
 	Configurator.set_config("remembered_mod", "")
-	gallery_game_viewer_opened = false
+	await current_mod_game_viewer.animation_player.animation_finished
 	recalculate_focused_node()
 
 

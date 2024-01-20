@@ -45,8 +45,8 @@ func _on_requester_db_request_completed(result: int, response_code: int, _header
 	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir(), true)
 
 
-func _on_archive_extraction_complete(message: String, _path: String, archiveWasDb: bool) -> void:
-	if not archiveWasDb: return
+func _on_archive_extraction_complete(message: String, _path: String, archive_was_db: bool, _archive_size: int) -> void:
+	if not archive_was_db: return
 	
 	if message == "":
 		db_request_complete = true
@@ -66,7 +66,7 @@ func _on_requester_gamefiles_request_completed(result: int, response_code: int, 
 
 func _populate_moddata_array(hide_animation: bool = true) -> void:
 	if not _check_dbs_integrity():
-		err("Downloaded DB is corrupted.")
+		err("Important files have gone missing. Please restart the program!")
 		return
 
 	var json = JSON.parse_string(FileAccess.get_file_as_string("user://DB.gamefiles.json"))
@@ -74,11 +74,11 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	var new_updates_list: String = ""
 	if dir == null:
 		Configurator.update_timestamp(true)
-		err("DB hasn't been downloaded properly.\nPlease restart the program!")
+		err("DB hasn't been downloaded properly. Please restart the program!")
 		return
 	if json == null:
 		Configurator.update_timestamp(true)
-		err("Gamefiles haven't been downloaded properly.\nPlease restart the program or try again later!")
+		err("Gamefiles haven't been downloaded properly. Please restart the program or try again later!")
 
 	for filename in dir.get_files():	# for each mod in the database...
 		var mod_id: String = filename.replace(".tres", "")
@@ -108,7 +108,6 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	if hide_animation: animation_player.play("out")
 	if new_updates_list != "": 
 		warn("New updates for mods you're subscribed to!\n" + new_updates_list)
-		await dialog.confirmed or dialog.canceled
 	
 	var mod_count_before = Configurator.get_config("mod_count", 0)
 	var mod_count_after = moddatas.size()
@@ -139,7 +138,9 @@ func string_coincides_with_mod_name(string: String, mod_name: String) -> bool:
 
 
 func err(text: String):
-	dialog.title = "Couldn't download DB!"
+	if dialog.visible: await dialog.confirmed or dialog.canceled
+	
+	dialog.title = "Something went wrong"
 	dialog.dialog_text = "Some info might be out of date.\n" + text
 	dialog.popup_centered()
 	emit_signal("cache_updated", false)
@@ -147,6 +148,8 @@ func err(text: String):
 
 
 func warn(text: String):
+	if dialog.visible: await dialog.confirmed or dialog.canceled
+	
 	dialog.title = "Warning"
 	dialog.dialog_text = text
 	dialog.popup_centered()

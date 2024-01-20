@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=45 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=44 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
@@ -139,8 +139,6 @@ draw_center = false
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qrtt6"]
 color = Color(1, 1, 1, 0.164706)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fg2el"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwjj2"]
 
@@ -354,7 +352,7 @@ CheckButton/styles/pressed = SubResource("StyleBoxFlat_psxmu")
 HSeparator/styles/separator = SubResource("StyleBoxLine_qrtt6")
 ItemList/constants/icon_margin = 8
 ItemList/constants/v_separation = 12
-ItemList/styles/focus = SubResource("StyleBoxEmpty_fg2el")
+ItemList/styles/focus = ExtResource("8_6sxy7")
 ItemList/styles/hovered = SubResource("StyleBoxEmpty_lwjj2")
 ItemList/styles/panel = ExtResource("1_t1gei")
 LabelLarge/base_type = &"Label"

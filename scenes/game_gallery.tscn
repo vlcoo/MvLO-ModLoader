@@ -89,6 +89,7 @@ offset_bottom = -0.367004
 visible = false
 
 [node name="CheckFavourite" parent="Vanilla/GameViewer/PanelOverview" index="2"]
+visible = false
 focus_neighbor_left = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
 focus_previous = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse")
 
@@ -251,7 +252,6 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
-modulate = Color(1, 1, 1, 0.0941176)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -739,7 +739,7 @@ custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Force update of database (mod data and images) on next program boot."
+tooltip_text = "Force update of database (mod data and images) and reboot program."
 text = "Redownload DB"
 icon = ExtResource("17_8is38")
 

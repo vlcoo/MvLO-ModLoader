@@ -93,20 +93,30 @@ visible = false
 focus_neighbor_left = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
 focus_previous = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse")
 
+[node name="CheckSubscribe" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer" index="2"]
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../ContainerButtons")
+
+[node name="OptionsVersion" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerVersions" index="0"]
+focus_neighbor_left = NodePath("../OptionsPlatform")
+
+[node name="OptionsPlatform" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerVersions" index="1"]
+focus_neighbor_right = NodePath("../OptionsVersion")
+
 [node name="ButtonInstall" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="0"]
 focus_neighbor_right = NodePath("../../../../../PanelOverview/CheckFavourite")
 focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
 focus_next = NodePath("../../../../../PanelOverview/CheckFavourite")
 
 [node name="ButtonUninstall" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="1"]
-focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_bottom = NodePath("../../CheckSubscribe")
 
 [node name="ButtonLaunch" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="2"]
-focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_bottom = NodePath("../../CheckSubscribe")
 
 [node name="ButtonBrowse" parent="Vanilla/GameViewer/PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" index="3"]
-focus_neighbor_right = NodePath("../../../../../PanelOverview/CheckFavourite")
-focus_neighbor_bottom = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_right = NodePath("../ButtonUninstall")
+focus_neighbor_bottom = NodePath("../../CheckSubscribe")
 focus_next = NodePath("../../../../../PanelOverview/CheckFavourite")
 
 [node name="Mod Gallery" type="PanelContainer" parent="."]
@@ -781,6 +791,15 @@ focus_next = NodePath("../../PanelAbout/ButtonWebsite")
 text = "Show logs"
 icon = ExtResource("19_25xiv")
 
+[node name="ButtonFixChar" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting"]
+visible = false
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_next = NodePath("../../PanelAbout/ButtonWebsite")
+text = "Fix vanilla"
+
 [node name="ButtonReset" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting"]
 visible = false
 custom_minimum_size = Vector2(150, 40)
@@ -832,6 +851,7 @@ access = 2
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonDeleteDB" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonUninstallAll" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonLogs" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonFixChar" to="." method="_on_button_fix_char_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonReset" to="." method="_on_button_4_pressed"]
 [connection signal="dir_selected" from="Settings/FileDialog" to="." method="_on_file_dialog_dir_selected"]
 

@@ -134,6 +134,10 @@ func _on_archive_extraction_complete(message: String, path: String, archive_was_
 			continue
 		elif filename.ends_with(".app"):
 			install_in_progress.executable_path = filename
+			if Configurator.os_name == "macOS":
+				var potential_executables := DirAccess.get_files_at(install_in_progress.executable_path + "/Contents/MacOS")
+				if potential_executables.size() == 1:
+					OS.execute("chmod", ["+x", ProjectSettings.globalize_path(potential_executables[0])])
 			install_needs_wizard = false
 			continue
 

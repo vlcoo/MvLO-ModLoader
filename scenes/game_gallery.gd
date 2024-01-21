@@ -42,7 +42,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.tooltip_text = "Built on the " + SelfUpdater.verdate
 	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
-	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value = Configurator.get_config("theme-colour", 256)
+	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value = Configurator.get_config("theme-colour", 360)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsWin/LineEdit.text = Configurator.get_config("args_windows", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
@@ -218,6 +218,8 @@ func _on_button_2_pressed() -> void:
 func _on_button_3_pressed() -> void:
 	# uninstall mods
 	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs/")))
+	InstallsIndex.index.installs.clear()
+	requires_game_viewer_ui_reload = true
 
 
 func _on_button_4_pressed() -> void:
@@ -400,3 +402,11 @@ func _on_h_slider_drag_ended(_value_changed: bool) -> void:
 
 func _on_button_website_pressed() -> void:
 	OS.shell_open("github.com/vlcoo/mvlo-modloader")
+
+
+func _on_button_fix_char_pressed():
+	InstallsIndex.warn("This will reset your character to Mario in vanilla MvLO and some mods to attempt \
+		fixing this problem. Please only do this once and if you're actually having issues.
+	")
+	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
+	OS.execute("reg", ["add", "HKEY_CURRENT_USER\\Software\\ipodtouch0218\\NSMB-MarioVsLuigi", "/v", "Character_h1854990716", "/t", "REG_DWORD", "/d", "00000000", "/f"])

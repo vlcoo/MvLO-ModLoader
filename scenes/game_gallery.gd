@@ -65,7 +65,8 @@ func _on_tree_exiting() -> void:
 
 
 func _input(_event: InputEvent) -> void:
-	if InstallsIndex.background.mouse_filter != MOUSE_FILTER_IGNORE: return
+	if InstallsIndex.background.mouse_filter != MOUSE_FILTER_IGNORE or not Configurator.is_window_focused:
+		return
 	
 	var delta = Input.get_axis("ui_home", "ui_end")
 	current_tab = clamp(current_tab + delta, 0, get_tab_count() - 1)

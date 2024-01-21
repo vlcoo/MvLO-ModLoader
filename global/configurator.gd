@@ -13,6 +13,7 @@ var remembered_mod_idx := ""
 var current_theme: Theme = null
 var current_theme_id := 0
 var previous_window_mode := Window.MODE_WINDOWED
+var is_window_focused = true
 
 var os_name: String
 var timestamp: String
@@ -47,6 +48,17 @@ func _ready() -> void:
 func _on_ready() -> void:
 	current_theme_id = clamp(int(get_config("theme-scheme", 0)), 0, themes.size() - 1)
 	current_theme = themes[current_theme_id]
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT: 
+		is_window_focused = false
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN: 
+		is_window_focused = true
+
+
+func _input(event: InputEvent) -> void:
+	if not is_window_focused: get_window().set_input_as_handled()
 
 
 func set_clear_colour_from_hue(hue: int) -> void:

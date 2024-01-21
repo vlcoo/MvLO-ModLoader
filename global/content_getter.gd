@@ -13,6 +13,7 @@ const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 var db_request_complete = false
 var gamefiles_request_complete = false
 var regex_acronym = RegEx.new()
+var controller_hint_shown = false
 
 var moddatas: Dictionary = {}
 
@@ -32,10 +33,11 @@ func _input(event: InputEvent) -> void:
 		animation_player.play("refuse")
 
 
-func _on_input_joy_connection_changed(device: int, connected: bool) -> void:
-	if connected:
+func _on_input_joy_connection_changed(_device: int, connected: bool) -> void:
+	if connected and not controller_hint_shown:
 		$TimerControllerHint.start()
 		$ContainerControllerHints.modulate = Color.WHITE
+		controller_hint_shown = true
 
 
 func _on_ready() -> void:

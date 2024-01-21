@@ -217,7 +217,7 @@ func _on_button_install_pressed() -> void:
 
 
 func _on_button_launch_pressed() -> void:
-	if not await InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected), true):
+	if not InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected), true):
 		return
 	
 	button_launch.text = "Loading"

@@ -55,8 +55,9 @@ func get_total_installs_size() -> float:
 	# unit is megabytes
 	var mb: float = 0
 	for inst in index.installs:
-		if inst.has("size"): mb += inst.size
-	return mb/1024/1024
+		# adjust for installs from v3 where size was in bytes
+		if inst.has("size"): mb += inst.size/1024/1024 if inst.size > 1000000 else inst.size
+	return mb
 
 
 func redirect(mod_id: String, version: String, platform: String) -> void:

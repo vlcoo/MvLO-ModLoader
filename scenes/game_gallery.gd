@@ -145,7 +145,9 @@ func _repopulate_installs_tree() -> void:
 	var header_index = installs_tree.add_item("All installed games (" + total_mb_str + " MB)", installed_texture, false)
 
 	for install in InstallsIndex.index.installs:
-		var mb_str = str(snapped(install.size/1024/1024, 0.01)) if install.has("size") else "?"
+		var mb_str = "?"
+		if install.has("size") and install.size > 0:
+			mb_str = ("> " + str(install.size/1024/1024)) if install.size > 1000000 else str(install.size)
 		var mod_data: ModData = ContentGetter.get_local_moddata(install.mod_id)
 		if mod_data == null:
 			installs_tree.add_item(install.mod_id + "          \n" + \
@@ -172,7 +174,6 @@ func _on_mod_opened(idx: String):
 	current_mod_game_viewer.refresh_mod_data()
 	Configurator.set_config("remembered_mod", idx)
 	gallery.modulate = Color.WHITE * 0.3
-	current_mod_game_viewer.animation_player.animation_finished
 	#recalculate_focused_node()
 
 

@@ -9,7 +9,7 @@ const Install: Dictionary = {
 	"executable_path": "",
 	"dltmp_path": "",		# folder where the temporary file that was just downloaded (ends with a "/")
 	"timestamp": "",
-	"size": 0
+	"size": 0	# in megabytes
 }
 
 @export var installs: Array[Dictionary]

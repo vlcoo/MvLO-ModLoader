@@ -20,6 +20,7 @@ signal cache_updated(succeeded: bool)
 
 
 func _ready() -> void:
+	Input.joy_connection_changed.connect(_on_input_joy_connection_changed)
 	ArchiveHandler.ExtractionComplete.connect(_on_archive_extraction_complete)
 	regex_acronym.compile("\\b[\\w\\']+?\\b")
 
@@ -29,6 +30,12 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("ui_cancel"):
 		animation_player.play("refuse")
+
+
+func _on_input_joy_connection_changed(device: int, connected: bool) -> void:
+	if connected:
+		$TimerControllerHint.start()
+		$ContainerControllerHints.modulate = Color.WHITE
 
 
 func _on_ready() -> void:
@@ -161,3 +168,7 @@ func warn(text: String):
 	dialog.title = "Warning"
 	dialog.dialog_text = text
 	dialog.popup_centered()
+
+
+func _on_timer_controller_hint_timeout() -> void:
+	create_tween().tween_property($ContainerControllerHints, "modulate", Color.TRANSPARENT, 1)

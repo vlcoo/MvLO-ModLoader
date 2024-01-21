@@ -67,9 +67,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
+current_tab = 3
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
@@ -358,7 +360,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
@@ -477,6 +478,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Show a list of small buttons for the \"Mods\" tab
 instead of a grid of big buttons."
+focus_neighbor_top = NodePath("../../PanelAbout/ButtonWebsite")
+focus_neighbor_right = NodePath("../CheckRemember")
 theme_override_constants/h_separation = 14
 text = "Use list view for mod gallery"
 icon = ExtResource("11_2jt2q")
@@ -499,6 +502,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Include download options for any OS,
 even if they differ from your device's one."
+focus_neighbor_right = NodePath("../CheckDiscord")
 theme_override_constants/h_separation = 14
 text = "Show all platforms"
 icon = ExtResource("13_8dqhh")
@@ -522,6 +526,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Enable \"new version\" notifications 
 for all mods you install from now on."
+focus_neighbor_right = NodePath("../CheckMinimize")
 theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Auto subscribe to updates"
@@ -625,6 +630,9 @@ size_flags_stretch_ratio = 0.7
 mouse_filter = 1
 text = "user://"
 editable = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
 
 [node name="ButtonChooseFolder" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerLocation"]
 layout_mode = 2
@@ -664,6 +672,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 mouse_filter = 1
 placeholder_text = "ENTER to save"
+caret_blink = true
 
 [node name="ContainerArgsLinux" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -689,6 +698,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 mouse_filter = 1
 placeholder_text = "ENTER to save"
+caret_blink = true
 
 [node name="ContainerArgsMac" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -714,6 +724,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 mouse_filter = 1
 placeholder_text = "ENTER to save"
+caret_blink = true
 
 [node name="HSeparator3" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2

@@ -1,7 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://ci3wrj8l55xma"]
+[gd_scene load_steps=16 format=3 uid="uid://ci3wrj8l55xma"]
 
 [ext_resource type="Script" path="res://global/content_getter.gd" id="1_cnpe4"]
 [ext_resource type="AudioStream" uid="uid://q3xyek0guga1" path="res://audiovisual/click.ogg" id="2_7rrkq"]
+[ext_resource type="Texture2D" uid="uid://bplmha3fr1ai6" path="res://audiovisual/controller_hints/trigger-l.png" id="2_s2uvs"]
+[ext_resource type="Texture2D" uid="uid://j3vn4kh3itcp" path="res://audiovisual/controller_hints/trigger-r.png" id="3_vjufl"]
+[ext_resource type="Texture2D" uid="uid://bwf7kxi20gisx" path="res://audiovisual/controller_hints/stick-l.png" id="4_40eig"]
+[ext_resource type="FontFile" uid="uid://bxxeqllaclnvw" path="res://ui_resources/font_robotoI.ttf" id="5_g1nnw"]
+[ext_resource type="Texture2D" uid="uid://bjtt2y21ipgfx" path="res://audiovisual/controller_hints/button-down.png" id="6_wi1n3"]
+[ext_resource type="Texture2D" uid="uid://b4ebto2jdv036" path="res://audiovisual/controller_hints/button-right.png" id="7_tvcjy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u5qsa"]
 
 [sub_resource type="Animation" id="Animation_66wc2"]
 length = 0.001
@@ -147,6 +155,22 @@ tracks/2/keys = {
 "values": [2]
 }
 
+[sub_resource type="Animation" id="Animation_sg3rk"]
+resource_name = "refuse"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(332, 294), Vector2(312, 294), Vector2(352, 294), Vector2(316, 294), Vector2(344, 294), Vector2(328, 294), Vector2(332, 294)]
+}
+
 [sub_resource type="Animation" id="Animation_65crw"]
 resource_name = "wait_hidden"
 tracks/0/type = "value"
@@ -198,22 +222,6 @@ tracks/3/keys = {
 "values": [Vector2(332, 294)]
 }
 
-[sub_resource type="Animation" id="Animation_sg3rk"]
-resource_name = "refuse"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(332, 294), Vector2(312, 294), Vector2(352, 294), Vector2(316, 294), Vector2(344, 294), Vector2(328, 294), Vector2(332, 294)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fiiku"]
 _data = {
 "RESET": SubResource("Animation_66wc2"),
@@ -242,10 +250,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 332.0
-offset_top = 294.0
-offset_right = 692.0
-offset_bottom = 474.0
+offset_left = -180.0
+offset_top = -90.0
+offset_right = 180.0
+offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(180, 90)
@@ -282,6 +290,101 @@ bbcode_enabled = true
 text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Checking for updates"
 fit_content = true
 
+[node name="ContainerControllerHints" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ContainerControllerHints"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 900
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ContainerControllerHints/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_s2uvs")
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="ContainerControllerHints/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vjufl")
+stretch_mode = 3
+
+[node name="Panel" type="Panel" parent="ContainerControllerHints"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 238.0
+grow_vertical = 0
+theme_type_variation = &"TooltipPanel"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ContainerControllerHints/Panel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("4_40eig")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"TooltipLabel"
+theme_override_fonts/font = ExtResource("5_g1nnw")
+text = "Move"
+
+[node name="VSeparator" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_u5qsa")
+
+[node name="TextureRect2" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("6_wi1n3")
+stretch_mode = 3
+
+[node name="Label2" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"TooltipLabel"
+theme_override_fonts/font = ExtResource("5_g1nnw")
+text = "Back"
+
+[node name="VSeparator2" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_u5qsa")
+
+[node name="TextureRect3" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("7_tvcjy")
+stretch_mode = 3
+
+[node name="Label3" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"TooltipLabel"
+theme_override_fonts/font = ExtResource("5_g1nnw")
+text = "OK"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_fiiku")
@@ -310,6 +413,10 @@ wait_time = 0.1
 one_shot = true
 autostart = true
 
+[node name="TimerControllerHint" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_7rrkq")
 volume_db = -20.0
@@ -318,3 +425,4 @@ max_polyphony = 2
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_requester_db_request_completed"]
 [connection signal="request_completed" from="HTTPRequestGamefiles" to="." method="_on_requester_gamefiles_request_completed"]
+[connection signal="timeout" from="TimerControllerHint" to="." method="_on_timer_controller_hint_timeout"]

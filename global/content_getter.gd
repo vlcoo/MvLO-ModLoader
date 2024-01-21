@@ -8,6 +8,7 @@ const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 @onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var dialog: AcceptDialog = $AcceptDialog
+@onready var background: ColorRect = $RectBackground
 
 var db_request_complete = false
 var gamefiles_request_complete = false
@@ -21,6 +22,13 @@ signal cache_updated(succeeded: bool)
 func _ready() -> void:
 	ArchiveHandler.ExtractionComplete.connect(_on_archive_extraction_complete)
 	regex_acronym.compile("\\b[\\w\\']+?\\b")
+
+
+func _input(event: InputEvent) -> void:
+	if background.mouse_filter == Control.MOUSE_FILTER_IGNORE or animation_player.is_playing(): return
+	
+	if event.is_action_pressed("ui_cancel"):
+		animation_player.play("refuse")
 
 
 func _on_ready() -> void:

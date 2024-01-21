@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvjtglvn4vawb"]
+[gd_scene load_steps=9 format=3 uid="uid://bvjtglvn4vawb"]
 
 [ext_resource type="Script" path="res://global/installs_index.gd" id="1_xlf4w"]
 [ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_vrh48"]
@@ -40,6 +40,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(332, 294)]
 }
 
 [sub_resource type="Animation" id="Animation_05n4n"]
@@ -173,12 +185,42 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(1e-05, 1e-05)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(332, 294)]
+}
+
+[sub_resource type="Animation" id="Animation_78lnl"]
+resource_name = "refuse"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(332, 294), Vector2(312, 294), Vector2(352, 294), Vector2(316, 294), Vector2(344, 294), Vector2(328, 294), Vector2(332, 294)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fiiku"]
 _data = {
 "RESET": SubResource("Animation_66wc2"),
 "in": SubResource("Animation_05n4n"),
 "out": SubResource("Animation_6gaof"),
+"refuse": SubResource("Animation_78lnl"),
 "wait_hidden": SubResource("Animation_65crw")
 }
 
@@ -203,7 +245,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -180.0
 offset_top = -90.0
-offset_right = 180.0
+offset_right = 180.001
 offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2

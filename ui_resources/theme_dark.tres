@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=44 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=47 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
@@ -17,12 +17,6 @@ content_margin_top = 16.0
 content_margin_right = 16.0
 content_margin_bottom = 16.0
 draw_center = false
-border_width_left = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 0.164706)
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifdw6"]
 content_margin_left = 10.0
@@ -328,6 +322,27 @@ anti_aliasing_size = 0.3
 color = Color(1, 1, 1, 0.164706)
 vertical = true
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8p5ti"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jm3xj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_va6ef"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.878431, 0.878431, 0.878431, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.133333, 0.133333, 0.133333, 0.309804)
+expand_margin_left = 4.0
+expand_margin_top = 32.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+anti_aliasing_size = 0.3
+
 [resource]
 default_font = ExtResource("1_dhop0")
 default_font_size = 16
@@ -407,3 +422,8 @@ TooltipPanel/styles/panel = SubResource("StyleBoxFlat_ht51p")
 Tree/styles/focus = SubResource("StyleBoxEmpty_j5wlx")
 Tree/styles/panel = SubResource("StyleBoxFlat_gvmny")
 VSeparator/styles/separator = SubResource("StyleBoxLine_1oigc")
+Window/colors/title_color = Color(0.129412, 0.129412, 0.129412, 1)
+Window/constants/title_height = 32
+Window/icons/close = SubResource("CompressedTexture2D_8p5ti")
+Window/icons/close_pressed = SubResource("CompressedTexture2D_jm3xj")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_va6ef")

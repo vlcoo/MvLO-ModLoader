@@ -42,7 +42,15 @@ func _ready() -> void:
 	Configurator.process_ended.connect(_on_mod_closed)
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if InstallsIndex.background.mouse_filter != MOUSE_FILTER_IGNORE: return
+	
+	if event.is_action_pressed("ui_cancel"):
+		_on_button_back_pressed()
+
+
 func _on_button_back_pressed() -> void:
+	if not visible or not $PanelOverview/ButtonBack.visible: return
 	animation_player.play("out")
 	#await animation_player.animation_finished
 	viewer_closed.emit(done_critical_operation)

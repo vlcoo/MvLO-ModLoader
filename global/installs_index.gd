@@ -26,6 +26,7 @@ var index_path:
 @onready var dialog_ask: ConfirmationDialog = $ConfirmationDialogRedirect
 @onready var dialog_sure: ConfirmationDialog = $ConfirmationDangerous
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var background: ColorRect = $RectBackground
 
 
 var index: InstallsIndexRes
@@ -41,6 +42,13 @@ func _ready() -> void:
 	index = load(index_path) if ResourceLoader.exists(index_path) else InstallsIndexRes.new()
 	ArchiveHandler.ExtractionComplete.connect(_on_archive_extraction_complete)
 	l_progress.text = ""
+
+
+func _input(event: InputEvent) -> void:
+	if background.mouse_filter == Control.MOUSE_FILTER_IGNORE or animation_player.is_playing(): return
+	
+	if event.is_action_pressed("ui_cancel"):
+		animation_player.play("refuse")
 
 
 func get_total_installs_size() -> float:
@@ -162,11 +170,11 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 		if Configurator.os_name != "macOS": os_mismatch = true
 	else: return false
 
-	if os_mismatch:
-		warn("You tried launching a version of a mod not built for your OS. This might not work.")
-		if Configurator.get_config("minimize", false):
-			# make sure the user can read the warning before minimizing...
-			await dialog.confirmed or dialog.canceled
+	#if os_mismatch:
+		#warn("You tried launching a version of a mod not built for your OS. This might not work.")
+		#if Configurator.get_config("minimize", false):
+			## make sure the user can read the warning before minimizing...
+			#await dialog.confirmed or dialog.canceled
 
 	var globalized_path: String = ProjectSettings.globalize_path(inst.executable_path)
 	if Configurator.os_name == "macOS": globalized_path = "file:/" + globalized_path
@@ -178,7 +186,10 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 		pid = OS.create_process(command, [globalized_path])
 	
 	if pid == -1:
-		warn("Couldn't launch! Maybe it's corrupted or incompatible?\nPlease visit this mod's website and try installing it manually.")
+		warn("Couldn't launch game! " + \
+			"Maybe it's not built for your type of device? Please choose another version."
+			if os_mismatch else
+			"Maybe it's corrupted or incompatible? Please visit this mod's website and try installing it manually.")
 		return false
 	
 	if not register_process: return true

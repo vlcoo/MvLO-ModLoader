@@ -119,11 +119,23 @@ func _on_options_version_item_selected(index: int) -> void:
 	var platforms_dict = mod_data.gamefile_urls[options_version.get_item_text(index)]
 	var sorted_platform_assets = platforms_dict.keys()
 	sorted_platform_assets.sort_custom(func(a, b):
-		var IntegrityResult_a = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), a)
-		var IntegrityResult_b = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), b)
-		return (options_version.item_count <= 1 and platforms_dict[a].timestamp > platforms_dict[b].timestamp) or \
-			IntegrityResult_a < IntegrityResult_b or \
-			_platform_asset_coincides_with_os(a) > _platform_asset_coincides_with_os(b) 
+		var integrity_result_a = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), a)
+		var integrity_result_b = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), b)
+		# points based sorting of platforms dropdown
+		var pts_a = 0
+		var pts_b = 0
+		# give one point if item is compatible with device os
+		pts_a += int(_platform_asset_coincides_with_os(a))
+		pts_b += int(_platform_asset_coincides_with_os(b))
+		# give two (more important) points if item is installed
+		pts_a += int(integrity_result_a == 0) * 2
+		pts_b += int(integrity_result_b == 0) * 2
+		# give three (even more important) points if item is a newer release (only applicable to itch.io distribs)
+		if options_version.item_count <= 1 and options_version.get_item_text(0).contains("itch"):
+			pts_a += int(platforms_dict[a].timestamp > platforms_dict[b].timestamp) * 3
+			pts_b += int(platforms_dict[b].timestamp > platforms_dict[a].timestamp) * 3
+		# more points = more at the beginning of array
+		return pts_a > pts_b
 	)
 	for asset: String in sorted_platform_assets:
 		var platform_icon: Texture2D = get_platform_icon(asset)
@@ -143,6 +155,7 @@ func _on_options_version_item_selected(index: int) -> void:
 
 func _platform_asset_coincides_with_os(a: String) -> bool:
 	a = a.to_lower()
+	if a.contains("web"): return false
 	return (a.contains("win") and Configurator.os_name == "Windows") or \
 	((a.contains("linux") or a.contains("unix")) and Configurator.os_name == "Linux") or \
 	((a.contains("apple") or a.contains("mac")) and Configurator.os_name == "macOS") or not \

@@ -36,6 +36,7 @@ window/size/viewport_height=768
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=6
 window/vsync/vsync_mode=0
 mouse_cursor/tooltip_position_offset=Vector2(20, 20)
 

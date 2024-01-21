@@ -3,6 +3,8 @@ extends Node
 const URL_DB: String = "https://github.com/vlcoo/MvLO-ModLoader/raw/v3-c%23/DB.tar"
 const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 
+var style_focus: StyleBoxTexture = preload("res://ui_resources/style_focus.tres")
+
 @onready var requester_db: HTTPRequest = $HTTPRequestDB
 @onready var requester_gamefiles: HTTPRequest = $HTTPRequestGamefiles
 @onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
@@ -34,8 +36,10 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_input_joy_connection_changed(_device: int, connected: bool) -> void:
-	if connected and not controller_hint_shown:
-		$TimerControllerHint.start()
+	style_focus.modulate_color = Color.WHITE if connected else Color.WHITE * 0.4
+	
+	if connected:
+		$TimerControllerHint.start(2 if controller_hint_shown else 6)
 		$ContainerControllerHints.modulate = Color.WHITE
 		controller_hint_shown = true
 

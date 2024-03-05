@@ -36,6 +36,7 @@ public partial class DiscordHandler : Node
     public void ClearDiscordStatus(bool dispose)
     {
         GD.Print($"C#: {(dispose ? "Disposing" : "Clearing")} Discord status!!");
+        //_discordClient.SetPresence(new RichPresence());
         _discordClient.ClearPresence();
         if (dispose) _discordClient.Dispose();
     }

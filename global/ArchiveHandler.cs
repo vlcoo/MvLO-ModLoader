@@ -41,15 +41,11 @@ public partial class ArchiveHandler : Node
 		parent.CallDeferred("emit_signal", SignalName.ExtractionComplete, err, destPath, archiveIsDb, archiveSize);
 	}
 
-	public Array<string> GetAllFilesInDirectory(string sourcePath)
-	{
-		Array<string> files = new();
-		foreach (var file in Directory.EnumerateFiles(sourcePath, "*.*", SearchOption.AllDirectories))
-		{
-			files.Add(file);
-		}
-		return files;
-	}
+	public Array<string> GetAllFilesInDirectoryFiltered(string sourcePath, string extension) =>
+		new(Directory.EnumerateFileSystemEntries(sourcePath, $"*.{extension}", SearchOption.AllDirectories));
+	
+	public Array<string> GetAllFilesInDirectory(string sourcePath) =>
+		new(Directory.EnumerateFileSystemEntries(sourcePath, "*", SearchOption.AllDirectories));
 
 	public bool IsArchive(string sourcePath) => ArchiveFactory.IsArchive(sourcePath, out _);
 }

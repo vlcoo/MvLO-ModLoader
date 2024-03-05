@@ -447,7 +447,7 @@ mouse_filter = 0
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
 theme_override_fonts/font = ExtResource("15_rxllx")
 theme_override_font_sizes/font_size = 52
-text = "v4"
+text = "v4.1"
 horizontal_alignment = 2
 vertical_alignment = 2
 

@@ -192,9 +192,10 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	
 	if pid == -1:
 		warn("Couldn't launch game! " + \
-			"Maybe it's not built for your type of device? Please choose another version."
+			("Maybe it's not built for your type of device? Please choose another version."
 			if os_mismatch else
 			"Maybe it's corrupted or incompatible? Please visit this mod's website and try installing it manually.")
+		)
 		return false
 	
 	if not register_process: return true

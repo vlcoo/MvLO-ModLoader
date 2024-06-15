@@ -111,11 +111,17 @@ func clear_all():
 
 
 func _on_options_version_item_selected(index: int) -> void:
-	if mod_data.gamefile_urls == {}: return
+	print(mod_data.gamefile_urls)
 	var show_all = Configurator.get_config("all_platforms")
 	if show_all is String: show_all = show_all != ""
+	
+	# double check for no versions found. first, if no links were given by the server...
+	if mod_data.gamefile_urls == {}:
+		_on_no_downloads_found(show_all)
+		return
 
 	options_platform.clear()
+	options_platform.disabled = false
 	var platforms_dict = mod_data.gamefile_urls[options_version.get_item_text(index)]
 	var sorted_platform_assets = platforms_dict.keys()
 	sorted_platform_assets.sort_custom(func(a, b):
@@ -145,11 +151,12 @@ func _on_options_version_item_selected(index: int) -> void:
 			options_platform.add_item(asset)
 		else:
 			options_platform.add_icon_item(platform_icon, asset)
-			
-	options_platform.disabled = options_platform.item_count <= 0
-	if options_platform.disabled:
-		options_platform.add_item("???")
-		InstallsIndex.warn("No downloads found" + (" for your OS - try enabling \"Show all platforms\" in Settings" if not show_all else "") + "!")
+	
+	# ...secondly, if none of the links made it to the dropdown.
+	if options_platform.item_count <= 0:
+		_on_no_downloads_found(show_all)
+		return
+	
 	_on_options_platform_item_selected(options_platform.selected)
 
 
@@ -162,11 +169,14 @@ func _platform_asset_coincides_with_os(a: String) -> bool:
 	(a.contains("win") or a.contains("linux") or a.contains("unix") or a.contains("apple") or a.contains("mac"))
 
 
+func _on_no_downloads_found(show_all: bool) -> void:
+	options_platform.disabled = true
+	options_platform.add_item("???")
+	InstallsIndex.warn("No downloads found" + (" for your OS - try enabling \"Show all platforms\" in Settings" if not show_all else "") + "!")
+	set_buttons_state(false, false, false, false)
+
+
 func _on_options_platform_item_selected(index: int) -> void:
-	if options_platform.get_item_text(index) == "???":
-		set_buttons_state(false, false, false, false)
-		return
-	
 	var IntegrityResult = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(index))
 	var already_installed = IntegrityResult & (InstallsIndex.IntegrityResult.FAIL_NOT_IN_FILESYSTEM | InstallsIndex.IntegrityResult.FAIL_NOT_IN_INDEX) == 0
 	var executable_found = IntegrityResult & InstallsIndex.IntegrityResult.FAIL_NO_EXE == 0

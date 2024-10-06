@@ -107,7 +107,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 	if ArchiveHandler.IsArchive(globalized_dltmp_path + "game"):
 		ArchiveHandler.ExtractArchive(globalized_dltmp_path + "game", globalized_dltmp_path, false)
 	else:
-		err("Sorry, this mod is not compatible.\nPlease visit its website and try installing it manually.")
+		err("Sorry, this mod is not compatible.\nPlease try another version or visit its website and install it manually.")
 
 
 func _on_archive_extraction_complete(message: String, path: String, archive_was_db: bool, archive_size: int) -> void:

@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/font_robotoB.ttf-6a0a39e8f12778b3a2d8a9438fd5
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

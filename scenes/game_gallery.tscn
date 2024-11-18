@@ -67,10 +67,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 0
+current_tab = 2
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -285,7 +286,6 @@ layout_mode = 2
 auto_refresh = false
 
 [node name="Storage Usage" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 

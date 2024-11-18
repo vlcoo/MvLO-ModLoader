@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var vercode: int = 4
-var verdate: String = "2024-01-19"
+var verdate: String = "2024-11-18"
 
 signal updated
 

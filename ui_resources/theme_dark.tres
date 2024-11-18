@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=47 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=49 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
@@ -318,6 +318,10 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 anti_aliasing_size = 0.3
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u3p6n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_df5m7"]
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_1oigc"]
 color = Color(1, 1, 1, 0.164706)
 vertical = true
@@ -366,7 +370,7 @@ CheckButton/styles/normal = SubResource("StyleBoxFlat_opr0i")
 CheckButton/styles/pressed = SubResource("StyleBoxFlat_psxmu")
 HSeparator/styles/separator = SubResource("StyleBoxLine_qrtt6")
 ItemList/constants/icon_margin = 8
-ItemList/constants/v_separation = 12
+ItemList/constants/v_separation = 22
 ItemList/styles/focus = ExtResource("8_6sxy7")
 ItemList/styles/hovered = SubResource("StyleBoxEmpty_lwjj2")
 ItemList/styles/panel = ExtResource("1_t1gei")
@@ -433,6 +437,8 @@ TooltipLabel/colors/font_color = Color(0.129412, 0.129412, 0.129412, 1)
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_ht51p")
 Tree/styles/focus = SubResource("StyleBoxEmpty_j5wlx")
 Tree/styles/panel = SubResource("StyleBoxFlat_gvmny")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_u3p6n")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_df5m7")
 VSeparator/styles/separator = SubResource("StyleBoxLine_1oigc")
 Window/colors/title_color = Color(0.129412, 0.129412, 0.129412, 1)
 Window/constants/title_height = 32

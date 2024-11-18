@@ -12,12 +12,14 @@ config_version=5
 
 config/name="MvLO Mod Loader"
 config/description="Customizable mod launcher and auto-updater for MvLO."
-config/version="4"
+config/version="4.1"
 run/main_scene="res://scenes/game_gallery.tscn"
+run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 run/low_processor_mode=true
-run/low_processor_mode_sleep_usec=12000
+run/low_processor_mode_sleep_usec=16000
 boot_splash/bg_color=Color(0.168627, 0.168627, 0.168627, 1)
+boot_splash/show_image=false
 config/icon="res://audiovisual/nshbBig.png"
 
 [autoload]
@@ -138,14 +140,15 @@ locale/translation_remaps={}
 
 [physics]
 
+common/physics_ticks_per_second=1
 common/max_physics_steps_per_frame=1
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-gl_compatibility/nvidia_disable_threaded_optimization=false
-renderer/rendering_method="gl_compatibility"
+renderer/rendering_method="mobile"
 driver/threads/thread_model=0
+textures/vram_compression/import_etc2_astc=true
 textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=1
 environment/defaults/default_clear_color=Color(0.17, 0.17, 0.17, 1)

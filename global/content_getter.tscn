@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ci3wrj8l55xma"]
+[gd_scene load_steps=18 format=3 uid="uid://ci3wrj8l55xma"]
 
 [ext_resource type="Script" path="res://global/content_getter.gd" id="1_cnpe4"]
 [ext_resource type="AudioStream" uid="uid://q3xyek0guga1" path="res://audiovisual/click.ogg" id="2_7rrkq"]
@@ -8,6 +8,8 @@
 [ext_resource type="FontFile" uid="uid://bxxeqllaclnvw" path="res://ui_resources/font_robotoI.ttf" id="5_g1nnw"]
 [ext_resource type="Texture2D" uid="uid://bjtt2y21ipgfx" path="res://audiovisual/controller_hints/button-down.png" id="6_wi1n3"]
 [ext_resource type="Texture2D" uid="uid://b4ebto2jdv036" path="res://audiovisual/controller_hints/button-right.png" id="7_tvcjy"]
+[ext_resource type="Script" path="res://global/server_status.gd" id="8_gb46t"]
+[ext_resource type="Texture2D" uid="uid://dla7wfydmmjef" path="res://audiovisual/server.png" id="8_uop1r"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u5qsa"]
 
@@ -388,6 +390,49 @@ theme_type_variation = &"TooltipLabel"
 theme_override_fonts/font = ExtResource("5_g1nnw")
 text = "OK"
 
+[node name="ContainerStatusHint" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_gb46t")
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="ContainerStatusHint"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"TooltipPanel"
+
+[node name="TextureRect" type="TextureRect" parent="ContainerStatusHint/Panel"]
+modulate = Color(0.972549, 0.188235, 0.188235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Game servers are down or unreachable at the moment.
+Vanilla and Mods may be affected."
+texture = ExtResource("8_uop1r")
+stretch_mode = 3
+
+[node name="HTTPRequestGameServer" type="HTTPRequest" parent="ContainerStatusHint"]
+download_chunk_size = 4096
+use_threads = true
+timeout = 4.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_fiiku")
@@ -425,6 +470,7 @@ volume_db = -10.0
 max_polyphony = 2
 
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="request_completed" from="ContainerStatusHint/HTTPRequestGameServer" to="ContainerStatusHint" method="_on_http_request_game_server_request_completed"]
 [connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_requester_db_request_completed"]
 [connection signal="request_completed" from="HTTPRequestGamefiles" to="." method="_on_requester_gamefiles_request_completed"]
 [connection signal="timeout" from="TimerControllerHint" to="." method="_on_timer_controller_hint_timeout"]

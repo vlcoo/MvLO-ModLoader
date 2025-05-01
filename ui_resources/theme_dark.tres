@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=49 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=50 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dhen21r33llhr" path="res://ui_resources/textures/radio-on.png" id="5_1cbqh"]
 [ext_resource type="Texture2D" uid="uid://bnn1yr8cnkdle" path="res://ui_resources/textures/radio-off.png" id="6_aptmk"]
 [ext_resource type="StyleBox" uid="uid://fjly8m12eag0" path="res://ui_resources/style_focus.tres" id="8_6sxy7"]
+[ext_resource type="Texture2D" uid="uid://dl21iq46og0g1" path="res://audiovisual/cancel.png" id="8_x7f2g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjsp2"]
 content_margin_left = 16.0
@@ -386,6 +387,7 @@ LabelLarge/fonts/font = ExtResource("4_23arm")
 LabelSubtle/base_type = &"Label"
 LabelSubtle/colors/font_color = Color(1, 1, 1, 0.545098)
 LineEdit/colors/font_placeholder_color = Color(1, 1, 1, 0.470588)
+LineEdit/icons/clear = ExtResource("8_x7f2g")
 LineEdit/styles/focus = ExtResource("8_6sxy7")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_tb8pf")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_l21ei")

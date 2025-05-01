@@ -12,7 +12,7 @@ config_version=5
 
 config/name="MvLO Mod Loader"
 config/description="Customizable mod launcher and auto-updater for MvLO."
-config/version="4.1"
+config/version="5"
 run/main_scene="res://scenes/game_gallery.tscn"
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")

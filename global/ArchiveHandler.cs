@@ -30,7 +30,7 @@ public partial class ArchiveHandler : Node
 			reader.WriteAllToDirectory(destPath, new ExtractionOptions() { ExtractFullPath = true, Overwrite = true });
 			archiveSize = Mathf.FloorToInt(archive.TotalUncompressSize/1024.0/1024.0);
 			archive.Dispose();
-			OS.MoveToTrash(sourcePath);
+			DirAccess.RemoveAbsolute(sourcePath);
 		}
 		catch (Exception e)
 		{

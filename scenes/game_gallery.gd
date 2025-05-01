@@ -8,7 +8,7 @@ extends TabContainer
 @onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch"
 @onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse"
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
-@onready var label_no_results: Label = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/LabelNoResults"
+@onready var container_no_results: VBoxContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"
 @onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
@@ -123,7 +123,7 @@ func apply_gallery_filters() -> void:
 			(not filter_installed or child.installed)
 		if child.visible: filter_result_count += 1
 	
-	label_no_results.visible = filter_result_count <= 0
+	container_no_results.visible = filter_result_count <= 0
 
 
 func _mod_comparator(a: ModData, b: ModData) -> bool:

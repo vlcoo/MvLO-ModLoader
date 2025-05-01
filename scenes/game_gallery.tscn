@@ -274,14 +274,24 @@ size_flags_vertical = 4
 theme_override_constants/h_separation = 42
 theme_override_constants/v_separation = 19
 
-[node name="LabelNoResults" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
-visible = false
+[node name="ContainerNoResults" type="VBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "No results!
+size_flags_vertical = 4
+theme_override_constants/separation = 24
 
-Try resetting the filters above..."
-horizontal_alignment = 1
+[node name="Label" type="RichTextLabel" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"]
+clip_contents = false
+layout_mode = 2
+theme_type_variation = &"TextLarge"
+bbcode_enabled = true
+text = "[center]No results!"
+fit_content = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][img]res://audiovisual/search-delete.png[/img]    Try resetting the filters above..."
+fit_content = true
 
 [node name="GameViewer" parent="Mod Gallery" instance=ExtResource("1_qd0tx")]
 layout_mode = 2

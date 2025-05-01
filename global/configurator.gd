@@ -26,6 +26,8 @@ signal process_ended(process: ModData)
 
 
 func _ready() -> void:
+	get_window().min_size = Vector2(340, 256)
+	
 	tree_exiting.connect(_on_tree_exiting)
 	ready.connect(_on_ready)
 	os_name = OS.get_name()

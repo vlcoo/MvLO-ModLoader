@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 const float level = 3.0;
-uniform sampler2D screen_texture : hint_screen_texture, repeat_enable, filter_nearest_mipmap;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_enable, filter_linear_mipmap;
 
 void fragment() {
 	vec3 c = textureLod(screen_texture, SCREEN_UV, level).rgb;

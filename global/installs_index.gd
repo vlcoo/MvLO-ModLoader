@@ -265,7 +265,7 @@ func err(text: String):
 	dialog.popup_centered()
 	timer.stop()
 	install_in_progress = {}
-	emit_signal("operation_done", false, "")
+	operation_done.emit(false, "")
 	animation_player.play("out")
 	state = Operation.IDLE
 

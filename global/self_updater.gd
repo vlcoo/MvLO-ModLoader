@@ -3,8 +3,6 @@ extends CanvasLayer
 var vercode: int = 4
 var verdate: String = "2024-11-18"
 
-signal updated
-
 func _ready() -> void:
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 

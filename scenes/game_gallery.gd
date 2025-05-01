@@ -87,13 +87,16 @@ func _repopulate_gallery(element: PackedScene, cols: int, _skip_animations := fa
 	gallery.columns = cols
 	var mod_array = ContentGetter.moddatas.values()
 	mod_array.sort_custom(_mod_comparator)
+	var i = 0
 	for mod in mod_array:
 		if mod.idx == "vanilla": continue
 		var child: GalleryElement = element.instantiate()
 		child.idx = mod.idx
+		child.container_index = i
 		child.opened.connect(_on_mod_opened)
 		child.init_ui(mod.cover_image, mod.name)
 		gallery.add_child(child)
+		i += 1
 	
 	apply_gallery_filters()
 	#if not skip_animations:

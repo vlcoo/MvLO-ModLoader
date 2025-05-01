@@ -125,7 +125,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 		data.idx = mod_id
 		moddatas[mod_id] = data
 
-	emit_signal("cache_updated", true)
+	cache_updated.emit(true)
 	if hide_animation: animation_player.play("out")
 	if new_updates_list != "": 
 		warn("New updates for mods you're subscribed to!\n" + new_updates_list)
@@ -164,7 +164,7 @@ func err(text: String):
 	dialog.title = "Something went wrong"
 	dialog.dialog_text = "Some info might be out of date.\n" + text
 	dialog.popup_centered()
-	emit_signal("cache_updated", false)
+	cache_updated.emit(false)
 	animation_player.play("out")
 
 

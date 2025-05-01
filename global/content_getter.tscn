@@ -242,6 +242,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.137255)
+metadata/_edit_lock_ = true
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(360, 180)
@@ -250,10 +251,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 332.0
-offset_top = 294.0
-offset_right = 692.0
-offset_bottom = 474.0
+offset_left = -180.0
+offset_top = -90.0
+offset_right = 180.0
+offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(180, 90)
@@ -284,6 +285,7 @@ text = "[center][wave amp=36]Starting up..."
 fit_content = true
 
 [node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
+clip_contents = false
 layout_mode = 2
 theme_type_variation = &"TextSubtle"
 bbcode_enabled = true
@@ -299,6 +301,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ContainerControllerHints"]
 custom_minimum_size = Vector2(0, 40)
@@ -401,7 +404,6 @@ download_file = "user://DB.gamefiles.json"
 download_chunk_size = 4096
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
-disable_3d = true
 initial_position = 2
 size = Vector2i(400, 100)
 unresizable = true
@@ -419,7 +421,7 @@ one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_7rrkq")
-volume_db = -20.0
+volume_db = -10.0
 max_polyphony = 2
 
 [connection signal="ready" from="." to="." method="_on_ready"]

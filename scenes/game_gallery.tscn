@@ -67,11 +67,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 2
+current_tab = 0
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -167,6 +166,9 @@ focus_neighbor_right = NodePath("../OptionSort")
 focus_next = NodePath("../OptionSort")
 focus_previous = NodePath("../VBoxContainer/CheckOnlyFavourites")
 placeholder_text = "Mod name..."
+clear_button_enabled = true
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
 caret_blink = true
 
 [node name="VSeparator" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
@@ -286,6 +288,7 @@ layout_mode = 2
 auto_refresh = false
 
 [node name="Storage Usage" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 

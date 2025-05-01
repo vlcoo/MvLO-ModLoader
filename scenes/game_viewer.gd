@@ -111,7 +111,6 @@ func clear_all():
 
 
 func _on_options_version_item_selected(index: int) -> void:
-	print(mod_data.gamefile_urls)
 	var show_all = Configurator.get_config("all_platforms")
 	if show_all is String: show_all = show_all != ""
 	

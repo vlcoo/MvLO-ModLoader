@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bvjtglvn4vawb"]
 
-[ext_resource type="Script" path="res://global/installs_index.gd" id="1_xlf4w"]
+[ext_resource type="Script" uid="uid://borb5i5exutxf" path="res://global/installs_index.gd" id="1_xlf4w"]
 [ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_vrh48"]
 
 [sub_resource type="Animation" id="Animation_66wc2"]
@@ -217,11 +217,11 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fiiku"]
 _data = {
-"RESET": SubResource("Animation_66wc2"),
-"in": SubResource("Animation_05n4n"),
-"out": SubResource("Animation_6gaof"),
-"refuse": SubResource("Animation_78lnl"),
-"wait_hidden": SubResource("Animation_65crw")
+&"RESET": SubResource("Animation_66wc2"),
+&"in": SubResource("Animation_05n4n"),
+&"out": SubResource("Animation_6gaof"),
+&"refuse": SubResource("Animation_78lnl"),
+&"wait_hidden": SubResource("Animation_65crw")
 }
 
 [node name="InstallsIndex" type="CanvasLayer"]

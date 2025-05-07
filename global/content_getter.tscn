@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://ci3wrj8l55xma"]
 
-[ext_resource type="Script" path="res://global/content_getter.gd" id="1_cnpe4"]
+[ext_resource type="Script" uid="uid://bj5ujsrrfpbym" path="res://global/content_getter.gd" id="1_cnpe4"]
 [ext_resource type="AudioStream" uid="uid://q3xyek0guga1" path="res://audiovisual/click.ogg" id="2_7rrkq"]
 [ext_resource type="Texture2D" uid="uid://bplmha3fr1ai6" path="res://audiovisual/controller_hints/trigger-l.png" id="2_s2uvs"]
 [ext_resource type="Texture2D" uid="uid://j3vn4kh3itcp" path="res://audiovisual/controller_hints/trigger-r.png" id="3_vjufl"]
@@ -8,7 +8,7 @@
 [ext_resource type="FontFile" uid="uid://bxxeqllaclnvw" path="res://ui_resources/font_robotoI.ttf" id="5_g1nnw"]
 [ext_resource type="Texture2D" uid="uid://bjtt2y21ipgfx" path="res://audiovisual/controller_hints/button-down.png" id="6_wi1n3"]
 [ext_resource type="Texture2D" uid="uid://b4ebto2jdv036" path="res://audiovisual/controller_hints/button-right.png" id="7_tvcjy"]
-[ext_resource type="Script" path="res://global/server_status.gd" id="8_gb46t"]
+[ext_resource type="Script" uid="uid://cek050ntwgsm1" path="res://global/server_status.gd" id="8_gb46t"]
 [ext_resource type="Texture2D" uid="uid://dla7wfydmmjef" path="res://audiovisual/server.png" id="8_uop1r"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u5qsa"]
@@ -226,11 +226,11 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fiiku"]
 _data = {
-"RESET": SubResource("Animation_66wc2"),
-"in": SubResource("Animation_05n4n"),
-"out": SubResource("Animation_6gaof"),
-"refuse": SubResource("Animation_sg3rk"),
-"wait_hidden": SubResource("Animation_65crw")
+&"RESET": SubResource("Animation_66wc2"),
+&"in": SubResource("Animation_05n4n"),
+&"out": SubResource("Animation_6gaof"),
+&"refuse": SubResource("Animation_sg3rk"),
+&"wait_hidden": SubResource("Animation_65crw")
 }
 
 [node name="ContentGetter" type="CanvasLayer"]
@@ -435,7 +435,7 @@ timeout = 4.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_fiiku")
+&"": SubResource("AnimationLibrary_fiiku")
 }
 autoplay = "wait_hidden"
 speed_scale = 1.2

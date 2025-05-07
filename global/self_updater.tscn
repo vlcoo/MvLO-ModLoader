@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dpbwgde7rwqco"]
 
-[ext_resource type="Script" path="res://global/self_updater.gd" id="1_1cvwr"]
+[ext_resource type="Script" uid="uid://s1xwgafu1tte" path="res://global/self_updater.gd" id="1_1cvwr"]
 
 [node name="SelfUpdater" type="CanvasLayer"]
 script = ExtResource("1_1cvwr")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=36 format=3 uid="uid://cwrupu3hq0b1a"]
 
-[ext_resource type="Script" path="res://scenes/game_gallery.gd" id="1_otdsd"]
+[ext_resource type="Script" uid="uid://cr5uryoa5e2cs" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
-[ext_resource type="Script" path="res://global/custom_resources/SmoothScroller.gd" id="3_btgm0"]
+[ext_resource type="Script" uid="uid://coa87uepmaxij" path="res://global/custom_resources/SmoothScroller.gd" id="3_btgm0"]
 [ext_resource type="Texture2D" uid="uid://dudh3ejgg282v" path="res://audiovisual/search.png" id="3_kmsf4"]
 [ext_resource type="Texture2D" uid="uid://btivpopjnudd1" path="res://audiovisual/sort.png" id="4_jqbeb"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="4_yn4re"]
@@ -342,8 +342,8 @@ focus_neighbor_right = NodePath("../ButtonLaunch")
 focus_neighbor_bottom = NodePath("../../ItemList")
 focus_next = NodePath("../ButtonLaunch")
 focus_previous = NodePath("../../ItemList")
-theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
+theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_constants/h_separation = -16
 text = "Uninstall"
 icon = ExtResource("4_yn4re")
@@ -358,8 +358,8 @@ focus_neighbor_right = NodePath("../ButtonBrowse")
 focus_neighbor_bottom = NodePath("../../ItemList")
 focus_next = NodePath("../ButtonBrowse")
 focus_previous = NodePath("../ButtonUninstall")
-theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_colors/icon_normal_color = Color(0.243137, 0.756863, 0.0352941, 1)
+theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_constants/h_separation = -16
 text = "Launch"
 icon = ExtResource("5_0xeke")
@@ -374,8 +374,8 @@ focus_neighbor_right = NodePath("../ButtonUninstall")
 focus_neighbor_bottom = NodePath("../../ItemList")
 focus_next = NodePath("../../ItemList")
 focus_previous = NodePath("../ButtonLaunch")
-theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
+theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_constants/h_separation = -16
 text = "Browse files"
 icon = ExtResource("6_xk1xd")
@@ -601,6 +601,7 @@ mouse_filter = 1
 selected = 0
 item_count = 2
 popup/item_0/text = "Basic Dark"
+popup/item_0/id = 0
 popup/item_1/text = "Basic Light"
 popup/item_1/id = 1
 

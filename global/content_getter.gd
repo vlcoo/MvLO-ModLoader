@@ -1,6 +1,6 @@
 extends Node
 
-const URL_DB: String = "https://github.com/vlcoo/MvLO-ModLoader/raw/v3-c%23/DB.tar"
+const URL_DB: String = "http://127.0.0.1:5000/api/mods"
 const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
 
 var style_focus: StyleBoxTexture = preload("res://ui_resources/style_focus.tres")
@@ -17,7 +17,8 @@ var gamefiles_request_complete = false
 var regex_acronym = RegEx.new()
 var controller_hint_shown = false
 
-var moddatas: Dictionary = {}
+var mods: Array[ModData] = []
+var raw_moddatas: Array = []
 
 signal cache_updated(succeeded: bool)
 
@@ -48,22 +49,34 @@ func _on_ready() -> void:
 	$Panel.theme = Configurator.current_theme
 
 	if Configurator.cache_is_old or not _check_dbs_integrity():
-		animation_player.play("in")
-		var error = requester_db.request(URL_DB) + requester_gamefiles.request(URL_GAMEFILES)
-		if error != OK: err(str(error))
+		sync()
 	else:
 		await $Timer.timeout # dummy
 		_populate_moddata_array(false)
 
 
-func _on_requester_db_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+func sync() -> void:
+	animation_player.play("in")
+	#var error = requester_db.request(URL_DB) + requester_gamefiles.request(URL_GAMEFILES)
+	var error = requester_db.request(URL_DB)
+	if error != OK: err(str(error))
+
+
+func _on_requester_db_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != 0 or response_code != 200:
 		err("DB server unavailable. Try again later!")
 		db_request_complete = true
 		if gamefiles_request_complete: _populate_moddata_array()
 		return
 	
-	ArchiveHandler.ExtractArchive(ProjectSettings.globalize_path(requester_db.download_file), OS.get_user_data_dir(), true)
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	if json == null or not json.has("mods"):
+		err("DB server unavailable. Try again later!")
+		return
+	raw_moddatas = json["mods"]
+	
+	db_request_complete = true
+	_populate_moddata_array()
 
 
 func _on_archive_extraction_complete(message: String, _path: String, archive_was_db: bool, _archive_size: int) -> void:
@@ -86,44 +99,46 @@ func _on_requester_gamefiles_request_completed(result: int, response_code: int, 
 
 
 func _populate_moddata_array(hide_animation: bool = true) -> void:
-	if not _check_dbs_integrity():
-		err("Important files have gone missing. Please restart the program!")
-		return
+	#if not _check_dbs_integrity():
+		#err("Important files have gone missing. Please restart the program!")
+		#return
 
-	var json = JSON.parse_string(FileAccess.get_file_as_string("user://DB.gamefiles.json"))
-	var dir = DirAccess.open("user://DB/mod_datas")
+	#var json = JSON.parse_string(FileAccess.get_file_as_string("user://DB.gamefiles.json"))
+	#var dir = DirAccess.open("user://DB/mod_datas")
 	var new_updates_list: String = ""
-	if dir == null:
-		Configurator.update_timestamp(true)
-		err("DB hasn't been downloaded properly. Please restart the program!")
-		return
-	if json == null:
-		Configurator.update_timestamp(true)
-		err("Gamefiles haven't been downloaded properly. Please restart the program or try again later!")
+	#if dir == null:
+		#Configurator.update_timestamp(true)
+		#err("DB hasn't been downloaded properly. Please restart the program!")
+		##return
+	#if json == null:
+		#Configurator.update_timestamp(true)
+		#err("Gamefiles haven't been downloaded properly. Please restart the program or try again later!")
 
-	for filename in dir.get_files():	# for each mod in the database...
-		var mod_id: String = filename.replace(".tres", "")
-		var data := load(dir.get_current_dir() + "/" + filename) as ModData
+	for mod in raw_moddatas:	# for each mod in the database...
+		#var mod_id: String = filename.replace(".tres", "")
+		#var data := load(dir.get_current_dir() + "/" + filename) as ModData
+		var data := ModData.new_from_json(mod)
 		var tmp_image: Image = Image.new()
-		if FileAccess.file_exists("user://DB/" + mod_id + "C.png"):
-			tmp_image.load("user://DB/" + mod_id + "C.png")
-			data.cover_image = ImageTexture.create_from_image(tmp_image)
-		if FileAccess.file_exists("user://DB/" + mod_id + "I.png"):
-			tmp_image.load("user://DB/" + mod_id + "I.png")
-			data.icon = ImageTexture.create_from_image(tmp_image)
-		if json != null:
-			if not json.has(mod_id): continue
-			var max_ts: int = 0
-			data.gamefile_urls = json[mod_id]
-			for version in data.gamefile_urls:
-				for asset in data.gamefile_urls[version]:
-					if int(data.gamefile_urls[version][asset]["timestamp"]) > max_ts: max_ts = int(data.gamefile_urls[version][asset]["timestamp"])
-			data.timestamp = str(max_ts)
-			if Configurator.get_ts_mod(mod_id) != "" and int(data.timestamp) > int(Configurator.get_ts_mod(mod_id)):
-				Configurator.set_ts_mod(mod_id, data.timestamp)
-				new_updates_list += "- " + data.name.substr(0, min(data.name.length(), 30)) + "\n"
-		data.idx = mod_id
-		moddatas[mod_id] = data
+		#if FileAccess.file_exists("user://DB/" + mod_id + "C.png"):
+			#tmp_image.load("user://DB/" + mod_id + "C.png")
+			#data.cover_image = ImageTexture.create_from_image(tmp_image)
+		#if FileAccess.file_exists("user://DB/" + mod_id + "I.png"):
+			#tmp_image.load("user://DB/" + mod_id + "I.png")
+			#data.icon = ImageTexture.create_from_image(tmp_image)
+		#if json != null:
+			#if not json.has(mod_id): continue
+			#data.gamefile_urls = json[mod_id]
+			#var max_ts: int = 0
+			#for version in data.gamefile_urls:
+				#for asset in data.gamefile_urls[version]:
+					#if int(data.gamefile_urls[version][asset]["timestamp"]) > max_ts: max_ts = int(data.gamefile_urls[version][asset]["timestamp"])
+			#data.timestamp = str(max_ts)
+		if Configurator.get_ts_mod(data.id) != "" and int(data.timestamp) > int(Configurator.get_ts_mod(data.id)):
+			Configurator.set_ts_mod(data.id, data.timestamp)
+			new_updates_list += "- " + data.name.substr(0, min(data.name.length(), 30)) + "\n"
+		data.idx = mod.id
+		#moddatas[mod_id] = data
+		mods.append(data)
 
 	cache_updated.emit(true)
 	if hide_animation: animation_player.play("out")
@@ -131,7 +146,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 		warn("New updates for mods you're subscribed to!\n" + new_updates_list)
 	
 	var mod_count_before = Configurator.get_config("mod_count", 0)
-	var mod_count_after = moddatas.size()
+	var mod_count_after = mods.size()
 	if mod_count_after > mod_count_before and mod_count_before > 0: 
 		warn(str(mod_count_after - mod_count_before) + " new mods have been added since the last time you checked!")
 	Configurator.set_config("mod_count", mod_count_after)
@@ -142,7 +157,8 @@ func _check_dbs_integrity() -> bool:
 
 
 func get_local_moddata(idx: String) -> ModData:
-	return moddatas[idx] if moddatas.has(idx) else null
+	var i = mods.find_custom(func(m): return m.id == idx)
+	return mods[i] if i > -1 else null
 
 
 func string_coincides_with_mod_name(string: String, mod_name: String) -> bool:

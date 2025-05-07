@@ -1,9 +1,11 @@
 class_name GameViewer
 extends Panel
 
+const TEMPLATE_SUBTITLE := "[img]res://audiovisual/person.png[/img]  %s\n[img]res://audiovisual/calendar.png[/img]  %s"
+
 @onready var texture_cover: TextureRect = $PanelOverview/CenterContainer/VBoxContainer/TextureCover
 @onready var label_title: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelTitle
-@onready var label_subtitle: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelSubtitle
+@onready var label_subtitle: RichTextLabel = $PanelOverview/CenterContainer/VBoxContainer/HBoxContainer/LabelSubtitle
 @onready var item_list: ItemList = $PanelDetail/CenterContainer/VBoxContainer/ItemList
 @onready var label_timer: Label = $PanelDetail/CenterContainer/VBoxContainer/ContainerTimer/Label
 @onready var options_version: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsVersion
@@ -13,6 +15,8 @@ extends Panel
 @onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonUninstall
 @onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var text_description: TextEdit = $PanelDetail/CenterContainer/VBoxContainer/TextDescription
+@onready var texture_icon: TextureRect = $PanelOverview/CenterContainer/VBoxContainer/HBoxContainer/TextureIcon
 
 var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
 var discord_texture: Texture2D = preload("res://audiovisual/discord.png")
@@ -56,39 +60,47 @@ func _on_button_back_pressed() -> void:
 	viewer_closed.emit(done_critical_operation)
 
 
-func refresh_mod_data() -> void:
+func refresh_mod_data() -> bool:
 	if mod_data_id != "": mod_data = ContentGetter.get_local_moddata(mod_data_id)
-	if mod_data_id == "" or mod_data == null: return
+	if mod_data_id == "" or mod_data == null: return false
 	clear_all()
 	done_critical_operation = false
 
 	label_title.text = mod_data.name
-	var last_updated = "Never" if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
-	var subtitle: String = "Author: %s\nLast updated: %s" % [mod_data.author, last_updated]
-	if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
+	var last_updated = "Never Updated" if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
+	var subtitle: String = TEMPLATE_SUBTITLE % [mod_data.author, last_updated]
+	#if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
-	if mod_data.description != "": item_list.add_item(mod_data.description, mod_data.icon, false)
-	else: item_list.add_item("Description unavailable.", null, false)
-	if mod_data_id != "vanilla" and mod_data.base_version != "?": item_list.add_item("Based on version " + mod_data.base_version + ".", null, false)
+	if mod_data.description != "": text_description.text = mod_data.description
+	if mod_data.icon == null: 
+		texture_icon.visible = false
+		label_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	else: 
+		texture_icon.texture = mod_data.icon
+		texture_icon.visible = true
+		label_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	#item_list.add_item(mod_data.description, mod_data.icon, false)
+	#else: item_list.add_item("Description unavailable.", null, false)
+	if mod_data_id != "vanilla" and mod_data.base_version != "": item_list.add_item("Based on version " + mod_data.base_version + ".", null, false)
 	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, website_texture, false)
 	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, code_texture, false)
-	if mod_data.link_discord.size() != 0:
-		for server in mod_data.link_discord:
-			item_list.add_item(server, discord_texture, false)
+	for server in mod_data.link_discord:
+		if server != "": item_list.add_item(server, discord_texture, false)
 
 	_refresh_time_played()
 	$PanelOverview/CheckFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
 
 	$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
-	for release in mod_data.gamefile_urls.keys():
-		options_version.add_item(release)
+	for version in mod_data.get_gamefiles_versions():
+		options_version.add_item(version)
 	options_version.visible = options_version.item_count > 1
 	_on_options_version_item_selected(options_version.selected)
 	
 	animation_player.play("in")
 	if get_parent().visible:
 		$PanelDetail/CenterContainer/VBoxContainer/ContainerButtons.grab_focus.call_deferred()
+	return true
 
 
 @warning_ignore("integer_division")
@@ -115,14 +127,17 @@ func _on_options_version_item_selected(index: int) -> void:
 	if show_all is String: show_all = show_all != ""
 	
 	# double check for no versions found. first, if no links were given by the server...
-	if mod_data.gamefile_urls == {}:
+	if mod_data.gamefile_urls.is_empty():
 		_on_no_downloads_found(show_all)
 		return
 
 	options_platform.clear()
 	options_platform.disabled = false
-	var platforms_dict = mod_data.gamefile_urls[options_version.get_item_text(index)]
-	var sorted_platform_assets = platforms_dict.keys()
+	var version = options_version.get_item_text(index)
+	#var platforms_dict = mod_data.gamefile_urls[options_version.get_item_text(index)]
+	var sorted_platform_assets = []
+	for gamefiles in mod_data.get_gamefiles_version(version):
+		sorted_platform_assets.append(gamefiles["platform"])
 	sorted_platform_assets.sort_custom(func(a, b):
 		var integrity_result_a = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), a)
 		var integrity_result_b = InstallsIndex.is_installed(mod_data_id, options_version.get_item_text(options_version.selected), b)
@@ -137,8 +152,8 @@ func _on_options_version_item_selected(index: int) -> void:
 		pts_b += int(integrity_result_b == 0) * 2
 		# give three (even more important) points if item is a newer release (only applicable to itch.io distribs)
 		if options_version.item_count <= 1 and options_version.get_item_text(0).contains("itch"):
-			pts_a += int(platforms_dict[a].timestamp > platforms_dict[b].timestamp) * 3
-			pts_b += int(platforms_dict[b].timestamp > platforms_dict[a].timestamp) * 3
+			pts_a += int(mod_data.get_gamefiles_url(version, a)["timestamp"] > mod_data.get_gamefiles_url(version, b)["timestamp"]) * 3
+			pts_b += int(mod_data.get_gamefiles_url(version, b)["timestamp"] > mod_data.get_gamefiles_url(version, a)["timestamp"]) * 3
 		# more points = more at the beginning of array
 		return pts_a > pts_b
 	)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3kkysnadc0mx"]
+[gd_scene load_steps=25 format=3 uid="uid://b3kkysnadc0mx"]
 
 [ext_resource type="Shader" uid="uid://d3da2mfirumpw" path="res://ui_resources/blurry_panel.gdshader" id="1_bqqot"]
 [ext_resource type="Script" uid="uid://c2n1nicuoubkq" path="res://scenes/game_viewer.gd" id="1_ojtji"]
@@ -11,13 +11,41 @@
 [ext_resource type="Texture2D" uid="uid://bffl7uvdru6ay" path="res://audiovisual/install.png" id="6_fyixl"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="7_570hk"]
 [ext_resource type="Texture2D" uid="uid://cdb7jcjr72x74" path="res://audiovisual/discord.png" id="7_iqkns"]
-[ext_resource type="Texture2D" uid="uid://dtk6i35ek8qou" path="res://audiovisual/alphabet.png" id="7_jp8kl"]
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="8_hdgmw"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="9_pg5ns"]
 [ext_resource type="Script" uid="uid://b1raolcoapm07" path="res://scenes/focus_replacer.gd" id="11_w47wk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a34mo"]
 shader = ExtResource("1_bqqot")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vjkyd"]
+size = Vector2(32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjkyd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjkyd"]
+content_margin_left = 16.0
+content_margin_top = 22.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+shadow_color = Color(0, 0, 0, 0.164706)
+shadow_size = 12
+anti_aliasing_size = 0.3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jn5wo"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.164706)
+shadow_size = 12
+anti_aliasing_size = 0.3
 
 [sub_resource type="Animation" id="Animation_akkqd"]
 length = 0.001
@@ -251,15 +279,32 @@ vertical_alignment = 1
 autowrap_mode = 3
 max_lines_visible = 4
 
-[node name="LabelSubtitle" type="Label" parent="PanelOverview/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelOverview/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="TextureIcon" type="TextureRect" parent="PanelOverview/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_vjkyd")
+stretch_mode = 5
+
+[node name="LabelSubtitle" type="RichTextLabel" parent="PanelOverview/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelSubtle"
-theme_override_constants/line_spacing = 6
-text = "N/A"
-horizontal_alignment = 1
-autowrap_mode = 3
+theme_override_colors/default_color = Color(0.65098, 0.65098, 0.65098, 1)
+theme_override_constants/line_separation = 6
+bbcode_enabled = true
+text = "[img]res://audiovisual/person.png[/img]  Unk. Author
+[img]res://audiovisual/calendar.png[/img]  Never Updated"
+fit_content = true
+autowrap_mode = 0
 
 [node name="ButtonBack" type="Button" parent="PanelOverview"]
 self_modulate = Color(1, 1, 1, 0.784314)
@@ -316,27 +361,48 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer"]
 custom_minimum_size = Vector2(580, 680)
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 alignment = 1
+
+[node name="TextDescription" type="TextEdit" parent="PanelDetail/CenterContainer/VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(590, 220)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_readonly_color = Color(0.65098, 0.65098, 0.65098, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vjkyd")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_vjkyd")
+text = "Description unavailable."
+placeholder_text = "abcd"
+editable = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+scroll_smooth = true
+caret_blink = true
+highlight_all_occurrences = true
 
 [node name="ItemList" type="ItemList" parent="PanelDetail/CenterContainer/VBoxContainer"]
 clip_contents = false
-custom_minimum_size = Vector2(590, 0)
+custom_minimum_size = Vector2(590, 220)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 4
 size_flags_stretch_ratio = 0.25
 focus_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jn5wo")
 allow_search = false
 max_text_lines = 2
 auto_height = true
-item_count = 4
-item_0/text = "No data."
-item_0/icon = ExtResource("7_jp8kl")
-item_1/text = "cool stuff"
-item_2/text = "more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum "
-item_3/text = "hello there"
-item_3/icon = ExtResource("7_iqkns")
+item_count = 3
+item_0/text = "cool stuff"
+item_1/text = "more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum "
+item_2/text = "hello there"
+item_2/icon = ExtResource("7_iqkns")
 
 [node name="ContainerTimer" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer" groups=["UpcomingExclude"]]
 layout_mode = 2

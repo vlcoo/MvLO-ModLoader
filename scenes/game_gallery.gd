@@ -3,10 +3,13 @@ extends TabContainer
 @onready var vanilla_game_viewer: GameViewer = $Vanilla/GameViewer
 @onready var current_mod_game_viewer: GameViewer = $"Mod Gallery/GameViewer"
 @onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/GridContainer"
-@onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/ItemList"
+@onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/Panel/ItemList"
+@onready var label_usage_disk: RichTextLabel = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer/RichTextLabel"
+@onready var label_usage_installs: Label = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer/Label"
 @onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall"
 @onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch"
 @onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse"
+@onready var button_find: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonFind"
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
 @onready var container_no_results: VBoxContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"
 @onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList
@@ -43,7 +46,9 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
 	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value = Configurator.get_config("theme-colour", 360)
-	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", -1) + 1
+	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", 2)
+	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled".button_pressed = Configurator.get_config("filter-installed", false)
+	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites".button_pressed = Configurator.get_config("filter-favourite", false)
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsWin/LineEdit.text = Configurator.get_config("args_windows", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerArgsMac/LineEdit.text = Configurator.get_config("args_macos", "")
@@ -85,7 +90,7 @@ func _repopulate_gallery(element: PackedScene, cols: int, _skip_animations := fa
 			gallery.remove_child(child)
 
 	gallery.columns = cols
-	var mod_array = ContentGetter.moddatas.values()
+	var mod_array = ContentGetter.mods
 	mod_array.sort_custom(_mod_comparator)
 	var i = 0
 	for mod in mod_array:
@@ -126,8 +131,8 @@ func apply_gallery_filters() -> void:
 	container_no_results.visible = filter_result_count <= 0
 
 
-func _mod_comparator(a: ModData, b: ModData) -> bool:
-	match Configurator.get_config("sort", -1):
+static func _mod_comparator(a: ModData, b: ModData) -> bool:
+	match Configurator.get_config("sort", 2):
 		0:	# by name
 			return a.name.to_lower() < b.name.to_lower()
 		1:	# most played
@@ -142,10 +147,16 @@ func _mod_comparator(a: ModData, b: ModData) -> bool:
 			return a.idx < b.idx
 
 
+func _recalculate_installs_title() -> void:
+	#var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
+	var total_size_str = InstallsIndex.mb_to_string(InstallsIndex.get_total_installs_size())
+	label_usage_disk.text = total_size_str
+	label_usage_installs.text = str(installs_tree.item_count) + " installs"
+
+
 func _repopulate_installs_tree() -> void:
 	installs_tree.clear()
-	var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
-	var header_index = installs_tree.add_item("All installed games (" + total_mb_str + " MB)", installed_texture, false)
+	_recalculate_installs_title()
 
 	for install in InstallsIndex.index.installs:
 		var mb_str = "?"
@@ -164,20 +175,24 @@ func _repopulate_installs_tree() -> void:
 				mod_data.cover_image if mod_data.icon == null else mod_data.icon
 			)
 
-	installs_tree.move_item(header_index, 0)
+	#installs_tree.move_item(header_index, 0)
 	button_browse.disabled = true
 	button_launch.disabled = true
 	button_uninstall.disabled = true
+	button_find.disabled = true
+	label_usage_installs.text = str(installs_tree.item_count) + " installs"
 
 
-func _on_mod_opened(idx: String):
-	if idx == "": return
+func _on_mod_opened(idx: String) -> bool:
+	if idx == "": return false
 	
 	current_mod_game_viewer.mod_data_id = idx
-	current_mod_game_viewer.refresh_mod_data()
-	Configurator.set_config("remembered_mod", idx)
-	gallery.modulate = Color.WHITE * 0.3
+	var success = current_mod_game_viewer.refresh_mod_data()
+	if success:
+		Configurator.set_config("remembered_mod", idx)
+		gallery.modulate = Color.WHITE * 0.3
 	#recalculate_focused_node()
+	return success
 
 
 func _on_check_button_toggled(button_pressed: bool) -> void:
@@ -254,7 +269,7 @@ func recalculate_focused_node() -> void:
 			else:
 				input_search.grab_focus.call_deferred()
 		2:
-			$"Storage Usage/MarginContainer/VBoxContainer/ItemList".grab_focus.call_deferred()
+			installs_tree.grab_focus.call_deferred()
 		3:
 			$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList.grab_focus.call_deferred()
 
@@ -270,13 +285,22 @@ func _on_check_button_3_toggled(button_pressed: bool) -> void:
 
 
 func _on_tree_item_selected(index: int) -> void:
-	selected_install = InstallsIndex.index.installs[index - 1]
+	selected_install = InstallsIndex.index.installs[index]
 	if selected_install == {}: return
 
 	selected_install["tree_item_id"] = index
 	button_browse.disabled = false
 	button_launch.disabled = false
 	button_uninstall.disabled = false
+	button_find.disabled = false
+
+
+func _on_item_list_item_activated(index: int) -> void:
+	if selected_install == {} or button_launch.disabled: return
+	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
+	button_launch.text = "Loading"
+	button_launch.disabled = true
+	$"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
 
 
 func _on_button_uninstall_pressed() -> void:
@@ -286,9 +310,9 @@ func _on_button_uninstall_pressed() -> void:
 	button_browse.disabled = true
 	button_launch.disabled = true
 	button_uninstall.disabled = true
+	button_find.disabled = true
 
-	var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
-	installs_tree.set_item_text(0, "All installed games (" + total_mb_str + " MB)")
+	_recalculate_installs_title()
 	requires_game_viewer_ui_reload = true
 
 
@@ -303,6 +327,17 @@ func _on_button_launch_pressed() -> void:
 func _on_button_browse_pressed() -> void:
 	if selected_install == {}: return
 	InstallsIndex.show_file_explorer(selected_install.mod_id, selected_install.version, selected_install.platform)
+
+
+func _on_button_find_pressed() -> void:
+	if selected_install == {}: return
+	if selected_install.mod_id == "vanilla":
+		current_tab = 0
+	else:
+		current_tab = 1
+		await get_tree().create_timer(0.1).timeout
+		if not _on_mod_opened(selected_install.mod_id):
+			InstallsIndex.warn("Mod not found in the gallery!\nIt might've been removed since you've installed it.")
 
 
 func _on_timer_loading_timeout() -> void:
@@ -341,7 +376,7 @@ func _on_file_dialog_dir_selected(dir: String) -> void:
 
 
 func _on_option_button3_item_selected(index: int) -> void:
-	Configurator.set_config("sort", index-1)
+	Configurator.set_config("sort", index)
 	_repopulate_gallery(gallery_element_list if check_list.button_pressed \
 	else gallery_element_big, 1 if check_list.button_pressed else 5, true)
 
@@ -371,11 +406,13 @@ func _on_input_search_text_changed(new_text: String) -> void:
 
 
 func _on_check_only_favourites_toggled(toggled_on: bool) -> void:
+	Configurator.set_config("filter-favourite", toggled_on)
 	filter_favourites = toggled_on
 	apply_gallery_filters()
 
 
 func _on_check_only_installed_toggled(toggled_on: bool) -> void:
+	Configurator.set_config("filter-installed", toggled_on)
 	filter_installed = toggled_on
 	apply_gallery_filters()
 

@@ -438,11 +438,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_fiiku")
 }
 autoplay = "wait_hidden"
-speed_scale = 1.2
 
 [node name="HTTPRequestDB" type="HTTPRequest" parent="."]
-download_file = "user://DB.tar"
 download_chunk_size = 4096
+use_threads = true
 
 [node name="HTTPRequestGamefiles" type="HTTPRequest" parent="."]
 download_file = "user://DB.gamefiles.json"

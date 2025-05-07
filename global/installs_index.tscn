@@ -330,7 +330,7 @@ wait_time = 0.1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_fiiku")
+&"": SubResource("AnimationLibrary_fiiku")
 }
 autoplay = "wait_hidden"
 speed_scale = 1.2
@@ -340,6 +340,7 @@ use_threads = true
 
 [node name="HTTPRequestItchURL" type="HTTPRequest" parent="."]
 download_chunk_size = 4096
+use_threads = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="confirmed" from="ConfirmationDialogRedirect" to="." method="_on_confirmation_dialog_redirect_confirmed"]

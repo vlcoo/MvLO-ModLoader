@@ -60,23 +60,33 @@ func get_total_installs_size() -> float:
 	return mb
 
 
+func mb_to_string(mb: float) -> String:
+	# input is megabytes, if it's larger than threshold will be converted to gigabytes.
+	var size = mb
+	var unit = "MB"
+	if size > 1024: 
+		size /= 1024
+		unit = "GB"
+	return str(snapped(size, 0.01)) + " " + unit
+
+
 func redirect(mod_id: String, version: String, platform: String) -> void:
-	var redirect_url = ContentGetter.moddatas[mod_id].gamefile_urls[version][platform]["url"]
+	var redirect_url = ContentGetter.get_local_moddata(mod_id).get_gamefiles_url(version, platform)["url"]
 	dialog_ask.dialog_text = "This operation will open the following website using your default browser:\n" + redirect_url + "\nContinue?"
 	dialog_ask.popup_centered()
 	redirect_in_progress = redirect_url
 
 
 func install(mod_id: String, version: String, platform: String) -> void:
-	if mod_id == "" or not ContentGetter.moddatas.has(mod_id) or ContentGetter.moddatas[mod_id].gamefile_urls in [null, {}]: return
+	if mod_id == "" or ContentGetter.get_local_moddata(mod_id) == null or ContentGetter.get_local_moddata(mod_id).gamefile_urls in [null, []]: return
 
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version
 	install_in_progress.platform = platform
-	install_in_progress.timestamp = ContentGetter.moddatas[mod_id].gamefile_urls[version][platform]["timestamp"]
+	install_in_progress.timestamp = ContentGetter.get_local_moddata(mod_id).get_gamefiles_url(version, platform)["timestamp"]
 
-	var home_url: String = ContentGetter.moddatas[mod_id].gamefile_urls[version][platform]["url"]
+	var home_url: String = ContentGetter.get_local_moddata(mod_id).get_gamefiles_url(version, platform)["url"]
 	var dir_path: String = Configurator.get_config("install_location", "user://Installs/") + mod_id + "/" + version + "/" + platform + "/"
 	if not DirAccess.dir_exists_absolute(dir_path): DirAccess.make_dir_recursive_absolute(dir_path)
 	requester.download_file = dir_path + "game"

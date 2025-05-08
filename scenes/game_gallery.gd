@@ -13,6 +13,7 @@ extends TabContainer
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
 @onready var container_no_results: VBoxContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"
 @onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList
+@onready var label_vanilla_id: LineEdit = $Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement/HBoxContainer/LineEdit
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
@@ -26,6 +27,7 @@ var filter_search = ""
 var filter_favourites = false
 var filter_installed = false
 var filter_result_count = 0
+var gallery_chooser_mode = false
 
 
 func _ready() -> void:
@@ -43,9 +45,9 @@ func _on_ready() -> void:
 	
 	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.text = "v" + str(SelfUpdater.vercode)
 	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.tooltip_text = "Built on the " + SelfUpdater.verdate
-	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/OptionButton.selected = Configurator.current_theme_id
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
-	$Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value = Configurator.get_config("theme-colour", 360)
+	$Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer/HSlider.value = Configurator.get_config("theme-colour", 360)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", 2)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled".button_pressed = Configurator.get_config("filter-installed", false)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites".button_pressed = Configurator.get_config("filter-favourite", false)
@@ -94,7 +96,7 @@ func _repopulate_gallery(element: PackedScene, cols: int, _skip_animations := fa
 	mod_array.sort_custom(_mod_comparator)
 	var i = 0
 	for mod in mod_array:
-		if mod.idx == "vanilla": continue
+		if mod.idx == Configurator.vanilla_id: continue
 		var child: GalleryElement = element.instantiate()
 		child.idx = mod.idx
 		child.container_index = i
@@ -123,7 +125,7 @@ func apply_gallery_filters() -> void:
 			continue
 		
 		# match each mod to searched text, favourite and installed
-		child.visible = (ContentGetter.string_coincides_with_mod_name(filter_search, child.title)) and \
+		child.visible = (ContentGetter.string_coincides_with_mod_names(filter_search, [child.title, child.idx])) and \
 			(not filter_favourites or child.favourite) and \
 			(not filter_installed or child.installed)
 		if child.visible: filter_result_count += 1
@@ -185,6 +187,21 @@ func _repopulate_installs_tree() -> void:
 
 func _on_mod_opened(idx: String) -> bool:
 	if idx == "": return false
+	var mod: ModData = ContentGetter.get_local_moddata(idx)
+	
+	if gallery_chooser_mode:
+		if not mod.vanilla_compatible:
+			InstallsIndex.warn("This mod is not vanilla compatible (it doesn't share the same servers and playerbase) - proceed at your own discretion.\nYou can revert this change by re-choosing 'New Super Mario Bros. Versus' for this setting.")
+			await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
+		Configurator.vanilla_id = idx
+		label_vanilla_id.text = "[No change]" if idx == "vanilla" else mod.name
+		current_tab = 3
+		gallery_chooser_mode = false
+		InstallsIndex.warn("Success! App will reboot now to apply changes.")
+		await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
+		OS.set_restart_on_exit(true)
+		get_tree().quit()
+		return false
 	
 	current_mod_game_viewer.mod_data_id = idx
 	var success = current_mod_game_viewer.refresh_mod_data()
@@ -249,7 +266,13 @@ func _on_button_4_pressed() -> void:
 func _on_tab_changed(tab: int) -> void:
 	if not is_node_ready(): return
 	
+	if gallery_chooser_mode:
+		gallery_chooser_mode = false
+	
 	if tab == 2: _repopulate_installs_tree()
+	if tab == 3:
+		label_vanilla_id.text = "[No change]" if Configurator.vanilla_id == "vanilla" else ContentGetter.get_local_moddata(Configurator.vanilla_id).name
+	
 	if requires_game_viewer_ui_reload:
 		requires_game_viewer_ui_reload = false
 		vanilla_game_viewer.refresh_mod_data()
@@ -331,13 +354,13 @@ func _on_button_browse_pressed() -> void:
 
 func _on_button_find_pressed() -> void:
 	if selected_install == {}: return
-	if selected_install.mod_id == "vanilla":
+	if selected_install.mod_id == Configurator.vanilla_id:
 		current_tab = 0
 	else:
 		current_tab = 1
 		await get_tree().create_timer(0.1).timeout
-		if not _on_mod_opened(selected_install.mod_id):
-			InstallsIndex.warn("Mod not found in the gallery!\nIt might've been removed since you've installed it.")
+		if not await _on_mod_opened(selected_install.mod_id):
+			InstallsIndex.warn("Mod not found in the gallery!\nIt might've become unavailable since you've installed it.")
 
 
 func _on_timer_loading_timeout() -> void:
@@ -450,3 +473,10 @@ func _on_button_fix_char_pressed():
 	")
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	OS.execute("reg", ["add", "HKEY_CURRENT_USER\\Software\\ipodtouch0218\\NSMB-MarioVsLuigi", "/v", "Character_h1854990716", "/t", "REG_DWORD", "/d", "00000000", "/f"])
+
+
+func _on_button_choose_mod_pressed() -> void:
+	InstallsIndex.warn("Please choose the mod you want to see in the 'Vanilla' tab.\nCome back to Settings to cancel the operation.")
+	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
+	current_tab = 1
+	gallery_chooser_mode = true

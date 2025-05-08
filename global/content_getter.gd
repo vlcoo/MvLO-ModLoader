@@ -161,7 +161,15 @@ func get_local_moddata(idx: String) -> ModData:
 	return mods[i] if i > -1 else null
 
 
-func string_coincides_with_mod_name(string: String, mod_name: String) -> bool:
+func string_coincides_with_mod_names(string: String, mod_names: Array[String]) -> bool:
+	var success = false
+	for mod_name in mod_names:
+		if _string_coincides_with_mod_name(string, mod_name):
+			success = true
+	return success
+
+
+func _string_coincides_with_mod_name(string: String, mod_name: String) -> bool:
 	mod_name = mod_name.to_lower().replace("-", " ")
 	for c in ["'", "."]:
 		mod_name = mod_name.replace(c, "")

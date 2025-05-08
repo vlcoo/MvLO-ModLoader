@@ -14,6 +14,12 @@ var current_theme: Theme = null
 var current_theme_id := 0
 var previous_window_mode := Window.MODE_WINDOWED
 var is_window_focused = true
+var vanilla_id: String:
+	get:
+		return get_config("vanilla-replacement", "vanilla")
+	set(v):
+		vanilla_id = v
+		set_config("vanilla-replacement", v)
 
 var os_name: String
 var timestamp: String

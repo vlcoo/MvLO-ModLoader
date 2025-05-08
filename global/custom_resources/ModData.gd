@@ -24,6 +24,8 @@ var timestamp: String = "0"
 @export_multiline var description: String
 ## This option should be enabled if this mod doesn't implement Discord presence status.
 @export var needs_discord_activity: bool = false
+## Does this mod use the same servers as vanilla does?
+@export var vanilla_compatible: bool = false
 ## Websites of interest.
 @export_group("Public links", "link_")
 ## URL of the main website of this mod.
@@ -43,6 +45,8 @@ static func new_from_json(json: Dictionary) -> ModData:
 	mod.description = json["description"]
 	mod.base_version = json["base_version"]
 	mod.needs_discord_activity = false if json["needs_discord_activity"] == null else json["needs_discord_activity"]
+	mod.vanilla_compatible = false if json["vanilla_compatible"] == null else json["vanilla_compatible"]
+	if mod.id == "vanilla": mod.vanilla_compatible = true
 	mod.link_main_website = json["link_main_website"]
 	mod.link_source_code = json["link_source_code"]
 	mod.link_discord.append(json["link_discord_server"])

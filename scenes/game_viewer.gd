@@ -31,6 +31,7 @@ var uninstall_texture: Texture2D = preload("res://audiovisual/uninstall.png")
 
 @export var mod_data_id: String
 @export var auto_refresh: bool = true
+@export var is_vanilla_tab: bool = false
 var mod_data: ModData
 var is_mod_running: bool = false
 var done_critical_operation: bool = false
@@ -39,6 +40,10 @@ signal viewer_closed(critical_operation_done: bool)
 
 
 func _ready() -> void:
+	if is_vanilla_tab:
+		mod_data_id = Configurator.vanilla_id
+		label_title.visible = mod_data_id != "vanilla"
+	
 	if auto_refresh && mod_data_id != "":
 		mod_data_id = Configurator.remembered_mod_idx
 		refresh_mod_data()

@@ -4,20 +4,22 @@
 class_name ModData
 extends Resource
 
-var id: String
-var idx: String
-var icon: Texture2D
-var cover_image: Texture2D
+var idx: String: 
+	get: return id	# legacy
+@export var timestamp: String = "0"
 
-var gamefile_urls: Array = []
-var timestamp: String = "0"
-
+## A unique identifier for this mod.
+@export var id: String
 ## Full name of this mod.
 @export var name: String
 ## Abbreviation, short name or alternative name of this mod.
 @export var abbreviation: String
 ## Who made this mod.
 @export var author: String
+## This mod's logo.
+@export var cover_image: Texture2D
+## A small image, alternative to the logo.
+@export var icon: Texture2D
 ## The version of the base game this mod was based on.
 @export var base_version: String = "?"
 ## One-liner explaining what this mod has to offer.
@@ -34,35 +36,37 @@ var timestamp: String = "0"
 @export var link_source_code: String
 ## List of URLs to the Discord servers, channels or threads of this mod.
 @export var link_discord: PackedStringArray
+## List of URLs for each version available for download.
+@export var gamefile_urls: Array = []
 
 
 static func new_from_json(json: Dictionary) -> ModData:
 	var mod := ModData.new()
 	
-	mod.id = json["id"]
-	mod.name = json["name"]
-	mod.author = json["author"]
-	mod.description = json["description"]
-	mod.base_version = json["base_version"]
-	mod.needs_discord_activity = false if json["needs_discord_activity"] == null else json["needs_discord_activity"]
-	mod.vanilla_compatible = false if json["vanilla_compatible"] == null else json["vanilla_compatible"]
+	mod.id = json.get("id", "")
+	mod.name = json.get("name", "No Data!")
+	mod.author = json.get("author", "Anonymous")
+	mod.description = json.get("description", "")
+	mod.base_version = json.get("base_version", "")
+	mod.needs_discord_activity = false if json.get("needs_discord_activity") == null else json.get("needs_discord_activity")
+	mod.vanilla_compatible = false if json.get("vanilla_compatible") == null else json.get("vanilla_compatible")
 	if mod.id == "vanilla": mod.vanilla_compatible = true
-	mod.link_main_website = json["link_main_website"]
-	mod.link_source_code = json["link_source_code"]
-	mod.link_discord.append(json["link_discord_server"])
-	mod.link_discord.append(json["link_discord_thread"])
-	mod.gamefile_urls = json["gamefile_urls"]
+	mod.link_main_website = json.get("link_main_website", "")
+	mod.link_source_code = json.get("link_source_code", "")
+	mod.link_discord.append(json.get("link_discord_server", ""))
+	mod.link_discord.append(json.get("link_discord_thread", ""))
+	mod.gamefile_urls = json.get("gamefile_urls", [])
 	
 	var max_ts: int = 0
 	for gamefile in mod.gamefile_urls:
-		if gamefile["timestamp"] > max_ts: max_ts = gamefile["timestamp"]
+		if gamefile.get("timestamp", 0) > max_ts: max_ts = gamefile.get("timestamp", 0)
 	mod.timestamp = str(max_ts)
 	
-	if json["image_cover"] not in ["", null]:
+	if json.get("image_cover") not in ["", null]:
 		var img_cover = Image.new()
 		img_cover.load_webp_from_buffer(Marshalls.base64_to_raw(json["image_cover"]))
 		mod.cover_image = ImageTexture.create_from_image(img_cover)
-	if json["image_icon"] not in ["", null]:
+	if json.get("image_icon") not in ["", null]:
 		var img_icon = Image.new()
 		img_icon.load_webp_from_buffer(Marshalls.base64_to_raw(json["image_icon"]))
 		mod.icon = ImageTexture.create_from_image(img_icon)
@@ -78,12 +82,12 @@ func get_gamefiles_versions() -> Array:
 
 
 func get_gamefiles_version(version: String) -> Array:
-	var a = gamefile_urls.filter(func(g): return g["version"] == version)
+	var a = gamefile_urls.filter(func(g): return g["version"] == version if g.has("version") else false)
 	return a
 
 
 func get_gamefiles_platform(version_urls: Array, platform: String) -> Array:
-	var a = version_urls.filter(func(g): return g["platform"] == platform)
+	var a = version_urls.filter(func(g): return g["platform"] == platform if g.has("platform") else false)
 	return a
 
 

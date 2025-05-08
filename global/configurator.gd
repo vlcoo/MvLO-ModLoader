@@ -207,3 +207,12 @@ func _is_last_timestamp_old_enough(ts: int, lts: int) -> bool:
 	var lts_h = lts / 3600
 	var ts_m = (ts / 60) % 60
 	return (ts_h == lts_h - 1 and ts_m >= 5) or ts_h > lts_h + 1
+
+
+func remove_recursive(directory: String) -> void:
+	for dir_name in DirAccess.get_directories_at(directory):
+		remove_recursive(directory.path_join(dir_name))
+	for file_name in DirAccess.get_files_at(directory):
+		DirAccess.remove_absolute(directory.path_join(file_name))
+	
+	DirAccess.remove_absolute(directory)

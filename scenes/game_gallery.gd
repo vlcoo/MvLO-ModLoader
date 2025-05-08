@@ -140,7 +140,7 @@ static func _mod_comparator(a: ModData, b: ModData) -> bool:
 		1:	# most played
 			return Configurator.get_timer_mod(a.idx) > Configurator.get_timer_mod(b.idx)
 		2:	# recently updated
-			return int(a.timestamp) >= int(b.timestamp)
+			return int(a.timestamp) > int(b.timestamp)
 		3:	# by favourite
 			return Configurator.get_is_mod_favourite(a.idx) > Configurator.get_is_mod_favourite(b.idx)
 		4:	# by installed

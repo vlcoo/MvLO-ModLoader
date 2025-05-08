@@ -443,10 +443,6 @@ autoplay = "wait_hidden"
 download_chunk_size = 4096
 use_threads = true
 
-[node name="HTTPRequestGamefiles" type="HTTPRequest" parent="."]
-download_file = "user://DB.gamefiles.json"
-download_chunk_size = 4096
-
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2
 size = Vector2i(400, 100)
@@ -471,5 +467,4 @@ max_polyphony = 2
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="request_completed" from="ContainerStatusHint/HTTPRequestGameServer" to="ContainerStatusHint" method="_on_http_request_game_server_request_completed"]
 [connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_requester_db_request_completed"]
-[connection signal="request_completed" from="HTTPRequestGamefiles" to="." method="_on_requester_gamefiles_request_completed"]
 [connection signal="timeout" from="TimerControllerHint" to="." method="_on_timer_controller_hint_timeout"]

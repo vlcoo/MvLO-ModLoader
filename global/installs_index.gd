@@ -27,12 +27,13 @@ var index_path:
 @onready var dialog_sure: ConfirmationDialog = $ConfirmationDangerous
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var background: ColorRect = $RectBackground
-
+@onready var toast: Control = $ContainerToast
 
 var index: InstallsIndexRes
 var install_in_progress: Dictionary = {}
 var redirect_in_progress: String = ""
 var state: Operation = Operation.IDLE
+var toast_tween: Tween
 
 signal operation_done(succeeded: bool, type: String)
 
@@ -335,3 +336,18 @@ func _on_confirmation_dialog_redirect_confirmed() -> void:
 	if redirect_in_progress == "": return
 	OS.shell_open(redirect_in_progress)
 	redirect_in_progress = ""
+
+
+func toast_success() -> void:
+	if toast_tween != null and toast_tween.is_running():
+		toast_tween.stop()
+	if not $ContainerToast/TimerToast.is_stopped():
+		$ContainerToast/TimerToast.stop()
+	toast.visible = true
+	toast.modulate = Color.WHITE
+	$ContainerToast/TimerToast.start()
+	await $ContainerToast/TimerToast.timeout
+	toast_tween = create_tween()
+	toast_tween.tween_property(toast, ^"modulate", Color.TRANSPARENT, 0.5)
+	await toast_tween.finished
+	toast.visible = false

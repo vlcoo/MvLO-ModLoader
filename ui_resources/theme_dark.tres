@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=50 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=58 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
@@ -9,6 +9,8 @@
 [ext_resource type="FontFile" uid="uid://ohdc6gk2sqag" path="res://ui_resources/font_64ds.ttf" id="4_23arm"]
 [ext_resource type="Texture2D" uid="uid://dhen21r33llhr" path="res://ui_resources/textures/radio-on.png" id="5_1cbqh"]
 [ext_resource type="Texture2D" uid="uid://bnn1yr8cnkdle" path="res://ui_resources/textures/radio-off.png" id="6_aptmk"]
+[ext_resource type="Texture2D" uid="uid://0316glh1lkeu" path="res://audiovisual/circle-down.png" id="6_gcg63"]
+[ext_resource type="Texture2D" uid="uid://rfqc1hg2hmab" path="res://audiovisual/circle-right.png" id="7_xrv0p"]
 [ext_resource type="StyleBox" uid="uid://fjly8m12eag0" path="res://ui_resources/style_focus.tres" id="8_6sxy7"]
 [ext_resource type="Texture2D" uid="uid://dl21iq46og0g1" path="res://audiovisual/cancel.png" id="8_x7f2g"]
 
@@ -131,6 +133,72 @@ content_margin_top = 8.0
 content_margin_right = 10.0
 content_margin_bottom = 8.0
 draw_center = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gcg63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb4jt"]
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.164706)
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrv0p"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.788235, 0.780392, 0.796078, 0.0862745)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing_size = 0.3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcg63"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing_size = 0.3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5loqu"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.788235, 0.780392, 0.796078, 0.0862745)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+anti_aliasing_size = 0.3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m06c2"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qrtt6"]
 color = Color(1, 1, 1, 0.164706)
@@ -369,6 +437,14 @@ CheckButton/icons/unchecked = ExtResource("2_d3gvc")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_xed0n")
 CheckButton/styles/normal = SubResource("StyleBoxFlat_opr0i")
 CheckButton/styles/pressed = SubResource("StyleBoxFlat_psxmu")
+FoldableContainer/icons/expanded_arrow = ExtResource("6_gcg63")
+FoldableContainer/icons/folded_arrow = ExtResource("7_xrv0p")
+FoldableContainer/styles/focus = SubResource("StyleBoxEmpty_gcg63")
+FoldableContainer/styles/panel = SubResource("StyleBoxFlat_bb4jt")
+FoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_xrv0p")
+FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_gcg63")
+FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_5loqu")
+FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_m06c2")
 HSeparator/styles/separator = SubResource("StyleBoxLine_qrtt6")
 ItemList/constants/icon_margin = 8
 ItemList/constants/v_separation = 22

@@ -31,6 +31,8 @@ var gallery_chooser_mode = false
 
 
 func _ready() -> void:
+	InstallsIndex.operation_done.connect(_on_installs_index_operation_done)
+	
 	#current_mod_game_viewer.get_node("AnimationPlayer").play("out")
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 	Configurator.set_discord_status(Configurator.DiscordStatus.IN_MENU)
@@ -51,15 +53,16 @@ func _on_ready() -> void:
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", 2)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled".button_pressed = Configurator.get_config("filter-installed", false)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites".button_pressed = Configurator.get_config("filter-favourite", false)
-	$Settings/ScrollContainer/VBoxContainer/ContainerArgsWin/LineEdit.text = Configurator.get_config("args_windows", "")
-	$Settings/ScrollContainer/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
-	$Settings/ScrollContainer/VBoxContainer/ContainerArgsMac/LineEdit.text = Configurator.get_config("args_macos", "")
+	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsWin/LineEdit.text = Configurator.get_config("args_windows", "")
+	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
+	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac/LineEdit.text = Configurator.get_config("args_macos", "")
 	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList.button_pressed = Configurator.get_config("list_gallery", false)
 	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckPlatforms.button_pressed = Configurator.get_config("all_platforms")
 	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckDiscord.button_pressed = Configurator.get_config("discord-rpc", true)
 	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckAutoSubscribe.button_pressed = Configurator.get_config("auto_subscribe", false)
 	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckMinimize.button_pressed = Configurator.get_config("minimize", false)
-	$Settings/ScrollContainer/VBoxContainer/ContainerLocation/LineEdit.text= Configurator.get_config("install_location", "user://")
+	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit.text= Configurator.get_config("install_location", "user://")
+	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonFixChar.visible = Configurator.os_name == "Windows"
 
 	if Configurator.get_config("remember_view", false):
 		$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckRemember.button_pressed = true
@@ -236,8 +239,8 @@ func _on_line_edit_3_text_submitted(new_text: String) -> void:
 func _on_button_pressed() -> void:
 	# update db
 	Configurator.update_timestamp(true)
-	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonRedownloadDB.disabled = true
-	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/ButtonRedownloadDB.text = "Restarting..."
+	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonRedownloadDB.disabled = true
+	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonRedownloadDB.text = "Restarting..."
 	OS.set_restart_on_exit(true)
 	get_tree().quit()
 
@@ -255,6 +258,7 @@ func _on_button_3_pressed() -> void:
 	OS.move_to_trash(ProjectSettings.globalize_path(Configurator.get_config("install_location", "user://Installs/")))
 	InstallsIndex.index.installs.clear()
 	requires_game_viewer_ui_reload = true
+	InstallsIndex.toast_success()
 
 
 func _on_button_4_pressed() -> void:
@@ -468,11 +472,14 @@ func _on_button_website_pressed() -> void:
 
 
 func _on_button_fix_char_pressed():
+	if Configurator.os_name != "Windows": return
 	InstallsIndex.warn("This will reset your character to Mario in vanilla MvLO and some mods to attempt \
 		fixing this problem. Please only do this once and if you're actually having issues.
 	")
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
-	OS.execute("reg", ["add", "HKEY_CURRENT_USER\\Software\\ipodtouch0218\\NSMB-MarioVsLuigi", "/v", "Character_h1854990716", "/t", "REG_DWORD", "/d", "00000000", "/f"])
+	var error = OS.execute("reg", ["add", "HKEY_CURRENT_USER\\Software\\ipodtouch0218\\NSMB-MarioVsLuigi", "/v", "Character_h1854990716", "/t", "REG_DWORD", "/d", "00000000", "/f"])
+	if error == OK:
+		InstallsIndex.toast_success()
 
 
 func _on_button_choose_mod_pressed() -> void:
@@ -480,3 +487,8 @@ func _on_button_choose_mod_pressed() -> void:
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	current_tab = 1
 	gallery_chooser_mode = true
+
+
+func _on_installs_index_operation_done(succeeded: bool, type: String) -> void:
+	if succeeded and type in ["uninstall"]:
+		InstallsIndex.toast_success()

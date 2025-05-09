@@ -347,7 +347,7 @@ theme_override_icons/checked = ExtResource("5_x6gr8")
 theme_override_icons/unchecked = ExtResource("4_bpg4n")
 
 [node name="PanelDetail" type="PanelContainer" parent="."]
-layout_mode = 2
+layout_mode = 0
 anchor_left = 0.331
 anchor_right = 1.0
 anchor_bottom = 1.0

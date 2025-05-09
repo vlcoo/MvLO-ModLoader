@@ -1,7 +1,6 @@
 extends Node
 
-const URL_DB: String = "http://127.0.0.1:5000/api/mods"
-const URL_GAMEFILES: String = "http://mvloml.vlcoo.net/DB.gamefiles.json"
+const URL_DB: String = "https://mvloml.vlcoo.net/api/mods"
 
 var style_focus: StyleBoxTexture = preload("res://ui_resources/style_focus.tres")
 

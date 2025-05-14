@@ -11,7 +11,7 @@ enum Operation {
 	IDLE, DOWNLOADING, EXTRACTING
 }
 
-const PROGRESS_TEXT_TEMPLATE = "[center][img width=16 color=#ffffff8b]res://audiovisual/%.png[/img]   "
+var PROGRESS_TEXT_TEMPLATE = "[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   "
 
 var index_path:
 	get:
@@ -73,7 +73,7 @@ func mb_to_string(mb: float) -> String:
 
 func redirect(mod_id: String, version: String, platform: String) -> void:
 	var redirect_url = ContentGetter.get_local_moddata(mod_id).get_gamefiles_url(version, platform)["url"]
-	dialog_ask.dialog_text = "This operation will open the following website using your default browser:\n" + redirect_url + "\nContinue?"
+	dialog_ask.dialog_text = tr("This operation will open the following website using your default browser:\n{url}\nContinue?").format({url = redirect_url})
 	dialog_ask.popup_centered()
 	redirect_in_progress = redirect_url
 
@@ -97,7 +97,7 @@ func install(mod_id: String, version: String, platform: String) -> void:
 	if home_url.contains("itch.io/api"):
 		error += itch_requester.request(home_url)
 	else:
-		error += requester.request(home_url)
+		error += requester.request(home_url, ["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"])
 		
 	timer.start()
 	state = Operation.DOWNLOADING
@@ -109,7 +109,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 	# unpack and add to array...
 	# if it's not zip then check what kind of executable it is!!!
 	if result != 0 or response_code != 200:
-		err("Game currently not available.\nPlease try again later! " + str(result) + " " + str(response_code))
+		err(tr("Game currently not available.") + "\n" + tr("Please try again later!") + " " + str(result) + " " + str(response_code))
 		return
 	
 	state = Operation.EXTRACTING
@@ -118,7 +118,7 @@ func _on_http_request_game_request_completed(result: int, response_code: int, _h
 	if ArchiveHandler.IsArchive(globalized_dltmp_path + "game"):
 		ArchiveHandler.ExtractArchive(globalized_dltmp_path + "game", globalized_dltmp_path, false)
 	else:
-		err("Sorry, this mod is not compatible.\nPlease try another version or visit its website and install it manually.")
+		err(tr("Sorry, this mod is not compatible.\nPlease try another version or visit its website and install it manually."))
 
 
 func _on_archive_extraction_complete(message: String, path: String, archive_was_db: bool, archive_size: int) -> void:
@@ -128,7 +128,7 @@ func _on_archive_extraction_complete(message: String, path: String, archive_was_
 		return
 	var extracted_files: PackedStringArray = ArchiveHandler.GetAllFilesInDirectory(path)
 	if extracted_files.size() == 0:
-		err("Empty archive.")
+		err(tr("Empty archive."))
 		return
 	
 	var install_needs_wizard = true
@@ -163,14 +163,14 @@ func _on_archive_extraction_complete(message: String, path: String, archive_was_
 	operation_done.emit(true, "install")
 	Configurator.set_window_state(Configurator.WindowState.ATTENTION)
 
-	if install_needs_wizard: warn("Couldn't find an executable in the downloaded files. 'Launch' will not work.")
+	if install_needs_wizard: warn(tr("Couldn't find an executable in the downloaded files. 'Launch' will not work."))
 
 
 func launch(mod_id: String, version: String, platform: String, register_process: bool = false) -> bool:
 	# verify integrity and execute...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == {}:
-		warn("Couldn't launch! Maybe it's corrupted?\nPlease try reinstalling this mod.")
+		warn(tr("Couldn't launch game!") + " " + tr("Maybe it's corrupted?\nPlease try reinstalling this mod."))
 		return false
 	var command: String = ""
 	var os_mismatch = false
@@ -202,10 +202,10 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 		pid = OS.create_process(command, [globalized_path])
 	
 	if pid == -1:
-		warn("Couldn't launch game! " + \
-			("Maybe it's not built for your type of device? Please choose another version."
+		warn(tr("Couldn't launch game!") + 
+			(tr("Maybe it's not built for your type of device?\nPlease choose another version.")
 			if os_mismatch else
-			"Maybe it's corrupted or incompatible? Please visit this mod's website and try installing it manually.")
+			tr("Maybe it's corrupted or incompatible?\nPlease visit this mod's website and try installing it manually."))
 		)
 		return false
 	
@@ -220,9 +220,8 @@ func uninstall(mod_id: String, version: String, platform: String) -> void:
 	if inst == {}: return
 	var result = OS.move_to_trash(ProjectSettings.globalize_path(inst.dltmp_path))
 	if result != OK:
-		warn("A problem happened and some files might've not been deleted successfully.\n\
-			Maybe the game is still running, or your device's Recycle Bin is full?
-		")
+		warn(tr("A problem happened and some files might've not been deleted successfully.\nMaybe the game is still running, or your device's Recycle Bin is full?
+		"))
 	else:
 		index.installs.erase(inst)
 		_save_index_to_file()
@@ -271,7 +270,7 @@ func _save_index_to_file() -> void:
 func err(text: String):
 	if dialog.visible: await dialog.canceled or dialog.confirmed
 	
-	dialog.title = "Can't install game!"
+	dialog.title = tr("Can't install game!")
 	dialog.dialog_text = text
 	dialog.popup_centered()
 	timer.stop()
@@ -284,7 +283,7 @@ func err(text: String):
 func warn(text: String):
 	if dialog.visible: await dialog.canceled or dialog.confirmed
 	
-	dialog.title = "Warning"
+	dialog.title = tr("Warning")
 	dialog.dialog_text = text
 	dialog.popup_centered()
 
@@ -307,21 +306,21 @@ func _on_timer_update_progressbar_timeout() -> void:
 			var mb_downloaded = requester.get_downloaded_bytes()/1024/1024
 			var mb_total = requester.get_body_size()/1024/1024
 			if mb_downloaded == mb_total:
-				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "loading") + "Please hold"
+				l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "Please hold").format({img = "loading"})
 				progress_bar.self_modulate = Color.TRANSPARENT
 			else:
-				l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "downloading") + str(mb_downloaded) + ("" if mb_total == 0 else (" out of " + str(mb_total))) + " MB downloaded"
+				l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "{count} out of {total} MB downloaded").format({count = str(mb_downloaded), total = str(mb_total), img = "downloading"})
 				progress_bar.self_modulate = Color.WHITE
 				progress_bar.value = float(mb_downloaded) / maxf(mb_total, 1.0)
 		Operation.EXTRACTING:
 			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
-			l_progress.text = PROGRESS_TEXT_TEMPLATE.replace("%", "zip") + "Extracting files"
+			l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "Extracting files").format({img = "zip"})
 			progress_bar.self_modulate = Color.TRANSPARENT
 
 
 func _on_http_request_itch_url_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != 0 or response_code != 200:
-		err("Game currently not available.\nPlease try again later! " + str(result) + " " + str(response_code))
+		err(tr("Game currently not available.") + "\n" + tr("Please try again later!") + " " + str(result) + " " + str(response_code))
 		return
 	
 	var json = JSON.parse_string(body.get_string_from_utf8())

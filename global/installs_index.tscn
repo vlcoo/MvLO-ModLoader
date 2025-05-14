@@ -390,10 +390,11 @@ autoplay = "wait_hidden"
 speed_scale = 1.2
 
 [node name="HTTPRequestGame" type="HTTPRequest" parent="."]
+download_chunk_size = 98304
 use_threads = true
 
 [node name="HTTPRequestItchURL" type="HTTPRequest" parent="."]
-download_chunk_size = 4096
+download_chunk_size = 16384
 use_threads = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]

@@ -67,14 +67,14 @@ func sync() -> void:
 
 func _on_requester_db_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != 0 or response_code != 200:
-		err("DB server unreachable. Try again later!")
+		err(tr("DB server unreachable. Try again later!"))
 		db_request_complete = true
 		_populate_moddata_array()
 		return
 	
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	if json == null or not json.has("mods"):
-		err("DB server unavailable. Try again later!")
+		err(tr("DB server unreachable. Try again later!"))
 		return
 	raw_moddatas = json["mods"]
 	
@@ -97,6 +97,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 			mods.append(data)
 	else:
 		# cache is old. use server's data
+		Configurator.remove_recursive("user://DB-cache", false)
 		for mod in raw_moddatas:
 			var data := ModData.new_from_json(mod)
 			mods.append(data)
@@ -111,12 +112,12 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 	cache_updated.emit(true)
 	if hide_animation: animation_player.play("out")
 	if new_updates_list != "": 
-		warn("New updates for mods you're subscribed to!\n" + new_updates_list)
+		warn(tr("New updates for mods you're subscribed to!\n{mods}").format({mods = new_updates_list}))
 	
 	var mod_count_before = Configurator.get_config("mod_count", 0)
 	var mod_count_after = mods.size()
 	if mod_count_after > mod_count_before and mod_count_before > 0: 
-		warn(str(mod_count_after - mod_count_before) + " new mods have been added since the last time you checked!")
+		warn(tr("{count} new mods have been added since the last time you checked!").format({count = str(mod_count_after - mod_count_before)}))
 	Configurator.set_config("mod_count", mod_count_after)
 
 
@@ -153,8 +154,8 @@ func _string_coincides_with_mod_name(string: String, mod_name: String) -> bool:
 func err(text: String):
 	if dialog.visible: await dialog.confirmed or dialog.canceled
 	
-	dialog.title = "Something went wrong"
-	dialog.dialog_text = "Some info might be out of date.\n" + text
+	dialog.title = tr("Something went wrong")
+	dialog.dialog_text = tr("Some info might be out of date.") + "\n" + tr(text)
 	dialog.popup_centered()
 	cache_updated.emit(false)
 	animation_player.play("out")
@@ -163,7 +164,7 @@ func err(text: String):
 func warn(text: String):
 	if dialog.visible: await dialog.confirmed or dialog.canceled
 	
-	dialog.title = "Warning"
+	dialog.title = tr("Warning")
 	dialog.dialog_text = text
 	dialog.popup_centered()
 

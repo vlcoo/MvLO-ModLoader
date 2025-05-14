@@ -72,7 +72,7 @@ func refresh_mod_data() -> bool:
 	done_critical_operation = false
 
 	label_title.text = mod_data.name
-	var last_updated = "Never Updated" if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
+	var last_updated = tr("Never Updated") if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
 	var subtitle: String = TEMPLATE_SUBTITLE % [mod_data.author, last_updated]
 	#if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
@@ -86,7 +86,7 @@ func refresh_mod_data() -> bool:
 		label_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	#item_list.add_item(mod_data.description, mod_data.icon, false)
 	#else: item_list.add_item("Description unavailable.", null, false)
-	if mod_data_id != "vanilla" and mod_data.base_version != "": item_list.add_item("Based on version " + mod_data.base_version + ".", null, false)
+	if mod_data_id != "vanilla" and mod_data.base_version != "": item_list.add_item(tr("Based on version {version}.").format({version = mod_data.base_version}), null, false)
 	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, website_texture, false)
 	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, code_texture, false)
 	for server in mod_data.link_discord:
@@ -112,13 +112,21 @@ func refresh_mod_data() -> bool:
 func _refresh_time_played():
 	var time_played_seconds = Configurator.get_timer_mod(mod_data_id)
 	if time_played_seconds <= 0:
-		label_timer.text = "Never played."
+		label_timer.text = tr("Never played.")
 	elif time_played_seconds > 0 and time_played_seconds < 60:
-		label_timer.text = "Played for a few seconds."
+		label_timer.text = tr("Played for a few seconds.")
+	#elif time_played_seconds >= 60 and time_played_seconds < 3600:
+		#label_timer.text = "Played for " + str(time_played_seconds / 60) + " minute" + ("" if time_played_seconds < 120 else "s") + "."
+	#elif time_played_seconds >= 3600:
+		#label_timer.text = "Played for " + str(time_played_seconds / 3600) + " hour" + ("" if time_played_seconds < 7200 else "s") + "."
 	elif time_played_seconds >= 60 and time_played_seconds < 3600:
-		label_timer.text = "Played for " + str(time_played_seconds / 60) + " minute" + ("" if time_played_seconds < 120 else "s") + "."
+		var time = str(time_played_seconds / 60)
+		var unit = tr_n("minute", "minutes", time_played_seconds / 120)
+		label_timer.text = tr("Played for {time} {unit}.").format({time = time, unit = unit})
 	elif time_played_seconds >= 3600:
-		label_timer.text = "Played for " + str(time_played_seconds / 3600) + " hour" + ("" if time_played_seconds < 7200 else "s") + "."
+		var time = str(time_played_seconds / 3600)
+		var unit = tr_n("hour", "hours", time_played_seconds / 7200)
+		label_timer.text = tr("Played for {time} {unit}.").format({time = time, unit = unit})
 
 
 func clear_all():
@@ -191,7 +199,10 @@ func _platform_asset_coincides_with_os(a: String) -> bool:
 func _on_no_downloads_found(show_all: bool) -> void:
 	options_platform.disabled = true
 	options_platform.add_item("???")
-	InstallsIndex.warn("No downloads found" + (" for your OS - try enabling \"Show all platforms\" in Settings" if not show_all else "") + "!")
+	var msg = tr("No downloads found.") if show_all else tr("No downloads found for your OS.")
+	msg += "\n"
+	msg += tr("Try enabling \"Show all platforms\" in Settings!")
+	InstallsIndex.warn(msg)
 	set_buttons_state(false, false, false, false)
 
 
@@ -223,11 +234,11 @@ func set_buttons_state(installed: bool, running: bool = false, launchable: bool 
 	button_uninstall.visible = installed
 	button_uninstall.disabled = false
 	button_launch.visible = installed
-	button_launch.text = "Launch"
+	button_launch.text = tr("Launch")
 	button_browse.visible = installed
 	button_launch.disabled = not launchable
 
-	button_uninstall.text = "Kill process" if running else "Uninstall"
+	button_uninstall.text = tr("Kill process") if running else tr("Uninstall")
 	button_uninstall.icon = fire_texture if running else uninstall_texture
 	
 	if not running and installed: _refresh_time_played()
@@ -249,10 +260,10 @@ func _on_button_launch_pressed() -> void:
 	if not InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected), true):
 		return
 	
-	button_launch.text = "Loading"
+	button_launch.text = tr("Loading")
 	button_launch.disabled = true
 	$TimerLoading.start()
-	button_uninstall.text = "Kill process"
+	button_uninstall.text = tr("Kill process")
 	button_uninstall.icon = fire_texture
 	button_uninstall.disabled = true
 	
@@ -273,7 +284,7 @@ func _on_button_uninstall_pressed() -> void:
 	else:
 		OS.kill(pid)
 		button_uninstall.disabled = true
-		button_uninstall.text = "Closing game"
+		button_uninstall.text = tr("Closing game")
 		$TimerKilling.start()
 	
 	done_critical_operation = true
@@ -302,9 +313,9 @@ func _on_item_list_item_activated(index: int) -> void:
 
 
 func _on_timer_loading_timeout() -> void:
-	if button_launch.disabled and button_launch.visible and button_launch.text == "Loading":
+	if button_launch.disabled and button_launch.visible and button_launch.text == tr("Loading"):
 		button_launch.disabled = false
-		button_launch.text = "Launch"
+		button_launch.text = tr("Launch")
 		button_uninstall.disabled = false
 
 
@@ -313,9 +324,9 @@ func _on_check_button_toggled(button_pressed: bool) -> void:
 
 
 func _on_timer_killing_timeout() -> void:
-	if button_uninstall.disabled and button_uninstall.visible and button_uninstall.text == "Closing game":
+	if button_uninstall.disabled and button_uninstall.visible and button_uninstall.text == tr("Closing game"):
 		button_uninstall.disabled = false
-		button_uninstall.text = "Uninstall"
+		button_uninstall.text = tr("Uninstall")
 		button_uninstall.icon = uninstall_texture
 
 
@@ -323,7 +334,7 @@ func _on_mod_closed(process: ModProcess) -> void:
 	if process.mod_id != mod_data_id: return
 	var is_current_running = Configurator.get_mod_pid(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected)) != -1
 
-	if not is_current_running and button_uninstall.text != "Uninstall":
+	if not is_current_running and button_uninstall.text != tr("Uninstall"):
 		set_buttons_state(true, false)
 
 

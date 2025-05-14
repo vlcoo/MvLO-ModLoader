@@ -134,9 +134,18 @@ ui_text_submit={
 ]
 }
 
+[input_devices]
+
+pointing/android/enable_long_press_as_right_click=true
+
 [internationalization]
 
 locale/translation_remaps={}
+locale/translations=PackedStringArray("res://transl.de.translation", "res://transl.es.translation", "res://transl.ja.translation")
+
+[network]
+
+limits/tcp/connect_timeout_seconds=15
 
 [physics]
 

@@ -4,7 +4,7 @@ extends Control
 @onready var progress: ProgressBar = $VBoxContainer/ProgressBar
 @onready var request: HTTPRequest = $HTTPRequest
 
-const BASE_URL = "http://mvloml.vlcoo.net/"
+const BASE_URL = "https://mvloml.vlcoo.net/"
 const DEFAULT_GAMEFILES = {
 	"method": "ignore",
 	"home_url": "",

@@ -78,6 +78,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
 current_tab = 0
+tab_focus_mode = 0
 script = ExtResource("1_otdsd")
 
 [node name="Vanilla" type="PanelContainer" parent="."]
@@ -105,6 +106,7 @@ metadata/_tab_index = 1
 [node name="ContainerBig" type="MarginContainer" parent="Mod Gallery"]
 clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/margin_left = 28
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 28
@@ -149,7 +151,7 @@ caret_blink = true
 
 [node name="VSeparator" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
-theme_override_constants/separation = 48
+theme_override_constants/separation = 32
 
 [node name="TextureSort" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
@@ -187,7 +189,7 @@ popup/item_2/id = 0
 
 [node name="VSeparator2" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
-theme_override_constants/separation = 48
+theme_override_constants/separation = 32
 
 [node name="TextureFilter" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
 layout_mode = 2
@@ -514,8 +516,10 @@ offset_right = -3.0
 offset_bottom = 36.0
 grow_horizontal = 0
 tooltip_text = "Visit this project's GitHub repo."
-focus_neighbor_top = NodePath(".")
-focus_previous = NodePath("../../../../../../../../../../../../../../../../../../../../../../../../../../FoldableContainer/ContainerTroubleshooting/ButtonLogs")
+focus_neighbor_left = NodePath("../../HBoxContainer/VBoxContainer2/CheckRemember")
+focus_neighbor_top = NodePath("../../ContainerTroubleshooting")
+focus_neighbor_right = NodePath("../../HBoxContainer/VBoxContainer/CheckList")
+focus_neighbor_bottom = NodePath("../../HBoxContainer/VBoxContainer2/CheckRemember")
 icon = ExtResource("16_tvaom")
 
 [node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
@@ -525,104 +529,81 @@ layout_mode = 2
 theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_mansp")
 
-[node name="GridContainer" type="GridContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/h_separation = 92
-theme_override_constants/v_separation = 10
-columns = 2
+alignment = 1
 
-[node name="CheckList" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="CheckList" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Show a list of small buttons for the \"Mods\" tab
 instead of a grid of big buttons."
-focus_neighbor_top = NodePath("../../PanelAbout/ButtonWebsite")
-focus_neighbor_right = NodePath("../CheckRemember")
+focus_neighbor_left = NodePath("../../VBoxContainer2/CheckRemember")
+focus_neighbor_top = NodePath("../../../PanelAbout/ButtonWebsite")
+focus_neighbor_right = NodePath("../../VBoxContainer2/CheckRemember")
+focus_neighbor_bottom = NodePath("../CheckPlatforms")
 theme_override_constants/h_separation = 14
 text = "Use list view for mod gallery"
 icon = ExtResource("11_2jt2q")
 
-[node name="CheckRemember" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-tooltip_text = "Remember the screen you were viewing when exiting
-and reopen that one when booting up the program."
-theme_override_constants/h_separation = 14
-text = "Open last viewed tab on restart"
-icon = ExtResource("12_lymde")
-
-[node name="CheckPlatforms" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
+[node name="CheckPlatforms" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Include download options for any OS,
 even if they differ from your device's one."
-focus_neighbor_right = NodePath("../CheckDiscord")
+focus_neighbor_left = NodePath("../../VBoxContainer2/CheckDiscord")
+focus_neighbor_top = NodePath("../CheckList")
+focus_neighbor_right = NodePath("../../VBoxContainer2/CheckDiscord")
+focus_neighbor_bottom = NodePath("../CheckAutoSubscribe")
 theme_override_constants/h_separation = 14
 text = "Show all platforms"
 icon = ExtResource("13_8dqhh")
 
-[node name="CheckDiscord" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
+[node name="CheckAutoSubscribe" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Provide rich presence for Discord
-for mods that don't implement it."
-theme_override_constants/h_separation = 14
-button_pressed = true
-text = "Discord Game Activity (auto)"
-icon = ExtResource("14_edqgf")
-
-[node name="CheckAutoSubscribe" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-tooltip_text = "Enable \"new version\" notifications 
+tooltip_text = "Enable \"new version\" notifications
 for all mods you install from now on."
-focus_neighbor_right = NodePath("../CheckMinimize")
+focus_neighbor_left = NodePath("../../VBoxContainer2/CheckMinimize")
+focus_neighbor_top = NodePath("../CheckPlatforms")
+focus_neighbor_right = NodePath("../../VBoxContainer2/CheckMinimize")
+focus_neighbor_bottom = NodePath("../ContainerTheme/HBoxContainer/HSlider")
 theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Auto subscribe to updates"
 icon = ExtResource("19_gixlo")
 
-[node name="CheckMinimize" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-tooltip_text = "Minimize the Mod Loader when opening a mod
-and restore it back when closing that mod."
-theme_override_constants/h_separation = 14
-text = "Hide window when launching a mod"
-icon = ExtResource("19_t4233")
-
-[node name="ContainerTheme" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
+[node name="ContainerTheme" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme"]
 layout_mode = 2
 tooltip_text = "Change the visuals of the UI."
 theme_override_constants/separation = 13
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("15_upikk")
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -630,7 +611,7 @@ size_flags_stretch_ratio = 0.5
 text = "Theme colour"
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -643,11 +624,15 @@ popup/item_0/id = 0
 popup/item_1/text = "Basic Light"
 popup/item_1/id = 1
 
-[node name="HSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.8
+focus_neighbor_left = NodePath("../../../../VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
+focus_neighbor_top = NodePath("../../../CheckAutoSubscribe")
+focus_neighbor_right = NodePath("../../../../VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
+focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxTexture_2uwqy")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_gp1dw")
@@ -655,24 +640,79 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_3dta
 max_value = 360.0
 value = 360.0
 
-[node name="ContainerVanillaReplacement" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(370, 40)
+[node name="VSeparator" type="VSeparator" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 42
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="CheckRemember" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(440, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Remember the screen you were viewing when exiting
+and reopen that one when booting up the program."
+focus_neighbor_left = NodePath("../../VBoxContainer/CheckList")
+focus_neighbor_top = NodePath("../../../PanelAbout/ButtonWebsite")
+focus_neighbor_right = NodePath("../../VBoxContainer/CheckList")
+focus_neighbor_bottom = NodePath("../CheckDiscord")
+theme_override_constants/h_separation = 14
+text = "Open last viewed tab on restart"
+icon = ExtResource("12_lymde")
+
+[node name="CheckDiscord" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(440, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Provide rich presence for Discord
+for mods that don't implement it."
+focus_neighbor_left = NodePath("../../VBoxContainer/CheckPlatforms")
+focus_neighbor_top = NodePath("../CheckRemember")
+focus_neighbor_right = NodePath("../../VBoxContainer/CheckPlatforms")
+focus_neighbor_bottom = NodePath("../CheckMinimize")
+theme_override_constants/h_separation = 14
+button_pressed = true
+text = "Discord Game Activity (auto)"
+icon = ExtResource("14_edqgf")
+
+[node name="CheckMinimize" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(440, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Minimize the Mod Loader when opening a mod
+and restore it back when closing that mod."
+focus_neighbor_left = NodePath("../../VBoxContainer/CheckAutoSubscribe")
+focus_neighbor_top = NodePath("../CheckDiscord")
+focus_neighbor_right = NodePath("../../VBoxContainer/CheckAutoSubscribe")
+focus_neighbor_bottom = NodePath("../ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
+theme_override_constants/h_separation = 14
+text = "Hide window when launching a mod"
+icon = ExtResource("19_t4233")
+
+[node name="ContainerVanillaReplacement" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement"]
 layout_mode = 2
 tooltip_text = "Which mod to show in place of the vanilla game."
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("25_5f5dk")
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement/HBoxContainer"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -680,11 +720,12 @@ size_flags_stretch_ratio = 0.33
 text = "'Vanilla' tab"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 size_flags_stretch_ratio = 0.7
+focus_mode = 0
 mouse_filter = 1
 text = "[No change]"
 editable = false
@@ -692,10 +733,14 @@ virtual_keyboard_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="ButtonChooseMod" type="Button" parent="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement/HBoxContainer"]
+[node name="ButtonChooseMod" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
+focus_neighbor_left = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
+focus_neighbor_top = NodePath("../../../CheckMinimize")
+focus_neighbor_right = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
+focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
 text = "Choose mod"
 
 [node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
@@ -711,9 +756,13 @@ text = "Advanced"
 horizontal_alignment = 1
 
 [node name="ContainerAdvanced" type="FoldableContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(840, 0)
+custom_minimum_size = Vector2(920, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_left = NodePath("VBoxContainer/ContainerLocation/ButtonChooseFolder")
+focus_neighbor_top = NodePath("../HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("VBoxContainer/ContainerLocation/ButtonChooseFolder")
 folded = true
 text = "Advanced"
 title_alignment = 1
@@ -751,6 +800,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 size_flags_stretch_ratio = 0.7
+focus_mode = 0
 mouse_filter = 1
 text = "user://"
 editable = false
@@ -762,6 +812,8 @@ middle_mouse_paste_enabled = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
+focus_neighbor_top = NodePath("../../..")
+focus_neighbor_bottom = NodePath("../../ContainerArgsWin/LineEdit")
 text = "Choose folder"
 
 [node name="ButtonClear" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation"]
@@ -794,6 +846,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
+focus_neighbor_top = NodePath("../../ContainerLocation/ButtonChooseFolder")
+focus_neighbor_bottom = NodePath("../../ContainerArgsLinux/LineEdit")
 mouse_filter = 1
 placeholder_text = "None"
 clear_button_enabled = true
@@ -821,6 +875,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
+focus_neighbor_top = NodePath("../../ContainerArgsWin/LineEdit")
+focus_neighbor_bottom = NodePath("../../ContainerArgsMac/LineEdit")
 mouse_filter = 1
 placeholder_text = "None"
 clear_button_enabled = true
@@ -848,6 +904,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
+focus_neighbor_top = NodePath("../../ContainerArgsLinux/LineEdit")
+focus_neighbor_bottom = NodePath("../../../../ContainerTroubleshooting")
 mouse_filter = 1
 placeholder_text = "None"
 clear_button_enabled = true
@@ -867,9 +925,13 @@ text = "Troubleshooting"
 horizontal_alignment = 1
 
 [node name="ContainerTroubleshooting" type="FoldableContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(840, 0)
+custom_minimum_size = Vector2(920, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_left = NodePath("HBoxContainer/ButtonFixChar")
+focus_neighbor_top = NodePath("../ContainerAdvanced/VBoxContainer/ContainerArgsMac/LineEdit")
+focus_neighbor_right = NodePath("HBoxContainer/ButtonRedownloadDB")
+focus_neighbor_bottom = NodePath("HBoxContainer/ButtonRedownloadDB")
 folded = true
 text = "Troubleshooting"
 title_alignment = 1
@@ -889,6 +951,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Force update of database (mod data and images) and reboot program."
+focus_neighbor_left = NodePath("../ButtonFixChar")
+focus_neighbor_top = NodePath("../..")
+focus_neighbor_right = NodePath("../ButtonUninstallAll")
+focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Refresh DB"
 icon = ExtResource("17_8is38")
 
@@ -908,6 +974,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Uninstall every single mod, including vanilla."
+focus_neighbor_left = NodePath("../ButtonRedownloadDB")
+focus_neighbor_top = NodePath("../..")
+focus_neighbor_right = NodePath("../ButtonLogs")
+focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Uninstall all mods"
 icon = ExtResource("4_yn4re")
 
@@ -917,7 +987,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Open the folder containing debug log files."
-focus_next = NodePath("../../../root/@EditorNode@21450/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11648/@VSplitContainer@11300/@HSplitContainer@11302/@HSplitContainer@11304/@Control@11305/@SubViewportContainer@11306/@SubViewport@11307/GameGallery/Settings/ScrollContainer/VBoxContainer/PanelAbout/ButtonWebsite")
+focus_neighbor_left = NodePath("../ButtonUninstallAll")
+focus_neighbor_top = NodePath("../..")
+focus_neighbor_right = NodePath("../ButtonFixChar")
+focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Show logs"
 icon = ExtResource("19_25xiv")
 
@@ -928,7 +1001,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Some mods might brick vanilla by giving you an invalid character.
 This will attempt to automatically fix this."
-focus_next = NodePath("../../../root/@EditorNode@21450/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11648/@VSplitContainer@11300/@HSplitContainer@11302/@HSplitContainer@11304/@Control@11305/@SubViewportContainer@11306/@SubViewport@11307/GameGallery/Settings/ScrollContainer/VBoxContainer/PanelAbout/ButtonWebsite")
+focus_neighbor_left = NodePath("../ButtonLogs")
+focus_neighbor_top = NodePath("../..")
+focus_neighbor_right = NodePath("../ButtonRedownloadDB")
+focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Fix vanilla"
 icon = ExtResource("30_2scfd")
 
@@ -966,16 +1042,16 @@ access = 2
 [connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse" to="." method="_on_button_browse_pressed"]
 [connection signal="timeout" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading" to="." method="_on_timer_loading_timeout"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/PanelAbout/ButtonWebsite" to="." method="_on_button_website_pressed"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckRemember" to="." method="_on_check_button_2_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckPlatforms" to="." method="_on_check_button_3_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckDiscord" to="." method="_on_check_button_4_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckAutoSubscribe" to="." method="_on_check_button_6_toggled"]
-[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/GridContainer/CheckMinimize" to="." method="_on_check_button_5_toggled"]
-[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="drag_ended" from="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer/HSlider" to="." method="_on_h_slider_drag_ended"]
-[connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod" to="." method="_on_button_choose_mod_pressed"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckPlatforms" to="." method="_on_check_button_3_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckAutoSubscribe" to="." method="_on_check_button_6_toggled"]
+[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="drag_ended" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider" to="." method="_on_h_slider_drag_ended"]
+[connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckRemember" to="." method="_on_check_button_2_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckDiscord" to="." method="_on_check_button_4_toggled"]
+[connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckMinimize" to="." method="_on_check_button_5_toggled"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod" to="." method="_on_button_choose_mod_pressed"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/ButtonChooseFolder" to="." method="_on_button_choose_folder_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/ButtonClear" to="." method="_on_button_clear_pressed"]

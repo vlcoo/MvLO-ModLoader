@@ -134,8 +134,6 @@ content_margin_right = 10.0
 content_margin_bottom = 8.0
 draw_center = false
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gcg63"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb4jt"]
 content_margin_top = 12.0
 content_margin_bottom = 12.0
@@ -305,6 +303,8 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 anti_aliasing_size = 0.3
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xrv0p"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gqthw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jiird"]
@@ -336,6 +336,7 @@ border_width_bottom = 4
 border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
+expand_margin_bottom = 3.0
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y77yf"]
@@ -359,6 +360,7 @@ anti_aliasing_size = 0.3
 draw_center = false
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.164706)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ht51p"]
 content_margin_left = 16.0
@@ -439,7 +441,7 @@ CheckButton/styles/normal = SubResource("StyleBoxFlat_opr0i")
 CheckButton/styles/pressed = SubResource("StyleBoxFlat_psxmu")
 FoldableContainer/icons/expanded_arrow = ExtResource("6_gcg63")
 FoldableContainer/icons/folded_arrow = ExtResource("7_xrv0p")
-FoldableContainer/styles/focus = SubResource("StyleBoxEmpty_gcg63")
+FoldableContainer/styles/focus = ExtResource("8_6sxy7")
 FoldableContainer/styles/panel = SubResource("StyleBoxFlat_bb4jt")
 FoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_xrv0p")
 FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_gcg63")
@@ -487,6 +489,7 @@ PopupMenu/styles/hover = SubResource("StyleBoxFlat_pxr2l")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_h3anw")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_diew6")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_jx0h3")
+RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_xrv0p")
 TabContainer/colors/font_outline_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 TabContainer/colors/font_selected_color = Color(1, 1, 1, 1)
 TabContainer/constants/icon_max_width = 16

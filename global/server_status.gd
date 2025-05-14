@@ -16,7 +16,8 @@ var status: ServerStatus = ServerStatus.UP:
 
 
 func _ready() -> void:
-	if not OS.is_debug_build() and not Configurator.get_config("no-ping", false): check_server_status()
+	if not OS.is_debug_build() and Configurator.get_config("ping-servers", true):
+		check_server_status()
 
 
 func check_server_status() -> void:

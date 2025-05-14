@@ -51,6 +51,9 @@ func _ready() -> void:
 	else:
 		var last_timestamp = config.get_value("general", "last_updated")
 		cache_is_old = _is_last_timestamp_old_enough(int(timestamp), int(last_timestamp))
+	
+	if not get_config("translate", true):
+		TranslationServer.set_locale("en")
 
 
 func _on_ready() -> void:
@@ -209,10 +212,10 @@ func _is_last_timestamp_old_enough(ts: int, lts: int) -> bool:
 	return (ts_h == lts_h - 1 and ts_m >= 5) or ts_h > lts_h + 1
 
 
-func remove_recursive(directory: String) -> void:
+func remove_recursive(directory: String, remove_root_too: bool = true) -> void:
 	for dir_name in DirAccess.get_directories_at(directory):
 		remove_recursive(directory.path_join(dir_name))
 	for file_name in DirAccess.get_files_at(directory):
 		DirAccess.remove_absolute(directory.path_join(file_name))
 	
-	DirAccess.remove_absolute(directory)
+	if remove_root_too: DirAccess.remove_absolute(directory)

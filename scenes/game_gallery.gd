@@ -12,8 +12,8 @@ extends TabContainer
 @onready var button_find: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonFind"
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
 @onready var container_no_results: VBoxContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"
-@onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList
-@onready var label_vanilla_id: LineEdit = $Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerVanillaReplacement/HBoxContainer/LineEdit
+@onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList
+@onready var label_vanilla_id: LineEdit = $Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/LineEdit
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
@@ -40,32 +40,33 @@ func _ready() -> void:
 	set_tab_icon(1, load("res://audiovisual/puzzle.png"))
 	set_tab_icon(2, load("res://audiovisual/drive.png"))
 	set_tab_icon(3, load("res://audiovisual/settings.png"))
+	if Configurator.vanilla_id != "vanilla": set_tab_title(0, "\"Vanilla\"")
 
 
 func _on_ready() -> void:
 	set_physics_process(false)
 	
 	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.text = "v" + str(SelfUpdater.vercode)
-	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.tooltip_text = "Built on the " + SelfUpdater.verdate
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
+	$Settings/ScrollContainer/VBoxContainer/PanelAbout/LabelVersion.tooltip_text = tr("Built on the {date}".format({date = SelfUpdater.verdate}))
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/OptionButton.selected = Configurator.current_theme_id
 	theme = Configurator.current_theme
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/ContainerTheme/HBoxContainer/HSlider.value = Configurator.get_config("theme-colour", 360)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider.value = Configurator.get_config("theme-colour", 360)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/OptionSort".selected = Configurator.get_config("sort", 2)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled".button_pressed = Configurator.get_config("filter-installed", false)
 	$"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites".button_pressed = Configurator.get_config("filter-favourite", false)
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsWin/LineEdit.text = Configurator.get_config("args_windows", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac/LineEdit.text = Configurator.get_config("args_macos", "")
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList.button_pressed = Configurator.get_config("list_gallery", false)
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckPlatforms.button_pressed = Configurator.get_config("all_platforms")
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckDiscord.button_pressed = Configurator.get_config("discord-rpc", true)
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckAutoSubscribe.button_pressed = Configurator.get_config("auto_subscribe", false)
-	$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckMinimize.button_pressed = Configurator.get_config("minimize", false)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList.button_pressed = Configurator.get_config("list_gallery", false)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckPlatforms.button_pressed = Configurator.get_config("all_platforms")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckDiscord.button_pressed = Configurator.get_config("discord-rpc", true)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckAutoSubscribe.button_pressed = Configurator.get_config("auto_subscribe", false)
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckMinimize.button_pressed = Configurator.get_config("minimize", false)
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit.text= Configurator.get_config("install_location", "user://")
 	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonFixChar.visible = Configurator.os_name == "Windows"
 
 	if Configurator.get_config("remember_view", false):
-		$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckRemember.button_pressed = true
+		$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckRemember.button_pressed = true
 		current_tab = Configurator.get_config("remembered_tab")
 		if current_tab == 1: awaited_mod_view = Configurator.get_config("remembered_mod", "")
 
@@ -156,7 +157,7 @@ func _recalculate_installs_title() -> void:
 	#var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
 	var total_size_str = InstallsIndex.mb_to_string(InstallsIndex.get_total_installs_size())
 	label_usage_disk.text = total_size_str
-	label_usage_installs.text = str(installs_tree.item_count) + " installs"
+	label_usage_installs.text = tr_n("{count} install", "{count} installs", 2).format({count = str(installs_tree.item_count)})
 
 
 func _repopulate_installs_tree() -> void:
@@ -185,7 +186,7 @@ func _repopulate_installs_tree() -> void:
 	button_launch.disabled = true
 	button_uninstall.disabled = true
 	button_find.disabled = true
-	label_usage_installs.text = str(installs_tree.item_count) + " installs"
+	label_usage_installs.text = tr_n("{count} install", "{count} installs", 2).format({count = str(installs_tree.item_count)})
 
 
 func _on_mod_opened(idx: String) -> bool:
@@ -194,13 +195,13 @@ func _on_mod_opened(idx: String) -> bool:
 	
 	if gallery_chooser_mode:
 		if not mod.vanilla_compatible:
-			InstallsIndex.warn("This mod is not vanilla compatible (it doesn't share the same servers and playerbase) - proceed at your own discretion.\nYou can revert this change by re-choosing 'New Super Mario Bros. Versus' for this setting.")
+			InstallsIndex.warn(tr("This mod is not vanilla compatible (it doesn't share the same servers and playerbase) - proceed at your own discretion.\nYou can revert this change by re-choosing 'New Super Mario Bros. Versus' for this setting."))
 			await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 		Configurator.vanilla_id = idx
-		label_vanilla_id.text = "[No change]" if idx == "vanilla" else mod.name
+		label_vanilla_id.text = tr("[No change]") if idx == "vanilla" else mod.name
 		current_tab = 3
 		gallery_chooser_mode = false
-		InstallsIndex.warn("Success! App will reboot now to apply changes.")
+		InstallsIndex.warn(tr("App will reboot now to apply changes."))
 		await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 		OS.set_restart_on_exit(true)
 		get_tree().quit()
@@ -240,7 +241,7 @@ func _on_button_pressed() -> void:
 	# update db
 	Configurator.update_timestamp(true)
 	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonRedownloadDB.disabled = true
-	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonRedownloadDB.text = "Restarting..."
+	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonRedownloadDB.text = tr("Restarting...")
 	OS.set_restart_on_exit(true)
 	get_tree().quit()
 
@@ -275,7 +276,7 @@ func _on_tab_changed(tab: int) -> void:
 	
 	if tab == 2: _repopulate_installs_tree()
 	if tab == 3:
-		label_vanilla_id.text = "[No change]" if Configurator.vanilla_id == "vanilla" else ContentGetter.get_local_moddata(Configurator.vanilla_id).name
+		label_vanilla_id.text = tr("[No change]") if Configurator.vanilla_id == "vanilla" else ContentGetter.get_local_moddata(Configurator.vanilla_id).name
 	
 	if requires_game_viewer_ui_reload:
 		requires_game_viewer_ui_reload = false
@@ -298,7 +299,7 @@ func recalculate_focused_node() -> void:
 		2:
 			installs_tree.grab_focus.call_deferred()
 		3:
-			$Settings/ScrollContainer/VBoxContainer/GridContainer/CheckList.grab_focus.call_deferred()
+			$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList.grab_focus.call_deferred()
 
 
 func _on_option_button_item_selected(index: int) -> void:
@@ -325,7 +326,7 @@ func _on_tree_item_selected(index: int) -> void:
 func _on_item_list_item_activated(index: int) -> void:
 	if selected_install == {} or button_launch.disabled: return
 	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
-	button_launch.text = "Loading"
+	button_launch.text = tr("Loading")
 	button_launch.disabled = true
 	$"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
 
@@ -346,7 +347,7 @@ func _on_button_uninstall_pressed() -> void:
 func _on_button_launch_pressed() -> void:
 	if selected_install == {}: return
 	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
-	button_launch.text = "Loading"
+	button_launch.text = tr("Loading")
 	button_launch.disabled = true
 	$"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
 
@@ -364,11 +365,11 @@ func _on_button_find_pressed() -> void:
 		current_tab = 1
 		await get_tree().create_timer(0.1).timeout
 		if not await _on_mod_opened(selected_install.mod_id):
-			InstallsIndex.warn("Mod not found in the gallery!\nIt might've become unavailable since you've installed it.")
+			InstallsIndex.warn(tr("Mod not found in the gallery!\nIt might've become unavailable since you've installed it."))
 
 
 func _on_timer_loading_timeout() -> void:
-	button_launch.text = "Launch"
+	button_launch.text = tr("Launch")
 	button_launch.disabled = false
 
 
@@ -377,8 +378,7 @@ func _on_option_button2_item_selected(index: int) -> void:
 
 
 func _on_button_choose_folder_pressed() -> void:
-	InstallsIndex.warn("Please select a folder as the location for any future installs.\n\
-	Watch out, the previous install location and its contents will be deleted!")
+	InstallsIndex.warn(tr("Please select a folder as the location for any future installs.\nWatch out, the previous install location and its contents will be deleted!"))
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	$Settings/FileDialog.popup_centered()
 
@@ -393,7 +393,7 @@ func _on_button_clear_pressed() -> void:
 func _on_file_dialog_dir_selected(dir: String) -> void:
 	var dir_access = DirAccess.open(dir)
 	if dir_access.get_files().size() != 0:
-		InstallsIndex.warn("Please select an empty folder.")
+		InstallsIndex.warn(tr("Please select an empty folder."))
 		return
 	
 	dir = dir + "/"
@@ -464,18 +464,17 @@ func _on_h_slider_value_changed(value: float) -> void:
 
 
 func _on_h_slider_drag_ended(_value_changed: bool) -> void:
-	Configurator.set_config("theme-colour", $Settings/ScrollContainer/VBoxContainer/ContainerTheme/HSlider.value)
+	Configurator.set_config("theme-colour", $Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider.value)
 
 
 func _on_button_website_pressed() -> void:
-	OS.shell_open("github.com/vlcoo/mvlo-modloader")
+	OS.shell_open("https://github.com/vlcoo/mvlo-modloader")
 
 
 func _on_button_fix_char_pressed():
 	if Configurator.os_name != "Windows": return
-	InstallsIndex.warn("This will reset your character to Mario in vanilla MvLO and some mods to attempt \
-		fixing this problem. Please only do this once and if you're actually having issues.
-	")
+	InstallsIndex.warn(tr("This will reset your character to Mario in vanilla MvLO and some mods to attempt fixing this problem.\nPlease only do this once and if you're actually having issues.
+	"))
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	var error = OS.execute("reg", ["add", "HKEY_CURRENT_USER\\Software\\ipodtouch0218\\NSMB-MarioVsLuigi", "/v", "Character_h1854990716", "/t", "REG_DWORD", "/d", "00000000", "/f"])
 	if error == OK:
@@ -483,7 +482,7 @@ func _on_button_fix_char_pressed():
 
 
 func _on_button_choose_mod_pressed() -> void:
-	InstallsIndex.warn("Please choose the mod you want to see in the 'Vanilla' tab.\nCome back to Settings to cancel the operation.")
+	InstallsIndex.warn(tr("Please choose the mod you want to see in the 'Vanilla' tab.\nCome back to Settings to cancel the operation."))
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	current_tab = 1
 	gallery_chooser_mode = true

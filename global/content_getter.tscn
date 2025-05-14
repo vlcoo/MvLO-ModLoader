@@ -440,7 +440,7 @@ libraries = {
 autoplay = "wait_hidden"
 
 [node name="HTTPRequestDB" type="HTTPRequest" parent="."]
-download_chunk_size = 4096
+download_chunk_size = 16384
 use_threads = true
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]

@@ -15,8 +15,8 @@ func _on_cache_updated(_succeeded: bool) -> void:
 
 
 func _self_update(update_info: SelfUpdaterUpdate) -> void:
-	$AcceptDialog.dialog_text = "Date: " + update_info.date + "\nChangelog:\n" + update_info.changelog + \
-		"\n\nPlease download the new release."
+	$AcceptDialog.dialog_text = tr("Date:") + " " + update_info.date + "\n" + tr("Changelog:") + "\n" + update_info.changelog + \
+		"\n\n" + tr("Please download the new release.")
 	$AcceptDialog.popup_centered()
 
 

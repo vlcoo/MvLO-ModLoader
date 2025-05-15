@@ -28,6 +28,7 @@ var index_path:
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var background: ColorRect = $RectBackground
 @onready var toast: Control = $ContainerToast
+@onready var button_cancel: Button = $Panel/ButtonCancel
 
 var index: InstallsIndexRes
 var install_in_progress: Dictionary = {}
@@ -81,6 +82,7 @@ func redirect(mod_id: String, version: String, platform: String) -> void:
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or ContentGetter.get_local_moddata(mod_id) == null or ContentGetter.get_local_moddata(mod_id).gamefile_urls in [null, []]: return
 
+	button_cancel.grab_focus()
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version
@@ -302,20 +304,24 @@ func _on_timer_update_progressbar_timeout() -> void:
 			timer.stop()
 			l_progress.text = ""
 			progress_bar.self_modulate = Color.TRANSPARENT
+			button_cancel.disabled = true
 		Operation.DOWNLOADING:
 			var mb_downloaded = requester.get_downloaded_bytes()/1024/1024
 			var mb_total = requester.get_body_size()/1024/1024
 			if mb_downloaded == mb_total:
 				l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "Please hold").format({img = "loading"})
 				progress_bar.self_modulate = Color.TRANSPARENT
+				button_cancel.disabled = true
 			else:
 				l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "{count} out of {total} MB downloaded").format({count = str(mb_downloaded), total = str(mb_total), img = "downloading"})
 				progress_bar.self_modulate = Color.WHITE
 				progress_bar.value = float(mb_downloaded) / maxf(mb_total, 1.0)
+				button_cancel.disabled = false
 		Operation.EXTRACTING:
 			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
 			l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "Extracting files").format({img = "zip"})
 			progress_bar.self_modulate = Color.TRANSPARENT
+			button_cancel.disabled = true
 
 
 func _on_http_request_itch_url_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -350,3 +356,12 @@ func toast_success() -> void:
 	toast_tween.tween_property(toast, ^"modulate", Color.TRANSPARENT, 0.5)
 	await toast_tween.finished
 	toast.visible = false
+
+
+func _on_button_cancel_pressed() -> void:
+	requester.cancel_request()
+	state = Operation.IDLE
+	install_in_progress = {}
+	animation_player.play("out")
+	timer.stop()
+	operation_done.emit(true, "cancel")

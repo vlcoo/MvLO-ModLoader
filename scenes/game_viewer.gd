@@ -302,6 +302,8 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 			_on_options_platform_item_selected(options_platform.selected)
 			if Configurator.get_config("auto_subscribe", false):
 				$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = true
+		"cancel":
+			set_buttons_state(false)
 	
 	$PanelDetail/CenterContainer/VBoxContainer/ContainerButtons.grab_focus.call_deferred()
 

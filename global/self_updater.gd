@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var vercode: int = 5
-var verdate: String = "2025-05-01"
+var verdate: String = "2025-05-21"
 
 func _ready() -> void:
 	ContentGetter.cache_updated.connect(_on_cache_updated)

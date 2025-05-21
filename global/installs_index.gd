@@ -82,7 +82,6 @@ func redirect(mod_id: String, version: String, platform: String) -> void:
 func install(mod_id: String, version: String, platform: String) -> void:
 	if mod_id == "" or ContentGetter.get_local_moddata(mod_id) == null or ContentGetter.get_local_moddata(mod_id).gamefile_urls in [null, []]: return
 
-	button_cancel.grab_focus()
 	install_in_progress = InstallsIndexRes.Install.duplicate()
 	install_in_progress.mod_id = mod_id
 	install_in_progress.version = version
@@ -317,6 +316,7 @@ func _on_timer_update_progressbar_timeout() -> void:
 				progress_bar.self_modulate = Color.WHITE
 				progress_bar.value = float(mb_downloaded) / maxf(mb_total, 1.0)
 				button_cancel.disabled = false
+				button_cancel.grab_focus()
 		Operation.EXTRACTING:
 			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
 			l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "Extracting files").format({img = "zip"})

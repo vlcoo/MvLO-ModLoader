@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b640l3rdwfbd6"
-path="res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"
+uid="uid://bminrd605paqa"
+path="res://.godot/imported/switch-on-disabled.png-c076961d886320ff4f9dafca79188f40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/website.png"
-dest_files=["res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"]
+source_file="res://ui_resources/textures/switch-on-disabled.png"
+dest_files=["res://.godot/imported/switch-on-disabled.png-c076961d886320ff4f9dafca79188f40.ctex"]
 
 [params]
 

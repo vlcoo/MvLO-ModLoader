@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b640l3rdwfbd6"
-path="res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"
+uid="uid://cvhojm64fpvx4"
+path="res://.godot/imported/drive-drop.png-436e82e10e50dc00e7cef27ce57a2c30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/website.png"
-dest_files=["res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"]
+source_file="res://audiovisual/drive-drop.png"
+dest_files=["res://.godot/imported/drive-drop.png-436e82e10e50dc00e7cef27ce57a2c30.ctex"]
 
 [params]
 

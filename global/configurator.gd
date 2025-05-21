@@ -52,7 +52,7 @@ func _ready() -> void:
 		var last_timestamp = config.get_value("general", "last_updated")
 		cache_is_old = _is_last_timestamp_old_enough(int(timestamp), int(last_timestamp))
 	
-	if not get_config("translate", true):
+	if not get_config("translate", false):
 		TranslationServer.set_locale("en")
 
 
@@ -73,7 +73,7 @@ func _input(_event: InputEvent) -> void:
 
 
 func set_clear_colour_from_hue(hue: int) -> void:
-	var colour = Color.from_hsv(0, 0, 0.17) if hue == 360 else Color.from_hsv(hue/360.0, 0.4, 0.2)
+	var colour = Color.from_hsv(0, 0, 0.17) if hue == 360 else Color.from_hsv(hue/360.0, 0.45, 0.2)
 	RenderingServer.set_default_clear_color(colour)
 
 

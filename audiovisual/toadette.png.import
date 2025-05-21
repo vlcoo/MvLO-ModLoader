@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b640l3rdwfbd6"
-path="res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"
+uid="uid://bauqwsj6o488f"
+path="res://.godot/imported/toadette.png-246e4b722d4e3c9038e36e70c6dc81e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/website.png"
-dest_files=["res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"]
+source_file="res://audiovisual/toadette.png"
+dest_files=["res://.godot/imported/toadette.png-246e4b722d4e3c9038e36e70c6dc81e1.ctex"]
 
 [params]
 

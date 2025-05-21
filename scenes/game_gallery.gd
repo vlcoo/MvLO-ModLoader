@@ -36,10 +36,10 @@ func _ready() -> void:
 	#current_mod_game_viewer.get_node("AnimationPlayer").play("out")
 	ContentGetter.cache_updated.connect(_on_cache_updated)
 	Configurator.set_discord_status(Configurator.DiscordStatus.IN_MENU)
-	set_tab_icon(0, load("res://audiovisual/nsmb.png"))
-	set_tab_icon(1, load("res://audiovisual/puzzle.png"))
-	set_tab_icon(2, load("res://audiovisual/drive.png"))
-	set_tab_icon(3, load("res://audiovisual/settings.png"))
+	set_tab_icon(0, load("res://audiovisual/nsmb-drop.png"))
+	set_tab_icon(1, load("res://audiovisual/puzzle-drop.png"))
+	set_tab_icon(2, load("res://audiovisual/drive-drop.png"))
+	set_tab_icon(3, load("res://audiovisual/settings-drop.png"))
 	if Configurator.vanilla_id != "vanilla": set_tab_title(0, "\"Vanilla\"")
 
 
@@ -64,6 +64,8 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckMinimize.button_pressed = Configurator.get_config("minimize", false)
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit.text= Configurator.get_config("install_location", "user://")
 	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonFixChar.visible = Configurator.os_name == "Windows"
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage/HBoxContainer/OptionLanguage.selected = 1 if Configurator.get_config("translate", false) else 0
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckFools.visible = Time.get_datetime_dict_from_system()["month"] == Time.MONTH_APRIL and Time.get_datetime_dict_from_system()["day"] == 1
 
 	if Configurator.get_config("remember_view", false):
 		$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckRemember.button_pressed = true
@@ -363,7 +365,8 @@ func _on_button_find_pressed() -> void:
 		current_tab = 0
 	else:
 		current_tab = 1
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
+		await get_tree().process_frame
 		if not await _on_mod_opened(selected_install.mod_id):
 			InstallsIndex.warn(tr("Mod not found in the gallery!\nIt might've become unavailable since you've installed it."))
 
@@ -491,3 +494,9 @@ func _on_button_choose_mod_pressed() -> void:
 func _on_installs_index_operation_done(succeeded: bool, type: String) -> void:
 	if succeeded and type in ["uninstall"]:
 		InstallsIndex.toast_success()
+
+
+func _on_option_language_item_selected(index: int) -> void:
+	Configurator.set_config("translate", index > 0)
+	if not Configurator.get_config("translate", false):
+		TranslationServer.set_locale("en")

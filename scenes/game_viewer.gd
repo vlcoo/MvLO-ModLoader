@@ -6,7 +6,7 @@ const TEMPLATE_SUBTITLE := "[img]res://audiovisual/person.png[/img]  %s\n[img]re
 @onready var texture_cover: TextureRect = $PanelOverview/CenterContainer/VBoxContainer/TextureCover
 @onready var label_title: Label = $PanelOverview/CenterContainer/VBoxContainer/LabelTitle
 @onready var label_subtitle: RichTextLabel = $PanelOverview/CenterContainer/VBoxContainer/HBoxContainer/LabelSubtitle
-@onready var item_list: ItemList = $PanelDetail/CenterContainer/VBoxContainer/ItemList
+@onready var item_list: ItemList = $PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/ItemList
 @onready var label_timer: Label = $PanelDetail/CenterContainer/VBoxContainer/ContainerTimer/Label
 @onready var options_version: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsVersion
 @onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsPlatform
@@ -15,7 +15,7 @@ const TEMPLATE_SUBTITLE := "[img]res://audiovisual/person.png[/img]  %s\n[img]re
 @onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonUninstall
 @onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var text_description: TextEdit = $PanelDetail/CenterContainer/VBoxContainer/TextDescription
+@onready var text_description: TextEdit = $PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/TextDescription
 @onready var texture_icon: TextureRect = $PanelOverview/CenterContainer/VBoxContainer/HBoxContainer/TextureIcon
 
 var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
@@ -260,7 +260,7 @@ func _on_button_launch_pressed() -> void:
 	if not InstallsIndex.launch(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected), true):
 		return
 	
-	button_launch.text = tr("Loading")
+	button_launch.text = tr("Loading...")
 	button_launch.disabled = true
 	$TimerLoading.start()
 	button_uninstall.text = tr("Kill process")
@@ -284,7 +284,7 @@ func _on_button_uninstall_pressed() -> void:
 	else:
 		OS.kill(pid)
 		button_uninstall.disabled = true
-		button_uninstall.text = tr("Closing game")
+		button_uninstall.text = tr("Closing game...")
 		$TimerKilling.start()
 	
 	done_critical_operation = true
@@ -309,13 +309,13 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 
 
 func _on_item_list_item_activated(index: int) -> void:
-	var url = $PanelDetail/CenterContainer/VBoxContainer/ItemList.get_item_text(index)
+	var url = item_list.get_item_text(index)
 	if url.begins_with("https://"):
 		OS.shell_open(url)
 
 
 func _on_timer_loading_timeout() -> void:
-	if button_launch.disabled and button_launch.visible and button_launch.text == tr("Loading"):
+	if button_launch.disabled and button_launch.visible and button_launch.text == tr("Loading..."):
 		button_launch.disabled = false
 		button_launch.text = tr("Launch")
 		button_uninstall.disabled = false
@@ -326,7 +326,7 @@ func _on_check_button_toggled(button_pressed: bool) -> void:
 
 
 func _on_timer_killing_timeout() -> void:
-	if button_uninstall.disabled and button_uninstall.visible and button_uninstall.text == tr("Closing game"):
+	if button_uninstall.disabled and button_uninstall.visible and button_uninstall.text == tr("Closing game..."):
 		button_uninstall.disabled = false
 		button_uninstall.text = tr("Uninstall")
 		button_uninstall.icon = uninstall_texture

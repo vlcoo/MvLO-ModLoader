@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b640l3rdwfbd6"
-path="res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"
+uid="uid://4xhf0r2bdh8g"
+path="res://.godot/imported/puzzle-drop.png-85dbbcacfce32b8bf5c5a6a6cdb5f8e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/website.png"
-dest_files=["res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"]
+source_file="res://audiovisual/puzzle-drop.png"
+dest_files=["res://.godot/imported/puzzle-drop.png-85dbbcacfce32b8bf5c5a6a6cdb5f8e0.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b3kkysnadc0mx"]
+[gd_scene load_steps=26 format=3 uid="uid://b3kkysnadc0mx"]
 
 [ext_resource type="Shader" uid="uid://d3da2mfirumpw" path="res://ui_resources/blurry_panel.gdshader" id="1_bqqot"]
 [ext_resource type="Script" uid="uid://c2n1nicuoubkq" path="res://scenes/game_viewer.gd" id="1_ojtji"]
@@ -21,31 +21,13 @@ shader = ExtResource("1_bqqot")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vjkyd"]
 size = Vector2(32, 32)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e3mwc"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjkyd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjkyd"]
-content_margin_left = 16.0
-content_margin_top = 22.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-shadow_color = Color(0, 0, 0, 0.164706)
-shadow_size = 12
-anti_aliasing_size = 0.3
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jn5wo"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jn5wo"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0, 0, 0, 0.164706)
-shadow_size = 12
-anti_aliasing_size = 0.3
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80onw"]
 
 [sub_resource type="Animation" id="Animation_akkqd"]
 length = 0.001
@@ -301,7 +283,7 @@ theme_type_variation = &"LabelSubtle"
 theme_override_colors/default_color = Color(0.65098, 0.65098, 0.65098, 1)
 theme_override_constants/line_separation = 6
 bbcode_enabled = true
-text = "[img]res://audiovisual/person.png[/img]  Unk. Author
+text = "[img]res://audiovisual/person.png[/img]  Anonymous
 [img]res://audiovisual/calendar.png[/img]  Never Updated"
 fit_content = true
 autowrap_mode = 0
@@ -364,18 +346,39 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextDescription" type="TextEdit" parent="PanelDetail/CenterContainer/VBoxContainer"]
-clip_contents = false
-custom_minimum_size = Vector2(590, 220)
+[node name="Panel" type="Panel" parent="PanelDetail/CenterContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.26
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelDetail/CenterContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextDescription" type="TextEdit" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_colors/font_readonly_color = Color(0.65098, 0.65098, 0.65098, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_e3mwc")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vjkyd")
-theme_override_styles/read_only = SubResource("StyleBoxFlat_vjkyd")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jn5wo")
 text = "Description unavailable."
 placeholder_text = "abcd"
 editable = false
+context_menu_enabled = false
 emoji_menu_enabled = false
 shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
@@ -386,15 +389,16 @@ scroll_smooth = true
 caret_blink = true
 highlight_all_occurrences = true
 
-[node name="ItemList" type="ItemList" parent="PanelDetail/CenterContainer/VBoxContainer"]
-clip_contents = false
-custom_minimum_size = Vector2(590, 220)
+[node name="HSeparator" type="HSeparator" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.25
+theme_override_constants/separation = 0
+
+[node name="ItemList" type="ItemList" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_jn5wo")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_80onw")
 allow_search = false
 max_text_lines = 2
 auto_height = true
@@ -480,7 +484,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
 focus_mode = 2
-theme_override_constants/separation = 60
+theme_override_constants/separation = 42
 alignment = 1
 script = ExtResource("11_w47wk")
 desired_node = NodePath("ButtonInstall")
@@ -577,7 +581,7 @@ one_shot = true
 
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="toggled" from="PanelOverview/CheckFavourite" to="." method="_on_button_favourite_toggled"]
-[connection signal="item_activated" from="PanelDetail/CenterContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="item_activated" from="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe" to="." method="_on_check_button_toggled"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsVersion" to="." method="_on_options_version_item_selected"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsPlatform" to="." method="_on_options_platform_item_selected"]

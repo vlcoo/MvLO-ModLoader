@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b640l3rdwfbd6"
-path="res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"
+uid="uid://boixcv1chdlct"
+path="res://.godot/imported/earth.png-ffc454d1972f0fba14d519ad6ff4894f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/website.png"
-dest_files=["res://.godot/imported/website.png-e570d0fe097f3c9a54bf388b75334eb6.ctex"]
+source_file="res://audiovisual/earth.png"
+dest_files=["res://.godot/imported/earth.png-ffc454d1972f0fba14d519ad6ff4894f.ctex"]
 
 [params]
 

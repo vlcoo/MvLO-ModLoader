@@ -476,7 +476,7 @@ func _on_button_website_pressed() -> void:
 
 func _on_button_fix_char_pressed():
 	if Configurator.os_name != "Windows": return
-	InstallsIndex.warn(tr("This will reset your character to Mario in vanilla MvLO and some mods to attempt fixing this problem.\nPlease only do this once and if you're actually having issues.
+	InstallsIndex.warn(tr("This will reset your character to Mario in vanilla MvLO to attempt fixing this problem.\nPlease only do this once and if you're actually having issues.
 	"))
 	await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 	var error = OS.execute("reg", ["add", "HKEY_CURRENT_USER\\Software\\ipodtouch0218\\NSMB-MarioVsLuigi", "/v", "Character_h1854990716", "/t", "REG_DWORD", "/d", "00000000", "/f"])
@@ -498,5 +498,4 @@ func _on_installs_index_operation_done(succeeded: bool, type: String) -> void:
 
 func _on_option_language_item_selected(index: int) -> void:
 	Configurator.set_config("translate", index > 0)
-	if not Configurator.get_config("translate", false):
-		TranslationServer.set_locale("en")
+	TranslationServer.set_locale(OS.get_locale() if Configurator.get_config("translate", false) else "en")

@@ -52,8 +52,7 @@ func _ready() -> void:
 		var last_timestamp = config.get_value("general", "last_updated")
 		cache_is_old = _is_last_timestamp_old_enough(int(timestamp), int(last_timestamp))
 	
-	if not get_config("translate", false):
-		TranslationServer.set_locale("en")
+	TranslationServer.set_locale(OS.get_locale() if Configurator.get_config("translate", false) else "en")
 
 
 func _on_ready() -> void:

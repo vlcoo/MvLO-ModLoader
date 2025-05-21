@@ -223,7 +223,7 @@ alignment = 1
 
 [node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
 layout_mode = 2
-tooltip_text = "Don't show mods that you haven't installed."
+tooltip_text = "Don't show mods you haven't installed."
 focus_neighbor_left = NodePath("../../OptionSort")
 focus_neighbor_top = NodePath(".")
 focus_neighbor_right = NodePath("../../InputSearch")
@@ -278,8 +278,9 @@ clip_contents = false
 layout_mode = 2
 theme_type_variation = &"TextLarge"
 bbcode_enabled = true
-text = "[center]No results!"
+text = "No results!"
 fit_content = true
+horizontal_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"]
 layout_mode = 2
@@ -567,7 +568,7 @@ custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Show a list of small buttons for the \"Mods\" tab
+tooltip_text = "Show a list of small buttons in the 'Mod Gallery' tab
 instead of a grid of big buttons."
 focus_neighbor_left = NodePath("../../VBoxContainer2/CheckRemember")
 focus_neighbor_top = NodePath("../../../PanelAbout/ButtonWebsite")
@@ -597,7 +598,7 @@ custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Enable \"new version\" notifications
+tooltip_text = "Enable 'new version' notifications
 for all mods you install from now on."
 focus_neighbor_left = NodePath("../../VBoxContainer2/CheckMinimize")
 focus_neighbor_top = NodePath("../CheckPlatforms")
@@ -670,7 +671,7 @@ theme_override_constants/margin_right = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage"]
 layout_mode = 2
-tooltip_text = "Change the visuals of the UI."
+tooltip_text = "Translate app's text."
 theme_override_constants/separation = 13
 alignment = 1
 
@@ -700,7 +701,7 @@ selected = 0
 item_count = 2
 popup/item_0/text = "English"
 popup/item_0/id = 0
-popup/item_1/text = "Automatic Region"
+popup/item_1/text = "Automatic region"
 popup/item_1/id = 1
 
 [node name="VSeparator" type="VSeparator" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
@@ -718,7 +719,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Remember the screen you were viewing when exiting
-and reopen that one when booting up the program."
+and re-open that one when booting up the app."
 focus_neighbor_left = NodePath("../../VBoxContainer/CheckList")
 focus_neighbor_top = NodePath("../../../PanelAbout/ButtonWebsite")
 focus_neighbor_right = NodePath("../../VBoxContainer/CheckList")
@@ -748,7 +749,7 @@ custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Minimize the Mod Loader when opening a mod
+tooltip_text = "Minimize the app when opening a mod
 and restore it back when closing that mod."
 focus_neighbor_left = NodePath("../../VBoxContainer/CheckAutoSubscribe")
 focus_neighbor_top = NodePath("../CheckDiscord")
@@ -846,7 +847,7 @@ focus_neighbor_top = NodePath("../HBoxContainer/VBoxContainer2/ContainerVanillaR
 focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("VBoxContainer/ContainerLocation/ButtonChooseFolder")
 folded = true
-text = "Advanced"
+title = "Advanced"
 title_alignment = 1
 foldable_group = SubResource("FoldableGroup_f4mjw")
 
@@ -942,9 +943,9 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a mod version build for Linux is launched,
+tooltip_text = "If a mod version build for Windows is launched,
 use these extra parameters before the filename when executing the command.
-i.e.: [extra args] nsmb.x86_64"
+i.e.: [extra args] nsmb.exe"
 alignment = 1
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux"]
@@ -971,9 +972,9 @@ custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a mod version build for macOS is launched,
+tooltip_text = "If a mod version build for Windows is launched,
 use these extra parameters before the filename when executing the command.
-i.e.: [extra args] nsmb.app"
+i.e.: [extra args] nsmb.exe"
 alignment = 1
 
 [node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac"]
@@ -1017,7 +1018,7 @@ focus_neighbor_top = NodePath("../ContainerAdvanced/VBoxContainer/ContainerArgsM
 focus_neighbor_right = NodePath("HBoxContainer/ButtonRedownloadDB")
 focus_neighbor_bottom = NodePath("HBoxContainer/ButtonRedownloadDB")
 folded = true
-text = "Troubleshooting"
+title = "Troubleshooting"
 title_alignment = 1
 foldable_group = SubResource("FoldableGroup_f4mjw")
 
@@ -1085,7 +1086,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Some mods might brick vanilla by giving you an invalid character.
-This will attempt to automatically fix this."
+This option will attempt to automatically fix this."
 focus_neighbor_left = NodePath("../ButtonLogs")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonRedownloadDB")

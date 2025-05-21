@@ -67,14 +67,14 @@ func sync() -> void:
 
 func _on_requester_db_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != 0 or response_code != 200:
-		err(tr("DB server unreachable. Try again later!"))
+		err(tr("DB server unreachable.") + " " + tr("Please try again later!"))
 		db_request_complete = true
 		_populate_moddata_array()
 		return
 	
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	if json == null or not json.has("mods"):
-		err(tr("DB server unreachable. Try again later!"))
+		err(tr("DB server unreachable.") + " " + tr("Please try again later!"))
 		return
 	raw_moddatas = json["mods"]
 	

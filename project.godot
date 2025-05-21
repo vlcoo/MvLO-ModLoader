@@ -141,6 +141,7 @@ pointing/android/enable_long_press_as_right_click=true
 [internationalization]
 
 locale/translation_remaps={}
+locale/translations=PackedStringArray("res://ui_resources/translations/de.po", "res://ui_resources/translations/es.po", "res://ui_resources/translations/fr.po", "res://ui_resources/translations/jp.po")
 
 [network]
 

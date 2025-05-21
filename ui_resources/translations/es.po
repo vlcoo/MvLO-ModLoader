@@ -1,0 +1,528 @@
+#. extracted from .\es.csv
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-21 20:39+0200\n"
+"PO-Revision-Date: 2025-05-21 20:45+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+
+msgid "en"
+msgstr "es"
+
+msgid "Vanilla"
+msgstr "Vanilla"
+
+msgid "Mod Gallery"
+msgstr "Galería de Mods"
+
+msgid "Storage Usage"
+msgstr "Almacenamiento"
+
+msgid "Settings"
+msgstr "Ajustes"
+
+msgid "Played for {time} {unit}."
+msgstr "Has jugado {time} {unit}."
+
+msgid "minute"
+msgstr "minuto"
+
+msgid "minutes"
+msgstr "minutos"
+
+msgid "hour"
+msgstr "hora"
+
+msgid "hours"
+msgstr "horas"
+
+msgid "Played for a few seconds."
+msgstr "Has jugado unos cuantos segundos."
+
+msgid "Never played."
+msgstr "Nunca jugado."
+
+msgid "Subscribe for updates"
+msgstr "Suscribir a actualizaciones"
+
+msgid "Install"
+msgstr "Instalar"
+
+msgid "Uninstall"
+msgstr "Desinstalar"
+
+msgid "Launch"
+msgstr "Ejecutar"
+
+msgid "Browse files"
+msgstr "Ver archivos"
+
+msgid "Never updated"
+msgstr "Nunca actualizado"
+
+msgid "Loading..."
+msgstr "Cargando..."
+
+msgid "Closing game..."
+msgstr "Cerrando juego..."
+
+msgid "Based on version {version}."
+msgstr "Basado en la versión {version}."
+
+msgid "Kill process"
+msgstr "Matar proceso"
+
+msgid "No data!"
+msgstr "¡Sin info!"
+
+msgid "Anonymous"
+msgstr "Anónimo"
+
+msgid "Search:"
+msgstr "Buscar:"
+
+msgid "Mod name..."
+msgstr "Nombre del mod..."
+
+msgid "Sort:"
+msgstr "Ordenar:"
+
+msgid "Alphabetically"
+msgstr "Alfabéticamente"
+
+msgid "By most played"
+msgstr "Por más jugado"
+
+msgid "By recently updated"
+msgstr "Por actualización reciente"
+
+msgid "Only installed"
+msgstr "Sólo instalados"
+
+msgid "Only favourites"
+msgstr "Sólo favoritos"
+
+msgid "No results!"
+msgstr "¡Sin resultados!"
+
+msgid "Try resetting the filters above..."
+msgstr "Intenta quitar los filtros de arriba..."
+
+msgid "{count} install"
+msgstr "{count} instalado"
+
+msgid "{count} installs"
+msgstr "{count} instalados"
+
+msgid "Find in gallery"
+msgstr "Ver en galería"
+
+msgid ""
+"A simple way to keep your mods organized and up to date.\r\n"
+"\r\n"
+"[color=#ffffff8b]by vlco_o - aka vic[/color]"
+msgstr ""
+"Una manera sencilla de mantener tus mods organizados y actualizados.\n"
+"\n"
+"[color=#ffffff8b]por vlco_o (vic)[/color]"
+
+msgid "by {name}"
+msgstr "por {name}"
+
+msgid "Use list view for mod gallery"
+msgstr "Ver la galería de mods como una lista"
+
+msgid "Show all platforms"
+msgstr "Mostrar todas las plataformas"
+
+msgid "Auto subscribe to updates"
+msgstr "Suscribir auto. a actualizaciones"
+
+msgid "Theme colour"
+msgstr "Color de tema"
+
+msgid "Open last viewed tab on restart"
+msgstr "Abrir la última pestaña al reiniciar"
+
+msgid "Discord Game Activity (auto)"
+msgstr "Estado de Actividad Discord (auto.)"
+
+msgid "Hide window when launching a mod"
+msgstr "Ocultar ventana al ejecutar mod"
+
+msgid "'Vanilla' tab"
+msgstr "Pestaña 'Vanilla'"
+
+msgid "[No change]"
+msgstr "[Sin cambios]"
+
+msgid "Choose mod..."
+msgstr "Elegir mod..."
+
+msgid "Advanced"
+msgstr "Avanzado"
+
+msgid "Install location"
+msgstr "Ubicación para las instalaciones"
+
+msgid "Choose folder..."
+msgstr "Elegir carpeta..."
+
+msgid "Extra args for {extension}"
+msgstr "Argumentos extra para {extension}"
+
+msgid "Troubleshooting"
+msgstr "Resolución de problemas"
+
+msgid "Refresh DB"
+msgstr "Refrescar BBDD"
+
+msgid "Uninstall all mods"
+msgstr "Desinstalar todo"
+
+msgid "Show logs"
+msgstr "Mostrar logs"
+
+msgid "Fix vanilla"
+msgstr "Arreglar vanilla"
+
+msgid "Restarting..."
+msgstr "Reiniciando..."
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Automatic region"
+msgstr "Región automática"
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "[center][wave amp=36]Starting up..."
+msgstr "[center][wave amp=36]Iniciándose..."
+
+msgid ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   "
+"Checking for updates"
+msgstr ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   "
+"Comprobando actualizaciones"
+
+msgid "[center][wave amp=36]Installing mod..."
+msgstr "[center][wave amp=36]Instalando mod..."
+
+msgid ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   "
+"Please hold"
+msgstr ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   Un "
+"segundito"
+
+msgid ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   "
+"{count} out of {total} MB downloaded"
+msgstr ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   "
+"{count} de {total} MB descargado"
+
+msgid ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   "
+"Extracting files"
+msgstr ""
+"[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   "
+"Extrayendo archivos"
+
+msgid "Can't install game!"
+msgstr "¡No se pudo instalar!"
+
+msgid "Game currently not available."
+msgstr "Juego no disponible en este momento."
+
+msgid "Something went wrong"
+msgstr "Algo fue mal"
+
+msgid "Some info might be out of date."
+msgstr "Alguna información puede estar obsoleta."
+
+msgid "DB server unreachable."
+msgstr "Servidor de BBDD no disponible."
+
+msgid "Please try again later!"
+msgstr "¡Inténtalo más tarde!"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Warning"
+msgstr "Atención"
+
+msgid "Alert!"
+msgstr "¡Atención!"
+
+msgid "Success"
+msgstr "Éxito"
+
+msgid ""
+"Game servers are down or unreachable at the moment.\n"
+"Vanilla and mods might be affected."
+msgstr ""
+"Los servidores de juego no están disponibles en este momento.Puede que "
+"tengas problemas jugando a vanilla o a mods."
+
+msgid ""
+"Mod not found in the gallery!\n"
+"It might've become unavailable since you've last installed it."
+msgstr ""
+"¡No se encontró el mod en la galería!\n"
+"Puede que se haya borrado desde la última vez que lo instalaste."
+
+msgid "Please select an empty folder."
+msgstr "Por favor, elige una carpeta vacía."
+
+msgid "No downloads found."
+msgstr "No hay descargas."
+
+msgid "No downloads found for your OS."
+msgstr "No hay ninguna descarga para tu sistema operativo."
+
+msgid "Try enabling \"Show all platforms\" in Settings!"
+msgstr "¡Intenta habilitar \"Mostrar todas las plataformas\" en Ajustes!"
+
+msgid ""
+"Sorry, this mod is not compatible.\n"
+"Please try another version or visit its website and install it manually."
+msgstr ""
+"Lo siento, este mod no es compatible.\n"
+"Por favor, intenta otra versión o visita su página web para instalarlo "
+"manualmente."
+
+msgid "Empty archive."
+msgstr "Archivo vacío."
+
+msgid ""
+"Couldn't find an executable in the downloaded files. 'Launch' will not work."
+msgstr ""
+"No se encontró ningún ejecutable en los archivos descargados. 'Ejecutar' no "
+"va a funcionar."
+
+msgid "Couldn't launch game!"
+msgstr "¡No se pudo ejecutar!"
+
+msgid ""
+"Maybe it's corrupted?\n"
+"Please try reinstalling this mod."
+msgstr ""
+"¿A lo mejor los archivos han sido borrados? Intenta reinstalar este mod."
+
+msgid ""
+"Maybe it's not built for your type of device?\n"
+"Please choose another version."
+msgstr ""
+"¿A lo mejor no ha sido compilado para tu tipo de dispositivo? Por favor, "
+"elige otra versión."
+
+msgid ""
+"Maybe it's corrupted or incompatible?\n"
+"Please visit this mod's website and try installing it manually."
+msgstr ""
+"¿A lo mejor los archivos están corruptos? Por favor, intenta visitar la "
+"página web de este mod e instálalo manualmente."
+
+msgid ""
+"A problem happened and some files might've not been deleted successfully.\n"
+"Maybe the game is still running, or your device's Recycle Bin is full?"
+msgstr ""
+"Ha ocurrido un problema y algunos archivos no se han borrado correctamente.\n"
+"A lo mejor el juego está aún ejecutándose, o la Papelera de Reciclaje de tu "
+"dispositivo está llena."
+
+msgid ""
+"Please select a folder as the location for any future installs.\n"
+"Watch out, the previous location and its contents will be deleted!"
+msgstr ""
+"Elige una carpeta para instalaciones futuras.\n"
+"¡Ojo, la carpeta anterior y sus contenidos serán borrados!"
+
+msgid ""
+"Please choose the mod you want to see in the 'Vanilla' tab.\n"
+"Come back to Settings to cancel the operation."
+msgstr ""
+"Elige el mod que quieres ver en la pestaña 'Vanilla'.\n"
+"Vuelve a Ajustes para cancelar la operación."
+
+msgid ""
+"This mod is not vanilla compatible (it doesn's share the same servers and "
+"playerbase) - proceed at your own discretion.\n"
+"You can revert this change by re-choosing 'New Super Mario Bros. Versus' for "
+"this setting."
+msgstr ""
+"Este mod no es compatible con vanilla (no comparte los mismos servidores) - "
+"continúa a tu propia discreción.\n"
+"Puedes revertir este cambio eligiendo 'New Super Mario Bros. Versus' para "
+"este ajuste."
+
+msgid "App will reboot now to apply changes."
+msgstr "La aplicación se reiniciará ahora para aplicar los cambios."
+
+msgid "{count} new mods have been added since the last time you checked!"
+msgstr "¡Se han añadido {count} nuevos mods desde tu útlima visita!"
+
+msgid ""
+"New updates for mods you're subscribed to!\n"
+"{mods}"
+msgstr ""
+"Hay nuevas actualizaciones para mods a los que estás suscrito.\n"
+"{mods}"
+
+msgid ""
+"This will reset your character to Mario in vanilla MvLO to attempt fixing "
+"this problem.\n"
+"Please only do this once and if you're actually having issues."
+msgstr ""
+"Esto restablecerá tu personaje a Mario en vanilla MvLO para intentar "
+"solucionar este problema.Haz esto solo una vez, y tan sólo si de veras estás "
+"teniendo problemas."
+
+msgid ""
+"This operation will open the following website using your default browser:\n"
+"{url}\n"
+"Continue?"
+msgstr ""
+"Esta opción va a abrir el siguiente enlace en tu navegador web "
+"predeterminado:\n"
+"{url}\n"
+"¿Quieres continuar?"
+
+msgid "New update available!"
+msgstr "¡Hay una nueva actualización!"
+
+msgid "Date:"
+msgstr "Fecha:"
+
+msgid "Changelog:"
+msgstr "Cambios:"
+
+msgid "Please download the new release."
+msgstr "Por favor, descarga esta nueva versión."
+
+msgid "Notify when a new release for this mod has been uploaded."
+msgstr "Notificar cuando haya una nueva versión de este mod."
+
+msgid "Write down a keyword to filter mods by."
+msgstr "Escribe una palabra clave para filtrar mods."
+
+msgid "Order of elements below (descending)."
+msgstr "Orden de los elementos debajo (descendiente)."
+
+msgid "Don't show mods you haven't installed."
+msgstr "No mostrar mods que no hayas instalado."
+
+msgid "Don't show mods you haven't starred."
+msgstr "No mostrar mods que no tengas en favoritos."
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "Mark mod as favourite"
+msgstr "Marcar como favorito"
+
+msgid "Thanks for the support!"
+msgstr "¡Gracias por el apoyo!"
+
+msgid "Built on the {date}"
+msgstr "Compilado el {date}"
+
+msgid "Visit this project's GitHub repo."
+msgstr "Visitar el repositorio GitHub de este proyecto."
+
+msgid ""
+"Show a list of small buttons in the 'Mod Gallery' tab\n"
+"instead of a grid of big buttons."
+msgstr ""
+"Mostrar una lista de pequeños botones en la pestaña de 'Galería de Mods'\n"
+"en lugar de una tabla de botones grandes."
+
+msgid ""
+"Include download options for any OS,\n"
+"even if they differ from your device's one."
+msgstr ""
+"Incluir opciones de descarga para cualquier SO,\n"
+"incluso si no coinciden con el de tu dispositivo."
+
+msgid ""
+"Enable 'new version' notifications\n"
+"for all mods you install from now on."
+msgstr ""
+"Activar notificaciones de actualización para\n"
+"todos los mods que instales de ahora en adelante."
+
+msgid "Change the visuals of the UI."
+msgstr "Cambiar cómo se ve la IU."
+
+msgid ""
+"Remember the screen you were viewing when exiting\n"
+"and re-open that one when booting up the app."
+msgstr ""
+"Recordar la pantalla que estabas viendo al salir,\n"
+"y volverla a abrir al reiniciar la app."
+
+msgid ""
+"Provide rich presence for Discord\n"
+"for mods that don't implement it."
+msgstr ""
+"Proporcionar presencia de Discord\n"
+"para mods que no implementen esto."
+
+msgid ""
+"Minimize the app when opening a mod\n"
+"and restore it back when closing that mod."
+msgstr ""
+"Minimizar la app al iniciar un mod,\n"
+"restaurándola al cerrarlo."
+
+msgid "Custom folder to install mods to."
+msgstr "Carpeta personalizada a la que instalar mods."
+
+msgid ""
+"If a mod built for {os} is launched,\n"
+"use these extra parameters before the filename when executing the command.\n"
+"i.e.: {example}"
+msgstr ""
+"Al iniciar un mod hecho para {os},\n"
+"usar estos parámetros adicionales al ejecutar el comando.\n"
+"Por ejemplo, {example}"
+
+msgid "Force update of database (mod data and images) and reboot program."
+msgstr ""
+"Forzar actualización de la base de datos (información de los mods e "
+"imágenes) y reiniciar el programa."
+
+msgid "Uninstall every single mod, including vanilla."
+msgstr "Desinstalar cada uno de los mods, incluyendo vanilla."
+
+msgid "Open the folder containing debug log files."
+msgstr "Abrir carpeta que contiene logs de depuración."
+
+msgid "Which mod to show in place of the vanilla game."
+msgstr "Qué mod mostrar en lugar del juego original."
+
+msgid ""
+"Some mods might brick vanilla by giving you an invalid character.\n"
+"This option will attempt to automatically fix this."
+msgstr ""
+"Algunos mods pueden hacer vanilla injugable tras darte un personaje "
+"inválido.\n"
+"Esta opción intentará solucionar esto."

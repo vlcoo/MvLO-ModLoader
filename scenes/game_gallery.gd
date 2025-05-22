@@ -3,7 +3,7 @@ extends TabContainer
 @onready var vanilla_game_viewer: GameViewer = $Vanilla/GameViewer
 @onready var current_mod_game_viewer: GameViewer = $"Mod Gallery/GameViewer"
 @onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/GridContainer"
-@onready var installs_tree: ItemList = $"Storage Usage/MarginContainer/VBoxContainer/Panel/ItemList"
+@onready var installs_tree_list: VBoxContainer = $"Storage Usage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer"
 @onready var label_usage_disk: RichTextLabel = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer/RichTextLabel"
 @onready var label_usage_installs: Label = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer/Label"
 @onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall"
@@ -13,11 +13,12 @@ extends TabContainer
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
 @onready var container_no_results: VBoxContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"
 @onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList
-@onready var label_vanilla_id: LineEdit = $Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/LineEdit
+@onready var label_vanilla_id: LineEdit = $Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement/LineEdit
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
 var installed_texture: Texture2D = preload("res://audiovisual/installed.png")
+var storage_element = preload("res://scenes/storage_usage_element.tscn")
 
 var awaited_mod_view: String = ""
 var requires_game_viewer_ui_reload = false
@@ -28,6 +29,8 @@ var filter_favourites = false
 var filter_installed = false
 var filter_result_count = 0
 var gallery_chooser_mode = false
+var focused_storage_usage_item: StorageUsageElement
+var installs_tree_item_count: int = 0
 
 
 func _ready() -> void:
@@ -64,8 +67,8 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckMinimize.button_pressed = Configurator.get_config("minimize", false)
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit.text= Configurator.get_config("install_location", "user://")
 	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonFixChar.visible = Configurator.os_name == "Windows"
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage/HBoxContainer/OptionLanguage.selected = 1 if Configurator.get_config("translate", false) else 0
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckFools.visible = Time.get_datetime_dict_from_system()["month"] == Time.MONTH_APRIL and Time.get_datetime_dict_from_system()["day"] == 1
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer/OptionLanguage.selected = 1 if Configurator.get_config("translate", false) else 0
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckFools.visible = Time.get_datetime_dict_from_system()["month"] == Time.MONTH_APRIL and Time.get_datetime_dict_from_system()["day"] == 1
 
 	if Configurator.get_config("remember_view", false):
 		$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckRemember.button_pressed = true
@@ -159,36 +162,40 @@ func _recalculate_installs_title() -> void:
 	#var total_mb_str = str(snapped(InstallsIndex.get_total_installs_size(), 0.01))
 	var total_size_str = InstallsIndex.mb_to_string(InstallsIndex.get_total_installs_size())
 	label_usage_disk.text = total_size_str
-	label_usage_installs.text = tr_n("{count} install", "{count} installs", 2).format({count = str(installs_tree.item_count)})
+	label_usage_installs.text = tr_n("{count} install", "{count} installs", installs_tree_item_count).format({count = installs_tree_item_count})
 
 
 func _repopulate_installs_tree() -> void:
-	installs_tree.clear()
+	for child in installs_tree_list.get_children():
+		child.queue_free()
 	_recalculate_installs_title()
-
+	var group = ButtonGroup.new()
+	var i = 0
+	
 	for install in InstallsIndex.index.installs:
+		var element: StorageUsageElement = storage_element.instantiate()
 		var mb_str = "?"
 		if install.has("size") and install.size > 0:
 			mb_str = ("> " + str(install.size/1024/1024)) if install.size > 1000000 else str(install.size)
 		var mod_data: ModData = ContentGetter.get_local_moddata(install.mod_id)
 		if mod_data == null:
-			installs_tree.add_item(install.mod_id + "          \n" + \
-				install.version + " - " + install.platform + "          \n" + \
-				mb_str + " MB"
-			)
+			element.set_info(install.mod_id, install.version + " (" + install.platform + ")", mb_str + " MB")
 		else:
-			installs_tree.add_item(mod_data.name + "          \n" + \
-				install.version + " - " + install.platform + "          \n" + \
-				mb_str + " MB",
-				mod_data.cover_image if mod_data.icon == null else mod_data.icon
-			)
-
+			element.set_info(mod_data.name, install.version + " (" + install.platform + ")", mb_str + " MB", mod_data.cover_image if mod_data.icon == null else mod_data.icon)
+		element.button_group = group
+		element.n_id = i
+		installs_tree_list.add_child(element)
+		element.pressed.connect(_on_tree_item_selected.bind(element))
+		element.focus_next = NodePath("../../../../ContainerButtons/ButtonLaunch")
+		i += 1
+	
+	installs_tree_item_count = i
 	#installs_tree.move_item(header_index, 0)
 	button_browse.disabled = true
 	button_launch.disabled = true
 	button_uninstall.disabled = true
 	button_find.disabled = true
-	label_usage_installs.text = tr_n("{count} install", "{count} installs", 2).format({count = str(installs_tree.item_count)})
+	label_usage_installs.text = tr_n("{count} install", "{count} installs", installs_tree_item_count).format({count = installs_tree_item_count})
 
 
 func _on_mod_opened(idx: String) -> bool:
@@ -299,7 +306,8 @@ func recalculate_focused_node() -> void:
 			else:
 				input_search.grab_focus.call_deferred()
 		2:
-			installs_tree.grab_focus.call_deferred()
+			if installs_tree_list.get_child_count() > 0:
+				installs_tree_list.get_child(0).grab_focus.call_deferred()
 		3:
 			$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList.grab_focus.call_deferred()
 
@@ -314,10 +322,12 @@ func _on_check_button_3_toggled(button_pressed: bool) -> void:
 	requires_game_viewer_ui_reload = true
 
 
-func _on_tree_item_selected(index: int) -> void:
+func _on_tree_item_selected(button: StorageUsageElement) -> void:
+	var index = button.n_id
 	selected_install = InstallsIndex.index.installs[index]
 	if selected_install == {}: return
-
+	
+	focused_storage_usage_item = button
 	selected_install["tree_item_id"] = index
 	button_browse.disabled = false
 	button_launch.disabled = false
@@ -336,12 +346,13 @@ func _on_item_list_item_activated(index: int) -> void:
 func _on_button_uninstall_pressed() -> void:
 	if selected_install == {}: return
 	InstallsIndex.uninstall(selected_install.mod_id, selected_install.version, selected_install.platform)
-	installs_tree.remove_item(selected_install["tree_item_id"])
+	focused_storage_usage_item.queue_free()
 	button_browse.disabled = true
 	button_launch.disabled = true
 	button_uninstall.disabled = true
 	button_find.disabled = true
 
+	installs_tree_item_count -= 1
 	_recalculate_installs_title()
 	requires_game_viewer_ui_reload = true
 

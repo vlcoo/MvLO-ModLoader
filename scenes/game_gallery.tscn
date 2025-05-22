@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=48 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" uid="uid://cr5uryoa5e2cs" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bvq8iiiix7d1e" path="res://audiovisual/banner.png" id="7_n2qau"]
 [ext_resource type="Texture2D" uid="uid://hpn6y6575siv" path="res://audiovisual/calendar.png" id="8_m6xmm"]
 [ext_resource type="Texture2D" uid="uid://gvpch1sk8glo" path="res://audiovisual/list.png" id="11_2jt2q"]
+[ext_resource type="PackedScene" uid="uid://dl8wqqvgo6yu6" path="res://scenes/storage_usage_element.tscn" id="11_a6eo1"]
 [ext_resource type="StyleBox" uid="uid://fjly8m12eag0" path="res://ui_resources/style_focus.tres" id="12_2scfd"]
 [ext_resource type="Texture2D" uid="uid://fn3v6mdi2k3x" path="res://audiovisual/puzzle-eye.png" id="12_lymde"]
 [ext_resource type="Texture2D" uid="uid://74b3ldxbhu2m" path="res://audiovisual/database-eye.png" id="13_8dqhh"]
@@ -42,6 +43,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lxkal"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2scfd"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_a6eo1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4mjw"]
 content_margin_left = 16.0
@@ -340,6 +343,7 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="ItemList" type="ItemList" parent="Storage Usage/MarginContainer/VBoxContainer/Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -365,6 +369,34 @@ theme_override_styles/selected = SubResource("StyleBoxEmpty_2scfd")
 theme_override_styles/selected_focus = ExtResource("12_2scfd")
 fixed_column_width = 780
 fixed_icon_size = Vector2i(16, 16)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Storage Usage/MarginContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+script = ExtResource("3_btgm0")
+speed = 10.0
+damping_scroll = 0.5
+damping_drag = 0.5
+friction_scroll = 0.85
+friction_drag = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("11_a6eo1")]
+visible = false
+layout_mode = 2
+button_group = SubResource("ButtonGroup_a6eo1")
 
 [node name="ContainerButtons" type="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -441,6 +473,7 @@ one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="."]
 visible = false
+clip_contents = true
 layout_mode = 2
 metadata/_tab_index = 3
 
@@ -652,10 +685,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.8
-focus_neighbor_left = NodePath("../../../../VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
+focus_neighbor_left = NodePath("../../../../../ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement/ButtonChooseMod")
 focus_neighbor_top = NodePath("../../../CheckAutoSubscribe")
-focus_neighbor_right = NodePath("../../../../VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
-focus_neighbor_bottom = NodePath("../../../ContainerLanguage/HBoxContainer/OptionLanguage")
+focus_neighbor_right = NodePath("../../../../VBoxContainer2/ContainerLanguage/HBoxContainer/OptionLanguage")
+focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxTexture_2uwqy")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_gp1dw")
@@ -663,46 +696,23 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_3dta
 max_value = 360.0
 value = 360.0
 
-[node name="ContainerLanguage" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CheckFools" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage"]
-layout_mode = 2
-tooltip_text = "Translate app's text."
-theme_override_constants/separation = 13
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage/HBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("23_lxkal")
-
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.56
-text = "Language"
-vertical_alignment = 1
-
-[node name="OptionLanguage" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.9
-focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath("../../../ContainerTheme/HBoxContainer/HSlider")
-focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
-mouse_filter = 1
-selected = 0
-item_count = 2
-popup/item_0/text = "English"
-popup/item_0/id = 0
-popup/item_1/text = "Automatic region"
-popup/item_1/id = 1
+tooltip_text = "If a mod contains Toadette as a playable character,
+make it impossible to choose her."
+focus_neighbor_left = NodePath("../CheckAutoSubscribe")
+focus_neighbor_top = NodePath("../../VBoxContainer2/CheckDiscord")
+focus_neighbor_right = NodePath("../CheckAutoSubscribe")
+focus_neighbor_bottom = NodePath("../../../ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement/ButtonChooseMod")
+theme_override_constants/h_separation = 14
+disabled = true
+button_pressed = true
+text = "Remove Toadette from all mods"
+icon = ExtResource("27_lxkal")
 
 [node name="VSeparator" type="VSeparator" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -754,77 +764,51 @@ and restore it back when closing that mod."
 focus_neighbor_left = NodePath("../../VBoxContainer/CheckAutoSubscribe")
 focus_neighbor_top = NodePath("../CheckDiscord")
 focus_neighbor_right = NodePath("../../VBoxContainer/CheckAutoSubscribe")
-focus_neighbor_bottom = NodePath("../ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
+focus_neighbor_bottom = NodePath("../ContainerLanguage/HBoxContainer/OptionLanguage")
 theme_override_constants/h_separation = 14
 text = "Hide window when launching a mod"
 icon = ExtResource("19_t4233")
 
-[node name="ContainerVanillaReplacement" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="ContainerLanguage" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage"]
 layout_mode = 2
-tooltip_text = "Which mod to show in place of the vanilla game."
-theme_override_constants/separation = 8
+tooltip_text = "Translate app's text."
+theme_override_constants/separation = 13
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("25_5f5dk")
+texture = ExtResource("23_lxkal")
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.33
-text = "'Vanilla' tab"
+size_flags_stretch_ratio = 0.56
+text = "Language"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
+[node name="OptionLanguage" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-size_flags_stretch_ratio = 0.7
-focus_mode = 0
-mouse_filter = 1
-text = "[No change]"
-editable = false
-context_menu_enabled = false
-virtual_keyboard_enabled = false
-shortcut_keys_enabled = false
-middle_mouse_paste_enabled = false
-
-[node name="ButtonChooseMod" type="Button" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.9
 focus_neighbor_left = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
 focus_neighbor_top = NodePath("../../../CheckMinimize")
 focus_neighbor_right = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
 focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
-text = "Choose mod"
-
-[node name="CheckFools" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
-visible = false
-custom_minimum_size = Vector2(440, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-tooltip_text = "If a mod contains Toadette as a playable character,
-make it impossible to choose her."
-focus_neighbor_left = NodePath("../../VBoxContainer/CheckAutoSubscribe")
-focus_neighbor_top = NodePath("../CheckDiscord")
-focus_neighbor_right = NodePath("../../VBoxContainer/CheckAutoSubscribe")
-focus_neighbor_bottom = NodePath("../ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
-theme_override_constants/h_separation = 14
-disabled = true
-button_pressed = true
-text = "Remove Toadette from all mods"
-icon = ExtResource("27_lxkal")
+mouse_filter = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Automatic region"
+popup/item_1/id = 1
 
 [node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 visible = false
@@ -843,7 +827,7 @@ custom_minimum_size = Vector2(820, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_left = NodePath("VBoxContainer/ContainerLocation/ButtonChooseFolder")
-focus_neighbor_top = NodePath("../HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod")
+focus_neighbor_top = NodePath("VBoxContainer/ContainerVanillaReplacement/ButtonChooseMod")
 focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("VBoxContainer/ContainerLocation/ButtonChooseFolder")
 folded = true
@@ -898,16 +882,62 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 focus_neighbor_top = NodePath("../../..")
-focus_neighbor_bottom = NodePath("../../ContainerArgsWin/LineEdit")
-text = "Choose folder"
+focus_neighbor_bottom = NodePath("../../ContainerVanillaReplacement/ButtonChooseMod")
+text = "Choose folder..."
 
 [node name="ButtonClear" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation"]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
+size_flags_horizontal = 4
 text = "Clear
 "
+
+[node name="ContainerVanillaReplacement" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer"]
+custom_minimum_size = Vector2(700, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Which mod to show in place of the vanilla game."
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("25_5f5dk")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.33
+text = "'Vanilla' tab"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+size_flags_stretch_ratio = 0.7
+focus_mode = 0
+mouse_filter = 1
+text = "[No change]"
+editable = false
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="ButtonChooseMod" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+focus_neighbor_left = NodePath("../../../../HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
+focus_neighbor_top = NodePath("../../ContainerLocation/ButtonChooseFolder")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
+focus_neighbor_bottom = NodePath("../../ContainerArgsWin/LineEdit")
+text = "Choose mod..."
 
 [node name="ContainerArgsWin" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer"]
 custom_minimum_size = Vector2(700, 40)
@@ -931,7 +961,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
-focus_neighbor_top = NodePath("../../ContainerLocation/ButtonChooseFolder")
+focus_neighbor_top = NodePath("../../ContainerVanillaReplacement/ButtonChooseMod")
 focus_neighbor_bottom = NodePath("../../ContainerArgsLinux/LineEdit")
 mouse_filter = 1
 placeholder_text = "None"
@@ -1104,6 +1134,8 @@ tooltip_text = "Restore above options to the default values."
 text = "Reset settings"
 
 [node name="FileDialog" type="FileDialog" parent="Settings"]
+gui_embed_subwindows = true
+oversampling_override = 1.0
 title = "Open a Directory"
 size = Vector2i(700, 400)
 min_size = Vector2i(700, 400)
@@ -1134,14 +1166,14 @@ access = 2
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="drag_ended" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerLanguage/HBoxContainer/OptionLanguage" to="." method="_on_option_language_item_selected"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckRemember" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckDiscord" to="." method="_on_check_button_4_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckMinimize" to="." method="_on_check_button_5_toggled"]
-[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerVanillaReplacement/HBoxContainer/ButtonChooseMod" to="." method="_on_button_choose_mod_pressed"]
+[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer/OptionLanguage" to="." method="_on_option_language_item_selected"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/ButtonChooseFolder" to="." method="_on_button_choose_folder_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/ButtonClear" to="." method="_on_button_clear_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement/ButtonChooseMod" to="." method="_on_button_choose_mod_pressed"]
 [connection signal="text_changed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsWin/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="text_changed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux/LineEdit" to="." method="_on_line_edit_2_text_submitted"]
 [connection signal="text_changed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac/LineEdit" to="." method="_on_line_edit_3_text_submitted"]

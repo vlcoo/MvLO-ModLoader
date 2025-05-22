@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl8wqqvgo6yu6"]
+
+[ext_resource type="Script" uid="uid://b23yusw6ddcgt" path="res://scenes/storage_usage_element.gd" id="1_oa0fv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilcrj"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.788235, 0.780392, 0.796078, 0.0862745)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+anti_aliasing_size = 0.3
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_shh82"]
+size = Vector2(32, 32)
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(826, 36)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -10.0
+offset_right = 10.0
+offset_bottom = 32.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+theme_override_styles/hover = SubResource("StyleBoxFlat_ilcrj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ilcrj")
+toggle_mode = true
+script = ExtResource("1_oa0fv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TextureIcon" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_shh82")
+expand_mode = 1
+
+[node name="LabelName" type="Label" parent="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.56
+text = "New Super Mario Bros. Versus New Super Mario Bros. Versus New Super Mario Bros. Versus "
+text_overrun_behavior = 3
+max_lines_visible = 1
+
+[node name="LabelVersionPlatform" type="Label" parent="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "New Super Mario Bros. Versus New Super Mario Bros. Versus New Super Mario Bros. Versus "
+text_overrun_behavior = 3
+max_lines_visible = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="LabelSize" type="Label" parent="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+text = "135 MB"
+horizontal_alignment = 2

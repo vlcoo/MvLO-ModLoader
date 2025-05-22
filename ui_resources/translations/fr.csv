@@ -1,0 +1,179 @@
+en,fr
+Vanilla,Vanille
+Mod Gallery,Galerie de mods
+Storage Usage,Utilisation du stockage
+Settings,Paramètres
+,
+Played for {time} {unit}.,Joué pendant {time} {unit}.
+minute,minute
+minutes,minutes
+hour,heure
+hours,heures
+Played for a few seconds.,Joué pendant quelques secondes.
+Never played.,Jamais joué.
+Subscribe for updates,Abonnez-vous pour recevoir des mises à jour
+Install,Installer
+Uninstall,Désinstaller
+Launch,Lancement
+Browse files,Parcourir les fichiers
+Never updated,Jamais mis à jour
+Loading...,Chargement...
+Closing game...,Jeu de clôture...
+Based on version {version}.,Basé sur la version {version}.
+Kill process,Processus de mise à mort
+No data!,Aucune donnée !
+Anonymous,Anonyme
+,
+Search:,Recherche:
+Mod name...,Nom du mod...
+Sort:,Trier:
+Alphabetically,Alphabétiquement
+By most played,Par le plus joué
+By recently updated,Par récemment mis à jour
+Only installed,Installé uniquement
+Only favourites,Uniquement les favoris
+No results!,Aucun résultat !
+[center][img]res://audiovisual/search-delete.png[/img]    Try resetting the filters above...,[center][img]res://audiovisual/search-delete.png[/img] Essayez de réinitialiser les filtres ci-dessus...
+,
+{count} install,{count} installer
+{count} installs,{count} installations
+Find in gallery,Trouver dans la galerie
+,
+"A simple way to keep your mods organized and up to date.
+
+[color=#ffffff8b]by vlco_o - aka vic[/color]","Un moyen simple de garder vos mods organisés et à jour.
+
+[color=#ffffff8b]par vlco_o - alias vic[/color]"
+by {name},par {nom}
+Use list view for mod gallery,Utiliser la vue liste pour la galerie de mods
+Show all platforms,Afficher toutes les plateformes
+Auto subscribe to updates,Abonnez-vous automatiquement aux mises à jour
+Theme colour,Couleur du thème
+Open last viewed tab on restart,Ouvrir le dernier onglet consulté au redémarrage
+Discord Game Activity (auto),Activité de jeu Discord (auto)
+Hide window when launching a mod,Masquer la fenêtre lors du lancement d'un mod
+'Vanilla' tab,Onglet « Vanille »
+[No change],[Aucun changement]
+Choose mod...,Choisissez le mod...
+Advanced,Avancé
+Install location,Emplacement d'installation
+Choose folder...,Choisir un dossier...
+Extra args for {extension},Arguments supplémentaires pour {extension}
+Troubleshooting,Dépannage
+Refresh DB,Actualiser la base de données
+Uninstall all mods,Désinstaller tous les mods
+Show logs,Afficher les journaux
+Fix vanilla,Réparer la vanille
+Restarting...,Redémarrage...
+Language,Langue
+Automatic region,Région automatique
+English,Anglais
+,
+[center][wave amp=36]Starting up...,[centre][wave amp=36]Démarrage...
+[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Checking for updates,[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img] Vérification des mises à jour
+[center][wave amp=36]Installing mod...,[centre][wave amp=36]Installation du mod...
+[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   Please hold,[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img] Veuillez patienter
+[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   {count} out of {total} MB downloaded,[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img] {count} sur {total} Mo téléchargés
+[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   Extracting files,[centre][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img] Extraction des fichiers
+,
+Can't install game!,Impossible d'installer le jeu !
+Game currently not available.,Jeu actuellement indisponible.
+Something went wrong,Quelque chose s'est mal passé
+Some info might be out of date.,Certaines informations peuvent être obsolètes.
+DB server unreachable.,Serveur de base de données inaccessible.
+Please try again later!,Veuillez réessayer plus tard !
+OK,D'ACCORD
+Confirm,Confirmer
+Cancel,Annuler
+Warning,Avertissement
+Alert!,Alerte!
+Success,Succès
+"Game servers are down or unreachable at the moment.
+Vanilla and mods might be affected.",Les serveurs de jeu sont actuellement hors service ou inaccessibles. Vanilla et les mods pourraient être affectés.
+"Mod not found in the gallery!
+It might've become unavailable since you've last installed it.",Mod introuvable dans la galerie ! Il est peut-être devenu indisponible depuis votre dernière installation.
+Please select an empty folder.,Veuillez sélectionner un dossier vide.
+No downloads found.,Aucun téléchargement trouvé.
+No downloads found for your OS.,Aucun téléchargement trouvé pour votre système d'exploitation.
+"Try enabling ""Show all platforms"" in Settings!",Essayez d'activer « Afficher toutes les plateformes » dans les paramètres !
+"Sorry, this mod is not compatible.
+Please try another version or visit its website and install it manually.","Désolé, ce mod n'est pas compatible. Veuillez essayer une autre version ou visiter son site web et l'installer manuellement."
+Empty archive.,Archives vides.
+Couldn't find an executable in the downloaded files. 'Launch' will not work.,Impossible de trouver un exécutable dans les fichiers téléchargés. « Lancer » ne fonctionnera pas.
+Couldn't launch game!,Impossible de lancer le jeu !
+"Maybe it's corrupted?
+Please try reinstalling this mod.","Peut-être qu'il est corrompu ?
+Veuillez essayer de réinstaller ce mod."
+"Maybe it's not built for your type of device?
+Please choose another version.","Peut-être n'est-il pas conçu pour votre type d'appareil ?
+Veuillez choisir une autre version."
+"Maybe it's corrupted or incompatible?
+Please visit this mod's website and try installing it manually.","Peut-être est-il corrompu ou incompatible ?
+Veuillez visiter le site web de ce mod et essayer de l'installer manuellement."
+"A problem happened and some files might've not been deleted successfully.
+Maybe the game is still running, or your device's Recycle Bin is full?","Un problème est survenu et certains fichiers n'ont peut-être pas été supprimés correctement.
+Le jeu est peut-être toujours en cours d'exécution ou la corbeille de votre appareil est pleine ?"
+"Please select a folder as the location for any future installs.
+Watch out, the previous install location and its contents will be deleted!","Veuillez sélectionner un dossier comme emplacement pour vos futures installations. Attention, l'emplacement d'installation précédent et son contenu seront supprimés !"
+"Please choose the mod you want to see in the 'Vanilla' tab.
+Come back to Settings to cancel the operation.","Veuillez sélectionner le mod souhaité dans l'onglet « Vanilla ».
+Retournez aux Paramètres pour annuler l'opération."
+"This mod is not vanilla compatible (it doesn't share the same servers and playerbase) - proceed at your own discretion.
+You can revert this change by re-choosing 'New Super Mario Bros. Versus' for this setting.","Ce mod n'est pas compatible avec la version vanilla (il ne partage pas les mêmes serveurs ni la même base de joueurs) ; procédez comme vous le souhaitez.
+
+Vous pouvez annuler cette modification en sélectionnant à nouveau « New Super Mario Bros. Versus » pour ce paramètre."
+App will reboot now to apply changes.,L'application va maintenant redémarrer pour appliquer les modifications.
+{count} new mods have been added since the last time you checked!,{count} nouveaux mods ont été ajoutés depuis la dernière fois que vous avez vérifié !
+"New updates for mods you're subscribed to!
+{mods}",Nouvelles mises à jour pour les mods auxquels vous êtes abonnés !
+"This will reset your character to Mario in vanilla MvLO to attempt fixing this problem.
+Please only do this once and if you're actually having issues.","Cela réinitialisera votre personnage à Mario dans MvLO pour tenter de résoudre ce problème.
+Veuillez ne procéder qu'une seule fois, et seulement si vous rencontrez réellement des problèmes."
+"This operation will open the following website using your default browser:
+{url}
+Continue?","Cette opération ouvrira le site web suivant dans votre navigateur par défaut :
+{url}
+Continuer ?"
+New update available!,Nouvelle mise à jour disponible !
+Date:,Date:
+Changelog:,Journal des modifications :
+Please download the new release.,Veuillez télécharger la nouvelle version.
+,
+Notify when a new release for this mod has been uploaded.,Avertissez-moi lorsqu'une nouvelle version de ce mod a été téléchargée.
+Write down a keyword to filter mods by.,Écrivez un mot-clé pour filtrer les mods.
+Order of elements below (descending).,Ordre des éléments ci-dessous (décroissant).
+Don't show mods you haven't installed.,N'affichez pas les mods que vous n'avez pas installés.
+Don't show mods you haven't starred.,N'affichez pas les mods que vous n'avez pas mis en vedette.
+Back,Dos
+Mark mod as favourite,Marquer le mod comme favori
+Thanks for the support!,Merci pour le soutien !
+Built on the {date},Construit le {date}
+Visit this project's GitHub repo.,Visitez le dépôt GitHub de ce projet.
+"Show a list of small buttons in the 'Mod Gallery' tab
+instead of a grid of big buttons.","Afficher une liste de petits boutons dans l'onglet « Galerie des mods »
+au lieu d'une grille de gros boutons."
+"Include download options for any OS,
+even if they differ from your device's one.","Incluez des options de téléchargement pour n'importe quel système d'exploitation, même s'ils diffèrent de celui de votre appareil."
+"Enable 'new version' notifications
+for all mods you install from now on.","Activez les notifications de « nouvelle version »
+pour tous les mods que vous installez désormais."
+Change the visuals of the UI.,Modifiez les visuels de l'interface utilisateur.
+"Remember the screen you were viewing when exiting
+and re-open that one when booting up the app.",Souvenez-vous de l'écran que vous regardiez en quittant l'application et rouvrez-le au démarrage.
+"Provide rich presence for Discord
+for mods that don't implement it.","Offrez une présence enrichie sur Discord
+pour les modérateurs qui ne l'implémentent pas."
+"Minimize the app when opening a mod
+and restore it back when closing that mod.",Réduisez l'application à l'ouverture d'un mod et restaurez-la à la fermeture de ce mod.
+Custom folder to install mods to.,Dossier personnalisé pour installer les mods.
+"If a mod built for {os} is launched,
+use these extra parameters before the filename when executing the command.
+i.e.: {example}","Si un mod créé pour {os} est lancé, utilisez ces paramètres supplémentaires avant le nom du fichier lors de l'exécution de la commande.
+Par exemple : {exemple}"
+Force update of database (mod data and images) and reboot program.,Forcer la mise à jour de la base de données (données du mod et images) et redémarrer le programme.
+"Uninstall every single mod, including vanilla.","Désinstallez tous les mods, y compris vanilla."
+Open the folder containing debug log files.,Ouvrez le dossier contenant les fichiers journaux de débogage.
+Which mod to show in place of the vanilla game.,Quel mod montrer à la place du jeu vanilla.
+"Some mods might brick vanilla by giving you an invalid character.
+This option will attempt to automatically fix this.",Certains mods peuvent bloquer le jeu vanilla en vous donnant un personnage invalide. Cette option tentera de résoudre automatiquement ce problème.
+Translate app's text.,Traduire le texte de l'application.

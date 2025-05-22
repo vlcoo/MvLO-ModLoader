@@ -21,6 +21,7 @@ const TEMPLATE_SUBTITLE := "[img]res://audiovisual/person.png[/img]  %s\n[img]re
 var nodata_texture: Texture2D = preload("res://audiovisual/nodata.png")
 var discord_texture: Texture2D = preload("res://audiovisual/discord.png")
 var code_texture: Texture2D = preload("res://audiovisual/code.png")
+var version_texture: Texture2D = preload("res://audiovisual/version.png")
 var website_texture: Texture2D = preload("res://audiovisual/website.png")
 var platform_apple_texture: Texture2D = preload("res://audiovisual/apple.png")
 var platform_linux_texture: Texture2D = preload("res://audiovisual/linux.png")
@@ -86,7 +87,7 @@ func refresh_mod_data() -> bool:
 		label_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	#item_list.add_item(mod_data.description, mod_data.icon, false)
 	#else: item_list.add_item("Description unavailable.", null, false)
-	if mod_data_id != "vanilla" and mod_data.base_version != "": item_list.add_item(tr("Based on version {version}.").format({version = mod_data.base_version}), null, false)
+	if mod_data_id != "vanilla" and mod_data.base_version != "": item_list.add_item(tr("Based on version {version}.").format({version = mod_data.base_version}), version_texture, false)
 	if mod_data.link_main_website != "": item_list.add_item(mod_data.link_main_website, website_texture, false)
 	if mod_data.link_source_code != "": item_list.add_item(mod_data.link_source_code, code_texture, false)
 	for server in mod_data.link_discord:

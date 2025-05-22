@@ -5,6 +5,7 @@ enum ServerStatus {UP, DOWN}
 @onready var panel: Panel = $Panel
 @onready var texture: TextureRect = $Panel/TextureRect
 @onready var requester: HTTPRequest = $HTTPRequestGameServer
+@onready var timer_reping: Timer = $TimerReping
 
 const URL := "https://mariovsluigi.azurewebsites.net/ping"
 
@@ -31,6 +32,7 @@ func flash_down_hint() -> void:
 	var og_color = texture.modulate
 	tween.tween_property(texture, ^"modulate", Color.TRANSPARENT, 1).from_current().set_trans(Tween.TRANS_EXPO)
 	tween.finished.connect(func(): texture.modulate = og_color)
+	timer_reping.start()
 
 
 func _on_http_request_game_server_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
@@ -38,3 +40,7 @@ func _on_http_request_game_server_request_completed(result: int, response_code: 
 		status = ServerStatus.DOWN
 	else:
 		status = ServerStatus.UP
+
+
+func _on_timer_reping_timeout() -> void:
+	check_server_status()

@@ -1,0 +1,178 @@
+en,ja
+Vanilla,バニラ
+Mod Gallery,モッドギャラリー
+Storage Usage,ストレージ使用量
+Settings,設定
+,
+Played for {time} {unit}.,{time} {unit} 間プレイしました。
+minute,分
+minutes,分
+hour,時間
+hours,時間
+Played for a few seconds.,数秒間再生されました。
+Never played.,一度もプレイしたことがありません。
+Subscribe for updates,最新情報を購読する
+Install,インストール
+Uninstall,アンインストール
+Launch,打ち上げ
+Browse files,ファイルを閲覧する
+Never updated,更新されない
+Loading...,読み込み中...
+Closing game...,試合終了…
+Based on version {version}.,バージョン {version} に基づきます。
+Kill process,プロセスを強制終了する
+No data!,データがありません!
+Anonymous,匿名
+,
+Search:,検索：
+Mod name...,モッド名...
+Sort:,選別：
+Alphabetically,アルファベット順
+By most played,最もプレイされた
+By recently updated,最近更新された
+Only installed,インストールのみ
+Only favourites,お気に入りのみ
+No results!,結果がありません!
+[center][img]res://audiovisual/search-delete.png[/img]    Try resetting the filters above...,[center][img]res://audiovisual/search-delete.png[/img] 上記のフィルターをリセットしてみてください...
+,
+{count} install,{count} インストール
+{count} installs,{count} インストール
+Find in gallery,ギャラリーで検索
+,
+"A simple way to keep your mods organized and up to date.
+
+[color=#ffffff8b]by vlco_o - aka vic[/color]","MODを整理して最新の状態に保つための簡単な方法。
+
+[color=#ffffff8b]vlco_o - 別名vic[/color]"
+by {name},{名前}より
+Use list view for mod gallery,MODギャラリーのリスト表示を使用する
+Show all platforms,すべてのプラットフォームを表示
+Auto subscribe to updates,更新情報を自動購読する
+Theme colour,テーマカラー
+Open last viewed tab on restart,再起動時に最後に表示したタブを開く
+Discord Game Activity (auto),Discord ゲームアクティビティ (自動)
+Hide window when launching a mod,MOD起動時にウィンドウを非表示にする
+'Vanilla' tab,「バニラ」タブ
+[No change],[変更なし]
+Choose mod...,モードを選択...
+Advanced,高度な
+Install location,インストール場所
+Choose folder...,フォルダを選択...
+Extra args for {extension},{extension} の追加引数
+Troubleshooting,トラブルシューティング
+Refresh DB,DBを更新
+Uninstall all mods,すべてのMODをアンインストールする
+Show logs,ログを表示
+Fix vanilla,バニラを修正
+Restarting...,再起動しています...
+Language,言語
+Automatic region,自動領域
+English,英語
+,
+[center][wave amp=36]Starting up...,[center][wave amp=36]起動中...
+[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Checking for updates,[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img] アップデートを確認しています
+[center][wave amp=36]Installing mod...,[center][wave amp=36]mod をインストールしています...
+[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   Please hold,[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img] しばらくお待ちください
+[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   {count} out of {total} MB downloaded,[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img] ダウンロードされたMB数：{count} / {total} MB
+[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img]   Extracting files,[center][img width=16 color=#ffffff8b]res://audiovisual/{img}.png[/img] ファイルの抽出
+,
+Can't install game!,ゲームをインストールできません!
+Game currently not available.,ゲームは現在利用できません。
+Something went wrong,問題が発生しました
+Some info might be out of date.,一部の情報は古くなっている可能性があります。
+DB server unreachable.,DB サーバーにアクセスできません。
+Please try again later!,後でもう一度お試しください。
+OK,わかりました
+Confirm,確認する
+Cancel,キャンセル
+Warning,警告
+Alert!,警告!
+Success,成功
+"Game servers are down or unreachable at the moment.
+Vanilla and mods might be affected.",現在、ゲームサーバーがダウンしているか、アクセスできません。VanillaおよびMODに影響が出る可能性があります。
+"Mod not found in the gallery!
+It might've become unavailable since you've last installed it.","ギャラリーにModが見つかりません！
+最後にインストールしてから利用できなくなった可能性があります。"
+Please select an empty folder.,空のフォルダを選択してください。
+No downloads found.,ダウンロードが見つかりません。
+No downloads found for your OS.,ご使用の OS 用のダウンロードが見つかりません。
+"Try enabling ""Show all platforms"" in Settings!",設定で「すべてのプラットフォームを表示」を有効にしてみてください。
+"Sorry, this mod is not compatible.
+Please try another version or visit its website and install it manually.","申し訳ございませんが、このMODは互換性がありません。
+別のバージョンを試すか、ウェブサイトにアクセスして手動でインストールしてください。"
+Empty archive.,空のアーカイブ。
+Couldn't find an executable in the downloaded files. 'Launch' will not work.,ダウンロードしたファイル内に実行ファイルが見つかりませんでした。「起動」は機能しません。
+Couldn't launch game!,ゲームを起動できませんでした!
+"Maybe it's corrupted?
+Please try reinstalling this mod.","破損している可能性がありますか？
+このMODを再インストールしてみてください。"
+"Maybe it's not built for your type of device?
+Please choose another version.",お使いのデバイスに対応していない可能性があります。別のバージョンを選択してください。
+"Maybe it's corrupted or incompatible?
+Please visit this mod's website and try installing it manually.","破損しているか互換性がない可能性がありますか？
+このMODのウェブサイトにアクセスして、手動でインストールしてみてください。"
+"A problem happened and some files might've not been deleted successfully.
+Maybe the game is still running, or your device's Recycle Bin is full?","問題が発生したため、一部のファイルが正常に削除されなかった可能性があります。
+ゲームがまだ実行中か、デバイスのゴミ箱がいっぱいになっている可能性があります。"
+"Please select a folder as the location for any future installs.
+Watch out, the previous install location and its contents will be deleted!","今後のインストール先としてフォルダを選択してください。
+以前のインストール場所とその内容は削除されるので注意してください。"
+"Please choose the mod you want to see in the 'Vanilla' tab.
+Come back to Settings to cancel the operation.","「Vanilla」タブで表示したいMODを選択してください。
+操作をキャンセルするには設定に戻ってください。"
+"This mod is not vanilla compatible (it doesn't share the same servers and playerbase) - proceed at your own discretion.
+You can revert this change by re-choosing 'New Super Mario Bros. Versus' for this setting.","このMODはバニラ版と互換性がありません（同じサーバーとプレイヤーベースを共有しません）。ご自身の判断で進めてください。
+この設定で「New Super Mario Bros. Versus」を再度選択することで、この変更を元に戻すことができます。"
+App will reboot now to apply changes.,変更を適用するためにアプリが再起動します。
+{count} new mods have been added since the last time you checked!,前回確認してから {count} 個の新しい MOD が追加されました。
+"New updates for mods you're subscribed to!
+{mods}","登録しているMODの新着アップデート！
+{mods}"
+"This will reset your character to Mario in vanilla MvLO to attempt fixing this problem.
+Please only do this once and if you're actually having issues.","これにより、バニラのMvLOでキャラクターがマリオにリセットされ、問題の解決が試みられます。
+実際に問題が発生している場合にのみ、この操作を一度だけ実行してください。"
+"This operation will open the following website using your default browser:
+{url}
+Continue?","この操作により、デフォルトのブラウザを使用して次のウェブサイトが開きます: {url}
+続行しますか?"
+New update available!,新しいアップデートが利用可能です!
+Date:,日付：
+Changelog:,変更履歴:
+Please download the new release.,新しいリリースをダウンロードしてください。
+,
+Notify when a new release for this mod has been uploaded.,この MOD の新しいリリースがアップロードされたときに通知します。
+Write down a keyword to filter mods by.,MOD をフィルタリングするためのキーワードを書き留めます。
+Order of elements below (descending).,以下の要素の順序（降順）。
+Don't show mods you haven't installed.,インストールしていない MOD は表示しません。
+Don't show mods you haven't starred.,スターを付けていない MOD は表示しません。
+Back,戻る
+Mark mod as favourite,このMODをお気に入りとしてマークする
+Thanks for the support!,ご支援ありがとうございます！
+Built on the {date},{日付}に建てられました
+Visit this project's GitHub repo.,このプロジェクトの GitHub リポジトリにアクセスしてください。
+"Show a list of small buttons in the 'Mod Gallery' tab
+instead of a grid of big buttons.",「Modギャラリー」タブに、大きなボタンのグリッドではなく、小さなボタンのリストを表示します。
+"Include download options for any OS,
+even if they differ from your device's one.",デバイスのOSと異なる場合でも、あらゆるOSのダウンロードオプションを含めます。
+"Enable 'new version' notifications
+for all mods you install from now on.",今後インストールするすべてのMODについて、「新バージョン」通知を有効にします。
+Change the visuals of the UI.,UI のビジュアルを変更します。
+"Remember the screen you were viewing when exiting
+and re-open that one when booting up the app.",終了時に表示されていた画面を覚えておき、アプリを起動するときにその画面を再度開いてください。
+"Provide rich presence for Discord
+for mods that don't implement it.","Discord にリッチプレゼンス機能を提供します。
+実装していない MOD にもリッチプレゼンス機能を提供します。"
+"Minimize the app when opening a mod
+and restore it back when closing that mod.",MODを開くときにアプリを最小化し、MODを閉じるときにアプリを復元します。
+Custom folder to install mods to.,MOD をインストールするカスタム フォルダー。
+"If a mod built for {os} is launched,
+use these extra parameters before the filename when executing the command.
+i.e.: {example}","{os} 用にビルドされた mod を起動する場合は、コマンド実行時にファイル名の前に以下の追加パラメータを使用してください。
+例: {example}"
+Force update of database (mod data and images) and reboot program.,データベース（modデータとイメージ）を強制的に更新し、プログラムを再起動します。
+"Uninstall every single mod, including vanilla.",バニラを含むすべての mod をアンインストールします。
+Open the folder containing debug log files.,デバッグ ログ ファイルが含まれているフォルダーを開きます。
+Which mod to show in place of the vanilla game.,バニラ ゲームの代わりに表示する mod。
+"Some mods might brick vanilla by giving you an invalid character.
+This option will attempt to automatically fix this.",一部のMODでは、無効な文字が使用され、バニラが動作しなくなる可能性があります。このオプションは、これを自動的に修正します。
+Translate app's text.,アプリのテキストを翻訳します。

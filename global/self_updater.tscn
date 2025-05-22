@@ -6,8 +6,16 @@
 script = ExtResource("1_1cvwr")
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
+gui_embed_subwindows = true
+oversampling_override = 1.0
 title = "New update available!"
 initial_position = 2
-size = Vector2i(400, 100)
+size = Vector2i(600, 100)
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+download_chunk_size = 16384
+use_threads = true
+timeout = 10.0
 
 [connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

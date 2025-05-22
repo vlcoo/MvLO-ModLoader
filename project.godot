@@ -36,7 +36,7 @@ DiscordHandler="*res://global/DiscordHandler.cs"
 window/size/viewport_width=1024
 window/size/viewport_height=768
 window/energy_saving/keep_screen_on=false
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=6
 window/vsync/vsync_mode=0
@@ -141,7 +141,7 @@ pointing/android/enable_long_press_as_right_click=true
 [internationalization]
 
 locale/translation_remaps={}
-locale/translations=PackedStringArray("res://ui_resources/translations/de.po", "res://ui_resources/translations/es.po", "res://ui_resources/translations/fr.po", "res://ui_resources/translations/jp.po")
+locale/translations=PackedStringArray("res://ui_resources/translations/de.de.translation", "res://ui_resources/translations/es.es.translation", "res://ui_resources/translations/fr.fr.translation", "res://ui_resources/translations/ja.ja.translation")
 
 [network]
 

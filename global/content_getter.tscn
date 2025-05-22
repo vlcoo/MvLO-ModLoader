@@ -424,7 +424,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 tooltip_text = "Game servers are down or unreachable at the moment.
-Vanilla and Mods may be affected."
+Vanilla and mods might be affected."
 texture = ExtResource("8_uop1r")
 stretch_mode = 3
 
@@ -432,6 +432,10 @@ stretch_mode = 3
 download_chunk_size = 4096
 use_threads = true
 timeout = 4.0
+
+[node name="TimerReping" type="Timer" parent="ContainerStatusHint"]
+wait_time = 120.0
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -444,8 +448,10 @@ download_chunk_size = 16384
 use_threads = true
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
+gui_embed_subwindows = true
+oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(400, 100)
+size = Vector2i(600, 200)
 unresizable = true
 theme_type_variation = &"WindowDialog"
 dialog_autowrap = true
@@ -466,5 +472,6 @@ max_polyphony = 2
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="request_completed" from="ContainerStatusHint/HTTPRequestGameServer" to="ContainerStatusHint" method="_on_http_request_game_server_request_completed"]
+[connection signal="timeout" from="ContainerStatusHint/TimerReping" to="ContainerStatusHint" method="_on_timer_reping_timeout"]
 [connection signal="request_completed" from="HTTPRequestDB" to="." method="_on_requester_db_request_completed"]
 [connection signal="timeout" from="TimerControllerHint" to="." method="_on_timer_controller_hint_timeout"]

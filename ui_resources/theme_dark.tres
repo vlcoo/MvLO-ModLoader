@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=60 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" load_steps=62 format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
@@ -288,11 +288,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1, 1, 1, 0.164706)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+border_color = Color(1, 1, 1, 0.470588)
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_diew6"]
@@ -397,9 +393,27 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 anti_aliasing_size = 0.3
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u3p6n"]
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xrv0p"]
+color = Color(0.67451, 0.67451, 0.67451, 0.458824)
+thickness = 3
+vertical = true
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_df5m7"]
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bb4jt"]
+color = Color(0.67451, 0.67451, 0.67451, 0.458824)
+thickness = 3
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_5loqu"]
+color = Color(0.67451, 0.67451, 0.67451, 0.458824)
+thickness = 3
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xul1q"]
+color = Color(0.2, 0.2, 0.2, 0)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 2
+vertical = true
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_1oigc"]
 color = Color(1, 1, 1, 0.164706)
@@ -424,6 +438,8 @@ expand_margin_left = 4.0
 expand_margin_top = 32.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
+shadow_color = Color(0, 0, 0, 0.164706)
+shadow_size = 12
 anti_aliasing_size = 0.3
 
 [resource]
@@ -492,6 +508,7 @@ PanelOutlined/styles/panel = SubResource("StyleBoxFlat_u3gtb")
 PanelOverlay/base_type = &"Panel"
 PanelOverlay/styles/panel = SubResource("StyleBoxFlat_u4sau")
 PopupMenu/constants/h_separation = 8
+PopupMenu/constants/outline_size = 2
 PopupMenu/constants/v_separation = 8
 PopupMenu/icons/checked = ExtResource("1_pet3p")
 PopupMenu/icons/radio_checked = ExtResource("5_1cbqh")
@@ -534,8 +551,10 @@ TooltipLabel/colors/font_color = Color(0.129412, 0.129412, 0.129412, 1)
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_ht51p")
 Tree/styles/focus = SubResource("StyleBoxEmpty_j5wlx")
 Tree/styles/panel = SubResource("StyleBoxFlat_gvmny")
-VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_u3p6n")
-VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_df5m7")
+VScrollBar/styles/grabber = SubResource("StyleBoxLine_xrv0p")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxLine_bb4jt")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxLine_5loqu")
+VScrollBar/styles/scroll = SubResource("StyleBoxLine_xul1q")
 VSeparator/styles/separator = SubResource("StyleBoxLine_1oigc")
 Window/colors/title_color = Color(0.129412, 0.129412, 0.129412, 1)
 Window/constants/title_height = 32

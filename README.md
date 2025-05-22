@@ -24,3 +24,7 @@ Join the discord servers to keep up to date with its development, make feature s
 https://discord.gg/dgKVaUKpj5
 
 https://discord.gg/cKgE8dsV7t
+
+## Special Thanks
+
+Huge credits to @arianLust for the app's German translation.

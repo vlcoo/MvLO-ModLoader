@@ -14,6 +14,7 @@ const TEMPLATE_SUBTITLE := "[img]res://audiovisual/person.png[/img]  %s\n[img]re
 @onready var button_launch: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonLaunch
 @onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonUninstall
 @onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse
+@onready var button_files: MenuButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonFileMgmt
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var text_description: TextEdit = $PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/TextDescription
 @onready var texture_icon: TextureRect = $PanelOverview/CenterContainer/VBoxContainer/HBoxContainer/TextureIcon
@@ -50,6 +51,7 @@ func _ready() -> void:
 		refresh_mod_data()
 
 	Configurator.process_ended.connect(_on_mod_closed)
+	button_files.get_popup().id_pressed.connect(_on_button_files_id_pressed)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -236,7 +238,8 @@ func set_buttons_state(installed: bool, running: bool = false, launchable: bool 
 	button_uninstall.disabled = false
 	button_launch.visible = installed
 	button_launch.text = tr("Launch")
-	button_browse.visible = installed
+	#button_browse.visible = installed
+	button_files.visible = installed
 	button_launch.disabled = not launchable
 
 	button_uninstall.text = tr("Kill process") if running else tr("Uninstall")
@@ -344,3 +347,19 @@ func _on_mod_closed(process: ModProcess) -> void:
 func _on_button_favourite_toggled(toggled_on: bool) -> void:
 	Configurator.set_is_mod_favourite(mod_data_id, toggled_on)
 	done_critical_operation = true
+
+
+func _on_button_files_id_pressed(id: int) -> void:
+	match id:
+		1:
+			# shortcut to version directly
+			pass
+		2:
+			# shortcut to version through ml
+			pass
+		3:
+			# shortcut to viewer
+			pass
+		4:
+			# browse files
+			InstallsIndex.show_file_explorer(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))

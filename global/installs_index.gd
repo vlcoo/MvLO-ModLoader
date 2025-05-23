@@ -203,7 +203,7 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 		pid = OS.create_process(command, [globalized_path])
 	
 	if pid == -1:
-		warn(tr("Couldn't launch game!") + 
+		warn(tr("Couldn't launch game!") + " " +
 			(tr("Maybe it's not built for your type of device?\nPlease choose another version.")
 			if os_mismatch else
 			tr("Maybe it's corrupted or incompatible?\nPlease visit this mod's website and try installing it manually."))

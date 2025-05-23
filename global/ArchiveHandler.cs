@@ -34,7 +34,7 @@ public partial class ArchiveHandler : Node
 		}
 		catch (Exception e)
 		{
-			err = $"Extraction failed: {e.Message}";
+			err = $"C#: Extraction failed: {e.Message}";
 		}
 		
 		GD.Print("C#: Done.");

@@ -30,6 +30,7 @@ ContentGetter="*res://global/content_getter.tscn"
 InstallsIndex="*res://global/installs_index.tscn"
 ArchiveHandler="*res://global/ArchiveHandler.cs"
 DiscordHandler="*res://global/DiscordHandler.cs"
+OsTools="*res://global/OsTools.cs"
 
 [display]
 

@@ -114,6 +114,9 @@ mod_data_id = "vanilla"
 auto_refresh = false
 is_vanilla_tab = true
 
+[node name="ColorRect" parent="Vanilla/GameViewer" index="0"]
+visible = false
+
 [node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
 visible = false
 

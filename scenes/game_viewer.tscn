@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b3kkysnadc0mx"]
+[gd_scene load_steps=28 format=3 uid="uid://b3kkysnadc0mx"]
 
 [ext_resource type="Shader" uid="uid://d3da2mfirumpw" path="res://ui_resources/blurry_panel.gdshader" id="1_bqqot"]
 [ext_resource type="Script" uid="uid://c2n1nicuoubkq" path="res://scenes/game_viewer.gd" id="1_ojtji"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://dxea8wrkgxt1d" path="res://audiovisual/open.png" id="8_hdgmw"]
 [ext_resource type="Texture2D" uid="uid://dfwns4ra4x6ho" path="res://audiovisual/browse.png" id="9_pg5ns"]
 [ext_resource type="Script" uid="uid://b1raolcoapm07" path="res://scenes/focus_replacer.gd" id="11_w47wk"]
+[ext_resource type="Texture2D" uid="uid://c5h1020ad40as" path="res://audiovisual/manage.png" id="15_jn5wo"]
+[ext_resource type="Texture2D" uid="uid://biop00fot1w2l" path="res://audiovisual/shortcut.png" id="16_80onw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a34mo"]
 shader = ExtResource("1_bqqot")
@@ -548,6 +550,7 @@ text = "Launch"
 icon = ExtResource("8_hdgmw")
 
 [node name="ButtonBrowse" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons"]
+visible = false
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -564,6 +567,42 @@ theme_override_colors/font_focus_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_constants/h_separation = -16
 text = "Browse files"
 icon = ExtResource("9_pg5ns")
+
+[node name="ButtonFileMgmt" type="MenuButton" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonLaunch")
+focus_neighbor_top = NodePath("../../ContainerVersions")
+focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_next = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_previous = NodePath("../ButtonLaunch")
+theme_override_colors/icon_focus_color = Color(0.196078, 0.615686, 0.745098, 1)
+theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
+theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
+theme_override_colors/font_focus_color = Color(0.196078, 0.615686, 0.745098, 1)
+theme_override_constants/h_separation = -16
+text = "Manage files"
+icon = ExtResource("15_jn5wo")
+flat = false
+item_count = 6
+popup/item_0/text = "Desktop shortcut"
+popup/item_0/icon = ExtResource("16_80onw")
+popup/item_0/id = 0
+popup/item_0/separator = true
+popup/item_1/text = "To this version (launch directly)"
+popup/item_1/id = 1
+popup/item_2/text = "To this version (launch through the Mod Loader)"
+popup/item_2/id = 2
+popup/item_3/text = "Just show (don't launch)"
+popup/item_3/id = 3
+popup/item_4/text = "Install location"
+popup/item_4/icon = ExtResource("9_pg5ns")
+popup/item_4/id = 0
+popup/item_4/separator = true
+popup/item_5/text = "Open in file explorer"
+popup/item_5/id = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

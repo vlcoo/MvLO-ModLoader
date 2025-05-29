@@ -38,6 +38,7 @@ func _ready() -> void:
 	tree_exiting.connect(_on_tree_exiting)
 	ready.connect(_on_ready)
 	ContentGetter.cache_updated.connect(_on_cache_updated)
+	OsTools.LockfileArgsReceived.connect(parse_lockfile_args)
 	os_name = OS.get_name()
 	timestamp = str(int(Time.get_unix_time_from_system()))
 
@@ -236,9 +237,10 @@ func _on_cache_updated(_succeeded: bool) -> void:
 	parse_cmdline_args()
 
 
-func parse_cmdline_args() -> void:
+func parse_cmdline_args(override: PackedStringArray = []) -> void:
 	var arguments: Dictionary[String, String] = {}
-	for argument in OS.get_cmdline_args():
+	if override.is_empty(): override = OS.get_cmdline_args()
+	for argument in override:
 		if argument.contains("="):
 			var key_value = argument.split("=")
 			arguments[key_value[0].trim_prefix("--")] = key_value[1]
@@ -248,7 +250,7 @@ func parse_cmdline_args() -> void:
 	var requested_mod = arguments.get("id", "")
 	var requested_version = arguments.get("version", "")
 	var requested_platform = arguments.get("platform", "")
-	match arguments.get("mode", "none"):
+	match arguments.get("mode"):
 		"none":
 			print("cmdline args passed but mode was none!!")
 		"launch":
@@ -256,3 +258,12 @@ func parse_cmdline_args() -> void:
 			mod_requested.emit(requested_mod)
 		"show":
 			mod_requested.emit(requested_mod)
+
+
+func parse_lockfile_args(args: String) -> void:
+	if "ping" in args:
+		print("ok")
+		set_window_state(Configurator.WindowState.ATTENTION)
+		return
+	
+	parse_cmdline_args(args.split("\" \""))

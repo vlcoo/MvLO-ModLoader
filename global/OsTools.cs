@@ -1,10 +1,81 @@
 using Godot;
 using System;
+using System.Diagnostics;
 using System.IO;
 using Environment = System.Environment;
+using FileAccess = Godot.FileAccess;
 
 public partial class OsTools : Node
 {
+    private const string LockfilePath = "user://.lock"; // contains: pid of app, cmdline args on the next line (optional)
+    public bool IsSecondInstance = false;
+    
+    [Signal]
+    public delegate void LockfileArgsReceivedEventHandler(string args);
+    
+    public override void _Ready()
+    {
+        TreeExiting += _ExitingTree;
+        
+        if (FileAccess.FileExists(LockfilePath))
+        {
+            GD.Print("C#: Lockfile found...");
+            var lockfileReader = FileAccess.Open(LockfilePath, FileAccess.ModeFlags.ReadWrite);
+            var pid = lockfileReader.GetAsText().Split("\n")[0];
+            GD.Print(int.Parse(pid));
+            if (Process.GetProcessById(int.Parse(pid)) is { } process)
+            {
+                lockfileReader.Close();
+                IsSecondInstance = true;
+                PutLockfileArgs(OS.GetCmdlineArgs().Join("\" \"") + " ping");
+                GetTree().Quit();
+                return;
+            }
+
+            GD.Print("C#: But its instance is not running!!");
+            DirAccess.RemoveAbsolute(ProjectSettings.GlobalizePath(LockfilePath));
+            // and now we create our own lockfile.
+        }
+
+        var lockfileWriter = FileAccess.Open(LockfilePath, FileAccess.ModeFlags.Write);
+        lockfileWriter.StoreString(OS.GetProcessId() + "\n");
+        lockfileWriter.Close();
+        
+        var watcher = new FileSystemWatcher(ProjectSettings.GlobalizePath(LockfilePath).GetBaseDir());
+        watcher.Filter = Path.GetFileName(LockfilePath);
+        watcher.NotifyFilter = NotifyFilters.LastWrite;
+        watcher.Changed += OnLockfileChanged;
+        watcher.EnableRaisingEvents = true;
+    }
+
+    public void _ExitingTree()
+    {
+        if (FileAccess.FileExists(LockfilePath) && !IsSecondInstance) DirAccess.RemoveAbsolute(ProjectSettings.GlobalizePath(LockfilePath));
+    }
+
+    private void OnLockfileChanged(object source, FileSystemEventArgs e)
+    {
+        if (e.ChangeType != WatcherChangeTypes.Changed) return;
+        // an arguments might've been added to the file, so we read it.
+        var lockfileReader = FileAccess.Open(LockfilePath, FileAccess.ModeFlags.Read);
+        var lines = lockfileReader.GetAsText().Split("\n");
+        if (lines.Length >= 2)
+        {
+            var args = lines[1].Trim();
+            if (!string.IsNullOrEmpty(args))
+                Callable.From(() => EmitSignal(SignalName.LockfileArgsReceived, args)).CallDeferred();
+        }
+        lockfileReader.Close();
+    }
+
+    public void PutLockfileArgs(string args)
+    {
+        if (!FileAccess.FileExists(LockfilePath)) return;
+        var lockfileWriter = FileAccess.Open(LockfilePath, FileAccess.ModeFlags.ReadWrite);
+        var existingPid = lockfileWriter.GetAsText().Split("\n")[0];
+        lockfileWriter.StoreString(existingPid + "\n" + args + "\n");
+    }
+
     public string GetDekstopPath()
     {
         return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);

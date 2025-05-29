@@ -35,6 +35,7 @@ var installs_tree_item_count: int = 0
 
 func _ready() -> void:
 	InstallsIndex.operation_done.connect(_on_installs_index_operation_done)
+	Configurator.mod_requested.connect(_on_mod_opened)
 	
 	#current_mod_game_viewer.get_node("AnimationPlayer").play("out")
 	ContentGetter.cache_updated.connect(_on_cache_updated)
@@ -221,6 +222,8 @@ func _on_mod_opened(idx: String) -> bool:
 	if success:
 		Configurator.set_config("remembered_mod", idx)
 		gallery.modulate = Color.WHITE * 0.3
+		if Configurator.vanilla_id != idx and current_tab != 1:
+			current_tab = 1
 	#recalculate_focused_node()
 	return success
 
@@ -510,3 +513,8 @@ func _on_installs_index_operation_done(succeeded: bool, type: String) -> void:
 func _on_option_language_item_selected(index: int) -> void:
 	Configurator.set_config("translate", index > 0)
 	TranslationServer.set_locale(OS.get_locale() if Configurator.get_config("translate", false) else "en")
+
+
+func _on_button_reset_tours_pressed() -> void:
+	Configurator.reset_tours()
+	InstallsIndex.toast_success()

@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvjtglvn4vawb"]
+[gd_scene load_steps=14 format=3 uid="uid://bvjtglvn4vawb"]
 
 [ext_resource type="Script" uid="uid://borb5i5exutxf" path="res://global/installs_index.gd" id="1_xlf4w"]
 [ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_vrh48"]
 [ext_resource type="Texture2D" uid="uid://gtx0xj58qi5k" path="res://audiovisual/stop.png" id="3_eo46q"]
 [ext_resource type="Texture2D" uid="uid://d3olef7jd1be4" path="res://audiovisual/check.png" id="3_p7ty2"]
 [ext_resource type="FontFile" uid="uid://bxxeqllaclnvw" path="res://ui_resources/font_robotoI.ttf" id="4_eo46q"]
+[ext_resource type="Texture2D" uid="uid://5mfc1jhou8y4" path="res://audiovisual/helps/shortcuts.png" id="6_3nu8e"]
+[ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="6_g5wk3"]
 
 [sub_resource type="Animation" id="Animation_66wc2"]
 length = 0.001
@@ -385,6 +387,47 @@ initial_position = 2
 size = Vector2i(600, 200)
 unresizable = true
 dialog_autowrap = true
+
+[node name="HelpDialog" type="AcceptDialog" parent="."]
+auto_translate_mode = 1
+gui_embed_subwindows = true
+oversampling_override = 1.0
+title = "Tour - Shortcuts help"
+initial_position = 2
+size = Vector2i(600, 200)
+unresizable = true
+dialog_autowrap = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HelpDialog"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 584.0
+offset_bottom = 139.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HelpDialog/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="HelpDialog/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("6_g5wk3")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HelpDialog/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Shortcut modes:"
+
+[node name="TextureRect" type="TextureRect" parent="HelpDialog/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("6_3nu8e")
+stretch_mode = 5
 
 [node name="ConfirmationDialogRedirect" type="ConfirmationDialog" parent="."]
 gui_embed_subwindows = true

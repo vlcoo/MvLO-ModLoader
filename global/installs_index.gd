@@ -25,6 +25,7 @@ var index_path:
 @onready var dialog: AcceptDialog = $AcceptDialog
 @onready var dialog_ask: ConfirmationDialog = $ConfirmationDialogRedirect
 @onready var dialog_sure: ConfirmationDialog = $ConfirmationDangerous
+@onready var dialog_help: AcceptDialog = $HelpDialog
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var background: ColorRect = $RectBackground
 @onready var toast: Control = $ContainerToast
@@ -239,6 +240,12 @@ func show_file_explorer(mod_id: String, version: String, platform: String) -> vo
 		OS.shell_open(ProjectSettings.globalize_path(inst.dltmp_path))
 
 
+func get_exe_path(mod_id: String, version: String, platform: String) -> String:
+	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
+	if inst == {}: return ""
+	return ProjectSettings.globalize_path(inst.executable_path)
+
+
 func is_installed(mod_id: String, version: String, platform: String) -> int:
 	# check if files exist
 	var in_filesystem = DirAccess.dir_exists_absolute(Configurator.get_config("install_location", "user://Installs/") + mod_id + "/" + version + "/" + platform)
@@ -356,6 +363,10 @@ func toast_success() -> void:
 	toast_tween.tween_property(toast, ^"modulate", Color.TRANSPARENT, 0.5)
 	await toast_tween.finished
 	toast.visible = false
+
+
+func show_help(section: String) -> void:
+	dialog_help.popup()
 
 
 func _on_button_cancel_pressed() -> void:

@@ -29,6 +29,7 @@ var cache_is_old: bool
 var current_processes: Array[ModProcess] = []
 var process_timer: Timer = Timer.new()
 signal process_ended(process: ModData)
+signal mod_requested(idx: String)
 
 
 func _ready() -> void:
@@ -36,6 +37,7 @@ func _ready() -> void:
 	
 	tree_exiting.connect(_on_tree_exiting)
 	ready.connect(_on_ready)
+	ContentGetter.cache_updated.connect(_on_cache_updated)
 	os_name = OS.get_name()
 	timestamp = str(int(Time.get_unix_time_from_system()))
 
@@ -190,6 +192,16 @@ func set_is_mod_favourite(mod_id: String, how: bool) -> void:
 	else: config.set_value("mod_favourites", mod_id, true)
 
 
+func get_toured_status(section: String) -> bool:
+	return config.get_value("help", section, false)
+
+func set_toured_status(section: String) -> void:
+	config.set_value("help", section, true)
+
+func reset_tours() -> void:
+	config.erase_section("help")
+
+
 func get_ts_mod(mod_id: String) -> String:
 	return config.get_value("mod_timestamps", mod_id, "")
 
@@ -218,3 +230,29 @@ func remove_recursive(directory: String, remove_root_too: bool = true) -> void:
 		DirAccess.remove_absolute(directory.path_join(file_name))
 	
 	if remove_root_too: DirAccess.remove_absolute(directory)
+
+
+func _on_cache_updated(_succeeded: bool) -> void:
+	parse_cmdline_args()
+
+
+func parse_cmdline_args() -> void:
+	var arguments: Dictionary[String, String] = {}
+	for argument in OS.get_cmdline_args():
+		if argument.contains("="):
+			var key_value = argument.split("=")
+			arguments[key_value[0].trim_prefix("--")] = key_value[1]
+		else:
+			arguments[argument.trim_prefix("--")] = ""
+	
+	var requested_mod = arguments.get("id", "")
+	var requested_version = arguments.get("version", "")
+	var requested_platform = arguments.get("platform", "")
+	match arguments.get("mode", "none"):
+		"none":
+			print("cmdline args passed but mode was none!!")
+		"launch":
+			InstallsIndex.launch(requested_mod, requested_version, requested_platform, true)
+			mod_requested.emit(requested_mod)
+		"show":
+			mod_requested.emit(requested_mod)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=49 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" uid="uid://cr5uryoa5e2cs" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://dpcvlvd1apd5e" path="res://audiovisual/nsmb.png" id="25_5f5dk"]
 [ext_resource type="Texture2D" uid="uid://bauqwsj6o488f" path="res://audiovisual/toadette.png" id="27_lxkal"]
 [ext_resource type="Texture2D" uid="uid://dsc7vdmapg6eo" path="res://audiovisual/fix.png" id="30_2scfd"]
+[ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="34_nr07p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
 
@@ -1065,11 +1066,12 @@ theme_override_constants/separation = 22
 alignment = 1
 
 [node name="ButtonRedownloadDB" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Force update of database (mod data and images) and reboot program."
+tooltip_text = "Re-show Help popups
+that you've already seen."
 focus_neighbor_left = NodePath("../ButtonFixChar")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonUninstallAll")
@@ -1088,24 +1090,26 @@ text = "Delete DB"
 icon = ExtResource("18_xr7p4")
 
 [node name="ButtonUninstallAll" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Uninstall every single mod, including vanilla."
+tooltip_text = "Re-show Help popups
+that you've already seen."
 focus_neighbor_left = NodePath("../ButtonRedownloadDB")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonLogs")
 focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
-text = "Uninstall all mods"
+text = "Uninstall all"
 icon = ExtResource("4_yn4re")
 
 [node name="ButtonLogs" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Open the folder containing debug log files."
+tooltip_text = "Re-show Help popups
+that you've already seen."
 focus_neighbor_left = NodePath("../ButtonUninstallAll")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonFixChar")
@@ -1114,18 +1118,32 @@ text = "Show logs"
 icon = ExtResource("19_25xiv")
 
 [node name="ButtonFixChar" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Some mods might brick vanilla by giving you an invalid character.
-This option will attempt to automatically fix this."
+tooltip_text = "Re-show Help popups
+that you've already seen."
 focus_neighbor_left = NodePath("../ButtonLogs")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonRedownloadDB")
 focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Fix vanilla"
 icon = ExtResource("30_2scfd")
+
+[node name="ButtonResetTours" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+custom_minimum_size = Vector2(136, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Re-show Help popups
+that you've already seen."
+focus_neighbor_left = NodePath("../ButtonLogs")
+focus_neighbor_top = NodePath("../..")
+focus_neighbor_right = NodePath("../ButtonRedownloadDB")
+focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
+text = "Reset tours"
+icon = ExtResource("34_nr07p")
 
 [node name="ButtonReset" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
 visible = false
@@ -1185,6 +1203,7 @@ access = 2
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonUninstallAll" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonLogs" to="." method="_on_button_5_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonFixChar" to="." method="_on_button_fix_char_pressed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonResetTours" to="." method="_on_button_reset_tours_pressed"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonReset" to="." method="_on_button_4_pressed"]
 [connection signal="dir_selected" from="Settings/FileDialog" to="." method="_on_file_dialog_dir_selected"]
 

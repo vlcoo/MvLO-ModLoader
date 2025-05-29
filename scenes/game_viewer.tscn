@@ -546,6 +546,7 @@ theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_colors/font_focus_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_constants/h_separation = -16
 disabled = true
+action_mode = 0
 text = "Launch"
 icon = ExtResource("8_hdgmw")
 
@@ -572,6 +573,7 @@ icon = ExtResource("9_pg5ns")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Manage this mod's local install."
 focus_neighbor_left = NodePath("../ButtonLaunch")
 focus_neighbor_top = NodePath("../../ContainerVersions")
 focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
@@ -583,11 +585,12 @@ theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/font_focus_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_constants/h_separation = -16
-text = "Manage files"
+action_mode = 1
+text = "Extras"
 icon = ExtResource("15_jn5wo")
 flat = false
 item_count = 6
-popup/item_0/text = "Desktop shortcut"
+popup/item_0/text = "Create shortcut..."
 popup/item_0/icon = ExtResource("16_80onw")
 popup/item_0/id = 0
 popup/item_0/separator = true
@@ -595,9 +598,9 @@ popup/item_1/text = "To this version (launch directly)"
 popup/item_1/id = 1
 popup/item_2/text = "To this version (launch through the Mod Loader)"
 popup/item_2/id = 2
-popup/item_3/text = "Just show (don't launch)"
+popup/item_3/text = "Just show mod (don't launch)"
 popup/item_3/id = 3
-popup/item_4/text = "Install location"
+popup/item_4/text = "Manage files..."
 popup/item_4/icon = ExtResource("9_pg5ns")
 popup/item_4/id = 0
 popup/item_4/separator = true
@@ -628,5 +631,6 @@ one_shot = true
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonLaunch" to="." method="_on_button_launch_pressed"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse" to="." method="_on_button_browse_pressed"]
+[connection signal="about_to_popup" from="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonFileMgmt" to="." method="_on_button_file_mgmt_about_to_popup"]
 [connection signal="timeout" from="TimerLoading" to="." method="_on_timer_loading_timeout"]
 [connection signal="timeout" from="TimerKilling" to="." method="_on_timer_killing_timeout"]

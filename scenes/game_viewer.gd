@@ -350,16 +350,34 @@ func _on_button_favourite_toggled(toggled_on: bool) -> void:
 
 
 func _on_button_files_id_pressed(id: int) -> void:
+	var error: Error
+	#var ml_path = OS.get_executable_path()
+	var ml_path = "C:/Users/Victor/Projects/Godot/builds/mvloml win portable/MvLOMLWindows-Portable.exe"
+	var mod_version = options_version.get_item_text(options_version.selected)
+	var mod_platform = options_platform.get_item_text(options_platform.selected)
+	var shortcut_description = mod_data.name + " (" + (mod_platform if "Latest" in mod_version else mod_version) + ")"
+	
 	match id:
 		1:
 			# shortcut to version directly
-			pass
+			error = OsTools.CreateFileShortcut(shortcut_description, InstallsIndex.get_exe_path(mod_data_id, mod_version, mod_platform), "")
 		2:
 			# shortcut to version through ml
-			pass
+			error = OsTools.CreateFileShortcut(shortcut_description, ml_path, "--mode=launch --id=" + mod_data_id + " --version=\"\"" + mod_version + "\"\" --platform=\"\"" + mod_platform + "\"\"")
 		3:
 			# shortcut to viewer
-			pass
+			error = OsTools.CreateFileShortcut(shortcut_description, ml_path, "--mode=show --id=" + mod_data_id)
 		4:
 			# browse files
+			error = ERR_SKIP
 			InstallsIndex.show_file_explorer(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+	
+	if error == OK:
+		InstallsIndex.toast_success()
+
+
+func _on_button_file_mgmt_about_to_popup() -> void:
+	if not Configurator.get_toured_status("shortcuts"):
+		InstallsIndex.show_help("shortcuts")
+		Configurator.set_toured_status("shortcuts")
+		await InstallsIndex.dialog_help.confirmed or InstallsIndex.dialog_help.canceled

@@ -429,7 +429,7 @@ texture = ExtResource("8_uop1r")
 stretch_mode = 3
 
 [node name="HTTPRequestGameServer" type="HTTPRequest" parent="ContainerStatusHint"]
-download_chunk_size = 4096
+download_chunk_size = 8192
 use_threads = true
 timeout = 4.0
 

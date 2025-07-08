@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvq8iiiix7d1e"
-path="res://.godot/imported/banner.png-07d5e96579e425fc9e3b34ae257b74c1.ctex"
+uid="uid://hj75pmwm5anl"
+path="res://.godot/imported/news-drop.png-d514f447c2de45a8faa6c97aecd64b67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiovisual/banner.png"
-dest_files=["res://.godot/imported/banner.png-07d5e96579e425fc9e3b34ae257b74c1.ctex"]
+source_file="res://audiovisual/news-drop.png"
+dest_files=["res://.godot/imported/news-drop.png-d514f447c2de45a8faa6c97aecd64b67.ctex"]
 
 [params]
 

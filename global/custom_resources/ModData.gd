@@ -15,7 +15,7 @@ var idx: String:
 ## Abbreviation, short name or alternative name of this mod.
 @export var abbreviation: String
 ## Who made this mod.
-@export var author: String
+@export var author: String = "Anonymous"
 ## This mod's logo.
 @export var cover_image: Texture2D
 ## A small image, alternative to the logo.
@@ -23,7 +23,7 @@ var idx: String:
 ## The version of the base game this mod was based on.
 @export var base_version: String = "?"
 ## One-liner explaining what this mod has to offer.
-@export_multiline var description: String
+@export_multiline var description: String = "Description unavailable."
 ## This option should be enabled if this mod doesn't implement Discord presence status.
 @export var needs_discord_activity: bool = false
 ## Does this mod use the same servers as vanilla does?
@@ -46,7 +46,7 @@ static func new_from_json(json: Dictionary) -> ModData:
 	mod.id = json.get("id", "")
 	mod.name = json.get("name", "No Data!")
 	mod.author = json.get("author", "Anonymous")
-	mod.description = json.get("description", "")
+	mod.description = json.get("description", "Description unavailable.")
 	mod.base_version = json.get("base_version", "")
 	mod.needs_discord_activity = false if json.get("needs_discord_activity") == null else json.get("needs_discord_activity")
 	mod.vanilla_compatible = false if json.get("vanilla_compatible") == null else json.get("vanilla_compatible")

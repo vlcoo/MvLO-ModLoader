@@ -3,17 +3,18 @@ extends TabContainer
 @onready var vanilla_game_viewer: GameViewer = $Vanilla/GameViewer
 @onready var current_mod_game_viewer: GameViewer = $"Mod Gallery/GameViewer"
 @onready var gallery: GridContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/GridContainer"
-@onready var installs_tree_list: VBoxContainer = $"Storage Usage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer"
-@onready var label_usage_disk: RichTextLabel = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer/RichTextLabel"
-@onready var label_usage_installs: Label = $"Storage Usage/MarginContainer/VBoxContainer/HBoxContainer/Label"
-@onready var button_uninstall: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall"
-@onready var button_launch: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch"
-@onready var button_browse: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse"
-@onready var button_find: Button = $"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonFind"
+@onready var installs_tree_list: VBoxContainer = $"Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer"
+@onready var label_usage_disk: RichTextLabel = $"Storage/MarginContainer/VBoxContainer/HBoxContainer/RichTextLabel"
+@onready var label_usage_installs: Label = $"Storage/MarginContainer/VBoxContainer/HBoxContainer/Label"
+@onready var button_uninstall: Button = $"Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall"
+@onready var button_launch: Button = $"Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch"
+@onready var button_browse: Button = $"Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse"
+@onready var button_find: Button = $"Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonFind"
 @onready var input_search: LineEdit = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/InputSearch"
 @onready var container_no_results: VBoxContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"
 @onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList
 @onready var label_vanilla_id: LineEdit = $Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement/LineEdit
+
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
 var gallery_element_list = preload("res://scenes/game_gallery_element_list.tscn")
@@ -44,6 +45,7 @@ func _ready() -> void:
 	set_tab_icon(1, load("res://audiovisual/puzzle-drop.png"))
 	set_tab_icon(2, load("res://audiovisual/drive-drop.png"))
 	set_tab_icon(3, load("res://audiovisual/settings-drop.png"))
+	set_tab_icon(4, load("res://audiovisual/news-drop.png"))
 	if Configurator.vanilla_id != "vanilla": set_tab_title(0, "\"Vanilla\"")
 
 
@@ -62,7 +64,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux/LineEdit.text = Configurator.get_config("args_linux", "")
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac/LineEdit.text = Configurator.get_config("args_macos", "")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList.button_pressed = Configurator.get_config("list_gallery", false)
-	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckPlatforms.button_pressed = Configurator.get_config("all_platforms")
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckPlatforms.button_pressed = Configurator.get_config("all_platforms", Configurator.os_name != "Windows")
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckDiscord.button_pressed = Configurator.get_config("discord-rpc", true)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckAutoSubscribe.button_pressed = Configurator.get_config("auto_subscribe", false)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckMinimize.button_pressed = Configurator.get_config("minimize", false)
@@ -343,7 +345,7 @@ func _on_item_list_item_activated(index: int) -> void:
 	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
 	button_launch.text = tr("Loading")
 	button_launch.disabled = true
-	$"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
+	$"Storage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
 
 
 func _on_button_uninstall_pressed() -> void:
@@ -365,7 +367,7 @@ func _on_button_launch_pressed() -> void:
 	InstallsIndex.launch(selected_install.mod_id, selected_install.version, selected_install.platform)
 	button_launch.text = tr("Loading")
 	button_launch.disabled = true
-	$"Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
+	$"Storage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading".start()
 
 
 func _on_button_browse_pressed() -> void:

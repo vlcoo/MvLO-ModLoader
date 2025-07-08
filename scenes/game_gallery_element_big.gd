@@ -14,6 +14,7 @@ func init_ui(cover: Texture2D, display_name: String) -> void:
 	if cover != null: %TextureCover.texture = cover
 	%LabelTitle.text = display_name
 	title = display_name
+	accessibility_name = display_name
 	installed = InstallsIndex.mod_is_installed(idx)
 	%TextureInstalled.visible = installed
 	favourite = Configurator.get_is_mod_favourite(idx)

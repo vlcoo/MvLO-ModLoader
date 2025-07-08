@@ -207,7 +207,7 @@ corner_radius_top_right = 6
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qrtt6"]
-color = Color(1, 1, 1, 0.164706)
+color = Color(1, 1, 1, 0.19607843)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwjj2"]
 
@@ -314,9 +314,9 @@ anti_aliasing_size = 0.3
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jiird"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4f70u"]
-content_margin_left = 46.0
+content_margin_left = 32.0
 content_margin_top = 10.0
-content_margin_right = 46.0
+content_margin_right = 32.0
 content_margin_bottom = 12.0
 bg_color = Color(1, 1, 1, 0.196078)
 border_width_left = 8
@@ -331,10 +331,10 @@ corner_radius_bottom_left = 16
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aabfc"]
-content_margin_left = 46.0
-content_margin_top = 10.0
-content_margin_right = 46.0
-content_margin_bottom = 14.0
+content_margin_left = 32.0
+content_margin_top = 11.0
+content_margin_right = 32.0
+content_margin_bottom = 13.0
 bg_color = Color(1, 1, 1, 0.196078)
 border_width_bottom = 4
 border_color = Color(0.8, 0.8, 0.8, 0)
@@ -344,9 +344,9 @@ expand_margin_bottom = 3.0
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y77yf"]
-content_margin_left = 46.0
+content_margin_left = 32.0
 content_margin_top = 10.0
-content_margin_right = 46.0
+content_margin_right = 32.0
 content_margin_bottom = 12.0
 bg_color = Color(1, 1, 1, 0.0705882)
 border_width_left = 8
@@ -361,9 +361,10 @@ corner_radius_bottom_left = 16
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ep1uv"]
+content_margin_bottom = 0.0
 draw_center = false
 border_width_bottom = 1
-border_color = Color(1, 1, 1, 0.164706)
+border_color = Color(1, 1, 1, 0.19607843)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ht51p"]
@@ -394,7 +395,7 @@ corner_radius_bottom_left = 16
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_xrv0p"]
-color = Color(0.67451, 0.67451, 0.67451, 0.458824)
+color = Color(1, 1, 1, 0.19607843)
 thickness = 3
 vertical = true
 
@@ -416,7 +417,7 @@ thickness = 2
 vertical = true
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_1oigc"]
-color = Color(1, 1, 1, 0.164706)
+color = Color(1, 1, 1, 0.19607843)
 vertical = true
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8p5ti"]
@@ -521,9 +522,10 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_jx0h3")
 RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_xrv0p")
 TabContainer/colors/font_outline_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 TabContainer/colors/font_selected_color = Color(1, 1, 1, 1)
-TabContainer/constants/icon_max_width = 19
+TabContainer/constants/icon_max_width = 20
 TabContainer/constants/icon_separation = 16
 TabContainer/constants/outline_size = 9
+TabContainer/constants/tab_separation = 4
 TabContainer/fonts/font = ExtResource("4_23arm")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_gqthw")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_jiird")

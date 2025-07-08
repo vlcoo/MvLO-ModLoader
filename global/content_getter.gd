@@ -16,11 +16,14 @@ var controller_hint_shown = false
 
 var mods: Array[ModData] = []
 var raw_moddatas: Array = []
+var news_posts: Array[NewsPost] = []
 
 signal cache_updated(succeeded: bool)
+signal posts_gotten
 
 
 func _ready() -> void:
+	$ContainerStatusHint.posts_gotten.connect(_on_posts_gotten)
 	Input.joy_connection_changed.connect(_on_input_joy_connection_changed)
 	regex_acronym.compile("\\b[\\w\\']+?\\b")
 
@@ -171,3 +174,8 @@ func warn(text: String):
 
 func _on_timer_controller_hint_timeout() -> void:
 	create_tween().tween_property($ContainerControllerHints, "modulate", Color.TRANSPARENT, 1)
+
+
+func _on_posts_gotten(posts: Array) -> void:
+	news_posts = posts
+	posts_gotten.emit()

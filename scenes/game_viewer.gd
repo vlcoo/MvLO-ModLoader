@@ -79,7 +79,7 @@ func refresh_mod_data() -> bool:
 	var subtitle: String = TEMPLATE_SUBTITLE % [mod_data.author, last_updated]
 	#if mod_data.abbreviation != "": subtitle = "aka %s\n%s" % [mod_data.abbreviation, subtitle]
 	label_subtitle.text = subtitle
-	if mod_data.description != "": text_description.text = mod_data.description
+	text_description.text = mod_data.description
 	if mod_data.icon == null: 
 		texture_icon.visible = false
 		label_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -363,10 +363,10 @@ func _on_button_files_id_pressed(id: int) -> void:
 			error = OsTools.CreateFileShortcut(shortcut_description, InstallsIndex.get_exe_path(mod_data_id, mod_version, mod_platform), "")
 		2:
 			# shortcut to version through ml
-			error = OsTools.CreateFileShortcut(shortcut_description, ml_path, "--mode=launch --id=" + mod_data_id + " --version=\"\"" + mod_version + "\"\" --platform=\"\"" + mod_platform + "\"\"")
+			error = OsTools.CreateFileShortcut(shortcut_description, ml_path, "--mode=\"\"launch\"\" --id=\"\"" + mod_data_id + "\"\" --version=\"\"" + mod_version + "\"\" --platform=\"\"" + mod_platform + "\"\"")
 		3:
 			# shortcut to viewer
-			error = OsTools.CreateFileShortcut(shortcut_description, ml_path, "--mode=show --id=" + mod_data_id)
+			error = OsTools.CreateFileShortcut(shortcut_description, ml_path, "--mode=\"\"show\"\" --id=\"\"" + mod_data_id + "\"\"")
 		4:
 			# browse files
 			error = ERR_SKIP

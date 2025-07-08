@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene load_steps=51 format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" uid="uid://cr5uryoa5e2cs" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -34,18 +34,20 @@
 [ext_resource type="Texture2D" uid="uid://bauqwsj6o488f" path="res://audiovisual/toadette.png" id="27_lxkal"]
 [ext_resource type="Texture2D" uid="uid://dsc7vdmapg6eo" path="res://audiovisual/fix.png" id="30_2scfd"]
 [ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="34_nr07p"]
+[ext_resource type="Script" uid="uid://ctlo2g46ohqq8" path="res://scenes/news_tab.gd" id="35_0u2iu"]
+[ext_resource type="Texture2D" uid="uid://caepwi58ukfyp" path="res://audiovisual/loading.png" id="36_2c3ov"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f4mjw"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f5dk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f4mjw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lxkal"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2scfd"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_a6eo1"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_2c3ov"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4mjw"]
 content_margin_left = 16.0
@@ -132,10 +134,9 @@ metadata/_tab_index = 1
 [node name="ContainerBig" type="MarginContainer" parent="Mod Gallery"]
 clip_contents = true
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/margin_left = 28
+theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 28
+theme_override_constants/margin_right = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig"]
 layout_mode = 2
@@ -299,34 +300,34 @@ fit_content = true
 layout_mode = 2
 auto_refresh = false
 
-[node name="Storage Usage" type="PanelContainer" parent="."]
+[node name="Storage" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Storage Usage"]
+[node name="MarginContainer" type="MarginContainer" parent="Storage"]
 layout_mode = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Storage Usage/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Storage/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 26
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TextureRect" type="TextureRect" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 stretch_mode = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer"]
 clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 0
@@ -336,17 +337,17 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="Storage Usage/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "0 installs"
 
-[node name="Panel" type="Panel" parent="Storage Usage/MarginContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="Storage/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 520)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ItemList" type="ItemList" parent="Storage Usage/MarginContainer/VBoxContainer/Panel"]
+[node name="ItemList" type="ItemList" parent="Storage/MarginContainer/VBoxContainer/Panel"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -365,8 +366,8 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath("../../ContainerButtons/ButtonLaunch")
 focus_previous = NodePath("../../ContainerButtons/ButtonLaunch")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_f4mjw")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5f5dk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f4mjw")
 theme_override_styles/hovered_selected = SubResource("StyleBoxEmpty_lxkal")
 theme_override_styles/hovered_selected_focus = ExtResource("12_2scfd")
 theme_override_styles/selected = SubResource("StyleBoxEmpty_2scfd")
@@ -374,7 +375,7 @@ theme_override_styles/selected_focus = ExtResource("12_2scfd")
 fixed_column_width = 780
 fixed_icon_size = Vector2i(16, 16)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Storage Usage/MarginContainer/VBoxContainer/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Storage/MarginContainer/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -392,22 +393,22 @@ damping_drag = 0.5
 friction_scroll = 0.85
 friction_drag = 0.8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer/Panel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("11_a6eo1")]
+[node name="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("11_a6eo1")]
 visible = false
 layout_mode = 2
-button_group = SubResource("ButtonGroup_a6eo1")
+button_group = SubResource("ButtonGroup_2c3ov")
 
-[node name="ContainerButtons" type="HBoxContainer" parent="Storage Usage/MarginContainer/VBoxContainer"]
+[node name="ContainerButtons" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="ButtonFind" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonFind" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -417,13 +418,13 @@ focus_neighbor_right = NodePath("../ButtonUninstall")
 focus_neighbor_bottom = NodePath("../../Panel/ItemList")
 focus_next = NodePath("../ButtonUninstall")
 focus_previous = NodePath("../../Panel/ItemList")
-theme_override_colors/icon_normal_color = Color(1, 0.8, 0, 1)
 theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 0.8, 0, 1)
 theme_override_constants/h_separation = -16
 text = "Find in gallery"
 icon = ExtResource("12_lymde")
 
-[node name="ButtonUninstall" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonUninstall" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -433,13 +434,13 @@ focus_neighbor_right = NodePath("../ButtonLaunch")
 focus_neighbor_bottom = NodePath("../../Panel/ItemList")
 focus_next = NodePath("../ButtonLaunch")
 focus_previous = NodePath("../ButtonFind")
-theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
+theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
 theme_override_constants/h_separation = -16
 text = "Uninstall"
 icon = ExtResource("4_yn4re")
 
-[node name="ButtonLaunch" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonLaunch" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -449,13 +450,13 @@ focus_neighbor_right = NodePath("../ButtonBrowse")
 focus_neighbor_bottom = NodePath("../../Panel/ItemList")
 focus_next = NodePath("../ButtonBrowse")
 focus_previous = NodePath("../ButtonUninstall")
-theme_override_colors/icon_normal_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
+theme_override_colors/icon_normal_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_constants/h_separation = -16
 text = "Launch"
 icon = ExtResource("5_0xeke")
 
-[node name="ButtonBrowse" type="Button" parent="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonBrowse" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -465,13 +466,13 @@ focus_neighbor_right = NodePath("../ButtonFind")
 focus_neighbor_bottom = NodePath("../../Panel/ItemList")
 focus_next = NodePath("../../Panel/ItemList")
 focus_previous = NodePath("../ButtonLaunch")
-theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
+theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_constants/h_separation = -16
 text = "Browse files"
 icon = ExtResource("6_xk1xd")
 
-[node name="TimerLoading" type="Timer" parent="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="TimerLoading" type="Timer" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
 wait_time = 5.0
 one_shot = true
 
@@ -534,12 +535,36 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 1
 theme_override_constants/line_separation = -6
+theme_override_constants/paragraph_separation = -6
 bbcode_enabled = true
 text = "A simple way to keep your mods organized and up to date.
 
 [color=#ffffff8b]by vlco_o - aka vic[/color]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -57.0001
+offset_top = -55.0
+offset_bottom = 9.999992
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 0.122173
+pivot_offset = Vector2(28.5001, 31.7673)
+mouse_filter = 0
+theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
+theme_override_fonts/font = ExtResource("15_rxllx")
+theme_override_font_sizes/font_size = 52
+text = "v5"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="ButtonWebsite" type="Button" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
 layout_mode = 1
@@ -558,29 +583,6 @@ focus_neighbor_top = NodePath("../../ContainerTroubleshooting")
 focus_neighbor_right = NodePath("../../HBoxContainer/VBoxContainer/CheckList")
 focus_neighbor_bottom = NodePath("../../HBoxContainer/VBoxContainer2/CheckRemember")
 icon = ExtResource("17_f4mjw")
-
-[node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
-texture_filter = 2
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -57.0001
-offset_top = -55.0
-offset_bottom = 9.99999
-grow_horizontal = 0
-grow_vertical = 0
-rotation = 0.122173
-pivot_offset = Vector2(28.5001, 31.7673)
-mouse_filter = 0
-theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
-theme_override_fonts/font = ExtResource("15_rxllx")
-theme_override_font_sizes/font_size = 52
-text = "v5"
-horizontal_alignment = 2
-vertical_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
 visible = false
@@ -1164,6 +1166,46 @@ ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
+[node name="News" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+script = ExtResource("35_0u2iu")
+metadata/_tab_index = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="News"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ScrollContainer" type="ScrollContainer" parent="News/MarginContainer"]
+clip_contents = false
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+script = ExtResource("3_btgm0")
+speed = 10.0
+damping_scroll = 0.5
+damping_drag = 0.5
+friction_scroll = 0.85
+friction_drag = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="News/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="TextureLoading" type="TextureRect" parent="News"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("36_2c3ov")
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
@@ -1173,13 +1215,13 @@ access = 2
 [connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyInstalled" to="." method="_on_check_only_installed_toggled"]
 [connection signal="toggled" from="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer/CheckOnlyFavourites" to="." method="_on_check_only_favourites_toggled"]
 [connection signal="viewer_closed" from="Mod Gallery/GameViewer" to="." method="_on_game_viewer_viewer_closed"]
-[connection signal="item_activated" from="Storage Usage/MarginContainer/VBoxContainer/Panel/ItemList" to="." method="_on_item_list_item_activated"]
-[connection signal="item_selected" from="Storage Usage/MarginContainer/VBoxContainer/Panel/ItemList" to="." method="_on_tree_item_selected"]
-[connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonFind" to="." method="_on_button_find_pressed"]
-[connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]
-[connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch" to="." method="_on_button_launch_pressed"]
-[connection signal="pressed" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse" to="." method="_on_button_browse_pressed"]
-[connection signal="timeout" from="Storage Usage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading" to="." method="_on_timer_loading_timeout"]
+[connection signal="item_activated" from="Storage/MarginContainer/VBoxContainer/Panel/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="item_selected" from="Storage/MarginContainer/VBoxContainer/Panel/ItemList" to="." method="_on_tree_item_selected"]
+[connection signal="pressed" from="Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonFind" to="." method="_on_button_find_pressed"]
+[connection signal="pressed" from="Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonUninstall" to="." method="_on_button_uninstall_pressed"]
+[connection signal="pressed" from="Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonLaunch" to="." method="_on_button_launch_pressed"]
+[connection signal="pressed" from="Storage/MarginContainer/VBoxContainer/ContainerButtons/ButtonBrowse" to="." method="_on_button_browse_pressed"]
+[connection signal="timeout" from="Storage/MarginContainer/VBoxContainer/ContainerButtons/TimerLoading" to="." method="_on_timer_loading_timeout"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/PanelAbout/ButtonWebsite" to="." method="_on_button_website_pressed"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckPlatforms" to="." method="_on_check_button_3_toggled"]

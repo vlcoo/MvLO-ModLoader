@@ -20,7 +20,7 @@ run/low_processor_mode=true
 run/low_processor_mode_sleep_usec=16000
 boot_splash/bg_color=Color(0.168627, 0.168627, 0.168627, 1)
 boot_splash/show_image=false
-config/icon="res://audiovisual/nshbBig.png"
+config/icon="uid://dukv753fb2bak"
 
 [autoload]
 
@@ -53,10 +53,10 @@ import/blender/enabled=false
 
 [gui]
 
-theme/custom="res://ui_resources/theme_dark.tres"
-theme/custom_font="res://ui_resources/font_roboto.ttf"
 theme/default_font_hinting=2
 theme/default_font_subpixel_positioning=0
+theme/custom="res://ui_resources/theme_dark.tres"
+theme/custom_font="res://ui_resources/font_roboto.ttf"
 
 [input]
 

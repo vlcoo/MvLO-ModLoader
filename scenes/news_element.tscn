@@ -14,11 +14,16 @@ base_font = ExtResource("4_1lr6y")
 variation_embolden = -0.5
 
 [node name="PanelContainer" type="PanelContainer"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 42.0
+custom_minimum_size = Vector2(992, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -460.0
+offset_right = 460.0
+offset_bottom = 111.0
 grow_horizontal = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
+mouse_filter = 2
 theme_override_styles/panel = ExtResource("1_jwr72")
 script = ExtResource("2_1lr6y")
 

@@ -207,6 +207,8 @@ grow_vertical = 2
 focus_mode = 2
 theme_type_variation = &"PanelBlurry"
 script = ExtResource("1_ojtji")
+metadata/_edit_vertical_guides_ = [386.0, 976.0]
+metadata/_edit_horizontal_guides_ = [44.0, 709.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_a34mo")
@@ -220,13 +222,15 @@ grow_vertical = 2
 [node name="PanelOverview" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.023
-anchor_right = 0.331
+anchor_left = 0.5
+anchor_top = 0.023000002
+anchor_right = 0.5
 anchor_bottom = 0.977
-offset_left = 16.0
-offset_top = 0.32
-offset_right = 0.0559692
+offset_left = -496.0
+offset_top = 0.3199978
+offset_right = -173.00003
 offset_bottom = -0.320068
+grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(158, 384)
 
@@ -333,16 +337,23 @@ theme_override_icons/checked = ExtResource("5_x6gr8")
 theme_override_icons/unchecked = ExtResource("4_bpg4n")
 
 [node name="PanelDetail" type="PanelContainer" parent="."]
-layout_mode = 0
-anchor_left = 0.331
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.0559998
-grow_horizontal = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.023000002
+anchor_right = 0.5
+anchor_bottom = 0.97700006
+offset_left = -173.0
+offset_top = -17.664001
+offset_right = 512.0
+offset_bottom = 17.66394
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelDetail"]
+[node name="CenterContainer" type="MarginContainer" parent="PanelDetail"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 44
+theme_override_constants/margin_bottom = 44
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer"]
 custom_minimum_size = Vector2(580, 680)

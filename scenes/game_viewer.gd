@@ -163,13 +163,18 @@ func _on_options_version_item_selected(index: int) -> void:
 		# give one point if item is compatible with device os
 		pts_a += int(_platform_asset_coincides_with_os(a))
 		pts_b += int(_platform_asset_coincides_with_os(b))
-		# give two (more important) points if item is installed
-		pts_a += int(integrity_result_a == 0) * 2
-		pts_b += int(integrity_result_b == 0) * 2
-		# give three (even more important) points if item is a newer release (only applicable to itch.io distribs)
+		# give one point more if is windows 64-bits instead of 32
+		if a.contains("64") and not a.contains("32") and pts_a > 0:
+			pts_a += 1
+		if b.contains("64") and not b.contains("32") and pts_b > 0:
+			pts_b += 1
+		# give three (more important) points if item is installed
+		pts_a += int(integrity_result_a == 0) * 3
+		pts_b += int(integrity_result_b == 0) * 3
+		# give four (even more important) points if item is a newer release (only applicable to itch.io distribs)
 		if options_version.item_count <= 1 and options_version.get_item_text(0).contains("itch"):
-			pts_a += int(mod_data.get_gamefiles_url(version, a)["timestamp"] > mod_data.get_gamefiles_url(version, b)["timestamp"]) * 3
-			pts_b += int(mod_data.get_gamefiles_url(version, b)["timestamp"] > mod_data.get_gamefiles_url(version, a)["timestamp"]) * 3
+			pts_a += int(mod_data.get_gamefiles_url(version, a)["timestamp"] > mod_data.get_gamefiles_url(version, b)["timestamp"]) * 4
+			pts_b += int(mod_data.get_gamefiles_url(version, b)["timestamp"] > mod_data.get_gamefiles_url(version, a)["timestamp"]) * 4
 		# more points = more at the beginning of array
 		return pts_a > pts_b
 	)
@@ -192,7 +197,7 @@ func _on_options_version_item_selected(index: int) -> void:
 
 func _platform_asset_coincides_with_os(a: String) -> bool:
 	a = a.to_lower()
-	if a.contains("web"): return false
+	if a.contains("web") or a.contains("arm"): return false
 	return (a.contains("win") and Configurator.os_name == "Windows") or \
 	((a.contains("linux") or a.contains("unix")) and Configurator.os_name == "Linux") or \
 	((a.contains("apple") or a.contains("mac")) and Configurator.os_name == "macOS") or not \

@@ -80,7 +80,7 @@ func _on_ready() -> void:
 
 
 func _on_tree_exiting() -> void:
-	if current_tab < 3: Configurator.set_config("remembered_tab", current_tab)
+	if current_tab in [0, 1, 2, 4]: Configurator.set_config("remembered_tab", current_tab)
 
 
 func _input(_event: InputEvent) -> void:

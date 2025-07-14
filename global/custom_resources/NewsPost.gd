@@ -25,5 +25,6 @@ static func cleanup_richtext_tags(text: String) -> String:
 	regex.compile("<.+?>")
 	for result in regex.search_all(text):
 		text = text.replace(result.get_string(), "")
+	text = text.replace("\r", "")
 	text = text.replace("\n\n", "\n")
 	return text

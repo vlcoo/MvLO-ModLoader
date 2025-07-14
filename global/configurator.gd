@@ -51,10 +51,10 @@ func _ready() -> void:
 		# some default values
 		set_config("all_platforms", os_name != "Windows")
 	else:
-		var last_timestamp = config.get_value("general", "last_updated")
+		var last_timestamp = get_config("last_updated", 0)
 		cache_is_old = _is_last_timestamp_old_enough(int(timestamp), int(last_timestamp))
 	
-	TranslationServer.set_locale(OS.get_locale() if Configurator.get_config("translate", false) else "en")
+	TranslationServer.set_locale(OS.get_locale() if get_config("translate", false) else "en")
 
 
 func _on_ready() -> void:

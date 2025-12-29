@@ -69,8 +69,9 @@ func _notification(what: int) -> void:
 		is_window_focused = true
 
 
-func _input(_event: InputEvent) -> void:
-	if not is_window_focused: get_window().set_input_as_handled()
+func _input(event: InputEvent) -> void:
+	# no more controller inputs while window is unfocused!!
+	if not is_window_focused and event is InputEventJoypadButton or event is InputEventJoypadMotion: get_window().set_input_as_handled()
 
 
 func set_clear_colour_from_hue(hue: int) -> void:
@@ -94,7 +95,7 @@ func _on_timer_timeout() -> void:
 			if current_processes.is_empty(): 
 				process_timer.stop()
 				set_discord_status(DiscordStatus.IN_MENU)
-				set_window_state(WindowState.RESTORED)
+				if get_config("after_launch", 0) == 1: set_window_state(WindowState.RESTORED)
 			elif current_processes.size() == 1: 
 				set_discord_status(DiscordStatus.IN_GAME, current_processes[0].mod_id)
 			else:
@@ -102,8 +103,6 @@ func _on_timer_timeout() -> void:
 
 
 func set_window_state(state: WindowState) -> void:
-	if not get_config("minimize", false): return
-	
 	match state:
 		WindowState.ATTENTION:
 			if not get_window().has_focus(): get_window().request_attention()
@@ -159,7 +158,9 @@ func add_process(mod_id: String, version: String, platform: String, pid: int) ->
 	
 	if current_processes.size() > 1: set_discord_status(DiscordStatus.IN_MULTIPLE)
 	else: set_discord_status(DiscordStatus.IN_GAME, mod_id)
-	set_window_state(WindowState.MINIMIZED)
+	match get_config("after_launch", 0):
+		1: set_window_state(WindowState.MINIMIZED)
+		2: get_tree().quit()
 
 
 func get_mod_pid(mod_id: String, version: String, platform: String) -> int:
@@ -233,6 +234,7 @@ func remove_recursive(directory: String, remove_root_too: bool = true) -> void:
 
 
 func _on_cache_updated(_succeeded: bool) -> void:
+	OsTools.CheckSingleInstance()
 	parse_cmdline_args()
 
 

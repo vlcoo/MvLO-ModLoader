@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=62 format=3 uid="uid://d027atwmo705x"]
+[gd_resource type="Theme" format=3 uid="uid://d027atwmo705x"]
 
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
@@ -279,10 +279,10 @@ corner_radius_bottom_left = 6
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3anw"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.0781567, 0.0781567, 0.0781567, 1)
 border_width_left = 2
 border_width_top = 2
@@ -509,6 +509,9 @@ PanelOutlined/styles/panel = SubResource("StyleBoxFlat_u3gtb")
 PanelOverlay/base_type = &"Panel"
 PanelOverlay/styles/panel = SubResource("StyleBoxFlat_u4sau")
 PopupMenu/constants/h_separation = 8
+PopupMenu/constants/indent = 15
+PopupMenu/constants/item_end_padding = 10
+PopupMenu/constants/item_start_padding = 5
 PopupMenu/constants/outline_size = 2
 PopupMenu/constants/v_separation = 8
 PopupMenu/icons/checked = ExtResource("1_pet3p")

@@ -71,6 +71,7 @@ func _on_ready() -> void:
 	$Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit.text= Configurator.get_config("install_location", "user://")
 	$Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/ButtonFixChar.visible = Configurator.os_name == "Windows"
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer/OptionLanguage.selected = 1 if Configurator.get_config("translate", false) else 0
+	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerMinimize/HBoxContainer/OptionMinimize.selected = Configurator.get_config("after_launch", 1 if Configurator.get_config("minimize", false) else 0)
 	$Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckFools.visible = Time.get_datetime_dict_from_system()["month"] == Time.MONTH_APRIL and Time.get_datetime_dict_from_system()["day"] == 1
 
 	if Configurator.get_config("remember_view", false):
@@ -520,3 +521,7 @@ func _on_option_language_item_selected(index: int) -> void:
 func _on_button_reset_tours_pressed() -> void:
 	Configurator.reset_tours()
 	InstallsIndex.toast_success()
+
+
+func _on_option_minimize_item_selected(index: int) -> void:
+	Configurator.set_config("after_launch", index)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ci3wrj8l55xma"]
+[gd_scene format=3 uid="uid://ci3wrj8l55xma"]
 
 [ext_resource type="Script" uid="uid://bj5ujsrrfpbym" path="res://global/content_getter.gd" id="1_cnpe4"]
 [ext_resource type="AudioStream" uid="uid://q3xyek0guga1" path="res://audiovisual/click.ogg" id="2_7rrkq"]
@@ -233,11 +233,11 @@ _data = {
 &"wait_hidden": SubResource("Animation_65crw")
 }
 
-[node name="ContentGetter" type="CanvasLayer"]
+[node name="ContentGetter" type="CanvasLayer" unique_id=1771463869]
 layer = 3
 script = ExtResource("1_cnpe4")
 
-[node name="RectBackground" type="ColorRect" parent="."]
+[node name="RectBackground" type="ColorRect" parent="." unique_id=1830794586]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -246,7 +246,7 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0.137255)
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=313943367]
 custom_minimum_size = Vector2(360, 180)
 anchors_preset = 8
 anchor_left = 0.5
@@ -264,7 +264,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=2093402030]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -278,7 +278,7 @@ pivot_offset = Vector2(149, 91)
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
+[node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer" unique_id=1143559548]
 clip_contents = false
 layout_mode = 2
 theme_type_variation = &"TextLarge"
@@ -286,7 +286,7 @@ bbcode_enabled = true
 text = "[center][wave amp=36]Starting up..."
 fit_content = true
 
-[node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
+[node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer" unique_id=120721632]
 clip_contents = false
 layout_mode = 2
 theme_type_variation = &"TextSubtle"
@@ -294,7 +294,7 @@ bbcode_enabled = true
 text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Checking for updates"
 fit_content = true
 
-[node name="ContainerControllerHints" type="Control" parent="."]
+[node name="ContainerControllerHints" type="Control" parent="." unique_id=1681360834]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -305,7 +305,7 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ContainerControllerHints"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContainerControllerHints" unique_id=1713637878]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 1
 anchors_preset = 10
@@ -316,17 +316,19 @@ mouse_filter = 2
 theme_override_constants/separation = 900
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="ContainerControllerHints/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="ContainerControllerHints/HBoxContainer" unique_id=330766291]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("2_s2uvs")
 stretch_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="ContainerControllerHints/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="ContainerControllerHints/HBoxContainer" unique_id=992308345]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("3_vjufl")
 stretch_mode = 3
 
-[node name="Panel" type="Panel" parent="ContainerControllerHints"]
+[node name="Panel" type="Panel" parent="ContainerControllerHints" unique_id=1503861140]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -336,7 +338,7 @@ offset_right = 238.0
 grow_vertical = 0
 theme_type_variation = &"TooltipPanel"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ContainerControllerHints/Panel"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ContainerControllerHints/Panel" unique_id=753827684]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 1
 anchors_preset = 15
@@ -347,50 +349,55 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1127936145]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("4_40eig")
 stretch_mode = 3
 
-[node name="Label" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="Label" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1589115626]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
 theme_override_fonts/font = ExtResource("5_g1nnw")
 text = "Move"
 
-[node name="VSeparator" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="VSeparator" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1844636604]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 8
 theme_override_styles/separator = SubResource("StyleBoxEmpty_u5qsa")
 
-[node name="TextureRect2" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1512008878]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("6_wi1n3")
 stretch_mode = 3
 
-[node name="Label2" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="Label2" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1632486720]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
 theme_override_fonts/font = ExtResource("5_g1nnw")
 text = "Back"
 
-[node name="VSeparator2" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="VSeparator2" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1130195713]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 8
 theme_override_styles/separator = SubResource("StyleBoxEmpty_u5qsa")
 
-[node name="TextureRect3" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="TextureRect3" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=635538274]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("7_tvcjy")
 stretch_mode = 3
 
-[node name="Label3" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2"]
+[node name="Label3" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1700460188]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
 theme_override_fonts/font = ExtResource("5_g1nnw")
 text = "OK"
 
-[node name="ContainerStatusHint" type="Control" parent="."]
+[node name="ContainerStatusHint" type="Control" parent="." unique_id=1517059372]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -402,7 +409,7 @@ mouse_filter = 2
 script = ExtResource("8_gb46t")
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="Panel" parent="ContainerStatusHint"]
+[node name="Panel" type="Panel" parent="ContainerStatusHint" unique_id=577359239]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -415,7 +422,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_type_variation = &"TooltipPanel"
 
-[node name="TextureRect" type="TextureRect" parent="ContainerStatusHint/Panel"]
+[node name="TextureRect" type="TextureRect" parent="ContainerStatusHint/Panel" unique_id=2101421102]
 modulate = Color(0.972549, 0.188235, 0.188235, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -428,26 +435,24 @@ Vanilla and mods might be affected."
 texture = ExtResource("8_uop1r")
 stretch_mode = 3
 
-[node name="HTTPRequestGameServer" type="HTTPRequest" parent="ContainerStatusHint"]
+[node name="HTTPRequestGameServer" type="HTTPRequest" parent="ContainerStatusHint" unique_id=601724895]
 download_chunk_size = 8192
 use_threads = true
 timeout = 4.0
 
-[node name="TimerReping" type="Timer" parent="ContainerStatusHint"]
+[node name="TimerReping" type="Timer" parent="ContainerStatusHint" unique_id=645424931]
 wait_time = 120.0
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_fiiku")
-}
-autoplay = "wait_hidden"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=453698931]
+libraries/ = SubResource("AnimationLibrary_fiiku")
+autoplay = &"wait_hidden"
 
-[node name="HTTPRequestDB" type="HTTPRequest" parent="."]
+[node name="HTTPRequestDB" type="HTTPRequest" parent="." unique_id=2104962664]
 download_chunk_size = 16384
 use_threads = true
 
-[node name="AcceptDialog" type="AcceptDialog" parent="."]
+[node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=651434989]
 gui_embed_subwindows = true
 oversampling_override = 1.0
 initial_position = 2
@@ -456,16 +461,16 @@ unresizable = true
 theme_type_variation = &"WindowDialog"
 dialog_autowrap = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=891417577]
 wait_time = 0.1
 one_shot = true
 autostart = true
 
-[node name="TimerControllerHint" type="Timer" parent="."]
+[node name="TimerControllerHint" type="Timer" parent="." unique_id=954744241]
 wait_time = 5.0
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=668194640]
 stream = ExtResource("2_7rrkq")
 volume_db = -10.0
 max_polyphony = 2

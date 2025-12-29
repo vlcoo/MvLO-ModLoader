@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvjtglvn4vawb"]
+[gd_scene format=3 uid="uid://bvjtglvn4vawb"]
 
 [ext_resource type="Script" uid="uid://borb5i5exutxf" path="res://global/installs_index.gd" id="1_xlf4w"]
 [ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_vrh48"]
@@ -229,11 +229,11 @@ _data = {
 &"wait_hidden": SubResource("Animation_65crw")
 }
 
-[node name="InstallsIndex" type="CanvasLayer"]
+[node name="InstallsIndex" type="CanvasLayer" unique_id=1401394469]
 layer = 2
 script = ExtResource("1_xlf4w")
 
-[node name="RectBackground" type="ColorRect" parent="."]
+[node name="RectBackground" type="ColorRect" parent="." unique_id=384002160]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -241,7 +241,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.137255)
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=814699184]
 custom_minimum_size = Vector2(360, 180)
 anchors_preset = 8
 anchor_left = 0.5
@@ -259,7 +259,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=2012533075]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -274,15 +274,15 @@ pivot_offset = Vector2(149, 91)
 theme_override_constants/separation = 60
 alignment = 1
 
-[node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer"]
+[node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer" unique_id=1704724921]
 clip_contents = false
 layout_mode = 2
 theme_type_variation = &"TextLarge"
 bbcode_enabled = true
-text = "[center][wave amp=36]Installing mod..."
+text = "[center][wave amp=36]Installing..."
 fit_content = true
 
-[node name="ProgressBar" type="ProgressBar" parent="Panel/VBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="Panel/VBoxContainer" unique_id=1674264297]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(260, 4)
 layout_mode = 2
@@ -290,7 +290,7 @@ size_flags_horizontal = 4
 max_value = 1.0
 show_percentage = false
 
-[node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer/ProgressBar"]
+[node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer/ProgressBar" unique_id=477187843]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -309,7 +309,7 @@ text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img
 fit_content = true
 autowrap_mode = 0
 
-[node name="ButtonCancel" type="Button" parent="Panel"]
+[node name="ButtonCancel" type="Button" parent="Panel" unique_id=1413872251]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 1
 anchors_preset = 7
@@ -328,7 +328,7 @@ disabled = true
 text = "Cancel"
 icon = ExtResource("3_eo46q")
 
-[node name="ContainerToast" type="Control" parent="."]
+[node name="ContainerToast" type="Control" parent="." unique_id=1443189159]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -339,7 +339,7 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="Panel" parent="ContainerToast"]
+[node name="Panel" type="Panel" parent="ContainerToast" unique_id=2093664439]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -353,7 +353,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_type_variation = &"TooltipPanel"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ContainerToast/Panel"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ContainerToast/Panel" unique_id=115526612]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 1
 anchors_preset = 15
@@ -365,22 +365,22 @@ mouse_filter = 2
 theme_override_constants/separation = 26
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="ContainerToast/Panel/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="ContainerToast/Panel/HBoxContainer2" unique_id=842214084]
 layout_mode = 2
 texture = ExtResource("3_p7ty2")
 stretch_mode = 3
 
-[node name="Label" type="Label" parent="ContainerToast/Panel/HBoxContainer2"]
+[node name="Label" type="Label" parent="ContainerToast/Panel/HBoxContainer2" unique_id=1324183513]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
 theme_override_fonts/font = ExtResource("4_eo46q")
 text = "Success"
 
-[node name="TimerToast" type="Timer" parent="ContainerToast"]
+[node name="TimerToast" type="Timer" parent="ContainerToast" unique_id=321169830]
 wait_time = 1.5
 one_shot = true
 
-[node name="AcceptDialog" type="AcceptDialog" parent="."]
+[node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=203618896]
 gui_embed_subwindows = true
 oversampling_override = 1.0
 initial_position = 2
@@ -388,48 +388,48 @@ size = Vector2i(600, 200)
 unresizable = true
 dialog_autowrap = true
 
-[node name="HelpDialog" type="AcceptDialog" parent="."]
+[node name="HelpDialog" type="AcceptDialog" parent="." unique_id=659479293]
 auto_translate_mode = 1
 gui_embed_subwindows = true
 oversampling_override = 1.0
 title = "Tour - Shortcuts help"
 initial_position = 2
-size = Vector2i(600, 200)
+size = Vector2i(600, 224)
 unresizable = true
 dialog_autowrap = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HelpDialog"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HelpDialog" unique_id=1043310955]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 584.0
-offset_bottom = 139.0
+offset_bottom = 163.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HelpDialog/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HelpDialog/VBoxContainer" unique_id=636159134]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="HelpDialog/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HelpDialog/VBoxContainer/HBoxContainer" unique_id=1628798327]
 custom_minimum_size = Vector2(18, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("6_g5wk3")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="HelpDialog/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="HelpDialog/VBoxContainer/HBoxContainer" unique_id=1080489370]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "Shortcut modes:"
+text = "Shortcuts get created on your Desktop. Available modes:"
 
-[node name="TextureRect" type="TextureRect" parent="HelpDialog/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HelpDialog/VBoxContainer" unique_id=2038523382]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("6_3nu8e")
 stretch_mode = 5
 
-[node name="ConfirmationDialogRedirect" type="ConfirmationDialog" parent="."]
+[node name="ConfirmationDialogRedirect" type="ConfirmationDialog" parent="." unique_id=1805609048]
 gui_embed_subwindows = true
 oversampling_override = 1.0
 size = Vector2i(600, 200)
@@ -438,7 +438,7 @@ ok_button_text = "Yes"
 dialog_autowrap = true
 cancel_button_text = "No"
 
-[node name="ConfirmationDangerous" type="ConfirmationDialog" parent="."]
+[node name="ConfirmationDangerous" type="ConfirmationDialog" parent="." unique_id=420487344]
 gui_embed_subwindows = true
 oversampling_override = 1.0
 size = Vector2i(600, 200)
@@ -448,21 +448,19 @@ dialog_text = "Are you sure? This action is irreversible."
 dialog_autowrap = true
 cancel_button_text = "No"
 
-[node name="TimerUpdateProgressbar" type="Timer" parent="."]
+[node name="TimerUpdateProgressbar" type="Timer" parent="." unique_id=85774796]
 wait_time = 0.1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_fiiku")
-}
-autoplay = "wait_hidden"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1507622055]
+libraries/ = SubResource("AnimationLibrary_fiiku")
+autoplay = &"wait_hidden"
 speed_scale = 1.2
 
-[node name="HTTPRequestGame" type="HTTPRequest" parent="."]
+[node name="HTTPRequestGame" type="HTTPRequest" parent="." unique_id=19106022]
 download_chunk_size = 98304
 use_threads = true
 
-[node name="HTTPRequestItchURL" type="HTTPRequest" parent="."]
+[node name="HTTPRequestItchURL" type="HTTPRequest" parent="." unique_id=557318507]
 download_chunk_size = 16384
 use_threads = true
 

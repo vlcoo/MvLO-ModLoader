@@ -356,8 +356,7 @@ func _on_button_favourite_toggled(toggled_on: bool) -> void:
 
 func _on_button_files_id_pressed(id: int) -> void:
 	var error: Error
-	#var ml_path = OS.get_executable_path()
-	var ml_path = "C:/Users/Victor/Projects/Godot/builds/mvloml win portable/MvLOMLWindows-Portable.exe"
+	var ml_path = OS.get_executable_path()
 	var mod_version = options_version.get_item_text(options_version.selected)
 	var mod_platform = options_platform.get_item_text(options_platform.selected)
 	var shortcut_description = mod_data.name + " (" + (mod_platform if "Latest" in mod_version else mod_version) + ")"

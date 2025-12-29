@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddgnmdkwq7gb4"]
+[gd_scene format=3 uid="uid://ddgnmdkwq7gb4"]
 
 [ext_resource type="StyleBox" uid="uid://d3ijjxidv6oaq" path="res://ui_resources/style_panel.tres" id="1_jwr72"]
 [ext_resource type="Script" uid="uid://b0x05mvf3dgfi" path="res://scenes/news_element.gd" id="2_1lr6y"]
@@ -13,7 +13,7 @@ variation_transform = Transform2D(1, 0.25, 0, 1, 0, 0)
 base_font = ExtResource("4_1lr6y")
 variation_embolden = -0.5
 
-[node name="PanelContainer" type="PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" unique_id=1294631338]
 custom_minimum_size = Vector2(992, 0)
 anchors_preset = 5
 anchor_left = 0.5
@@ -27,23 +27,23 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("1_jwr72")
 script = ExtResource("2_1lr6y")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1365384711]
 layout_mode = 2
 
-[node name="LabelTitle" type="Label" parent="VBoxContainer"]
+[node name="LabelTitle" type="Label" parent="VBoxContainer" unique_id=1349743363]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_1lr6y")
 text = "This is a post"
 horizontal_alignment = 1
 text_overrun_behavior = 3
 
-[node name="LabelSubtitle" type="Label" parent="VBoxContainer"]
+[node name="LabelSubtitle" type="Label" parent="VBoxContainer" unique_id=1698380173]
 layout_mode = 2
 theme_type_variation = &"LabelSubtle"
 text = "2025-01-01 by aaaaaaa"
 horizontal_alignment = 1
 
-[node name="LabelContents" type="Label" parent="VBoxContainer"]
+[node name="LabelContents" type="Label" parent="VBoxContainer" unique_id=1093561580]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.78431374)
 theme_override_fonts/font = SubResource("FontVariation_5uwy7")

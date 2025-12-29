@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckhxp855p5xhf"]
+[gd_scene format=3 uid="uid://ckhxp855p5xhf"]
 
 [ext_resource type="Script" uid="uid://52ibotnj5ow0" path="res://scenes/game_gallery_element_big.gd" id="2_dppu1"]
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_on2cr"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_x1hsx"]
 [ext_resource type="Texture2D" uid="uid://dxx5srn44vu6q" path="res://audiovisual/star-small.png" id="4_l5n6f"]
 
-[node name="Panel" type="Panel"]
+[node name="Panel" type="Panel" unique_id=1893339737]
 custom_minimum_size = Vector2(150, 200)
 offset_right = 150.0
 offset_bottom = 180.0
@@ -15,7 +15,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 script = ExtResource("2_dppu1")
 
-[node name="Container" type="VBoxContainer" parent="."]
+[node name="Container" type="VBoxContainer" parent="." unique_id=24456640]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,7 @@ pivot_offset = Vector2(70, 100)
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="TextureCover" type="TextureRect" parent="Container"]
+[node name="TextureCover" type="TextureRect" parent="Container" unique_id=83928120]
 unique_name_in_owner = true
 texture_filter = 1
 clip_contents = true
@@ -40,7 +40,7 @@ texture = ExtResource("2_on2cr")
 expand_mode = 4
 stretch_mode = 5
 
-[node name="LabelTitle" type="Label" parent="Container"]
+[node name="LabelTitle" type="Label" parent="Container" unique_id=1879302189]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
@@ -52,7 +52,7 @@ autowrap_mode = 3
 text_overrun_behavior = 3
 max_lines_visible = 2
 
-[node name="ContainerIcons" type="PanelContainer" parent="."]
+[node name="ContainerIcons" type="PanelContainer" parent="." unique_id=1398258362]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -63,14 +63,14 @@ offset_bottom = 16.0
 grow_horizontal = 0
 theme_type_variation = &"PanelOverlay"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ContainerIcons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContainerIcons" unique_id=713088789]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureInstalled" type="TextureRect" parent="ContainerIcons/HBoxContainer"]
+[node name="TextureInstalled" type="TextureRect" parent="ContainerIcons/HBoxContainer" unique_id=101100523]
 unique_name_in_owner = true
 self_modulate = Color(0.192157, 0.745098, 0.223529, 0.690196)
 texture_filter = 1
@@ -81,7 +81,7 @@ texture = ExtResource("3_x1hsx")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureFavourite" type="TextureRect" parent="ContainerIcons/HBoxContainer"]
+[node name="TextureFavourite" type="TextureRect" parent="ContainerIcons/HBoxContainer" unique_id=157165453]
 unique_name_in_owner = true
 self_modulate = Color(0.878431, 0.776471, 0.0941176, 0.737255)
 texture_filter = 1
@@ -92,7 +92,7 @@ texture = ExtResource("4_l5n6f")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1154378312]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

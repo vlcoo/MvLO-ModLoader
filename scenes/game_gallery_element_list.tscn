@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://6mp1uhlvagte"]
+[gd_scene format=3 uid="uid://6mp1uhlvagte"]
 
 [ext_resource type="Texture2D" uid="uid://bxfbmao3m8jiw" path="res://audiovisual/nodata.png" id="2_gjx1i"]
 [ext_resource type="Script" uid="uid://52ibotnj5ow0" path="res://scenes/game_gallery_element_big.gd" id="2_s8udx"]
 [ext_resource type="Texture2D" uid="uid://cvkl75wovecqc" path="res://audiovisual/installed.png" id="3_ghsre"]
 [ext_resource type="Texture2D" uid="uid://dxx5srn44vu6q" path="res://audiovisual/star-small.png" id="4_uh0m4"]
 
-[node name="Panel" type="Panel"]
+[node name="Panel" type="Panel" unique_id=1206619199]
 custom_minimum_size = Vector2(900, 56)
 anchors_preset = 10
 anchor_right = 1.0
@@ -17,7 +17,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 script = ExtResource("2_s8udx")
 
-[node name="Container" type="HBoxContainer" parent="."]
+[node name="Container" type="HBoxContainer" parent="." unique_id=1702705459]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ pivot_offset = Vector2(507, 26)
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="TextureCover" type="TextureRect" parent="Container"]
+[node name="TextureCover" type="TextureRect" parent="Container" unique_id=2103238817]
 unique_name_in_owner = true
 texture_filter = 1
 custom_minimum_size = Vector2(46, 46)
@@ -41,7 +41,7 @@ texture = ExtResource("2_gjx1i")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="LabelTitle" type="Label" parent="Container"]
+[node name="LabelTitle" type="Label" parent="Container" unique_id=301996294]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
@@ -51,7 +51,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 max_lines_visible = 2
 
-[node name="TextureInstalled" type="TextureRect" parent="Container"]
+[node name="TextureInstalled" type="TextureRect" parent="Container" unique_id=1332580667]
 unique_name_in_owner = true
 self_modulate = Color(0.192157, 0.745098, 0.223529, 0.690196)
 texture_filter = 1
@@ -61,7 +61,7 @@ mouse_filter = 0
 texture = ExtResource("3_ghsre")
 stretch_mode = 5
 
-[node name="TextureFavourite" type="TextureRect" parent="Container"]
+[node name="TextureFavourite" type="TextureRect" parent="Container" unique_id=1165892141]
 unique_name_in_owner = true
 self_modulate = Color(0.878431, 0.776471, 0.0941176, 0.737255)
 texture_filter = 1
@@ -71,7 +71,7 @@ mouse_filter = 0
 texture = ExtResource("4_uh0m4")
 stretch_mode = 5
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=2001877698]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cwrupu3hq0b1a"]
+[gd_scene format=3 uid="uid://cwrupu3hq0b1a"]
 
 [ext_resource type="Script" uid="uid://cr5uryoa5e2cs" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://boixcv1chdlct" path="res://audiovisual/earth.png" id="23_lxkal"]
 [ext_resource type="Texture2D" uid="uid://bgrj17rnvn2de" path="res://ui_resources/textures/navigation.png" id="24_j8f1w"]
 [ext_resource type="Texture2D" uid="uid://dpcvlvd1apd5e" path="res://audiovisual/nsmb.png" id="25_5f5dk"]
+[ext_resource type="Texture2D" uid="uid://dl21iq46og0g1" path="res://audiovisual/cancel.png" id="27_jou58"]
 [ext_resource type="Texture2D" uid="uid://bauqwsj6o488f" path="res://audiovisual/toadette.png" id="27_lxkal"]
 [ext_resource type="Texture2D" uid="uid://dsc7vdmapg6eo" path="res://audiovisual/fix.png" id="30_2scfd"]
 [ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="34_nr07p"]
@@ -38,6 +39,173 @@
 [ext_resource type="Texture2D" uid="uid://caepwi58ukfyp" path="res://audiovisual/loading.png" id="36_2c3ov"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52ocl"]
+
+[sub_resource type="Animation" id="Animation_akkqd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mouse_filter")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m5xs2"]
+resource_name = "in"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:mouse_filter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.2, 0.25),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lwuhr"]
+resource_name = "out"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mouse_filter")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-0.000434416, 0.1),
+"transitions": PackedFloat32Array(0.25, 0.25),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0w417"]
+resource_name = "wait_hidden"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:mouse_filter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rsp16"]
+_data = {
+&"RESET": SubResource("Animation_akkqd"),
+&"in": SubResource("Animation_m5xs2"),
+&"out": SubResource("Animation_lwuhr"),
+&"wait_hidden": SubResource("Animation_0w417")
+}
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f5dk"]
 
@@ -47,7 +215,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2scfd"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_2c3ov"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_jou58"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4mjw"]
 content_margin_left = 16.0
@@ -93,7 +261,7 @@ draw_center = false
 [sub_resource type="FoldableGroup" id="FoldableGroup_f4mjw"]
 allow_folding_all = true
 
-[node name="GameGallery" type="TabContainer"]
+[node name="GameGallery" type="TabContainer" unique_id=417501592]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -102,67 +270,75 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 0
+current_tab = 3
 tab_focus_mode = 0
 script = ExtResource("1_otdsd")
 metadata/_edit_vertical_guides_ = [52.0, 16.0]
 metadata/_edit_horizontal_guides_ = [56.0]
 
-[node name="Vanilla" type="PanelContainer" parent="."]
+[node name="Vanilla" type="PanelContainer" parent="." unique_id=1446838784]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="GameViewer" parent="Vanilla" instance=ExtResource("1_qd0tx")]
+[node name="GameViewer" parent="Vanilla" unique_id=732988605 instance=ExtResource("1_qd0tx")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_52ocl")
 mod_data_id = "vanilla"
 auto_refresh = false
 is_vanilla_tab = true
 
-[node name="ColorRect" parent="Vanilla/GameViewer" index="0"]
+[node name="ColorRect" parent="Vanilla/GameViewer" index="0" unique_id=2054617636]
 visible = false
 
-[node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" index="1"]
+[node name="ButtonBack" parent="Vanilla/GameViewer/PanelOverview" parent_id_path=PackedInt32Array(732988605, 774547985) index="1" unique_id=106410654]
 visible = false
 
-[node name="CheckFavourite" parent="Vanilla/GameViewer/PanelOverview" index="2"]
+[node name="CheckFavourite" parent="Vanilla/GameViewer/PanelOverview" parent_id_path=PackedInt32Array(732988605, 774547985) index="2" unique_id=1214954585]
 visible = false
 
-[node name="Mod Gallery" type="PanelContainer" parent="."]
+[node name="PanelDetail" parent="Vanilla/GameViewer" index="2" unique_id=1613520289]
+offset_top = -14.767002
+offset_bottom = 13.766968
+
+[node name="AnimationPlayer" parent="Vanilla/GameViewer" index="3" unique_id=289440844]
+libraries/ = SubResource("AnimationLibrary_rsp16")
+
+[node name="Mod Gallery" type="PanelContainer" parent="." unique_id=542502355]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="ContainerBig" type="MarginContainer" parent="Mod Gallery"]
+[node name="ContainerBig" type="MarginContainer" parent="Mod Gallery" unique_id=72569220]
 clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig" unique_id=65529312]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 6
 
-[node name="ContainerFilters" type="HBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
+[node name="ContainerFilters" type="HBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer" unique_id=1537636169]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="TextureSearch" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="TextureSearch" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=1403251896]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_kmsf4")
 
-[node name="LabelSearch" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="LabelSearch" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=125966498]
 layout_mode = 2
 text = "Search:"
 
-[node name="InputSearch" type="LineEdit" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="InputSearch" type="LineEdit" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=736786370]
 custom_minimum_size = Vector2(220, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -178,22 +354,22 @@ middle_mouse_paste_enabled = false
 drag_and_drop_selection_enabled = false
 caret_blink = true
 
-[node name="VSeparator" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="VSeparator" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=1292311430]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="TextureSort" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="TextureSort" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=1396890597]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("4_jqbeb")
 
-[node name="LabelSort" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="LabelSort" type="Label" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=384544808]
 layout_mode = 2
 text = "Sort:"
 vertical_alignment = 1
 
-[node name="OptionSort" type="OptionButton" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="OptionSort" type="OptionButton" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=918712870]
 custom_minimum_size = Vector2(220, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -216,22 +392,22 @@ popup/item_2/text = "By recently updated"
 popup/item_2/icon = ExtResource("8_m6xmm")
 popup/item_2/id = 0
 
-[node name="VSeparator2" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="VSeparator2" type="VSeparator" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=518403365]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="TextureFilter" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="TextureFilter" type="TextureRect" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=2116826142]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("5_h0xkt")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters" unique_id=1902977584]
 layout_mode = 2
 theme_override_constants/separation = -4
 alignment = 1
 
-[node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
+[node name="CheckOnlyInstalled" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer" unique_id=1072267716]
 layout_mode = 2
 tooltip_text = "Don't show mods you haven't installed."
 focus_neighbor_left = NodePath("../../OptionSort")
@@ -242,7 +418,7 @@ focus_next = NodePath("../CheckOnlyFavourites")
 focus_previous = NodePath("../../OptionSort")
 text = "Only installed"
 
-[node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer"]
+[node name="CheckOnlyFavourites" type="CheckBox" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerFilters/VBoxContainer" unique_id=1590627519]
 layout_mode = 2
 tooltip_text = "Don't show mods you haven't starred."
 focus_neighbor_left = NodePath("../../OptionSort")
@@ -251,7 +427,7 @@ focus_neighbor_right = NodePath("../../InputSearch")
 focus_previous = NodePath("../CheckOnlyInstalled")
 text = "Only favourites"
 
-[node name="ContainerMods" type="ScrollContainer" parent="Mod Gallery/ContainerBig/VBoxContainer"]
+[node name="ContainerMods" type="ScrollContainer" parent="Mod Gallery/ContainerBig/VBoxContainer" unique_id=88687265]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
@@ -264,14 +440,14 @@ allow_horizontal_scroll = false
 friction_scroll = 0.85
 friction_drag = 0.8
 
-[node name="MarginContainer" type="MarginContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods"]
+[node name="MarginContainer" type="MarginContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods" unique_id=1327505986]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer" unique_id=975667473]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -279,12 +455,12 @@ theme_override_constants/h_separation = 42
 theme_override_constants/v_separation = 19
 columns = 5
 
-[node name="ContainerNoResults" type="VBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer"]
+[node name="ContainerNoResults" type="VBoxContainer" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer" unique_id=158169682]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 24
 
-[node name="Label" type="RichTextLabel" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"]
+[node name="Label" type="RichTextLabel" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults" unique_id=314362882]
 clip_contents = false
 layout_mode = 2
 theme_type_variation = &"TextLarge"
@@ -293,45 +469,45 @@ text = "No results!"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults" unique_id=1075266838]
 layout_mode = 2
 bbcode_enabled = true
 text = "[center][img]res://audiovisual/search-delete.png[/img]    Try resetting the filters above..."
 fit_content = true
 
-[node name="GameViewer" parent="Mod Gallery" instance=ExtResource("1_qd0tx")]
+[node name="GameViewer" parent="Mod Gallery" unique_id=1398870199 instance=ExtResource("1_qd0tx")]
 layout_mode = 2
 auto_refresh = false
 
-[node name="Storage" type="PanelContainer" parent="."]
+[node name="Storage" type="PanelContainer" parent="." unique_id=2099746045]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Storage"]
+[node name="MarginContainer" type="MarginContainer" parent="Storage" unique_id=1747848393]
 layout_mode = 2
 theme_override_constants/margin_left = 52
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 52
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Storage/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Storage/MarginContainer" unique_id=296461998]
 layout_mode = 2
 theme_override_constants/separation = 26
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer" unique_id=1138862131]
 custom_minimum_size = Vector2(920, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
 
-[node name="TextureRect" type="TextureRect" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1330267569]
 layout_mode = 2
 size_flags_horizontal = 0
 stretch_mode = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1037710998]
 clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 0
@@ -341,18 +517,18 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Storage/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1005712505]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "0 installs"
 
-[node name="Panel" type="Panel" parent="Storage/MarginContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="Storage/MarginContainer/VBoxContainer" unique_id=2081371355]
 custom_minimum_size = Vector2(920, 520)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="ItemList" type="ItemList" parent="Storage/MarginContainer/VBoxContainer/Panel"]
+[node name="ItemList" type="ItemList" parent="Storage/MarginContainer/VBoxContainer/Panel" unique_id=1972359601]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -380,7 +556,7 @@ theme_override_styles/selected_focus = ExtResource("12_2scfd")
 fixed_column_width = 780
 fixed_icon_size = Vector2i(16, 16)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Storage/MarginContainer/VBoxContainer/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Storage/MarginContainer/VBoxContainer/Panel" unique_id=352395089]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -398,22 +574,22 @@ damping_drag = 0.5
 friction_scroll = 0.85
 friction_drag = 0.8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer" unique_id=1617577414]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("11_a6eo1")]
+[node name="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" unique_id=653897534 instance=ExtResource("11_a6eo1")]
 visible = false
 layout_mode = 2
-button_group = SubResource("ButtonGroup_2c3ov")
+button_group = SubResource("ButtonGroup_jou58")
 
-[node name="ContainerButtons" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer"]
+[node name="ContainerButtons" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer" unique_id=303632181]
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="ButtonFind" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonFind" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=2080395068]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -429,7 +605,7 @@ theme_override_constants/h_separation = -16
 text = "Find in gallery"
 icon = ExtResource("12_lymde")
 
-[node name="ButtonUninstall" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonUninstall" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=2024014930]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -445,7 +621,7 @@ theme_override_constants/h_separation = -16
 text = "Uninstall"
 icon = ExtResource("4_yn4re")
 
-[node name="ButtonLaunch" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonLaunch" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=1704814343]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -461,7 +637,7 @@ theme_override_constants/h_separation = -16
 text = "Launch"
 icon = ExtResource("5_0xeke")
 
-[node name="ButtonBrowse" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="ButtonBrowse" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=1100121969]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -477,37 +653,36 @@ theme_override_constants/h_separation = -16
 text = "Browse files"
 icon = ExtResource("6_xk1xd")
 
-[node name="TimerLoading" type="Timer" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons"]
+[node name="TimerLoading" type="Timer" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=1544248464]
 wait_time = 5.0
 one_shot = true
 
-[node name="Settings" type="PanelContainer" parent="."]
-visible = false
+[node name="Settings" type="PanelContainer" parent="." unique_id=425370925]
 clip_contents = true
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="ScrollContainer" type="MarginContainer" parent="Settings"]
+[node name="ScrollContainer" type="MarginContainer" parent="Settings" unique_id=1536573346]
 custom_minimum_size = Vector2(992, 694)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer" unique_id=860918014]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/separation = 16
 
-[node name="PanelAbout" type="Panel" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="PanelAbout" type="Panel" parent="Settings/ScrollContainer/VBoxContainer" unique_id=210812336]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Thanks for the support!"
 theme_override_styles/panel = SubResource("StyleBoxFlat_f4mjw")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout" unique_id=526842235]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 1
 anchors_preset = 8
@@ -525,7 +700,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 48
 alignment = 1
 
-[node name="TextureLogo" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout/HBoxContainer"]
+[node name="TextureLogo" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout/HBoxContainer" unique_id=1459490008]
 texture_filter = 1
 custom_minimum_size = Vector2(250, 76)
 layout_mode = 2
@@ -533,7 +708,7 @@ texture = ExtResource("7_n2qau")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LabelLogo" type="RichTextLabel" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout/HBoxContainer"]
+[node name="LabelLogo" type="RichTextLabel" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout/HBoxContainer" unique_id=2050602694]
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 1
@@ -546,7 +721,7 @@ text = "A simple way to keep your mods organized and up to date.
 fit_content = true
 autowrap_mode = 0
 
-[node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
+[node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout" unique_id=890680419]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 3
@@ -565,11 +740,11 @@ mouse_filter = 0
 theme_override_colors/font_color = Color(0.407843, 0.407843, 0.407843, 0.313726)
 theme_override_fonts/font = ExtResource("15_rxllx")
 theme_override_font_sizes/font_size = 52
-text = "v5"
+text = "v6"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="ButtonWebsite" type="Button" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout"]
+[node name="ButtonWebsite" type="Button" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout" unique_id=1205496734]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -587,25 +762,25 @@ focus_neighbor_right = NodePath("../../HBoxContainer/VBoxContainer/CheckList")
 focus_neighbor_bottom = NodePath("../../HBoxContainer/VBoxContainer2/CheckRemember")
 icon = ExtResource("17_f4mjw")
 
-[node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer" unique_id=1458267705]
 visible = false
 self_modulate = Color(1, 1, 1, 0.517647)
 layout_mode = 2
 theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_mansp")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer" unique_id=1688280547]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=584712166]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="CheckList" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CheckList" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1986612477]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -620,7 +795,7 @@ theme_override_constants/h_separation = 14
 text = "Use list view for mod gallery"
 icon = ExtResource("11_2jt2q")
 
-[node name="CheckPlatforms" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CheckPlatforms" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=15341136]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -635,7 +810,7 @@ theme_override_constants/h_separation = 14
 text = "Show all platforms"
 icon = ExtResource("13_8dqhh")
 
-[node name="CheckAutoSubscribe" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CheckAutoSubscribe" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=320856022]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -651,24 +826,24 @@ button_pressed = true
 text = "Auto subscribe to updates"
 icon = ExtResource("19_gixlo")
 
-[node name="ContainerTheme" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ContainerTheme" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=935891693]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme" unique_id=1855151752]
 layout_mode = 2
 tooltip_text = "Change the visuals of the UI."
 theme_override_constants/separation = 13
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer" unique_id=1675146793]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("15_upikk")
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer" unique_id=1084622310]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -676,7 +851,7 @@ size_flags_stretch_ratio = 0.5
 text = "Theme colour"
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer" unique_id=1882195623]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -689,7 +864,7 @@ popup/item_0/id = 0
 popup/item_1/text = "Basic Light"
 popup/item_1/id = 1
 
-[node name="HSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/ContainerTheme/HBoxContainer" unique_id=1138017036]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -705,7 +880,7 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_3dta
 max_value = 360.0
 value = 360.0
 
-[node name="CheckFools" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CheckFools" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=978553051]
 visible = false
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
@@ -723,16 +898,16 @@ button_pressed = true
 text = "Remove Toadette from all mods"
 icon = ExtResource("27_lxkal")
 
-[node name="VSeparator" type="VSeparator" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=241420289]
 layout_mode = 2
 theme_override_constants/separation = 42
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=755016736]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="CheckRemember" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="CheckRemember" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1204396949]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -747,7 +922,7 @@ theme_override_constants/h_separation = 14
 text = "Open last viewed tab on restart"
 icon = ExtResource("12_lymde")
 
-[node name="CheckDiscord" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="CheckDiscord" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1332393109]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -763,7 +938,8 @@ button_pressed = true
 text = "Discord Game Activity (auto)"
 icon = ExtResource("14_edqgf")
 
-[node name="CheckMinimize" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="CheckMinimize" type="CheckButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=371239863]
+visible = false
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -778,24 +954,74 @@ theme_override_constants/h_separation = 14
 text = "Hide window when launching a mod"
 icon = ExtResource("19_t4233")
 
-[node name="ContainerLanguage" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="ContainerMinimize" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1353562150]
+custom_minimum_size = Vector2(440, 40)
+layout_mode = 2
+tooltip_text = "Minimize or close the app when opening a mod.
+If minimized, window will be restored after closing the mod;
+if closed, your playtime will not be counted."
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerMinimize" unique_id=1231830176]
+layout_mode = 2
+tooltip_text = "Minimize or close the app when opening a mod.
+If minimized, window will be restored after closing the mod;
+if closed, your playtime will not be counted."
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerMinimize/HBoxContainer" unique_id=1281364312]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_0xeke")
+
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerMinimize/HBoxContainer" unique_id=2000639122]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.56
+text = "After launching mod..."
+vertical_alignment = 1
+
+[node name="OptionMinimize" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerMinimize/HBoxContainer" unique_id=1595859071]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.9
+focus_neighbor_left = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
+focus_neighbor_top = NodePath("../../../CheckMinimize")
+focus_neighbor_right = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
+focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
+mouse_filter = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Do nothing"
+popup/item_0/id = 0
+popup/item_1/text = "Hide window"
+popup/item_1/icon = ExtResource("19_t4233")
+popup/item_1/id = 1
+popup/item_2/text = "Quit Mod Loader"
+popup/item_2/icon = ExtResource("27_jou58")
+popup/item_2/id = 2
+
+[node name="ContainerLanguage" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=576196148]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage" unique_id=624573234]
 layout_mode = 2
 tooltip_text = "Translate app's text."
-theme_override_constants/separation = 13
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer" unique_id=1043444959]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("23_lxkal")
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer" unique_id=824915831]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -803,7 +1029,7 @@ size_flags_stretch_ratio = 0.56
 text = "Language"
 vertical_alignment = 1
 
-[node name="OptionLanguage" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer"]
+[node name="OptionLanguage" type="OptionButton" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer" unique_id=1372047531]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.9
@@ -819,11 +1045,11 @@ popup/item_0/id = 0
 popup/item_1/text = "Automatic region"
 popup/item_1/id = 1
 
-[node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer" unique_id=1848341636]
 visible = false
 layout_mode = 2
 
-[node name="LabelAdvanced" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="LabelAdvanced" type="Label" parent="Settings/ScrollContainer/VBoxContainer" unique_id=1646285241]
 visible = false
 layout_mode = 2
 mouse_filter = 1
@@ -831,7 +1057,7 @@ theme_type_variation = &"LabelSubtle"
 text = "Advanced"
 horizontal_alignment = 1
 
-[node name="ContainerAdvanced" type="FoldableContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="ContainerAdvanced" type="FoldableContainer" parent="Settings/ScrollContainer/VBoxContainer" unique_id=289957516]
 custom_minimum_size = Vector2(820, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -844,13 +1070,13 @@ title = "Advanced"
 title_alignment = 1
 foldable_group = SubResource("FoldableGroup_f4mjw")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced" unique_id=1473294453]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ContainerLocation" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer"]
+[node name="ContainerLocation" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer" unique_id=672597545]
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -859,12 +1085,12 @@ tooltip_text = "Custom folder to install mods to."
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation"]
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation" unique_id=1614935638]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("16_gsodk")
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation" unique_id=198068645]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -872,7 +1098,7 @@ size_flags_stretch_ratio = 0.33
 text = "Install location"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation"]
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation" unique_id=437475210]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -882,11 +1108,11 @@ mouse_filter = 1
 text = "user://"
 editable = false
 context_menu_enabled = false
-virtual_keyboard_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
+virtual_keyboard_enabled = false
 
-[node name="ButtonChooseFolder" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation"]
+[node name="ButtonChooseFolder" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation" unique_id=1362170776]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
@@ -894,14 +1120,14 @@ focus_neighbor_top = NodePath("../../..")
 focus_neighbor_bottom = NodePath("../../ContainerVanillaReplacement/ButtonChooseMod")
 text = "Choose folder..."
 
-[node name="ButtonClear" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation"]
+[node name="ButtonClear" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation" unique_id=1603191424]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Clear
 "
 
-[node name="ContainerVanillaReplacement" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer"]
+[node name="ContainerVanillaReplacement" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer" unique_id=1968419893]
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -910,13 +1136,13 @@ tooltip_text = "Which mod to show in place of the vanilla game."
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+[node name="Icon" type="TextureRect" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement" unique_id=702152161]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("25_5f5dk")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement" unique_id=462274494]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -924,7 +1150,7 @@ size_flags_stretch_ratio = 0.33
 text = "'Vanilla' tab"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement" unique_id=2060693006]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -934,11 +1160,11 @@ mouse_filter = 1
 text = "[No change]"
 editable = false
 context_menu_enabled = false
-virtual_keyboard_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
+virtual_keyboard_enabled = false
 
-[node name="ButtonChooseMod" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement"]
+[node name="ButtonChooseMod" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement" unique_id=159797880]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
@@ -948,7 +1174,7 @@ focus_neighbor_right = NodePath("../../../../HBoxContainer/VBoxContainer/Contain
 focus_neighbor_bottom = NodePath("../../ContainerArgsWin/LineEdit")
 text = "Choose mod..."
 
-[node name="ContainerArgsWin" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer"]
+[node name="ContainerArgsWin" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer" unique_id=303466497]
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -958,7 +1184,7 @@ use these extra parameters before the filename when executing the command.
 i.e.: [extra args] nsmb.exe"
 alignment = 1
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsWin"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsWin" unique_id=1401295228]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -966,7 +1192,7 @@ size_flags_stretch_ratio = 0.4
 text = "Extra args for .exe"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsWin"]
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsWin" unique_id=1960547406]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -977,17 +1203,17 @@ placeholder_text = "None"
 clear_button_enabled = true
 caret_blink = true
 
-[node name="ContainerArgsLinux" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer"]
+[node name="ContainerArgsLinux" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer" unique_id=1874581681]
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a mod version build for Windows is launched,
+tooltip_text = "If a mod version build for Linux is launched,
 use these extra parameters before the filename when executing the command.
-i.e.: [extra args] nsmb.exe"
+i.e.: [extra args] nsmb.x86_64"
 alignment = 1
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux" unique_id=1531406169]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -995,7 +1221,7 @@ size_flags_stretch_ratio = 0.4
 text = "Extra args for .x86_64"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux"]
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsLinux" unique_id=2139751115]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -1006,17 +1232,17 @@ placeholder_text = "None"
 clear_button_enabled = true
 caret_blink = true
 
-[node name="ContainerArgsMac" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer"]
+[node name="ContainerArgsMac" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer" unique_id=555917851]
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "If a mod version build for Windows is launched,
+tooltip_text = "If a mod version build for macOS is launched,
 use these extra parameters before the filename when executing the command.
-i.e.: [extra args] nsmb.exe"
+i.e.: [extra args] nsmb.app"
 alignment = 1
 
-[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac"]
+[node name="Label" type="Label" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac" unique_id=487657090]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1024,7 +1250,7 @@ size_flags_stretch_ratio = 0.4
 text = "Extra args for .app"
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac"]
+[node name="LineEdit" type="LineEdit" parent="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerArgsMac" unique_id=22583478]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -1035,11 +1261,11 @@ placeholder_text = "None"
 clear_button_enabled = true
 caret_blink = true
 
-[node name="HSeparator3" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="Settings/ScrollContainer/VBoxContainer" unique_id=1638631430]
 visible = false
 layout_mode = 2
 
-[node name="LabelTroubleshooting" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="LabelTroubleshooting" type="Label" parent="Settings/ScrollContainer/VBoxContainer" unique_id=99626897]
 visible = false
 layout_mode = 2
 tooltip_text = "Don't use these if not strictly necessary!"
@@ -1048,7 +1274,7 @@ theme_type_variation = &"LabelSubtle"
 text = "Troubleshooting"
 horizontal_alignment = 1
 
-[node name="ContainerTroubleshooting" type="FoldableContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+[node name="ContainerTroubleshooting" type="FoldableContainer" parent="Settings/ScrollContainer/VBoxContainer" unique_id=827267775]
 custom_minimum_size = Vector2(820, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1061,7 +1287,7 @@ title = "Troubleshooting"
 title_alignment = 1
 foldable_group = SubResource("FoldableGroup_f4mjw")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting" unique_id=1459985781]
 visible = false
 custom_minimum_size = Vector2(700, 40)
 layout_mode = 2
@@ -1070,13 +1296,13 @@ size_flags_vertical = 4
 theme_override_constants/separation = 22
 alignment = 1
 
-[node name="ButtonRedownloadDB" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+[node name="ButtonRedownloadDB" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=13137122]
 custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Re-show Help popups
-that you've already seen."
+tooltip_text = "Force update of database (mod data and images)
+and reboot program."
 focus_neighbor_left = NodePath("../ButtonFixChar")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonUninstallAll")
@@ -1084,7 +1310,7 @@ focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Refresh DB"
 icon = ExtResource("17_8is38")
 
-[node name="ButtonDeleteDB" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+[node name="ButtonDeleteDB" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=1114580944]
 visible = false
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
@@ -1094,13 +1320,13 @@ tooltip_text = "Delete downloaded database (data and images for mod gallery)."
 text = "Delete DB"
 icon = ExtResource("18_xr7p4")
 
-[node name="ButtonUninstallAll" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+[node name="ButtonUninstallAll" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=2129089901]
 custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Re-show Help popups
-that you've already seen."
+tooltip_text = "Uninstall every single mod,
+including vanilla."
 focus_neighbor_left = NodePath("../ButtonRedownloadDB")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonLogs")
@@ -1108,13 +1334,12 @@ focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Uninstall all"
 icon = ExtResource("4_yn4re")
 
-[node name="ButtonLogs" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+[node name="ButtonLogs" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=643343924]
 custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Re-show Help popups
-that you've already seen."
+tooltip_text = "Open the folder containing debug log files."
 focus_neighbor_left = NodePath("../ButtonUninstallAll")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonFixChar")
@@ -1122,13 +1347,13 @@ focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Show logs"
 icon = ExtResource("19_25xiv")
 
-[node name="ButtonFixChar" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+[node name="ButtonFixChar" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=1041649140]
 custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Re-show Help popups
-that you've already seen."
+tooltip_text = "Some mods might brick vanilla by giving you an invalid character.
+This option will attempt to automatically fix this."
 focus_neighbor_left = NodePath("../ButtonLogs")
 focus_neighbor_top = NodePath("../..")
 focus_neighbor_right = NodePath("../ButtonRedownloadDB")
@@ -1136,7 +1361,7 @@ focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Fix vanilla"
 icon = ExtResource("30_2scfd")
 
-[node name="ButtonResetTours" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+[node name="ButtonResetTours" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=1033510986]
 custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1150,7 +1375,7 @@ focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
 text = "Reset tours"
 icon = ExtResource("34_nr07p")
 
-[node name="ButtonReset" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer"]
+[node name="ButtonReset" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=1797126995]
 visible = false
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
@@ -1159,7 +1384,7 @@ size_flags_vertical = 4
 tooltip_text = "Restore above options to the default values."
 text = "Reset settings"
 
-[node name="FileDialog" type="FileDialog" parent="Settings"]
+[node name="FileDialog" type="FileDialog" parent="Settings" unique_id=855358357]
 gui_embed_subwindows = true
 oversampling_override = 1.0
 title = "Open a Directory"
@@ -1169,13 +1394,13 @@ ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
-[node name="News" type="PanelContainer" parent="."]
+[node name="News" type="PanelContainer" parent="." unique_id=462144517]
 visible = false
 layout_mode = 2
 script = ExtResource("35_0u2iu")
 metadata/_tab_index = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="News"]
+[node name="MarginContainer" type="MarginContainer" parent="News" unique_id=1259916175]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1185,7 +1410,7 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 16
 
-[node name="ScrollContainer" type="ScrollContainer" parent="News/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="News/MarginContainer" unique_id=712119974]
 clip_contents = false
 layout_mode = 2
 follow_focus = true
@@ -1197,13 +1422,13 @@ damping_drag = 0.5
 friction_scroll = 0.85
 friction_drag = 0.8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="News/MarginContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="News/MarginContainer/ScrollContainer" unique_id=529826347]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 16
 
-[node name="TextureLoading" type="TextureRect" parent="News"]
+[node name="TextureLoading" type="TextureRect" parent="News" unique_id=824559907]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1235,6 +1460,7 @@ texture = ExtResource("36_2c3ov")
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckRemember" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckDiscord" to="." method="_on_check_button_4_toggled"]
 [connection signal="toggled" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CheckMinimize" to="." method="_on_check_button_5_toggled"]
+[connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerMinimize/HBoxContainer/OptionMinimize" to="." method="_on_option_minimize_item_selected"]
 [connection signal="item_selected" from="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer/OptionLanguage" to="." method="_on_option_language_item_selected"]
 [connection signal="text_submitted" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/LineEdit" to="." method="_on_line_edit_3_text_submitted"]
 [connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerLocation/ButtonChooseFolder" to="." method="_on_button_choose_folder_pressed"]

@@ -24,7 +24,7 @@ anti_aliasing_size = 0.3
 size = Vector2(32, 32)
 
 [node name="Button" type="Button" unique_id=1188581419]
-custom_minimum_size = Vector2(826, 36)
+custom_minimum_size = Vector2(876, 36)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

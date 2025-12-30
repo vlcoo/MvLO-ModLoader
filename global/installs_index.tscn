@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bxxeqllaclnvw" path="res://ui_resources/font_robotoI.ttf" id="4_eo46q"]
 [ext_resource type="Texture2D" uid="uid://5mfc1jhou8y4" path="res://audiovisual/helps/shortcuts.png" id="6_3nu8e"]
 [ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="6_g5wk3"]
+[ext_resource type="Texture2D" uid="uid://dukv753fb2bak" path="res://audiovisual/nshbNew.png" id="8_qfyxy"]
 
 [sub_resource type="Animation" id="Animation_66wc2"]
 length = 0.001
@@ -448,6 +449,16 @@ dialog_text = "Are you sure? This action is irreversible."
 dialog_autowrap = true
 cancel_button_text = "No"
 
+[node name="AcceptCancelAutoClose" type="AcceptDialog" parent="." unique_id=46136306]
+gui_embed_subwindows = true
+oversampling_override = 1.0
+title = "Waiting waiting..."
+initial_position = 2
+size = Vector2i(600, 200)
+unresizable = true
+dialog_text = "You enabled auto-quit after closing a mod. If you confirm, this will be cancelled."
+dialog_autowrap = true
+
 [node name="TimerUpdateProgressbar" type="Timer" parent="." unique_id=85774796]
 wait_time = 0.1
 
@@ -464,9 +475,28 @@ use_threads = true
 download_chunk_size = 16384
 use_threads = true
 
+[node name="HiddenIndicator" type="StatusIndicator" parent="." unique_id=351905943]
+process_mode = 4
+tooltip = "..."
+icon = ExtResource("8_qfyxy")
+menu = NodePath("PopupMenu")
+visible = false
+
+[node name="PopupMenu" type="PopupMenu" parent="HiddenIndicator" unique_id=234022559]
+oversampling_override = 1.0
+item_count = 3
+item_0/text = "Current session: 00:00"
+item_0/id = 0
+item_0/disabled = true
+item_1/text = "Show"
+item_1/id = 1
+item_2/text = "Quit now"
+item_2/id = 2
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Panel/ButtonCancel" to="." method="_on_button_cancel_pressed"]
 [connection signal="confirmed" from="ConfirmationDialogRedirect" to="." method="_on_confirmation_dialog_redirect_confirmed"]
+[connection signal="confirmed" from="AcceptCancelAutoClose" to="." method="_on_accept_cancel_auto_close_confirmed"]
 [connection signal="timeout" from="TimerUpdateProgressbar" to="." method="_on_timer_update_progressbar_timeout"]
 [connection signal="request_completed" from="HTTPRequestGame" to="." method="_on_http_request_game_request_completed"]
 [connection signal="request_completed" from="HTTPRequestItchURL" to="." method="_on_http_request_itch_url_request_completed"]

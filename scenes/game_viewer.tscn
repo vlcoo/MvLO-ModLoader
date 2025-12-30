@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://b1raolcoapm07" path="res://scenes/focus_replacer.gd" id="11_w47wk"]
 [ext_resource type="Texture2D" uid="uid://c5h1020ad40as" path="res://audiovisual/manage.png" id="15_jn5wo"]
 [ext_resource type="Texture2D" uid="uid://biop00fot1w2l" path="res://audiovisual/shortcut.png" id="16_80onw"]
+[ext_resource type="Texture2D" uid="uid://foiqg6vmrdfh" path="res://audiovisual/info.png" id="17_80onw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a34mo"]
 shader = ExtResource("1_bqqot")
@@ -356,13 +357,14 @@ theme_override_constants/margin_top = 22
 theme_override_constants/margin_bottom = 22
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer" unique_id=1890897513]
-custom_minimum_size = Vector2(580, 680)
+custom_minimum_size = Vector2(620, 680)
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Panel" type="Panel" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=917429306]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.26
 
@@ -383,8 +385,8 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="TextDescription" type="TextEdit" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1412594791]
+custom_minimum_size = Vector2(0, 224)
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_colors/font_readonly_color = Color(0.65098, 0.65098, 0.65098, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_e3mwc")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vjkyd")
@@ -411,8 +413,8 @@ theme_override_constants/separation = 0
 [node name="ItemList" type="ItemList" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1554509221]
 clip_contents = false
 layout_mode = 2
-size_flags_vertical = 3
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_80onw")
 allow_search = false
 max_text_lines = 2
@@ -586,7 +588,6 @@ icon = ExtResource("9_pg5ns")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
-tooltip_text = "Manage this mod's local install."
 focus_neighbor_left = NodePath("../ButtonLaunch")
 focus_neighbor_top = NodePath("../../ContainerVersions")
 focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
@@ -602,7 +603,7 @@ action_mode = 1
 text = "Extras"
 icon = ExtResource("15_jn5wo")
 flat = false
-item_count = 6
+item_count = 8
 popup/item_0/text = "Create shortcut..."
 popup/item_0/icon = ExtResource("16_80onw")
 popup/item_0/id = 0
@@ -613,12 +614,18 @@ popup/item_2/text = "To this version (launch through the Mod Loader)"
 popup/item_2/id = 2
 popup/item_3/text = "Just show mod (don't launch)"
 popup/item_3/id = 3
-popup/item_4/text = "Manage files..."
+popup/item_4/text = "Manage files"
 popup/item_4/icon = ExtResource("9_pg5ns")
 popup/item_4/id = 0
 popup/item_4/separator = true
 popup/item_5/text = "Open in file explorer"
 popup/item_5/id = 4
+popup/item_6/text = "View extra info"
+popup/item_6/icon = ExtResource("17_80onw")
+popup/item_6/id = 0
+popup/item_6/separator = true
+popup/item_7/text = "Load changelog (external)"
+popup/item_7/id = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=289440844]
 libraries/ = SubResource("AnimationLibrary_rsp16")
@@ -634,7 +641,7 @@ one_shot = true
 
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="toggled" from="PanelOverview/CheckFavourite" to="." method="_on_button_favourite_toggled"]
-[connection signal="item_activated" from="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="item_clicked" from="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe" to="." method="_on_check_button_toggled"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsVersion" to="." method="_on_options_version_item_selected"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsPlatform" to="." method="_on_options_platform_item_selected"]

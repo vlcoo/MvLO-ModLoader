@@ -317,7 +317,7 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 	$PanelDetail/CenterContainer/VBoxContainer/ContainerButtons.grab_focus.call_deferred()
 
 
-func _on_item_list_item_activated(index: int) -> void:
+func _on_item_list_item_activated(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	var url = item_list.get_item_text(index)
 	if url.begins_with("https://"):
 		OS.shell_open(url)
@@ -375,6 +375,9 @@ func _on_button_files_id_pressed(id: int) -> void:
 			# browse files
 			error = ERR_SKIP
 			InstallsIndex.show_file_explorer(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
+		5:
+			# load changelog
+			error = ERR_SKIP
 	
 	if error == OK:
 		InstallsIndex.toast_success()

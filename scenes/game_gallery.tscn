@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://dpcvlvd1apd5e" path="res://audiovisual/nsmb.png" id="25_5f5dk"]
 [ext_resource type="Texture2D" uid="uid://dl21iq46og0g1" path="res://audiovisual/cancel.png" id="27_jou58"]
 [ext_resource type="Texture2D" uid="uid://bauqwsj6o488f" path="res://audiovisual/toadette.png" id="27_lxkal"]
+[ext_resource type="Texture2D" uid="uid://c1js52sawwa7i" path="res://audiovisual/wait-cancel.png" id="28_t1mhd"]
 [ext_resource type="Texture2D" uid="uid://dsc7vdmapg6eo" path="res://audiovisual/fix.png" id="30_2scfd"]
 [ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="34_nr07p"]
 [ext_resource type="Script" uid="uid://ctlo2g46ohqq8" path="res://scenes/news_tab.gd" id="35_0u2iu"]
@@ -215,7 +216,7 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2scfd"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_jou58"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_pf1ju"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4mjw"]
 content_margin_left = 16.0
@@ -561,8 +562,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 5.0
-offset_bottom = -5.0
+offset_top = 8.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 follow_focus = true
@@ -582,7 +583,7 @@ size_flags_vertical = 3
 [node name="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" unique_id=653897534 instance=ExtResource("11_a6eo1")]
 visible = false
 layout_mode = 2
-button_group = SubResource("ButtonGroup_jou58")
+button_group = SubResource("ButtonGroup_pf1ju")
 
 [node name="ContainerButtons" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer" unique_id=303632181]
 layout_mode = 2
@@ -712,14 +713,14 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 1
-theme_override_constants/line_separation = -6
-theme_override_constants/paragraph_separation = -6
 bbcode_enabled = true
 text = "A simple way to keep your mods organized and up to date.
-
-[color=#ffffff8b]by vlco_o - aka vic[/color]"
+[color=#ffffff8b]by vlco_o - aka vic
+Need help? Hover over an option to learn more.
+[/color]"
 fit_content = true
 autowrap_mode = 0
+vertical_alignment = 1
 
 [node name="LabelVersion" type="Label" parent="Settings/ScrollContainer/VBoxContainer/PanelAbout" unique_id=890680419]
 texture_filter = 2
@@ -967,7 +968,8 @@ theme_override_constants/margin_right = 10
 layout_mode = 2
 tooltip_text = "Minimize or close the app when opening a mod.
 If minimized, window will be restored after closing the mod;
-if closed, your playtime will not be counted."
+if closed, your playtime will not be counted
+unless the \"after mod closes\" option is chosen."
 theme_override_constants/separation = 12
 alignment = 1
 
@@ -994,7 +996,7 @@ focus_neighbor_right = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxCo
 focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
 mouse_filter = 1
 selected = 0
-item_count = 3
+item_count = 4
 popup/item_0/text = "Do nothing"
 popup/item_0/id = 0
 popup/item_1/text = "Hide window"
@@ -1003,6 +1005,9 @@ popup/item_1/id = 1
 popup/item_2/text = "Quit Mod Loader"
 popup/item_2/icon = ExtResource("27_jou58")
 popup/item_2/id = 2
+popup/item_3/text = "Quit ML after mod closes"
+popup/item_3/icon = ExtResource("28_t1mhd")
+popup/item_3/id = 3
 
 [node name="ContainerLanguage" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=576196148]
 custom_minimum_size = Vector2(440, 40)

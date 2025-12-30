@@ -213,6 +213,11 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	
 	if not register_process: return true
 	Configurator.add_process(mod_id, version, platform, pid)
+	if Configurator.get_config("after_launch", 0) == 3:
+		$AcceptCancelAutoClose.show()
+		#$HiddenIndicator.visible = true
+		#$HiddenIndicator.tooltip = "MvLO Mod Loader is counting playtime for " + ContentGetter.get_local_moddata(mod_id).name + ".\nWill quit on its own after you finish playing."
+		#get_window().hide()
 	return true
 
 
@@ -376,3 +381,7 @@ func _on_button_cancel_pressed() -> void:
 	animation_player.play("out")
 	timer.stop()
 	operation_done.emit(true, "cancel")
+
+
+func _on_accept_cancel_auto_close_confirmed() -> void:
+	Configurator.inhibit_auto_close = true

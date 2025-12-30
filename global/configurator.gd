@@ -25,6 +25,7 @@ var os_name: String
 var timestamp: String
 var config := ConfigFile.new()
 var cache_is_old: bool
+var inhibit_auto_close: bool = false
 
 var current_processes: Array[ModProcess] = []
 var process_timer: Timer = Timer.new()
@@ -95,7 +96,12 @@ func _on_timer_timeout() -> void:
 			if current_processes.is_empty(): 
 				process_timer.stop()
 				set_discord_status(DiscordStatus.IN_MENU)
-				if get_config("after_launch", 0) == 1: set_window_state(WindowState.RESTORED)
+				match get_config("after_launch", 0):
+					1: set_window_state(WindowState.RESTORED)
+					3:
+						if not inhibit_auto_close: get_tree().quit()
+						else: set_window_state(WindowState.RESTORED)
+				inhibit_auto_close = false
 			elif current_processes.size() == 1: 
 				set_discord_status(DiscordStatus.IN_GAME, current_processes[0].mod_id)
 			else:
@@ -161,6 +167,7 @@ func add_process(mod_id: String, version: String, platform: String, pid: int) ->
 	match get_config("after_launch", 0):
 		1: set_window_state(WindowState.MINIMIZED)
 		2: get_tree().quit()
+		3: set_window_state(WindowState.MINIMIZED)
 
 
 func get_mod_pid(mod_id: String, version: String, platform: String) -> int:

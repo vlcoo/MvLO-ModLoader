@@ -17,6 +17,10 @@
 [ext_resource type="Texture2D" uid="uid://c5h1020ad40as" path="res://audiovisual/manage.png" id="15_jn5wo"]
 [ext_resource type="Texture2D" uid="uid://biop00fot1w2l" path="res://audiovisual/shortcut.png" id="16_80onw"]
 [ext_resource type="Texture2D" uid="uid://foiqg6vmrdfh" path="res://audiovisual/info.png" id="17_80onw"]
+[ext_resource type="Script" uid="uid://cs47qnalcdtiu" path="res://scenes/changelog_window.gd" id="18_n4qgs"]
+[ext_resource type="Texture2D" uid="uid://caepwi58ukfyp" path="res://audiovisual/loading.png" id="19_3v6wh"]
+[ext_resource type="Script" uid="uid://coa87uepmaxij" path="res://global/custom_resources/SmoothScroller.gd" id="20_h8ugp"]
+[ext_resource type="Texture2D" uid="uid://bl3jyhob884gt" path="res://audiovisual/redirect.png" id="21_h8ugp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a34mo"]
 shader = ExtResource("1_bqqot")
@@ -208,7 +212,7 @@ grow_vertical = 2
 focus_mode = 2
 theme_type_variation = &"PanelBlurry"
 script = ExtResource("1_ojtji")
-metadata/_edit_vertical_guides_ = [386.0, 976.0]
+metadata/_edit_vertical_guides_ = [976.0]
 metadata/_edit_horizontal_guides_ = [44.0, 709.0]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2054617636]
@@ -308,7 +312,7 @@ tooltip_text = "Back"
 focus_neighbor_left = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons")
 focus_neighbor_top = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons")
 focus_neighbor_right = NodePath("../CheckFavourite")
-focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
+focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
 focus_next = NodePath("../CheckFavourite")
 focus_previous = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse")
 accessibility_name = "Back"
@@ -329,9 +333,9 @@ size_flags_horizontal = 4
 tooltip_text = "Mark mod as favourite"
 focus_neighbor_left = NodePath("../ButtonBack")
 focus_neighbor_top = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons")
-focus_neighbor_right = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
-focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
-focus_next = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe")
+focus_neighbor_right = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
+focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
+focus_next = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
 focus_previous = NodePath("../ButtonBack")
 accessibility_name = "Favourite"
 theme_override_icons/checked = ExtResource("5_x6gr8")
@@ -359,7 +363,7 @@ theme_override_constants/margin_bottom = 22
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer" unique_id=1890897513]
 custom_minimum_size = Vector2(620, 680)
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 6
 alignment = 1
 
 [node name="Panel" type="Panel" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=917429306]
@@ -443,21 +447,34 @@ size_flags_vertical = 1
 text = "Never played."
 vertical_alignment = 1
 
-[node name="CheckSubscribe" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=2118742809]
-custom_minimum_size = Vector2(280, 0)
+[node name="ContainerUpdates" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=293389866]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="CheckSubscribe" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates" unique_id=2118742809]
+custom_minimum_size = Vector2(246, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.02
 tooltip_text = "Notify when a new release for this mod has been uploaded."
-focus_neighbor_left = NodePath("../../../../PanelOverview/CheckFavourite")
-focus_neighbor_top = NodePath("../../../../PanelOverview/CheckFavourite")
-focus_neighbor_right = NodePath("../../../../PanelOverview/ButtonBack")
-focus_neighbor_bottom = NodePath("../ContainerVersions")
-focus_next = NodePath("../ContainerVersions/OptionsVersion")
-focus_previous = NodePath("../../../../PanelOverview/CheckFavourite")
+focus_neighbor_left = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_top = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../../ContainerVersions")
+focus_next = NodePath("../../ContainerVersions/OptionsVersion")
+focus_previous = NodePath("../../../../../PanelOverview/CheckFavourite")
+theme_override_constants/h_separation = 18
 text = "Subscribe for updates"
 icon = ExtResource("5_tur7j")
+
+[node name="ButtonChangelog" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates" unique_id=635891735]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+tooltip_text = "Read devlogs from the mod's author."
+text = "Changelog"
+icon = ExtResource("17_80onw")
 
 [node name="ContainerVersions" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=1470489978 groups=["UpcomingExclude"]]
 layout_mode = 2
@@ -476,11 +493,11 @@ custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../../../../../PanelOverview/CheckFavourite")
-focus_neighbor_top = NodePath("../../CheckSubscribe")
+focus_neighbor_top = NodePath("../../ContainerUpdates/CheckSubscribe")
 focus_neighbor_right = NodePath("../OptionsPlatform")
 focus_neighbor_bottom = NodePath("../../ContainerButtons")
 focus_next = NodePath("../OptionsPlatform")
-focus_previous = NodePath("../../CheckSubscribe")
+focus_previous = NodePath("../../ContainerUpdates/CheckSubscribe")
 text_overrun_behavior = 3
 
 [node name="OptionsPlatform" type="OptionButton" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions" unique_id=363359022]
@@ -488,7 +505,7 @@ custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../OptionsVersion")
-focus_neighbor_top = NodePath("../../CheckSubscribe")
+focus_neighbor_top = NodePath("../../ContainerUpdates/CheckSubscribe")
 focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
 focus_neighbor_bottom = NodePath("../../ContainerButtons")
 focus_next = NodePath("../../ContainerButtons/ButtonUninstall")
@@ -588,6 +605,7 @@ icon = ExtResource("9_pg5ns")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Manage this mod's local install."
 focus_neighbor_left = NodePath("../ButtonLaunch")
 focus_neighbor_top = NodePath("../../ContainerVersions")
 focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
@@ -603,7 +621,7 @@ action_mode = 1
 text = "Extras"
 icon = ExtResource("15_jn5wo")
 flat = false
-item_count = 8
+item_count = 6
 popup/item_0/text = "Create shortcut..."
 popup/item_0/icon = ExtResource("16_80onw")
 popup/item_0/id = 0
@@ -620,12 +638,6 @@ popup/item_4/id = 0
 popup/item_4/separator = true
 popup/item_5/text = "Open in file explorer"
 popup/item_5/id = 4
-popup/item_6/text = "View extra info"
-popup/item_6/icon = ExtResource("17_80onw")
-popup/item_6/id = 0
-popup/item_6/separator = true
-popup/item_7/text = "Load changelog (external)"
-popup/item_7/id = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=289440844]
 libraries/ = SubResource("AnimationLibrary_rsp16")
@@ -639,10 +651,100 @@ one_shot = true
 [node name="TimerKilling" type="Timer" parent="." unique_id=1626719065]
 one_shot = true
 
+[node name="ChangelogWindow" type="AcceptDialog" parent="." unique_id=513017460]
+anisotropic_filtering_level = 0
+canvas_item_default_texture_filter = 0
+oversampling_override = 1.0
+title = "Changelog"
+initial_position = 2
+size = Vector2i(960, 640)
+exclusive = false
+popup_window = true
+max_size = Vector2i(960, 640)
+content_scale_mode = 1
+content_scale_aspect = 4
+ok_button_text = "Fine"
+script = ExtResource("18_n4qgs")
+
+[node name="PanelContainer" type="PanelContainer" parent="ChangelogWindow" unique_id=1739792255]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.89800006
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 4.2799683
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureLoading" type="TextureRect" parent="ChangelogWindow/PanelContainer" unique_id=186003150]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("19_3v6wh")
+stretch_mode = 2
+
+[node name="ContainerNoResults" type="VBoxContainer" parent="ChangelogWindow/PanelContainer" unique_id=618221806]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="Label" type="RichTextLabel" parent="ChangelogWindow/PanelContainer/ContainerNoResults" unique_id=274467774]
+clip_contents = false
+layout_mode = 2
+theme_type_variation = &"TextLarge"
+bbcode_enabled = true
+text = "No posts!"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ChangelogWindow/PanelContainer/ContainerNoResults" unique_id=428622522]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][img]res://audiovisual/news-empty.png[/img]    The author has not published any devlogs"
+fit_content = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ChangelogWindow/PanelContainer" unique_id=682053429]
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+script = ExtResource("20_h8ugp")
+speed = 10.0
+damping_scroll = 0.5
+damping_drag = 0.5
+friction_scroll = 0.85
+friction_drag = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChangelogWindow/PanelContainer/ScrollContainer" unique_id=438079749]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ChangelogWindow/PanelContainer/ScrollContainer/VBoxContainer" unique_id=564042090]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Label" type="Label" parent="ChangelogWindow/PanelContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=821182724]
+layout_mode = 2
+text = "GitHub and itch.io don't allow for full access to posts. To read more, visit the mod's official page."
+
+[node name="Button" type="Button" parent="ChangelogWindow/PanelContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=249312701]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+text = "Go"
+icon = ExtResource("21_h8ugp")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="ChangelogWindow" unique_id=81756398]
+
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="toggled" from="PanelOverview/CheckFavourite" to="." method="_on_button_favourite_toggled"]
 [connection signal="item_clicked" from="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
-[connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/ButtonChangelog" to="." method="_on_button_changelog_pressed"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsVersion" to="." method="_on_options_version_item_selected"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsPlatform" to="." method="_on_options_platform_item_selected"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonInstall" to="." method="_on_button_install_pressed"]
@@ -652,3 +754,6 @@ one_shot = true
 [connection signal="about_to_popup" from="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonFileMgmt" to="." method="_on_button_file_mgmt_about_to_popup"]
 [connection signal="timeout" from="TimerLoading" to="." method="_on_timer_loading_timeout"]
 [connection signal="timeout" from="TimerKilling" to="." method="_on_timer_killing_timeout"]
+[connection signal="visibility_changed" from="ChangelogWindow" to="ChangelogWindow" method="_on_visibility_changed"]
+[connection signal="pressed" from="ChangelogWindow/PanelContainer/ScrollContainer/VBoxContainer/HBoxContainer/Button" to="ChangelogWindow" method="_on_button_pressed"]
+[connection signal="request_completed" from="ChangelogWindow/HTTPRequest" to="ChangelogWindow" method="_on_http_request_request_completed"]

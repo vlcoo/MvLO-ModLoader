@@ -98,7 +98,7 @@ func refresh_mod_data() -> bool:
 	_refresh_time_played()
 	$PanelOverview/CheckFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
 
-	$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
+	$PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
 	for version in mod_data.get_gamefiles_versions():
 		options_version.add_item(version)
@@ -310,7 +310,7 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 		"install":
 			_on_options_platform_item_selected(options_platform.selected)
 			if Configurator.get_config("auto_subscribe", false):
-				$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = true
+				$PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe.button_pressed = true
 		"cancel":
 			set_buttons_state(false)
 	
@@ -375,9 +375,6 @@ func _on_button_files_id_pressed(id: int) -> void:
 			# browse files
 			error = ERR_SKIP
 			InstallsIndex.show_file_explorer(mod_data_id, options_version.get_item_text(options_version.selected), options_platform.get_item_text(options_platform.selected))
-		5:
-			# load changelog
-			error = ERR_SKIP
 	
 	if error == OK:
 		InstallsIndex.toast_success()
@@ -388,3 +385,8 @@ func _on_button_file_mgmt_about_to_popup() -> void:
 		InstallsIndex.show_help("shortcuts")
 		Configurator.set_toured_status("shortcuts")
 		await InstallsIndex.dialog_help.confirmed or InstallsIndex.dialog_help.canceled
+
+
+func _on_button_changelog_pressed() -> void:
+	$ChangelogWindow.current_mod = mod_data
+	$ChangelogWindow.show()

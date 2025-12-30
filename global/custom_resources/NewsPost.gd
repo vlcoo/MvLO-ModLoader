@@ -20,6 +20,17 @@ static func new_from_json(json: Dictionary) -> NewsPost:
 	return post
 
 
+static func new_from_feed(feed: String) -> NewsPost:
+	var post := NewsPost.new()
+	
+	post.title = "Devlog"
+	post.author = "???"
+	post.timestamp = 0
+	post.message = feed
+	
+	return post
+
+
 static func cleanup_richtext_tags(text: String) -> String:
 	var regex = RegEx.new()
 	regex.compile("<.+?>")

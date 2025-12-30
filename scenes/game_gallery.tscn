@@ -216,7 +216,7 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2scfd"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_pf1ju"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_t1mhd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4mjw"]
 content_margin_left = 16.0
@@ -271,14 +271,13 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 3
+current_tab = 0
 tab_focus_mode = 0
 script = ExtResource("1_otdsd")
 metadata/_edit_vertical_guides_ = [52.0, 16.0]
 metadata/_edit_horizontal_guides_ = [56.0]
 
 [node name="Vanilla" type="PanelContainer" parent="." unique_id=1446838784]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -304,6 +303,12 @@ offset_bottom = 13.766968
 
 [node name="AnimationPlayer" parent="Vanilla/GameViewer" index="3" unique_id=289440844]
 libraries/ = SubResource("AnimationLibrary_rsp16")
+
+[node name="ChangelogWindow" parent="Vanilla/GameViewer" index="6" unique_id=513017460]
+size = Vector2i(960, 1003)
+
+[node name="PanelContainer" parent="Vanilla/GameViewer/ChangelogWindow" index="2" unique_id=1739792255]
+offset_bottom = 41.30591
 
 [node name="Mod Gallery" type="PanelContainer" parent="." unique_id=542502355]
 visible = false
@@ -583,7 +588,7 @@ size_flags_vertical = 3
 [node name="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" unique_id=653897534 instance=ExtResource("11_a6eo1")]
 visible = false
 layout_mode = 2
-button_group = SubResource("ButtonGroup_pf1ju")
+button_group = SubResource("ButtonGroup_t1mhd")
 
 [node name="ContainerButtons" type="HBoxContainer" parent="Storage/MarginContainer/VBoxContainer" unique_id=303632181]
 layout_mode = 2
@@ -659,6 +664,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Settings" type="PanelContainer" parent="." unique_id=425370925]
+visible = false
 clip_contents = true
 layout_mode = 2
 metadata/_tab_index = 3
@@ -1438,6 +1444,27 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("36_2c3ov")
+
+[node name="ContainerNoResults" type="VBoxContainer" parent="News" unique_id=1741625008]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="Label" type="RichTextLabel" parent="News/ContainerNoResults" unique_id=1298659217]
+clip_contents = false
+layout_mode = 2
+theme_type_variation = &"TextLarge"
+bbcode_enabled = true
+text = "No posts!"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="News/ContainerNoResults" unique_id=164033395]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][img]res://audiovisual/news-empty.png[/img]    There are no news for vanilla"
+fit_content = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tab_changed" from="." to="." method="_on_tab_changed"]

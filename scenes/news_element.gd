@@ -1,3 +1,4 @@
+class_name NewsElement
 extends PanelContainer
 
 @onready var label_title: Label = $VBoxContainer/LabelTitle

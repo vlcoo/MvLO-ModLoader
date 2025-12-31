@@ -64,6 +64,7 @@ func _on_ready() -> void:
 
 func sync() -> void:
 	animation_player.play("in")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_BUSY)
 	var error = requester_db.request(URL_DB)
 	if error != OK: err(str(error))
 
@@ -114,6 +115,7 @@ func _populate_moddata_array(hide_animation: bool = true) -> void:
 
 	cache_updated.emit(true)
 	if hide_animation: animation_player.play("out")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_ARROW)
 	if new_updates_list != "": 
 		warn(tr("New updates for mods you're subscribed to!\n{mods}").format({mods = new_updates_list}))
 	
@@ -162,6 +164,7 @@ func err(text: String):
 	dialog.popup_centered()
 	cache_updated.emit(false)
 	animation_player.play("out")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_ARROW)
 
 
 func warn(text: String):

@@ -281,6 +281,7 @@ alignment = 1
 [node name="LabelTitle" type="RichTextLabel" parent="Panel/VBoxContainer" unique_id=1143559548]
 clip_contents = false
 layout_mode = 2
+mouse_filter = 1
 theme_type_variation = &"TextLarge"
 bbcode_enabled = true
 text = "[center][wave amp=36]Starting up..."
@@ -289,6 +290,7 @@ fit_content = true
 [node name="LabelSubtitle" type="RichTextLabel" parent="Panel/VBoxContainer" unique_id=120721632]
 clip_contents = false
 layout_mode = 2
+mouse_filter = 1
 theme_type_variation = &"TextSubtle"
 bbcode_enabled = true
 text = "[center][img width=16 color=#ffffff8b]res://audiovisual/loading.png[/img]   Checking for updates"

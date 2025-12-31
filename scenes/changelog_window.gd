@@ -23,6 +23,7 @@ func _on_visibility_changed() -> void:
 
 func fetch_changelog() -> void:
 	loading_texture.visible = true
+	$PanelContainer.mouse_default_cursor_shape = Control.CURSOR_WAIT
 	container_no_results.visible = false
 	container_button_website.visible = false
 	for post in posts_container.get_children():
@@ -50,7 +51,6 @@ func _on_button_pressed() -> void:
 
 
 func populate_posts(posts: Array[NewsPost]) -> void:
-	loading_texture.visible = false
 	if posts.is_empty():
 		container_no_results.visible = true
 	else:
@@ -60,6 +60,8 @@ func populate_posts(posts: Array[NewsPost]) -> void:
 			posts_container.add_child(element)
 			element.init_ui(post)
 	
+	loading_texture.visible = false
+	$PanelContainer.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	$PanelContainer/ScrollContainer.pos.y = 0
 
 

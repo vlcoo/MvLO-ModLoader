@@ -13,7 +13,7 @@ func _ready() -> void:
 func empty_news_posts() -> void:
 	texture_loading.visible = true
 	
-	for child in  posts_container.get_children():
+	for child in posts_container.get_children():
 		child.queue_free()
 
 

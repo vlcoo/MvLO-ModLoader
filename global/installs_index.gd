@@ -104,6 +104,7 @@ func install(mod_id: String, version: String, platform: String) -> void:
 	timer.start()
 	state = Operation.DOWNLOADING
 	animation_player.play("in")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_BUSY)
 	if error != OK: err(str(error))
 
 
@@ -160,6 +161,7 @@ func _on_archive_extraction_complete(message: String, path: String, archive_was_
 	install_in_progress = {}
 	_save_index_to_file()
 	animation_player.play("out")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_ARROW)
 	state = Operation.IDLE
 	timer.stop()
 	operation_done.emit(true, "install")
@@ -222,6 +224,7 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 
 
 func uninstall(mod_id: String, version: String, platform: String) -> void:
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_WAIT)
 	# delete files and remove from array...
 	var inst: Dictionary = _find_install_in_array(mod_id, version, platform)
 	if inst == {}: return
@@ -233,6 +236,7 @@ func uninstall(mod_id: String, version: String, platform: String) -> void:
 		index.installs.erase(inst)
 		_save_index_to_file()
 	operation_done.emit(result == OK, "uninstall")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_ARROW)
 
 
 func show_file_explorer(mod_id: String, version: String, platform: String) -> void:
@@ -290,6 +294,7 @@ func err(text: String):
 	install_in_progress = {}
 	operation_done.emit(false, "")
 	animation_player.play("out")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_ARROW)
 	state = Operation.IDLE
 
 
@@ -379,6 +384,7 @@ func _on_button_cancel_pressed() -> void:
 	state = Operation.IDLE
 	install_in_progress = {}
 	animation_player.play("out")
+	DisplayServer.cursor_set_shape(DisplayServer.CURSOR_ARROW)
 	timer.stop()
 	operation_done.emit(true, "cancel")
 

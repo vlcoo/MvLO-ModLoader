@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://foiqg6vmrdfh" path="res://audiovisual/info.png" id="17_80onw"]
 [ext_resource type="Script" uid="uid://cs47qnalcdtiu" path="res://scenes/changelog_window.gd" id="18_n4qgs"]
 [ext_resource type="Texture2D" uid="uid://caepwi58ukfyp" path="res://audiovisual/loading.png" id="19_3v6wh"]
-[ext_resource type="Script" uid="uid://coa87uepmaxij" path="res://global/custom_resources/SmoothScroller.gd" id="20_h8ugp"]
+[ext_resource type="Script" uid="uid://coa87uepmaxij" path="res://addons/smooth_scroll/SmoothScroller.gd" id="20_h8ugp"]
 [ext_resource type="Texture2D" uid="uid://bl3jyhob884gt" path="res://audiovisual/redirect.png" id="21_h8ugp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a34mo"]
@@ -35,6 +35,24 @@ size = Vector2(32, 32)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jn5wo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80onw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8ugp"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.039215688)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing_size = 0.3
 
 [sub_resource type="Animation" id="Animation_akkqd"]
 length = 0.001
@@ -312,7 +330,7 @@ tooltip_text = "Back"
 focus_neighbor_left = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons")
 focus_neighbor_top = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons")
 focus_neighbor_right = NodePath("../CheckFavourite")
-focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
+focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/Panel/ButtonChangelog")
 focus_next = NodePath("../CheckFavourite")
 focus_previous = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse")
 accessibility_name = "Back"
@@ -333,9 +351,9 @@ size_flags_horizontal = 4
 tooltip_text = "Mark mod as favourite"
 focus_neighbor_left = NodePath("../ButtonBack")
 focus_neighbor_top = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerButtons")
-focus_neighbor_right = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
-focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
-focus_next = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe")
+focus_neighbor_right = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/Panel/ButtonChangelog")
+focus_neighbor_bottom = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/Panel/ButtonChangelog")
+focus_next = NodePath("../../PanelDetail/CenterContainer/VBoxContainer/Panel/ButtonChangelog")
 focus_previous = NodePath("../ButtonBack")
 accessibility_name = "Favourite"
 theme_override_icons/checked = ExtResource("5_x6gr8")
@@ -389,7 +407,7 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="TextDescription" type="TextEdit" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1412594791]
-custom_minimum_size = Vector2(0, 224)
+custom_minimum_size = Vector2(0, 173)
 layout_mode = 2
 theme_override_colors/font_readonly_color = Color(0.65098, 0.65098, 0.65098, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_e3mwc")
@@ -423,13 +441,47 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_80onw")
 allow_search = false
 max_text_lines = 2
 auto_height = true
-item_count = 3
+item_count = 5
 item_0/text = "cool stuff"
 item_1/text = "more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum "
 item_2/text = "hello there"
 item_2/icon = ExtResource("7_iqkns")
+item_3/text = "asdasd"
+item_4/text = "dsadas"
+item_4/icon = ExtResource("7_iqkns")
+
+[node name="HSeparator2" type="HSeparator" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1804201866]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ButtonChangelog" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/Panel" unique_id=635891735]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.5
+offset_top = -46.0
+offset_right = 73.5
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Read devlogs from the mod's author."
+focus_neighbor_left = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_top = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../../CheckSubscribe")
+focus_next = NodePath("../../CheckSubscribe")
+focus_previous = NodePath("../../../../../PanelOverview/CheckFavourite")
+theme_override_constants/h_separation = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_h8ugp")
+text = "Read changelog"
+icon = ExtResource("17_80onw")
 
 [node name="ContainerTimer" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=948958402 groups=["UpcomingExclude"]]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -447,34 +499,22 @@ size_flags_vertical = 1
 text = "Never played."
 vertical_alignment = 1
 
-[node name="ContainerUpdates" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=293389866]
-layout_mode = 2
-theme_override_constants/separation = 64
-alignment = 1
-
-[node name="CheckSubscribe" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates" unique_id=2118742809]
-custom_minimum_size = Vector2(246, 0)
+[node name="CheckSubscribe" type="CheckButton" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=2118742809]
+custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.02
 tooltip_text = "Notify when a new release for this mod has been uploaded."
-focus_neighbor_left = NodePath("../../../../../PanelOverview/CheckFavourite")
-focus_neighbor_top = NodePath("../../../../../PanelOverview/CheckFavourite")
-focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
-focus_neighbor_bottom = NodePath("../../ContainerVersions")
-focus_next = NodePath("../../ContainerVersions/OptionsVersion")
-focus_previous = NodePath("../../../../../PanelOverview/CheckFavourite")
+focus_neighbor_left = NodePath("../../../../PanelOverview/CheckFavourite")
+focus_neighbor_top = NodePath("../Panel/ButtonChangelog")
+focus_neighbor_right = NodePath("../../../../PanelOverview/ButtonBack")
+focus_neighbor_bottom = NodePath("../ContainerVersions")
+focus_next = NodePath("../ContainerVersions/OptionsVersion")
+focus_previous = NodePath("../Panel/ButtonChangelog")
 theme_override_constants/h_separation = 18
 text = "Subscribe for updates"
 icon = ExtResource("5_tur7j")
-
-[node name="ButtonChangelog" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates" unique_id=635891735]
-custom_minimum_size = Vector2(140, 40)
-layout_mode = 2
-tooltip_text = "Read devlogs from the mod's author."
-text = "Changelog"
-icon = ExtResource("17_80onw")
 
 [node name="ContainerVersions" type="HBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer" unique_id=1470489978 groups=["UpcomingExclude"]]
 layout_mode = 2
@@ -493,11 +533,11 @@ custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../../../../../PanelOverview/CheckFavourite")
-focus_neighbor_top = NodePath("../../ContainerUpdates/CheckSubscribe")
+focus_neighbor_top = NodePath("../../CheckSubscribe")
 focus_neighbor_right = NodePath("../OptionsPlatform")
 focus_neighbor_bottom = NodePath("../../ContainerButtons")
 focus_next = NodePath("../OptionsPlatform")
-focus_previous = NodePath("../../ContainerUpdates/CheckSubscribe")
+focus_previous = NodePath("../../CheckSubscribe")
 text_overrun_behavior = 3
 
 [node name="OptionsPlatform" type="OptionButton" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions" unique_id=363359022]
@@ -505,7 +545,7 @@ custom_minimum_size = Vector2(280, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../OptionsVersion")
-focus_neighbor_top = NodePath("../../ContainerUpdates/CheckSubscribe")
+focus_neighbor_top = NodePath("../../CheckSubscribe")
 focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
 focus_neighbor_bottom = NodePath("../../ContainerButtons")
 focus_next = NodePath("../../ContainerButtons/ButtonUninstall")
@@ -522,7 +562,7 @@ theme_override_constants/separation = 42
 alignment = 1
 script = ExtResource("11_w47wk")
 desired_node = NodePath("ButtonInstall")
-replacements = Array[NodePath]([NodePath("ButtonLaunch"), NodePath("ButtonBrowse")])
+replacements = Array[NodePath]([NodePath("ButtonLaunch"), NodePath("ButtonFileMgmt")])
 
 [node name="ButtonInstall" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" unique_id=584112461]
 visible = false
@@ -547,7 +587,7 @@ icon = ExtResource("6_fyixl")
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 size_flags_vertical = 4
-focus_neighbor_left = NodePath("../ButtonBrowse")
+focus_neighbor_left = NodePath("../ButtonFileMgmt")
 focus_neighbor_top = NodePath("../../ContainerVersions")
 focus_neighbor_right = NodePath("../ButtonLaunch")
 focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
@@ -568,9 +608,9 @@ layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../ButtonUninstall")
 focus_neighbor_top = NodePath("../../ContainerVersions")
-focus_neighbor_right = NodePath("../ButtonBrowse")
+focus_neighbor_right = NodePath("../ButtonFileMgmt")
 focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
-focus_next = NodePath("../ButtonBrowse")
+focus_next = NodePath("../ButtonFileMgmt")
 focus_previous = NodePath("../ButtonUninstall")
 theme_override_colors/font_color = Color(0.243137, 0.756863, 0.0352941, 1)
 theme_override_colors/font_focus_color = Color(0.243137, 0.756863, 0.0352941, 1)
@@ -612,6 +652,7 @@ focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
 focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
 focus_next = NodePath("../../../../../PanelOverview/ButtonBack")
 focus_previous = NodePath("../ButtonLaunch")
+focus_mode = 2
 theme_override_colors/font_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/font_focus_color = Color(0.196078, 0.615686, 0.745098, 1)
 theme_override_colors/icon_normal_color = Color(0.196078, 0.615686, 0.745098, 1)
@@ -657,10 +698,10 @@ canvas_item_default_texture_filter = 0
 oversampling_override = 1.0
 title = "Changelog"
 initial_position = 2
-size = Vector2i(960, 640)
+size = Vector2i(920, 640)
 exclusive = false
 popup_window = true
-max_size = Vector2i(960, 640)
+max_size = Vector2i(920, 640)
 content_scale_mode = 1
 content_scale_aspect = 4
 ok_button_text = "Fine"
@@ -720,7 +761,7 @@ friction_drag = 0.8
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 6
+theme_override_constants/separation = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ChangelogWindow/PanelContainer/ScrollContainer/VBoxContainer" unique_id=564042090]
 visible = false
@@ -730,7 +771,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="ChangelogWindow/PanelContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=821182724]
 layout_mode = 2
-text = "GitHub and itch.io don't allow for full access to posts. To read more, visit the mod's official page."
+text = "GitHub and itch.io sometimes don't show the full posts. To read more, visit the mod's official page."
 
 [node name="Button" type="Button" parent="ChangelogWindow/PanelContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=249312701]
 layout_mode = 2
@@ -743,8 +784,8 @@ icon = ExtResource("21_h8ugp")
 [connection signal="pressed" from="PanelOverview/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="toggled" from="PanelOverview/CheckFavourite" to="." method="_on_button_favourite_toggled"]
 [connection signal="item_clicked" from="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
-[connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe" to="." method="_on_check_button_toggled"]
-[connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/ButtonChangelog" to="." method="_on_button_changelog_pressed"]
+[connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/Panel/ButtonChangelog" to="." method="_on_button_changelog_pressed"]
+[connection signal="toggled" from="PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe" to="." method="_on_check_button_toggled"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsVersion" to="." method="_on_options_version_item_selected"]
 [connection signal="item_selected" from="PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsPlatform" to="." method="_on_options_platform_item_selected"]
 [connection signal="pressed" from="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonInstall" to="." method="_on_button_install_pressed"]

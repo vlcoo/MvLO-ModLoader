@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr5uryoa5e2cs" path="res://scenes/game_gallery.gd" id="1_otdsd"]
 [ext_resource type="PackedScene" uid="uid://b3kkysnadc0mx" path="res://scenes/game_viewer.tscn" id="1_qd0tx"]
-[ext_resource type="Script" uid="uid://coa87uepmaxij" path="res://global/custom_resources/SmoothScroller.gd" id="3_btgm0"]
+[ext_resource type="Script" uid="uid://coa87uepmaxij" path="res://addons/smooth_scroll/SmoothScroller.gd" id="3_btgm0"]
 [ext_resource type="Texture2D" uid="uid://dudh3ejgg282v" path="res://audiovisual/search.png" id="3_kmsf4"]
 [ext_resource type="Texture2D" uid="uid://btivpopjnudd1" path="res://audiovisual/sort.png" id="4_jqbeb"]
 [ext_resource type="Texture2D" uid="uid://5dbqfmfhuwll" path="res://audiovisual/uninstall.png" id="4_yn4re"]
@@ -303,12 +303,6 @@ offset_bottom = 13.766968
 
 [node name="AnimationPlayer" parent="Vanilla/GameViewer" index="3" unique_id=289440844]
 libraries/ = SubResource("AnimationLibrary_rsp16")
-
-[node name="ChangelogWindow" parent="Vanilla/GameViewer" index="6" unique_id=513017460]
-size = Vector2i(960, 1003)
-
-[node name="PanelContainer" parent="Vanilla/GameViewer/ChangelogWindow" index="2" unique_id=1739792255]
-offset_bottom = 41.30591
 
 [node name="Mod Gallery" type="PanelContainer" parent="." unique_id=542502355]
 visible = false
@@ -939,7 +933,7 @@ for mods that don't implement it."
 focus_neighbor_left = NodePath("../../VBoxContainer/CheckPlatforms")
 focus_neighbor_top = NodePath("../CheckRemember")
 focus_neighbor_right = NodePath("../../VBoxContainer/CheckPlatforms")
-focus_neighbor_bottom = NodePath("../CheckMinimize")
+focus_neighbor_bottom = NodePath("../ContainerMinimize/HBoxContainer/OptionMinimize")
 theme_override_constants/h_separation = 14
 button_pressed = true
 text = "Discord Game Activity (auto)"
@@ -996,10 +990,10 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.9
-focus_neighbor_left = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
+focus_neighbor_left = NodePath("../../../../VBoxContainer/CheckAutoSubscribe")
 focus_neighbor_top = NodePath("../../../CheckMinimize")
-focus_neighbor_right = NodePath("../../../../VBoxContainer/ContainerTheme/HBoxContainer/HSlider")
-focus_neighbor_bottom = NodePath("../../../../../ContainerAdvanced")
+focus_neighbor_right = NodePath("../../../CheckDiscord")
+focus_neighbor_bottom = NodePath("../../../ContainerLanguage/HBoxContainer/OptionLanguage")
 mouse_filter = 1
 selected = 0
 item_count = 4
@@ -1073,7 +1067,7 @@ custom_minimum_size = Vector2(820, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_left = NodePath("VBoxContainer/ContainerLocation/ButtonChooseFolder")
-focus_neighbor_top = NodePath("VBoxContainer/ContainerVanillaReplacement/ButtonChooseMod")
+focus_neighbor_top = NodePath("../HBoxContainer/VBoxContainer2/ContainerLanguage/HBoxContainer/OptionLanguage")
 focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("VBoxContainer/ContainerLocation/ButtonChooseFolder")
 folded = true

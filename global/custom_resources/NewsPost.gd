@@ -7,35 +7,30 @@ extends Resource
 @export var message: String
 
 
+func _init(post_title: String, post_timestamp: int, post_author: String, post_message: String) -> void:
+	title = post_title
+	timestamp = post_timestamp
+	author = post_author
+	message = cleanup_richtext_tags(post_message).strip_edges()
+
+
 static func new_from_json(json: Dictionary) -> NewsPost:
-	var post := NewsPost.new()
-	
-	post.title = json.get("title", "")
-	post.author = json.get("author", "Anonymous")
-	post.timestamp = json.get("created", 0)
-	post.message = json.get("text", "Message unavailable.")
-	
-	post.message = cleanup_richtext_tags(post.message)
-	
-	return post
-
-
-static func new_from_feed(feed: String) -> NewsPost:
-	var post := NewsPost.new()
-	
-	post.title = "Devlog"
-	post.author = "???"
-	post.timestamp = 0
-	post.message = feed
-	
-	return post
+	return NewsPost.new(
+		json.get("title", ""),
+		json.get("created", 0),
+		json.get("author", "Anonymous"),
+		json.get("text", "Message unavailable.")
+	)
 
 
 static func cleanup_richtext_tags(text: String) -> String:
 	var regex = RegEx.new()
 	regex.compile("<.+?>")
 	for result in regex.search_all(text):
-		text = text.replace(result.get_string(), "")
+		var s = result.get_string()
+		if s == "<li>": text = text.replace(s, "• ")
+		else: text = text.replace(s, "")
 	text = text.replace("\r", "")
 	text = text.replace("\n\n", "\n")
+	text = text.replace("&#039;", "'")
 	return text

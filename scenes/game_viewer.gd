@@ -98,7 +98,7 @@ func refresh_mod_data() -> bool:
 	_refresh_time_played()
 	$PanelOverview/CheckFavourite.button_pressed = Configurator.get_is_mod_favourite(mod_data_id)
 
-	$PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
+	$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = Configurator.get_ts_mod(mod_data_id) != ""
 	texture_cover.texture = mod_data.cover_image if mod_data.cover_image != null else nodata_texture
 	for version in mod_data.get_gamefiles_versions():
 		options_version.add_item(version)
@@ -310,7 +310,7 @@ func _on_installs_index_done(succeeded: bool, type: String) -> void:
 		"install":
 			_on_options_platform_item_selected(options_platform.selected)
 			if Configurator.get_config("auto_subscribe", false):
-				$PanelDetail/CenterContainer/VBoxContainer/ContainerUpdates/CheckSubscribe.button_pressed = true
+				$PanelDetail/CenterContainer/VBoxContainer/CheckSubscribe.button_pressed = true
 		"cancel":
 			set_buttons_state(false)
 	

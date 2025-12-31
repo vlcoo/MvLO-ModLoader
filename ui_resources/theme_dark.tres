@@ -562,6 +562,7 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxLine_5loqu")
 VScrollBar/styles/scroll = SubResource("StyleBoxLine_xul1q")
 VSeparator/styles/separator = SubResource("StyleBoxLine_1oigc")
 Window/colors/title_color = Color(0.129412, 0.129412, 0.129412, 1)
+Window/constants/resize_margin = 8
 Window/constants/title_height = 32
 Window/icons/close = SubResource("CompressedTexture2D_8p5ti")
 Window/icons/close_pressed = SubResource("CompressedTexture2D_jm3xj")

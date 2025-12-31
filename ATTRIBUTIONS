@@ -15,4 +15,7 @@ See https://github.com/iconoir-icons/iconoir and https://github.com/iconoir-icon
 See https://www.kenney.nl/assets/input-prompts
 
 - SmoothScroll plugin by Spyrex, under the MIT license:
-See https://github.com/SpyrexDE/SmoothScroll/tree/godot-4 and https://github.com/SpyrexDE/SmoothScroll/blob/godot-4/LICENSE
+See https://github.com/SpyrexDE/SmoothScroll/tree/godot-4 and .addons/smooth_scroll/LICENSE
+
+- GodotXML plugin by elenakrittik, under the MIT license:
+See https://github.com/elenakrittik/GodotXML and ./addons/godot_xml/LICENSE

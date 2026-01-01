@@ -19,8 +19,9 @@ config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 run/low_processor_mode=true
 run/low_processor_mode_sleep_usec=16000
 boot_splash/bg_color=Color(0.168627, 0.168627, 0.168627, 1)
-boot_splash/show_image=false
+boot_splash/image="uid://cftwvgiv4xlyr"
 config/icon="uid://dukv753fb2bak"
+boot_splash/show_image.editor=false
 
 [autoload]
 
@@ -36,6 +37,7 @@ OsTools="*res://global/OsTools.cs"
 
 window/size/viewport_width=1024
 window/size/viewport_height=768
+window/size/initial_position_type=4
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -165,6 +167,7 @@ common/max_physics_steps_per_frame=1
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
 driver/threads/thread_model=0
 textures/vram_compression/import_etc2_astc=true

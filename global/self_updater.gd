@@ -1,9 +1,10 @@
 extends CanvasLayer
 
 var vercode: int = 6
-var verdate: String = "2025-12-31"
+var verdate: String = "2026-01-01"
 @onready var requester: HTTPRequest = $HTTPRequest
-const UPDATE_URL = "http://127.0.0.1:5000/api/meta/update"
+const UPDATE_URL = "https://mvloml.vlcoo.net/api/meta/update"
+
 
 func _ready() -> void:
 	ContentGetter.cache_updated.connect(_on_cache_updated)

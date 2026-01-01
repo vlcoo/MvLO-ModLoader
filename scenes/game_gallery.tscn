@@ -590,7 +590,7 @@ theme_override_constants/separation = 64
 alignment = 1
 
 [node name="ButtonFind" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=2080395068]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(144, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../ButtonBrowse")
@@ -606,7 +606,7 @@ text = "Find in gallery"
 icon = ExtResource("12_lymde")
 
 [node name="ButtonUninstall" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=2024014930]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(144, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../ButtonFind")
@@ -622,7 +622,7 @@ text = "Uninstall"
 icon = ExtResource("4_yn4re")
 
 [node name="ButtonLaunch" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=1704814343]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(144, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../ButtonUninstall")
@@ -638,7 +638,7 @@ text = "Launch"
 icon = ExtResource("5_0xeke")
 
 [node name="ButtonBrowse" type="Button" parent="Storage/MarginContainer/VBoxContainer/ContainerButtons" unique_id=1100121969]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(144, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../ButtonLaunch")

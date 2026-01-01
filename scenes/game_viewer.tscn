@@ -230,7 +230,7 @@ grow_vertical = 2
 focus_mode = 2
 theme_type_variation = &"PanelBlurry"
 script = ExtResource("1_ojtji")
-metadata/_edit_vertical_guides_ = [976.0]
+metadata/_edit_vertical_guides_ = [976.0, 386.0]
 metadata/_edit_horizontal_guides_ = [44.0, 709.0]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2054617636]
@@ -558,7 +558,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
 focus_mode = 2
-theme_override_constants/separation = 42
+theme_override_constants/separation = 30
 alignment = 1
 script = ExtResource("11_w47wk")
 desired_node = NodePath("ButtonInstall")
@@ -584,7 +584,7 @@ text = "Install"
 icon = ExtResource("6_fyixl")
 
 [node name="ButtonUninstall" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" unique_id=46078344]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(144, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../ButtonFileMgmt")
@@ -603,7 +603,7 @@ text = "Uninstall
 icon = ExtResource("7_570hk")
 
 [node name="ButtonLaunch" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" unique_id=182000304]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../ButtonUninstall")
@@ -642,7 +642,7 @@ text = "Browse files"
 icon = ExtResource("9_pg5ns")
 
 [node name="ButtonFileMgmt" type="MenuButton" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" unique_id=1001850204]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(146, 40)
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Manage this mod's local install."

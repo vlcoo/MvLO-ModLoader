@@ -52,6 +52,19 @@ autowrap_mode = 3
 text_overrun_behavior = 3
 max_lines_visible = 2
 
+[node name="Button" type="Button" parent="." unique_id=1154378312]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(80, 110)
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+flat = true
+metadata/_edit_lock_ = true
+
 [node name="ContainerIcons" type="PanelContainer" parent="." unique_id=1398258362]
 layout_mode = 1
 anchors_preset = 1
@@ -91,19 +104,6 @@ tooltip_text = "This mod is marked as favourite."
 texture = ExtResource("4_l5n6f")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="Button" type="Button" parent="." unique_id=1154378312]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(80, 110)
-mouse_filter = 1
-mouse_default_cursor_shape = 2
-flat = true
-metadata/_edit_lock_ = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://dmhttr0wrgjwd"]
 
 [ext_resource type="PackedScene" uid="uid://ddgnmdkwq7gb4" path="res://scenes/news_element.tscn" id="1_itywc"]
+[ext_resource type="StyleBox" uid="uid://xwptw1gwpvde" path="res://ui_resources/style_panel_shadowless.tres" id="2_3bvv0"]
 
 [node name="PanelContainer" unique_id=1294631338 instance=ExtResource("1_itywc")]
 custom_minimum_size = Vector2(886, 0)
+theme_override_styles/panel = ExtResource("2_3bvv0")
 
 [node name="LabelTitle" parent="VBoxContainer" parent_id_path=PackedInt32Array(1365384711) index="0" unique_id=1349743363]
 text = "This is a devlog"

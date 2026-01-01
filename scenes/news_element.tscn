@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ddgnmdkwq7gb4"]
 
-[ext_resource type="StyleBox" uid="uid://xwptw1gwpvde" path="res://ui_resources/style_panel_shadowless.tres" id="1_1lr6y"]
+[ext_resource type="StyleBox" uid="uid://d3ijjxidv6oaq" path="res://ui_resources/style_panel.tres" id="1_1lr6y"]
 [ext_resource type="Script" uid="uid://b0x05mvf3dgfi" path="res://scenes/news_element.gd" id="2_1lr6y"]
 [ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_b4qbv"]
 [ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="4_1lr6y"]

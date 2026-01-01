@@ -475,6 +475,7 @@ FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_gcg63
 FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_5loqu")
 FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_m06c2")
 HSeparator/styles/separator = SubResource("StyleBoxLine_qrtt6")
+ItemList/colors/guide_color = Color(1, 1, 1, 0.19607843)
 ItemList/constants/icon_margin = 8
 ItemList/constants/v_separation = 22
 ItemList/styles/focus = ExtResource("8_6sxy7")

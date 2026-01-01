@@ -111,7 +111,7 @@ func _on_timer_timeout() -> void:
 func set_window_state(state: WindowState) -> void:
 	match state:
 		WindowState.ATTENTION:
-			if not get_window().has_focus(): get_window().request_attention()
+			if not is_window_focused: get_window().request_attention()
 		WindowState.RESTORED:
 			if get_window().mode == Window.MODE_MINIMIZED:
 				get_window().mode = previous_window_mode

@@ -2,16 +2,12 @@
 
 [ext_resource type="StyleBox" uid="uid://d3ijjxidv6oaq" path="res://ui_resources/style_panel.tres" id="1_1lr6y"]
 [ext_resource type="Script" uid="uid://b0x05mvf3dgfi" path="res://scenes/news_element.gd" id="2_1lr6y"]
-[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_b4qbv"]
-[ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="4_1lr6y"]
+[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/fonts/font_roboto_black.ttf" id="2_b4qbv"]
+[ext_resource type="FontVariation" uid="uid://b7dbkdrxdtarh" path="res://ui_resources/fonts/font_roboto_light.tres" id="4_1lr6y"]
 
 [sub_resource type="FontVariation" id="FontVariation_1lr6y"]
 base_font = ExtResource("2_b4qbv")
 variation_transform = Transform2D(1, 0.25, 0, 1, 0, 0)
-
-[sub_resource type="FontVariation" id="FontVariation_5uwy7"]
-base_font = ExtResource("4_1lr6y")
-variation_embolden = -0.5
 
 [node name="PanelContainer" type="PanelContainer" unique_id=1294631338]
 custom_minimum_size = Vector2(992, 0)
@@ -46,7 +42,7 @@ horizontal_alignment = 1
 [node name="LabelContents" type="Label" parent="VBoxContainer" unique_id=1093561580]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.78431374)
-theme_override_fonts/font = SubResource("FontVariation_5uwy7")
+theme_override_fonts/font = ExtResource("4_1lr6y")
 text = "This post is very informative. MvLO will become a game in 3 days and abcd abcd 1234 abcd.
 However, lorem ipsum dolor sit amet."
 autowrap_mode = 3

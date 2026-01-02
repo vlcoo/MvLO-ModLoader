@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" format=3 uid="uid://b7dbkdrxdtarh"]
+
+[ext_resource type="FontFile" uid="uid://b0gduxqm57ow8" path="res://ui_resources/fonts/font_roboto.ttf" id="1_3yx7o"]
+
+[resource]
+base_font = ExtResource("1_3yx7o")
+variation_opentype = {
+2003265652: 400
+}

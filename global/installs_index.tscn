@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bvjtglvn4vawb"]
 
 [ext_resource type="Script" uid="uid://borb5i5exutxf" path="res://global/installs_index.gd" id="1_xlf4w"]
-[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="2_vrh48"]
+[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/fonts/font_roboto_black.ttf" id="2_vrh48"]
 [ext_resource type="Texture2D" uid="uid://gtx0xj58qi5k" path="res://audiovisual/stop.png" id="3_eo46q"]
 [ext_resource type="Texture2D" uid="uid://d3olef7jd1be4" path="res://audiovisual/check.png" id="3_p7ty2"]
-[ext_resource type="FontFile" uid="uid://bxxeqllaclnvw" path="res://ui_resources/font_robotoI.ttf" id="4_eo46q"]
+[ext_resource type="FontVariation" uid="uid://ds86cqxede1nn" path="res://ui_resources/fonts/font_roboto_italic.tres" id="5_qfyxy"]
 [ext_resource type="Texture2D" uid="uid://5mfc1jhou8y4" path="res://audiovisual/helps/shortcuts.png" id="6_3nu8e"]
 [ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="6_g5wk3"]
 [ext_resource type="Texture2D" uid="uid://dukv753fb2bak" path="res://audiovisual/nshbNew.png" id="8_qfyxy"]
@@ -377,7 +377,7 @@ stretch_mode = 3
 [node name="Label" type="Label" parent="ContainerToast/Panel/HBoxContainer2" unique_id=1324183513]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
-theme_override_fonts/font = ExtResource("4_eo46q")
+theme_override_fonts/font = ExtResource("5_qfyxy")
 text = "Success"
 
 [node name="TimerToast" type="Timer" parent="ContainerToast" unique_id=321169830]

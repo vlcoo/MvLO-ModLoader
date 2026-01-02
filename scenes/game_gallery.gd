@@ -208,7 +208,7 @@ func _on_mod_opened(idx: String) -> bool:
 	
 	if gallery_chooser_mode:
 		if not mod.vanilla_compatible:
-			InstallsIndex.warn(tr("This mod is not vanilla compatible (it doesn't share the same servers and playerbase) - proceed at your own discretion.\nYou can revert this change by re-choosing 'New Super Mario Bros. Versus' for this setting."))
+			InstallsIndex.warn(tr("This mod is not vanilla compatible (it doesn't share the same servers and playerbase) - proceed at your own discretion.\nYou can revert this change by re-choosing 'NSMB - Mario vs Luigi Online' for this setting."))
 			await InstallsIndex.dialog.confirmed or InstallsIndex.dialog.canceled
 		Configurator.vanilla_id = idx
 		label_vanilla_id.text = tr("[No change]") if idx == "vanilla" else mod.name

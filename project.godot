@@ -60,9 +60,8 @@ import/blender/enabled=false
 [gui]
 
 theme/default_font_hinting=2
-theme/default_font_subpixel_positioning=0
 theme/custom="res://ui_resources/theme_dark.tres"
-theme/custom_font="res://ui_resources/font_roboto.ttf"
+theme/custom_font="uid://dhsje8nayto4r"
 
 [input]
 

@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://fn3v6mdi2k3x" path="res://audiovisual/puzzle-eye.png" id="12_lymde"]
 [ext_resource type="Texture2D" uid="uid://74b3ldxbhu2m" path="res://audiovisual/database-eye.png" id="13_8dqhh"]
 [ext_resource type="Texture2D" uid="uid://by1d7nemi06ho" path="res://audiovisual/discord-feed.png" id="14_edqgf"]
-[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/font_robotoB.ttf" id="15_rxllx"]
+[ext_resource type="FontFile" uid="uid://it54mtueqiuj" path="res://ui_resources/fonts/font_roboto_black.ttf" id="15_rxllx"]
 [ext_resource type="Texture2D" uid="uid://diwqar7p38rv" path="res://audiovisual/theme.png" id="15_upikk"]
 [ext_resource type="Texture2D" uid="uid://b2pvvqaupql4n" path="res://audiovisual/folder.png" id="16_gsodk"]
 [ext_resource type="Texture2D" uid="uid://bx3y3ubnelg07" path="res://audiovisual/database-reload.png" id="17_8is38"]
@@ -716,8 +716,8 @@ mouse_filter = 1
 bbcode_enabled = true
 text = "A simple way to keep your mods organized and up to date.
 [color=#ffffff8b]by vlco_o - aka vic
-Need help? Hover over an option to learn more.
-[/color]"
+[font=res://ui_resources/fonts/font_roboto_light.tres]Need help? Hover over an option to learn more.
+[/font][/color]"
 fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
@@ -958,9 +958,6 @@ icon = ExtResource("19_t4233")
 [node name="ContainerMinimize" type="MarginContainer" parent="Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1353562150]
 custom_minimum_size = Vector2(440, 40)
 layout_mode = 2
-tooltip_text = "Minimize or close the app when opening a mod.
-If minimized, window will be restored after closing the mod;
-if closed, your playtime will not be counted."
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
@@ -1398,6 +1395,7 @@ min_size = Vector2i(700, 400)
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
+use_native_dialog = true
 
 [node name="News" type="PanelContainer" parent="." unique_id=462144517]
 visible = false

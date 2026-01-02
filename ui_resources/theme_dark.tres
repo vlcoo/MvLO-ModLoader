@@ -1,12 +1,10 @@
 [gd_resource type="Theme" format=3 uid="uid://d027atwmo705x"]
 
-[ext_resource type="FontFile" uid="uid://dgpse45leryjh" path="res://ui_resources/font_roboto.ttf" id="1_dhop0"]
 [ext_resource type="Texture2D" uid="uid://bxcarb84f3g5l" path="res://ui_resources/textures/check-on.png" id="1_pet3p"]
 [ext_resource type="StyleBox" uid="uid://d3ijjxidv6oaq" path="res://ui_resources/style_panel.tres" id="1_t1gei"]
 [ext_resource type="Texture2D" uid="uid://bu5bs00s6o2nn" path="res://ui_resources/textures/switch-on.png" id="1_y4j7m"]
 [ext_resource type="Texture2D" uid="uid://ba3xewfgo6qd0" path="res://ui_resources/textures/check-off.png" id="2_2yju5"]
 [ext_resource type="Texture2D" uid="uid://bflpcqbojgqbo" path="res://ui_resources/textures/switch-off.png" id="2_d3gvc"]
-[ext_resource type="FontFile" uid="uid://ohdc6gk2sqag" path="res://ui_resources/font_64ds.ttf" id="4_23arm"]
 [ext_resource type="Texture2D" uid="uid://dhen21r33llhr" path="res://ui_resources/textures/radio-on.png" id="5_1cbqh"]
 [ext_resource type="Texture2D" uid="uid://bminrd605paqa" path="res://ui_resources/textures/switch-on-disabled.png" id="5_xrv0p"]
 [ext_resource type="Texture2D" uid="uid://bnn1yr8cnkdle" path="res://ui_resources/textures/radio-off.png" id="6_aptmk"]
@@ -14,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://rfqc1hg2hmab" path="res://audiovisual/circle-right.png" id="7_xrv0p"]
 [ext_resource type="StyleBox" uid="uid://fjly8m12eag0" path="res://ui_resources/style_focus.tres" id="8_6sxy7"]
 [ext_resource type="Texture2D" uid="uid://dl21iq46og0g1" path="res://audiovisual/cancel.png" id="8_x7f2g"]
+[ext_resource type="FontFile" uid="uid://ohdc6gk2sqag" path="res://ui_resources/fonts/font_64ds.ttf" id="13_gcg63"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjsp2"]
 content_margin_left = 16.0
@@ -328,6 +327,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+corner_detail = 5
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aabfc"]
@@ -336,11 +336,10 @@ content_margin_top = 11.0
 content_margin_right = 32.0
 content_margin_bottom = 13.0
 bg_color = Color(1, 1, 1, 0.196078)
-border_width_bottom = 4
-border_color = Color(0.8, 0.8, 0.8, 0)
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
-expand_margin_bottom = 3.0
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y77yf"]
@@ -353,11 +352,12 @@ border_width_left = 8
 border_width_top = 6
 border_width_right = 8
 border_width_bottom = 8
-border_color = Color(0.8, 0.8, 0.8, 0)
+border_color = Color(1, 1, 1, 0)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+corner_detail = 5
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ep1uv"]
@@ -444,7 +444,6 @@ shadow_size = 12
 anti_aliasing_size = 0.3
 
 [resource]
-default_font = ExtResource("1_dhop0")
 default_font_size = 16
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_tjsp2")
 Button/styles/disabled = SubResource("StyleBoxFlat_ifdw6")
@@ -489,7 +488,7 @@ LabelLarge/constants/shadow_offset_x = 2
 LabelLarge/constants/shadow_offset_y = 2
 LabelLarge/constants/shadow_outline_size = 9
 LabelLarge/font_sizes/font_size = 32
-LabelLarge/fonts/font = ExtResource("4_23arm")
+LabelLarge/fonts/font = ExtResource("13_gcg63")
 LabelSubtle/base_type = &"Label"
 LabelSubtle/colors/font_color = Color(1, 1, 1, 0.545098)
 LineEdit/colors/font_placeholder_color = Color(1, 1, 1, 0.470588)
@@ -530,7 +529,7 @@ TabContainer/constants/icon_max_width = 20
 TabContainer/constants/icon_separation = 16
 TabContainer/constants/outline_size = 9
 TabContainer/constants/tab_separation = 4
-TabContainer/fonts/font = ExtResource("4_23arm")
+TabContainer/fonts/font = ExtResource("13_gcg63")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_gqthw")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_jiird")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_4f70u")
@@ -550,7 +549,7 @@ TextLarge/constants/shadow_offset_x = 2
 TextLarge/constants/shadow_offset_y = 2
 TextLarge/constants/shadow_outline_size = 9
 TextLarge/font_sizes/normal_font_size = 32
-TextLarge/fonts/normal_font = ExtResource("4_23arm")
+TextLarge/fonts/normal_font = ExtResource("13_gcg63")
 TextSubtle/base_type = &"RichTextLabel"
 TextSubtle/colors/default_color = Color(1, 1, 1, 0.545098)
 TooltipLabel/colors/font_color = Color(0.129412, 0.129412, 0.129412, 1)

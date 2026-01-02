@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bplmha3fr1ai6" path="res://audiovisual/controller_hints/trigger-l.png" id="2_s2uvs"]
 [ext_resource type="Texture2D" uid="uid://j3vn4kh3itcp" path="res://audiovisual/controller_hints/trigger-r.png" id="3_vjufl"]
 [ext_resource type="Texture2D" uid="uid://bwf7kxi20gisx" path="res://audiovisual/controller_hints/stick-l.png" id="4_40eig"]
-[ext_resource type="FontFile" uid="uid://bxxeqllaclnvw" path="res://ui_resources/font_robotoI.ttf" id="5_g1nnw"]
+[ext_resource type="FontVariation" uid="uid://ds86cqxede1nn" path="res://ui_resources/fonts/font_roboto_italic.tres" id="5_nh2qw"]
 [ext_resource type="Texture2D" uid="uid://bjtt2y21ipgfx" path="res://audiovisual/controller_hints/button-down.png" id="6_wi1n3"]
 [ext_resource type="Texture2D" uid="uid://b4ebto2jdv036" path="res://audiovisual/controller_hints/button-right.png" id="7_tvcjy"]
 [ext_resource type="Script" uid="uid://cek050ntwgsm1" path="res://global/server_status.gd" id="8_gb46t"]
@@ -349,6 +349,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/separation = 6
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1127936145]
@@ -360,7 +361,7 @@ stretch_mode = 3
 [node name="Label" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1589115626]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
-theme_override_fonts/font = ExtResource("5_g1nnw")
+theme_override_fonts/font = ExtResource("5_nh2qw")
 text = "Move"
 
 [node name="VSeparator" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1844636604]
@@ -378,7 +379,7 @@ stretch_mode = 3
 [node name="Label2" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1632486720]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
-theme_override_fonts/font = ExtResource("5_g1nnw")
+theme_override_fonts/font = ExtResource("5_nh2qw")
 text = "Back"
 
 [node name="VSeparator2" type="VSeparator" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1130195713]
@@ -396,7 +397,7 @@ stretch_mode = 3
 [node name="Label3" type="Label" parent="ContainerControllerHints/Panel/HBoxContainer2" unique_id=1700460188]
 layout_mode = 2
 theme_type_variation = &"TooltipLabel"
-theme_override_fonts/font = ExtResource("5_g1nnw")
+theme_override_fonts/font = ExtResource("5_nh2qw")
 text = "OK"
 
 [node name="ContainerStatusHint" type="Control" parent="." unique_id=1517059372]

@@ -1,0 +1,43 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://ohdc6gk2sqag"
+path="res://.godot/imported/font_64ds.ttf-7ba8ce3b93088d0ad97748f08597e1c7.fontdata"
+
+[deps]
+
+source_file="res://ui_resources/fonts/font_64ds.ttf"
+dest_files=["res://.godot/imported/font_64ds.ttf-7ba8ce3b93088d0ad97748f08597e1c7.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=0
+generate_mipmaps=false
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+modulate_color_glyphs=false
+hinting=0
+subpixel_positioning=0
+keep_rounding_remainders=true
+oversampling=1.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0),
+&"variation_embolden": 0.0,
+&"variation_opentype": {}
+}]
+language_support={}
+script_support={}
+opentype_features={}

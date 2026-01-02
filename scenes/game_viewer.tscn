@@ -398,18 +398,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 12
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer" unique_id=906424807]
 layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="TextDescription" type="TextEdit" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1412594791]
-custom_minimum_size = Vector2(0, 173)
+custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
-theme_override_colors/font_readonly_color = Color(0.65098, 0.65098, 0.65098, 1)
+theme_override_colors/font_readonly_color = Color(0.6509804, 0.6509804, 0.6509804, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_e3mwc")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vjkyd")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jn5wo")
@@ -441,14 +441,11 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_80onw")
 allow_search = false
 max_text_lines = 2
 auto_height = true
-item_count = 5
+item_count = 3
 item_0/text = "cool stuff"
 item_1/text = "more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum more things lorem ipsum "
 item_2/text = "hello there"
 item_2/icon = ExtResource("7_iqkns")
-item_3/text = "asdasd"
-item_4/text = "dsadas"
-item_4/icon = ExtResource("7_iqkns")
 
 [node name="HSeparator2" type="HSeparator" parent="PanelDetail/CenterContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1804201866]
 layout_mode = 2
@@ -695,7 +692,6 @@ one_shot = true
 [node name="ChangelogWindow" type="AcceptDialog" parent="." unique_id=513017460]
 anisotropic_filtering_level = 0
 canvas_item_default_texture_filter = 0
-oversampling_override = 1.0
 title = "Changelog"
 initial_position = 2
 size = Vector2i(920, 640)

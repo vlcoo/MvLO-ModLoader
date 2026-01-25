@@ -149,9 +149,11 @@ func _on_archive_extraction_complete(message: String, path: String, archive_was_
 		elif filename.ends_with(".app"):
 			install_in_progress.executable_path = filename
 			if Configurator.os_name == "macOS":
-				var potential_executables := DirAccess.get_files_at(install_in_progress.executable_path + "/Contents/MacOS")
-				if potential_executables.size() == 1:
-					OS.execute("chmod", ["+x", ProjectSettings.globalize_path(potential_executables[0])])
+				var binary_folder = install_in_progress.executable_path + "/Contents/MacOS/"
+				var potential_executables: PackedStringArray = ArchiveHandler.GetAllFilesInDirectory(binary_folder)
+				for exe in potential_executables:
+					OS.execute("chmod", ["+x", ProjectSettings.globalize_path(binary_folder + exe)])
+				OS.execute("xattr", ["-cr", install_in_progress.executable_path])
 			install_needs_wizard = false
 			continue
 
@@ -176,19 +178,24 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 	if inst == {}:
 		warn(tr("Couldn't launch game!") + " " + tr("Maybe it's corrupted?\nPlease try reinstalling this mod."))
 		return false
-	var command: String = ""
+	var custom_prefixes: PackedStringArray = []
 	var os_mismatch = false
+	
+	var cmd: String = ""
+	var args: Array[String] = []
 
 	if inst.executable_path.ends_with(".x86_64"):
-		command = Configurator.get_config("args_linux")
+		custom_prefixes = Configurator.get_config("args_linux").split(" ", false)
 		if Configurator.os_name != "Linux": os_mismatch = true
 	elif inst.executable_path.ends_with(".exe"):
-		command = Configurator.get_config("args_windows")
+		custom_prefixes = Configurator.get_config("args_windows").split(" ", false)
 		if Configurator.os_name != "Windows": os_mismatch = true
 	elif inst.executable_path.ends_with(".app"):
-		command = Configurator.get_config("args_macos")
+		custom_prefixes = Configurator.get_config("args_macos").split(" ", false)
 		if Configurator.os_name != "macOS": os_mismatch = true
 	else: return false
+	#if custom_prefixes.size() == 1 and custom_prefixes[0].is_empty():
+		#custom_prefixes.clear()
 
 	#if os_mismatch:
 		#warn("You tried launching a version of a mod not built for your OS. This might not work.")
@@ -197,13 +204,24 @@ func launch(mod_id: String, version: String, platform: String, register_process:
 			#await dialog.confirmed or dialog.canceled
 
 	var globalized_path: String = ProjectSettings.globalize_path(inst.executable_path)
-	if Configurator.os_name == "macOS": globalized_path = "file:/" + globalized_path
+	
+	match custom_prefixes.size():
+		0:
+			if Configurator.os_name == "macOS":
+				cmd = "open"
+				args = ["-a", globalized_path]
+			else:
+				cmd = globalized_path
+		1:
+			cmd = custom_prefixes[0]
+			args.append(globalized_path)
+		_:
+			cmd = custom_prefixes[0]
+			args.append_array(custom_prefixes.slice(1))
+			args.append(globalized_path)
+	
 	var pid: int = -1
-
-	if command in ["", null]:
-		pid = OS.create_process(globalized_path, [])
-	else:
-		pid = OS.create_process(command, [globalized_path])
+	pid = OS.create_process(cmd, args)
 	
 	if pid == -1:
 		warn(tr("Couldn't launch game!") + " " +

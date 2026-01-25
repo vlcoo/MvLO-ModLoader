@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ci3wrj8l55xma"]
 
 [ext_resource type="Script" uid="uid://bj5ujsrrfpbym" path="res://global/content_getter.gd" id="1_cnpe4"]
-[ext_resource type="AudioStream" uid="uid://q3xyek0guga1" path="res://audiovisual/click.ogg" id="2_7rrkq"]
 [ext_resource type="Texture2D" uid="uid://bplmha3fr1ai6" path="res://audiovisual/controller_hints/trigger-l.png" id="2_s2uvs"]
 [ext_resource type="Texture2D" uid="uid://j3vn4kh3itcp" path="res://audiovisual/controller_hints/trigger-r.png" id="3_vjufl"]
 [ext_resource type="Texture2D" uid="uid://bwf7kxi20gisx" path="res://audiovisual/controller_hints/stick-l.png" id="4_40eig"]
@@ -473,11 +472,6 @@ autostart = true
 [node name="TimerControllerHint" type="Timer" parent="." unique_id=954744241]
 wait_time = 5.0
 one_shot = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=668194640]
-stream = ExtResource("2_7rrkq")
-volume_db = -10.0
-max_polyphony = 2
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="request_completed" from="ContainerStatusHint/HTTPRequestGameServer" to="ContainerStatusHint" method="_on_http_request_game_server_request_completed"]

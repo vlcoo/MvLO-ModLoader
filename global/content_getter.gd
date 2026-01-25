@@ -5,7 +5,7 @@ const URL_DB: String = "https://mvloml.vlcoo.net/api/mods"
 var style_focus: StyleBoxTexture = preload("res://ui_resources/style_focus.tres")
 
 @onready var requester_db: HTTPRequest = $HTTPRequestDB
-@onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
+#@onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var dialog: AcceptDialog = $AcceptDialog
 @onready var background: ColorRect = $RectBackground

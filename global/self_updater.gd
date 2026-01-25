@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var vercode: int = 6
-var verdate: String = "2026-01-01"
+var verdate: String = "2026-01-25"
 @onready var requester: HTTPRequest = $HTTPRequest
 const UPDATE_URL = "https://mvloml.vlcoo.net/api/meta/update"
 

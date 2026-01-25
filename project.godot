@@ -23,6 +23,11 @@ boot_splash/image="uid://cftwvgiv4xlyr"
 config/icon="uid://dukv753fb2bak"
 boot_splash/show_image.editor=false
 
+[audio]
+
+buses/default_bus_layout=""
+driver/driver="Dummy"
+
 [autoload]
 
 SelfUpdater="*res://global/self_updater.tscn"
@@ -43,15 +48,14 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=6
 window/vsync/vsync_mode=0
+window/ios/hide_home_indicator=false
+window/ios/hide_status_bar=false
+window/ios/suppress_ui_gesture=false
 mouse_cursor/tooltip_position_offset=Vector2(20, 20)
 
 [dotnet]
 
 project/assembly_name="MvLO Mod Loader"
-
-[editor_plugins]
-
-enabled=PackedStringArray()
 
 [filesystem]
 
@@ -167,8 +171,8 @@ common/max_physics_steps_per_frame=1
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+gl_compatibility/driver.windows="opengl3_angle"
 renderer/rendering_method="mobile"
-driver/threads/thread_model=0
 textures/vram_compression/import_etc2_astc=true
 textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=1

@@ -285,7 +285,6 @@ text = "[center][wave amp=36]Installing..."
 fit_content = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel/VBoxContainer" unique_id=1674264297]
-self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(260, 4)
 layout_mode = 2
 size_flags_horizontal = 4

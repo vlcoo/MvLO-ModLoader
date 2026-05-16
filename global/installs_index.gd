@@ -152,7 +152,7 @@ func _on_archive_extraction_complete(message: String, path: String, archive_was_
 				var binary_folder = install_in_progress.executable_path + "/Contents/MacOS/"
 				var potential_executables: PackedStringArray = ArchiveHandler.GetAllFilesInDirectory(binary_folder)
 				for exe in potential_executables:
-					OS.execute("chmod", ["+x", ProjectSettings.globalize_path(binary_folder + exe)])
+					OS.execute("chmod", ["+x", ProjectSettings.globalize_path(exe)])
 				OS.execute("xattr", ["-cr", install_in_progress.executable_path])
 			install_needs_wizard = false
 			continue
@@ -337,25 +337,29 @@ func _on_timer_update_progressbar_timeout() -> void:
 		Operation.IDLE:
 			timer.stop()
 			l_progress.text = ""
-			progress_bar.self_modulate = Color.TRANSPARENT
+			#progress_bar.self_modulate = Color.TRANSPARENT
+			progress_bar.indeterminate = true
 			button_cancel.disabled = true
 		Operation.DOWNLOADING:
 			var mb_downloaded = requester.get_downloaded_bytes()/1024/1024
 			var mb_total = requester.get_body_size()/1024/1024
 			if mb_downloaded == mb_total:
 				l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "Please hold").format({img = "loading"})
-				progress_bar.self_modulate = Color.TRANSPARENT
+				#progress_bar.self_modulate = Color.TRANSPARENT
+				progress_bar.indeterminate = true
 				button_cancel.disabled = true
 			else:
 				l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "{count} out of {total} MB downloaded").format({count = str(mb_downloaded), total = str(mb_total), img = "downloading"})
-				progress_bar.self_modulate = Color.WHITE
+				#progress_bar.self_modulate = Color.WHITE
+				progress_bar.indeterminate = false
 				progress_bar.value = float(mb_downloaded) / maxf(mb_total, 1.0)
 				button_cancel.disabled = false
 				button_cancel.grab_focus()
 		Operation.EXTRACTING:
 			#l_progress.text = str(ArchiveHandler.ExtractionProgressText) + "% extracted"
 			l_progress.text = tr(PROGRESS_TEXT_TEMPLATE + "Extracting files").format({img = "zip"})
-			progress_bar.self_modulate = Color.TRANSPARENT
+			#progress_bar.self_modulate = Color.TRANSPARENT
+			progress_bar.indeterminate = true
 			button_cancel.disabled = true
 
 

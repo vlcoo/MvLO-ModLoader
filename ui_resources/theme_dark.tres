@@ -291,19 +291,21 @@ border_color = Color(1, 1, 1, 0.470588)
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_diew6"]
-bg_color = Color(1, 1, 1, 0.0352941)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+bg_color = Color(1, 1, 1, 0.19607843)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 anti_aliasing_size = 0.3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jx0h3"]
-bg_color = Color(1, 1, 1, 0.545098)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4awy"]
+bg_color = Color(1, 1, 1, 0.5529412)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 anti_aliasing_size = 0.3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xrv0p"]
@@ -521,14 +523,14 @@ PopupMenu/icons/unchecked = ExtResource("2_2yju5")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_pxr2l")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_h3anw")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_diew6")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_jx0h3")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_k4awy")
 RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_xrv0p")
 TabContainer/colors/font_outline_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 TabContainer/colors/font_selected_color = Color(1, 1, 1, 1)
 TabContainer/constants/icon_max_width = 20
 TabContainer/constants/icon_separation = 16
 TabContainer/constants/outline_size = 9
-TabContainer/constants/tab_separation = 4
+TabContainer/constants/tab_separation = 2
 TabContainer/fonts/font = ExtResource("13_gcg63")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_gqthw")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_jiird")

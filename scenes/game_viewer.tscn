@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c5h1020ad40as" path="res://audiovisual/manage.png" id="15_jn5wo"]
 [ext_resource type="Texture2D" uid="uid://biop00fot1w2l" path="res://audiovisual/shortcut.png" id="16_80onw"]
 [ext_resource type="Texture2D" uid="uid://foiqg6vmrdfh" path="res://audiovisual/info.png" id="17_80onw"]
+[ext_resource type="PackedScene" uid="uid://byarvkwildduo" path="res://scenes/components/hold_button.tscn" id="18_aw0x8"]
 [ext_resource type="Script" uid="uid://cs47qnalcdtiu" path="res://scenes/changelog_window.gd" id="18_n4qgs"]
 [ext_resource type="Texture2D" uid="uid://caepwi58ukfyp" path="res://audiovisual/loading.png" id="19_3v6wh"]
 [ext_resource type="Script" uid="uid://coa87uepmaxij" path="res://addons/smooth_scroll/SmoothScroller.gd" id="20_h8ugp"]
@@ -545,7 +546,7 @@ focus_neighbor_left = NodePath("../OptionsVersion")
 focus_neighbor_top = NodePath("../../CheckSubscribe")
 focus_neighbor_right = NodePath("../../../../../PanelOverview/ButtonBack")
 focus_neighbor_bottom = NodePath("../../ContainerButtons")
-focus_next = NodePath("../../ContainerButtons/ButtonUninstall")
+focus_next = NodePath("../../ContainerButtons/HoldButtonUninstall")
 focus_previous = NodePath("../OptionsVersion")
 text_overrun_behavior = 3
 icon_alignment = 2
@@ -581,6 +582,26 @@ text = "Install"
 icon = ExtResource("6_fyixl")
 
 [node name="ButtonUninstall" type="Button" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" unique_id=46078344]
+visible = false
+custom_minimum_size = Vector2(144, 40)
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonFileMgmt")
+focus_neighbor_top = NodePath("../../ContainerVersions")
+focus_neighbor_right = NodePath("../ButtonLaunch")
+focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")
+focus_next = NodePath("../ButtonLaunch")
+focus_previous = NodePath("../../ContainerVersions/OptionsPlatform")
+theme_override_colors/font_color = Color(0.972549, 0.188235, 0.188235, 1)
+theme_override_colors/font_focus_color = Color(0.972549, 0.188235, 0.188235, 1)
+theme_override_colors/icon_normal_color = Color(0.972549, 0.188235, 0.188235, 1)
+theme_override_colors/icon_focus_color = Color(0.972549, 0.188235, 0.188235, 1)
+theme_override_constants/h_separation = -16
+text = "Uninstall
+"
+icon = ExtResource("7_570hk")
+
+[node name="HoldButtonUninstall" parent="PanelDetail/CenterContainer/VBoxContainer/ContainerButtons" unique_id=1930348791 instance=ExtResource("18_aw0x8")]
 custom_minimum_size = Vector2(144, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -603,7 +624,7 @@ icon = ExtResource("7_570hk")
 custom_minimum_size = Vector2(240, 40)
 layout_mode = 2
 size_flags_vertical = 4
-focus_neighbor_left = NodePath("../ButtonUninstall")
+focus_neighbor_left = NodePath("../HoldButtonUninstall")
 focus_neighbor_top = NodePath("../../ContainerVersions")
 focus_neighbor_right = NodePath("../ButtonFileMgmt")
 focus_neighbor_bottom = NodePath("../../../../../PanelOverview/ButtonBack")

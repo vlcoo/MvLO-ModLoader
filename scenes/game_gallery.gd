@@ -14,6 +14,7 @@ extends TabContainer
 @onready var container_no_results: VBoxContainer = $"Mod Gallery/ContainerBig/VBoxContainer/ContainerMods/MarginContainer/ContainerNoResults"
 @onready var check_list: CheckButton = $Settings/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/CheckList
 @onready var label_vanilla_id: LineEdit = $Settings/ScrollContainer/VBoxContainer/ContainerAdvanced/VBoxContainer/ContainerVanillaReplacement/LineEdit
+@onready var button_uninstall_all: HoldButton = $Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer/HoldButtonUninstallAll
 
 
 var gallery_element_big = preload("res://scenes/game_gallery_element_big.tscn")
@@ -37,6 +38,7 @@ var installs_tree_item_count: int = 0
 func _ready() -> void:
 	InstallsIndex.operation_done.connect(_on_installs_index_operation_done)
 	Configurator.mod_requested.connect(_on_mod_opened)
+	button_uninstall_all.action = _on_button_3_pressed
 	
 	#current_mod_game_viewer.get_node("AnimationPlayer").play("out")
 	ContentGetter.cache_updated.connect(_on_cache_updated)

@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://bauqwsj6o488f" path="res://audiovisual/toadette.png" id="27_lxkal"]
 [ext_resource type="Texture2D" uid="uid://c1js52sawwa7i" path="res://audiovisual/wait-cancel.png" id="28_t1mhd"]
 [ext_resource type="Texture2D" uid="uid://dsc7vdmapg6eo" path="res://audiovisual/fix.png" id="30_2scfd"]
+[ext_resource type="PackedScene" uid="uid://byarvkwildduo" path="res://scenes/components/hold_button.tscn" id="34_4kqr1"]
 [ext_resource type="Texture2D" uid="uid://d3hdnt51qrhph" path="res://audiovisual/question.png" id="34_nr07p"]
 [ext_resource type="Script" uid="uid://ctlo2g46ohqq8" path="res://scenes/news_tab.gd" id="35_0u2iu"]
 [ext_resource type="Texture2D" uid="uid://caepwi58ukfyp" path="res://audiovisual/loading.png" id="36_2c3ov"]
@@ -1323,6 +1324,21 @@ text = "Delete DB"
 icon = ExtResource("18_xr7p4")
 
 [node name="ButtonUninstallAll" type="Button" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=2129089901]
+visible = false
+custom_minimum_size = Vector2(136, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Uninstall every single mod,
+including vanilla."
+focus_neighbor_left = NodePath("../ButtonRedownloadDB")
+focus_neighbor_top = NodePath("../..")
+focus_neighbor_right = NodePath("../ButtonLogs")
+focus_neighbor_bottom = NodePath("../../../PanelAbout/ButtonWebsite")
+text = "Uninstall all"
+icon = ExtResource("4_yn4re")
+
+[node name="HoldButtonUninstallAll" parent="Settings/ScrollContainer/VBoxContainer/ContainerTroubleshooting/HBoxContainer" unique_id=1930348791 instance=ExtResource("34_4kqr1")]
 custom_minimum_size = Vector2(136, 40)
 layout_mode = 2
 size_flags_horizontal = 4

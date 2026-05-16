@@ -12,7 +12,7 @@ const TEMPLATE_SUBTITLE := "[img]res://audiovisual/person.png[/img]  %s\n[img]re
 @onready var options_platform: OptionButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerVersions/OptionsPlatform
 @onready var button_install: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonInstall
 @onready var button_launch: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonLaunch
-@onready var button_uninstall: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonUninstall
+@onready var button_uninstall: HoldButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/HoldButtonUninstall
 @onready var button_browse: Button = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonBrowse
 @onready var button_files: MenuButton = $PanelDetail/CenterContainer/VBoxContainer/ContainerButtons/ButtonFileMgmt
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -52,6 +52,7 @@ func _ready() -> void:
 
 	Configurator.process_ended.connect(_on_mod_closed)
 	button_files.get_popup().id_pressed.connect(_on_button_files_id_pressed)
+	button_uninstall.action = _on_button_uninstall_pressed
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -73,6 +74,11 @@ func refresh_mod_data() -> bool:
 	if mod_data_id == "" or mod_data == null: return false
 	clear_all()
 	done_critical_operation = false
+	
+	var shortcut_not_supported = Configurator.os_name not in ["Linux", "Windows"]
+	button_files.get_popup().set_item_disabled(1, shortcut_not_supported)
+	button_files.get_popup().set_item_disabled(2, shortcut_not_supported)
+	button_files.get_popup().set_item_disabled(3, shortcut_not_supported)
 
 	label_title.text = mod_data.name
 	var last_updated = tr("Never Updated") if mod_data.timestamp == "0" else Time.get_date_string_from_unix_time(int(mod_data.timestamp))
